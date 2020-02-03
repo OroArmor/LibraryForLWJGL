@@ -121,6 +121,12 @@ public class OBJTest {
 				camera.rotateLocalX(0.1f);
 			}
 
+			if (KeyStatus.isKeyDown(Key.LEFT_SHIFT)) {
+				camera.translate(0, 5f, 0f);
+			} else if (KeyStatus.isKeyDown(Key.SPACE)) {
+				camera.translate(0, -5f, 0f);
+			}
+
 			// Clear the display
 
 			display.clear();
