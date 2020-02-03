@@ -2,12 +2,17 @@ package com.oroarmor.app;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
-import org.lwjgl.glfw.GLFW;
 
 import com.oroarmor.core.Destructor;
 import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
+import com.oroarmor.core.glfw.event.key.Key;
+import com.oroarmor.core.glfw.event.key.KeyEvent.KeyEventType;
+import com.oroarmor.core.glfw.event.key.KeyHoldEvent;
+import com.oroarmor.core.glfw.event.key.KeyPressEvent;
+import com.oroarmor.core.glfw.event.key.KeyReleaseEvent;
+import com.oroarmor.core.glfw.event.key.KeyStatus;
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.Renderer;
 import com.oroarmor.core.opengl.Shader;
@@ -26,35 +31,33 @@ public class OBJTest {
 		// Create a new window with a onKey function that prints the typed key
 		Display display = new Display(640, 480, "Open GL Learning") {
 			@Override
-			public void onKey(int key, int action) {
+			public void processKeyPressedEvent(KeyPressEvent event) {
+				Key key = event.getKey();
+				KeyEventType action = event.getKeyEventType();
+
 				System.out.println(key + " " + action);
-				if (key == GLFW.GLFW_KEY_A) {
-					camera.translateLocal(10f, 0, 0);
-				} else if (key == GLFW.GLFW_KEY_D) {
-					camera.translateLocal(-10f, 0, 0);
-				}
+			}
 
-				if (key == GLFW.GLFW_KEY_W) {
-					camera.translateLocal(0, 0f, -10f);
-				} else if (key == GLFW.GLFW_KEY_S) {
-					camera.translateLocal(0, 0, 10f);
-				}
+			@Override
+			public void processKeyHeldEvent(KeyHoldEvent event) {
+				Key key = event.getKey();
+				KeyEventType action = event.getKeyEventType();
 
-				if (key == GLFW.GLFW_KEY_RIGHT) {
-					camera.rotateLocalY(-0.1f);
-				} else if (key == GLFW.GLFW_KEY_LEFT) {
-					camera.rotateLocalY(0.1f);
-				}
+				System.out.println(key + " " + action);
+			}
 
-				if (key == GLFW.GLFW_KEY_DOWN) {
-					camera.rotateLocalX(-0.1f);
-				} else if (key == GLFW.GLFW_KEY_UP) {
-					camera.rotateLocalX(0.1f);
+			@Override
+			public void processKeyReleasedEvent(KeyReleaseEvent event) {
+				Key key = event.getKey();
+				KeyEventType action = event.getKeyEventType();
+
+				System.out.println(key + " " + action);
+
+				if (key == this.closeKey) {
+					this.close();
 				}
 			}
 		};
-
-//		GL45.glEnable(GL45.GL_CULL_FACE);
 
 		display.enableTransparentcy();
 
@@ -93,6 +96,31 @@ public class OBJTest {
 
 		// Dont close the display until its set closed
 		while (!display.shouldClose()) {
+
+			if (KeyStatus.isKeyDown(Key.A)) {
+				camera.translateLocal(5f, 0, 0);
+			} else if (KeyStatus.isKeyDown(Key.D)) {
+				camera.translateLocal(-5f, 0, 0);
+			}
+
+			if (KeyStatus.isKeyDown(Key.W)) {
+				camera.translateLocal(0, 0f, -5f);
+			} else if (KeyStatus.isKeyDown(Key.S)) {
+				camera.translateLocal(0, 0, 5f);
+			}
+
+			if (KeyStatus.isKeyDown(Key.RIGHT)) {
+				camera.rotateLocalY(-0.1f);
+			} else if (KeyStatus.isKeyDown(Key.LEFT)) {
+				camera.rotateLocalY(0.1f);
+			}
+
+			if (KeyStatus.isKeyDown(Key.DOWN)) {
+				camera.rotateLocalX(-0.1f);
+			} else if (KeyStatus.isKeyDown(Key.UP)) {
+				camera.rotateLocalX(0.1f);
+			}
+
 			// Clear the display
 
 			display.clear();
@@ -120,7 +148,7 @@ public class OBJTest {
 		Destructor.destroyAll();
 
 		// Close the display
-		display.close();
+		display.end();
 	}
 
 }

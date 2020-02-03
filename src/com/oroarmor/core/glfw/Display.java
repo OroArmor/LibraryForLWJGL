@@ -5,20 +5,37 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.joml.Matrix4f;
-import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWWindowSizeCallbackI;
 
-public abstract class Display {
+import com.oroarmor.core.glfw.event.Event;
+import com.oroarmor.core.glfw.event.EventCreator;
+import com.oroarmor.core.glfw.event.EventListenerManager;
+import com.oroarmor.core.glfw.event.key.Key;
+import com.oroarmor.core.glfw.event.key.KeyEventListener;
+import com.oroarmor.core.glfw.event.key.KeyPressEvent;
+
+public abstract class Display implements KeyEventListener {
 	long window;
-	int closeKey = GLFW_KEY_ESCAPE;
+	public Key closeKey = Key.ESCAPE;
 
 	private int width, height;
+
+	boolean active = true;
+
+	@Override
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	@Override
+	public boolean isActive() {
+		return active;
+	}
 
 	public Display(int width, int height, String name) {
 		this.width = width;
 		this.height = height;
 		window = GLFWUtil.glfwCreateWindowHelper(width, height, name, NULL, NULL);
-		setKeyFunction();
 
 		glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallbackI() {
 
@@ -34,6 +51,9 @@ public abstract class Display {
 		glClearDepth(1.0f);
 		glDepthFunc(GL_LESS);
 		glEnable(GL_DEPTH_TEST);
+
+		EventCreator.initalizeWindow(window);
+		EventListenerManager.addListener(this);
 	}
 
 	public void enableTransparentcy() {
@@ -41,23 +61,8 @@ public abstract class Display {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
-	public void setKeyClose(int closeKey) {
+	public void setKeyClose(Key closeKey) {
 		this.closeKey = closeKey;
-		setKeyFunction();
-	}
-
-	public abstract void onKey(int key, int action);
-
-	public void setKeyFunction() {
-		glfwSetKeyCallback(window, new GLFWKeyCallback() {
-			@Override
-			public void invoke(long window, int key, int scancode, int action, int mods) {
-				onKey(key, action);
-				if (key == closeKey && action == GLFW_RELEASE)
-					glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-			}
-
-		});
 	}
 
 	public boolean shouldClose() {
@@ -78,6 +83,11 @@ public abstract class Display {
 	}
 
 	public void close() {
+		if (!glfwWindowShouldClose(window))
+			glfwSetWindowShouldClose(window, true);
+	}
+
+	public void end() {
 		glfwTerminate();
 	}
 
@@ -117,4 +127,12 @@ public abstract class Display {
 		mat.m23(-2 * far * near / (far - near));
 		return mat;
 	}
+
+	@Override
+	public void processEvent(Event event) {
+	}
+
+	@Override
+	public abstract void processKeyPressedEvent(KeyPressEvent event);
+
 }

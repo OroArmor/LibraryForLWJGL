@@ -7,6 +7,10 @@ import com.oroarmor.core.*;
 import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
+import com.oroarmor.core.glfw.event.key.Key;
+import com.oroarmor.core.glfw.event.key.KeyHoldEvent;
+import com.oroarmor.core.glfw.event.key.KeyPressEvent;
+import com.oroarmor.core.glfw.event.key.KeyReleaseEvent;
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.Renderer;
 import com.oroarmor.core.opengl.Shader;
@@ -20,9 +24,20 @@ public class Main {
 
 		// Create a new window with a onKey function that prints the typed key
 		Display display = new Display(640, 640, "Open GL Learning") {
+
 			@Override
-			public void onKey(int key, int action) {
-				System.out.println(key + " " + action);
+			public void processKeyHeldEvent(KeyHoldEvent event) {
+			}
+
+			@Override
+			public void processKeyReleasedEvent(KeyReleaseEvent event) {
+				if (event.getKey() == Key.ESCAPE) {
+					this.close();
+				}
+			}
+
+			@Override
+			public void processKeyPressedEvent(KeyPressEvent event) {
 			}
 		};
 
