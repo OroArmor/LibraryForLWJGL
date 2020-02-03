@@ -8,7 +8,6 @@ import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
 import com.oroarmor.core.glfw.event.key.Key;
-import com.oroarmor.core.glfw.event.key.KeyEvent.KeyEventType;
 import com.oroarmor.core.glfw.event.key.KeyHoldEvent;
 import com.oroarmor.core.glfw.event.key.KeyPressEvent;
 import com.oroarmor.core.glfw.event.key.KeyReleaseEvent;
@@ -24,7 +23,8 @@ public class OBJTest {
 
 	public static void main(String[] args) {
 
-		Matrix4f objectModel = new Matrix4f().translate(0, 0, 100).scale(5).rotateX((float) Math.PI / 2);
+		Matrix4f objectModel = new Matrix4f().translate(0, 0, 100).rotateXYZ((float) Math.PI / 2, (float) Math.PI, 0).scale(5)
+				.rotateX((float) Math.PI / 2);
 
 		Matrix4f camera = new Matrix4f().translate(new Vector3f(0, 0, 0));
 
@@ -32,27 +32,15 @@ public class OBJTest {
 		Display display = new Display(640, 480, "Open GL Learning") {
 			@Override
 			public void processKeyPressedEvent(KeyPressEvent event) {
-				Key key = event.getKey();
-				KeyEventType action = event.getKeyEventType();
-
-				System.out.println(key + " " + action);
 			}
 
 			@Override
 			public void processKeyHeldEvent(KeyHoldEvent event) {
-				Key key = event.getKey();
-				KeyEventType action = event.getKeyEventType();
-
-				System.out.println(key + " " + action);
 			}
 
 			@Override
 			public void processKeyReleasedEvent(KeyReleaseEvent event) {
 				Key key = event.getKey();
-				KeyEventType action = event.getKeyEventType();
-
-				System.out.println(key + " " + action);
-
 				if (key == this.closeKey) {
 					this.close();
 				}
@@ -88,11 +76,7 @@ public class OBJTest {
 		shader.bind();
 		shader.setUniform1i("u_Texture", 0);
 
-		shader.setUniform3f("u_lightDir", new Vector3f(-1, -1, -1));
-
-		shader.setUniform3f("u_lightPos", new Vector3f(0, 100, 0));
-		shader.setUniform3f("u_lightColor", new Vector3f(1, 0.2f, 0));
-		shader.setUniform1f("u_lightStrength", 100f);
+		shader.setUniform3f("u_lightDir", new Vector3f(0, 1, -1));
 
 		// Dont close the display until its set closed
 		while (!display.shouldClose()) {
@@ -128,7 +112,6 @@ public class OBJTest {
 			}
 
 			// Clear the display
-
 			display.clear();
 
 			Matrix4f MV = display.getPerspectiveViewModel(90).mul(camera);
@@ -137,12 +120,6 @@ public class OBJTest {
 			shader.bind();
 			shader.setUniformMat4f("u_MV", MV);
 			shader.setUniformMat4f("u_P", objectModel);
-
-			shader.setUniform3f("u_lightDir", new Vector3f(-1, -1, 1));
-
-			shader.setUniform3f("u_lightPos", new Vector3f(1, -0.5f, -1));
-			shader.setUniform3f("u_lightColor", new Vector3f(1, 0.2f, 1f));
-			shader.setUniform1f("u_lightStrength", 100f);
 
 			cube.render(renderer, shader);
 
