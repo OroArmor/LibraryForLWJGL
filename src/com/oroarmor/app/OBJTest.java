@@ -4,6 +4,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import com.oroarmor.core.Destructor;
+import com.oroarmor.core.game.Camera;
 import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
@@ -23,10 +24,12 @@ public class OBJTest {
 
 	public static void main(String[] args) {
 
-		Matrix4f objectModel = new Matrix4f().translate(0, 0, 100).rotateXYZ((float) Math.PI / 2, (float) Math.PI, 0).scale(5)
-				.rotateX((float) Math.PI / 2);
+		Matrix4f objectModel = new Matrix4f().translate(0, 0, 100).rotateXYZ((float) -Math.PI / 2, (float) Math.PI, 0)
+				.scale(5);
 
-		Matrix4f camera = new Matrix4f().translate(new Vector3f(0, 0, 0));
+//		Matrix4f camera = new Matrix4f().translate(new Vector3f(0, 0, 0));
+
+		Camera camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
 
 		// Create a new window with a onKey function that prints the typed key
 		Display display = new Display(640, 480, "Open GL Learning") {
@@ -80,41 +83,11 @@ public class OBJTest {
 
 		// Dont close the display until its set closed
 		while (!display.shouldClose()) {
-
-			if (KeyStatus.isKeyDown(Key.A)) {
-				camera.translateLocal(5f, 0, 0);
-			} else if (KeyStatus.isKeyDown(Key.D)) {
-				camera.translateLocal(-5f, 0, 0);
-			}
-
-			if (KeyStatus.isKeyDown(Key.W)) {
-				camera.translateLocal(0, 0f, -5f);
-			} else if (KeyStatus.isKeyDown(Key.S)) {
-				camera.translateLocal(0, 0, 5f);
-			}
-
-			if (KeyStatus.isKeyDown(Key.RIGHT)) {
-				camera.rotateLocalY(-0.1f);
-			} else if (KeyStatus.isKeyDown(Key.LEFT)) {
-				camera.rotateLocalY(0.1f);
-			}
-
-			if (KeyStatus.isKeyDown(Key.DOWN)) {
-				camera.rotateLocalX(-0.1f);
-			} else if (KeyStatus.isKeyDown(Key.UP)) {
-				camera.rotateLocalX(0.1f);
-			}
-
-			if (KeyStatus.isKeyDown(Key.LEFT_SHIFT)) {
-				camera.translate(0, 5f, 0f);
-			} else if (KeyStatus.isKeyDown(Key.SPACE)) {
-				camera.translate(0, -5f, 0f);
-			}
-
+			camera.tick();
 			// Clear the display
 			display.clear();
 
-			Matrix4f MV = display.getPerspectiveViewModel(90).mul(camera);
+			Matrix4f MV = display.getPerspectiveViewModel(90).mul(camera.getModelMatrix());
 
 			// Bind the mShader and set u_Color
 			shader.bind();
