@@ -19,14 +19,12 @@ import com.oroarmor.core.opengl.Texture;
 import com.oroarmor.util.OBJLoader;
 import com.oroarmor.util.ResourceLoader;
 
-public class OBJTest {
+public class TerrainTest {
 
 	public static void main(String[] args) {
 
-		Matrix4f objectModel = new Matrix4f().translate(0, 0, 100).rotateXYZ((float) -Math.PI / 2, (float) Math.PI, 0)
-				.scale(5);
-
-//		Matrix4f camera = new Matrix4f().translate(new Vector3f(0, 0, 0));
+		// Matrix4f camera = new Matrix4f().translate(new Vector3f(0, 0, 0));
+		
 
 		Camera camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
 
@@ -54,10 +52,25 @@ public class OBJTest {
 		// Set the OpenGL version to 4.5 core
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);
 
-		Mesh cube = OBJLoader.loadOBJ("./res/calicat.obj");
+		Matrix4f[][] objectModels = new Matrix4f[10][10];
 
+		int size = 100;
+
+		Mesh[][] meshes = new Mesh[10][10];
+
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				objectModels[i][j] = new Matrix4f().translate(i * size, 0, j * size);
+				meshes[i][j] = new Mesh(new float[] { -size, 0, -size, 0, 0, 0, 1, 0, //
+						0, 0, -size, 0, 1, 0, 1, 0, //
+						0, 0, 0, 0, 1, 1, 1, 0, //
+						-size, 0, 0, 1, 0, 0, 1, 0, }, new int[] { 0, 1, 2, 2, 3, 0 }, OBJLoader.objLayout);
+			}
+		}
+		
+		
 		// Load the shader files
-		String shaderName = "weird";
+		String shaderName = "basic";
 
 		String vertex = ResourceLoader.loadFile("./res/" + shaderName + "vs.vs");
 		String fragment = ResourceLoader.loadFile("./res/" + shaderName + "fs.fs");
@@ -86,15 +99,19 @@ public class OBJTest {
 			// Clear the display
 			display.clear();
 
-			Matrix4f MV = display.getPerspectiveViewModel(90).mul(camera.getModelMatrix());
+			Matrix4f MV = display.getPerspectiveViewModel(70).mul(camera.getModelMatrix());
 
 			// Bind the mShader and set u_Color
-			shader.bind();
-			shader.setUniformMat4f("u_MV", MV);
-			shader.setUniformMat4f("u_P", objectModel);
 
-			cube.render(renderer, shader);
-
+			for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 10; j++) {
+					shader.bind();
+					shader.setUniformMat4f("u_MV", MV);
+					shader.setUniformMat4f("u_P", objectModels[i][j]);
+					
+					meshes[i][j].render(renderer, shader);
+				}
+			}
 			// Render the current frame buffer
 			display.render();
 		}

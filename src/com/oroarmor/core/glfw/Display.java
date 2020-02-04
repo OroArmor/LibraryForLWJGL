@@ -52,7 +52,7 @@ public abstract class Display implements KeyEventListener {
 		glDepthFunc(GL_LESS);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_FRONT);
+		glCullFace(GL_BACK);
 
 		EventCreator.initalizeWindow(window);
 		EventListenerManager.addListener(this);

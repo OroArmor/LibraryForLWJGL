@@ -23,7 +23,8 @@ public abstract class Entity implements KeyEventListener {
 	}
 
 	private void setModelMatrix() {
-		modelMatrix = new Matrix4f().rotateXYZ(rotationVector).translateLocal(positionVector).scale(scaleVector);
+		modelMatrix = new Matrix4f().translateLocal(positionVector).rotateLocalX(rotationVector.x)
+				.rotateLocalY(rotationVector.y).rotateLocalZ(rotationVector.z).scale(scaleVector);
 	}
 
 	public Matrix4f getModelMatrix() {
