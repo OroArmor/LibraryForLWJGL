@@ -1,6 +1,6 @@
 #version 330 core 
  
-layout(location = 0) out vec4 color; 
+layout(points) in;
 
 in vec2 v_texCoor;
 in vec4 v_normal;

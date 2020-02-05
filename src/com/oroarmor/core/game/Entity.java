@@ -22,8 +22,8 @@ public abstract class Entity implements KeyEventListener {
 		EventListenerManager.addListener(this);
 	}
 
-	private void setModelMatrix() {
-		modelMatrix = new Matrix4f().translateLocal(positionVector).rotateLocalX(rotationVector.x)
+	protected void setModelMatrix() {
+		modelMatrix = new Matrix4f().identity().translateLocal(positionVector).rotateLocalX(rotationVector.x)
 				.rotateLocalY(rotationVector.y).rotateLocalZ(rotationVector.z).scale(scaleVector);
 	}
 

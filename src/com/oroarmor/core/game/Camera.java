@@ -1,5 +1,6 @@
 package com.oroarmor.core.game;
 
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import com.oroarmor.core.glfw.event.Event;
@@ -7,6 +8,7 @@ import com.oroarmor.core.glfw.event.key.Key;
 import com.oroarmor.core.glfw.event.key.KeyHoldEvent;
 import com.oroarmor.core.glfw.event.key.KeyPressEvent;
 import com.oroarmor.core.glfw.event.key.KeyReleaseEvent;
+import com.oroarmor.core.glfw.event.key.KeyStatus;
 
 public class Camera extends Entity {
 
@@ -30,13 +32,17 @@ public class Camera extends Entity {
 	}
 
 	@Override
-	public void processKeyPressedEvent(KeyPressEvent event) {
-		System.out.println(event);
+	public Matrix4f getModelMatrix() {
+		return new Matrix4f().rotate(rotationVector.x, 1, 0, 0).rotate(rotationVector.y, 0, 1, 0)
+				.rotate(rotationVector.z, 0, 0, 1).scale(scaleVector).translate(positionVector.negate(new Vector3f()));
+	}
 
+	@Override
+	public void processKeyPressedEvent(KeyPressEvent event) {
 		Key key = event.getKey();
+
 		// Movement
 		if (key == Key.A) {
-			System.out.println("A!");
 			leftRight = (leftRight == Movement.NONE) ? Movement.LEFT : Movement.NONE;
 		} else if (key == Key.D) {
 			leftRight = (leftRight == Movement.NONE) ? Movement.RIGHT : Movement.NONE;
@@ -64,6 +70,11 @@ public class Camera extends Entity {
 			lookYaw = (lookYaw == Look.NONE) ? Look.LEFT : Look.NONE;
 		} else if (key == Key.RIGHT) {
 			lookYaw = (lookYaw == Look.NONE) ? Look.RIGHT : Look.NONE;
+		}
+
+		if (key == Key.PERIOD) {
+			positionVector = new Vector3f(0, 0, 0);
+			rotationVector = new Vector3f(0, 0, 0);
 		}
 	}
 
@@ -113,16 +124,27 @@ public class Camera extends Entity {
 
 	@Override
 	public void update() {
+
+		float speed = 5f;
+
+		if (KeyStatus.isKeyDown(Key.LEFT_CONTROL)) {
+			speed *= 2;
+		}
+
 		if (leftRight == Movement.LEFT) {
-			positionVector.add(5f, 0, 0);
+			positionVector.add(-speed * (float) Math.cos(rotationVector.y), 0,
+					-speed * (float) Math.sin(rotationVector.y));
 		} else if (leftRight == Movement.RIGHT) {
-			positionVector.add(-5f, 0, 0);
+			positionVector.add(speed * (float) Math.cos(rotationVector.y), 0,
+					speed * (float) Math.sin(rotationVector.y));
 		}
 
 		if (frontBack == Movement.FOWARD) {
-			positionVector.add(0, 0f, -5f);
+			positionVector.add(speed * (float) Math.cos(Math.PI / 2 + rotationVector.y), 0,
+					speed * (float) Math.sin(Math.PI / 2 + rotationVector.y));
 		} else if (frontBack == Movement.BACKWARD) {
-			positionVector.add(0, 0, 5f);
+			positionVector.add(-speed * (float) Math.cos(Math.PI / 2 + rotationVector.y), 0,
+					-speed * (float) Math.sin(Math.PI / 2 + rotationVector.y));
 		}
 
 		if (lookYaw == Look.RIGHT) {
@@ -138,9 +160,9 @@ public class Camera extends Entity {
 		}
 
 		if (upDown == Movement.DOWN) {
-			positionVector.add(0, 5f, 0f);
+			positionVector.add(0, -speed, 0f);
 		} else if (upDown == Movement.UP) {
-			positionVector.add(0, -5f, 0f);
+			positionVector.add(0, speed, 0f);
 		}
 	}
 }

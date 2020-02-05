@@ -2,6 +2,8 @@ package com.oroarmor.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class ResourceLoader {
 
@@ -10,11 +12,22 @@ public class ResourceLoader {
 		File file = new File(filePath);
 
 		try {
-			FileInputStream fileStream = new FileInputStream(file);
-			byte[] fileBytes = new byte[fileStream.available()];
-			fileStream.read(fileBytes);
+			fileString = loadFile(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return fileString;
+	}
+
+	public static String loadFile(InputStream resourceAsStream) {
+		String fileString = "";
+		try {
+			byte[] fileBytes = new byte[resourceAsStream.available()];
+			resourceAsStream.read(fileBytes);
 			fileString = new String(fileBytes);
-			fileStream.close();
+			resourceAsStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
