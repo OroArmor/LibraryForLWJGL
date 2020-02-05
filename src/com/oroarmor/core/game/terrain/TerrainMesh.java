@@ -15,6 +15,7 @@ public class TerrainMesh {
 	static {
 		terrainVbo.pushFloats(3);
 		terrainVbo.pushFloats(3);
+		terrainVbo.pushFloats(1);
 	}
 
 	private Mesh mesh;
@@ -35,15 +36,20 @@ public class TerrainMesh {
 		ArrayList<Float> tempVertexData = new ArrayList<Float>();
 		ArrayList<Integer> tempTriangles = new ArrayList<Integer>();
 
+		float min = 10;
+
 		int triangleCount = 0;
 
 		for (int i = 0; i < width - 1; i++) {
 			for (int j = 0; j < height - 1; j++) {
 
-				float y00 = 30 * generatedNoiseMap[i][j];
-				float y10 = 30 * generatedNoiseMap[i + 1][j];
-				float y11 = 30 * generatedNoiseMap[i + 1][j + 1];
-				float y01 = 30 * generatedNoiseMap[i][j + 1];
+				float y00 = Math.max((30) * generatedNoiseMap[i][j], min) - min;
+				float y10 = Math.max((30) * generatedNoiseMap[i + 1][j], min) - min;
+				float y11 = Math.max((30) * generatedNoiseMap[i + 1][j + 1], min) - min;
+				float y01 = Math.max((30) * generatedNoiseMap[i][j + 1], min) - min;
+
+				float t1h = (y00 + y10 + y11) / 3;
+				float t2h = (y00 + y01 + y11) / 3;
 
 				Vector3f p1 = new Vector3f(0 + i, y00, 0 + j);
 				Vector3f p2 = new Vector3f(1 + i, y10, 0 + j);
@@ -62,6 +68,7 @@ public class TerrainMesh {
 				tempVertexData.add(n1.x);
 				tempVertexData.add(n1.y);
 				tempVertexData.add(n1.z);
+				tempVertexData.add(t1h);
 
 				tempVertexData.add(p2.x);
 				tempVertexData.add(p2.y);
@@ -69,6 +76,7 @@ public class TerrainMesh {
 				tempVertexData.add(n1.x);
 				tempVertexData.add(n1.y);
 				tempVertexData.add(n1.z);
+				tempVertexData.add(t1h);
 
 				tempVertexData.add(p3.x);
 				tempVertexData.add(p3.y);
@@ -76,6 +84,7 @@ public class TerrainMesh {
 				tempVertexData.add(n1.x);
 				tempVertexData.add(n1.y);
 				tempVertexData.add(n1.z);
+				tempVertexData.add(t1h);
 
 				tempVertexData.add(p1.x);
 				tempVertexData.add(p1.y);
@@ -83,6 +92,7 @@ public class TerrainMesh {
 				tempVertexData.add(n2.x);
 				tempVertexData.add(n2.y);
 				tempVertexData.add(n2.z);
+				tempVertexData.add(t2h);
 
 				tempVertexData.add(p3.x);
 				tempVertexData.add(p3.y);
@@ -90,6 +100,7 @@ public class TerrainMesh {
 				tempVertexData.add(n2.x);
 				tempVertexData.add(n2.y);
 				tempVertexData.add(n2.z);
+				tempVertexData.add(t2h);
 
 				tempVertexData.add(p4.x);
 				tempVertexData.add(p4.y);
@@ -97,6 +108,7 @@ public class TerrainMesh {
 				tempVertexData.add(n2.x);
 				tempVertexData.add(n2.y);
 				tempVertexData.add(n2.z);
+				tempVertexData.add(t2h);
 
 				for (int k = 0; k < 6; k++)
 					tempTriangles.add(triangleCount++);

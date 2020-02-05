@@ -9,16 +9,22 @@ public class TerrainShader extends Shader {
 		super(ResourceLoader.loadFile(Class.class.getResourceAsStream("/com/oroarmor/core/game/terrain/terrainvs.vs")),
 				ResourceLoader
 						.loadFile(Class.class.getResourceAsStream("/com/oroarmor/core/game/terrain/terrainfs.fs")));
+
+		this.compile();
+
 	}
 
 	public void update() {
 		this.bind();
 
-		this.setUniform1f("u_waterHeight", 14);
-		this.setUniform1f("u_sandHeight", 15);
-		this.setUniform1f("u_grassHeight", 20);
-		this.setUniform1f("u_rockHeight", 27);
-		this.setUniform1f("u_snowHeight", 30);
+		float maxHeight = 20;
+
+		this.setUniform1f("u_waterHeight", .1f * maxHeight);
+		this.setUniform1f("u_waterWarmHeight", .2f * maxHeight);
+		this.setUniform1f("u_sandHeight", .3f * maxHeight);
+		this.setUniform1f("u_grassHeight", .6f * maxHeight);
+		this.setUniform1f("u_rockHeight", .9f * maxHeight);
+		this.setUniform1f("u_snowHeight", 1f * maxHeight);
 	}
 
 }

@@ -2,6 +2,7 @@
  
 layout(location = 0) in vec4 position; 
 layout(location = 1) in vec3 normal;
+layout(location = 2) in float height;
 
 uniform mat4 u_MV;
 uniform mat4 u_P;
@@ -17,5 +18,5 @@ void main(){
  	v_normal = u_MV * u_P * vec4(normal,0);
  	v_lightDir = u_MV * vec4(u_lightDir,0);
  	
- 	v_height = position.y;
+ 	v_height = height;
 }

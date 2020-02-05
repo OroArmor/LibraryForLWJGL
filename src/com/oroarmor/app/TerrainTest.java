@@ -36,6 +36,8 @@ public class TerrainTest {
 				Key key = event.getKey();
 				if (key == this.closeKey) {
 					this.close();
+				} else if (key == Key.F11) {
+					this.fullscreen();
 				}
 			}
 		};
@@ -45,8 +47,10 @@ public class TerrainTest {
 		// Set the OpenGL version to 4.5 core
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);
 
-		TerrainMesh terrain = new TerrainMesh(400, 400, 0, 0);
-		Matrix4f objectModel = new Matrix4f().scale(10).translate(-200, 0, -200);
+		int size = 200;
+
+		TerrainMesh terrain = new TerrainMesh(size, size, 0, 0);
+		Matrix4f objectModel = new Matrix4f().scale(10).translate(-size / 2, -30, -size / 2);
 
 		// Load the shader files
 		TerrainShader shader = new TerrainShader();

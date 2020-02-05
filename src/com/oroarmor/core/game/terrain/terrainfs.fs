@@ -3,6 +3,7 @@
 layout(location = 0) out vec4 color; 
 
 uniform float u_waterHeight;
+uniform float u_waterWarmHeight;
 uniform float u_sandHeight;
 uniform float u_grassHeight;
 uniform float u_rockHeight;
@@ -16,10 +17,11 @@ void main(){
 	
 	float sunlight = max(0.4, dot(normalize(v_normal), normalize(v_lightDir)));
 	
-	vec4 terrainColor = vec4(0,0,0,1);
-	
+	vec4 terrainColor = vec4(1,0,0,1);
 	if(v_height < u_waterHeight){
 		terrainColor = vec4(0,0,1,1);
+	}  else if(v_height < u_waterWarmHeight){
+		terrainColor = vec4(.3,.5,1,1);
 	}  else  if (v_height < u_sandHeight){
 		terrainColor = vec4(0.7,.7,.5,1);
 	} else if(v_height< u_grassHeight){

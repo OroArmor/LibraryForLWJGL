@@ -19,6 +19,7 @@ public abstract class Display implements KeyEventListener {
 	public Key closeKey = Key.ESCAPE;
 
 	private int width, height;
+	private int owidth, oheight;
 
 	boolean active = true;
 
@@ -35,6 +36,8 @@ public abstract class Display implements KeyEventListener {
 	public Display(int width, int height, String name) {
 		this.width = width;
 		this.height = height;
+		this.owidth = width;
+		this.oheight = height;
 		window = GLFWUtil.glfwCreateWindowHelper(width, height, name, NULL, NULL);
 
 		glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallbackI() {
@@ -91,6 +94,17 @@ public abstract class Display implements KeyEventListener {
 
 	public void end() {
 		glfwTerminate();
+	}
+
+	boolean maximized = false;
+
+	public void fullscreen() {
+		if (!maximized) {
+			glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, 1920, 1080, 60);
+		} else {
+			glfwSetWindowMonitor(window, NULL, 100, 100, owidth, oheight, 60);
+		}
+		maximized = !maximized;
 	}
 
 	public void setHeight(int height) {

@@ -16,7 +16,8 @@ public class Shader implements Bindable, Destructable {
 
 	private String vertexSource, fragmentSource;
 
-	private int shaderProgramID;
+	protected int shaderProgramID;
+	protected int[] ids;
 
 	private HashMap<String, Integer> uniforms;
 
@@ -24,7 +25,9 @@ public class Shader implements Bindable, Destructable {
 		this.vertexSource = vertexSource;
 		this.fragmentSource = fragmentSource;
 
-		shaderProgramID = createShader(vertexSource, fragmentSource);
+		addShader(GL_VERTEX_SHADER, vertexSource);
+		addShader(GL_FRAGMENT_SHADER, fragmentSource);
+
 		uniforms = new HashMap<String, Integer>();
 	}
 
@@ -83,27 +86,23 @@ public class Shader implements Bindable, Destructable {
 		return uniformLocation;
 	}
 
-	private int compileShader(int shaderType, String shaderSource) {
+	protected void addShader(int shaderType, String shaderSource) {
 		int id = glCreateShader(shaderType);
 		glShaderSource(id, shaderSource);
 		glCompileShader(id);
 
-		return id;
-	}
+		if (ids == null) {
+			ids = new int[] { id };
+		} else {
 
-	private int createShader(String vertexShaderSource, String fragmentShaderSource) {
-		int program = glCreateProgram();
+			int[] newIDs = new int[ids.length + 1];
 
-		int vertexShader = compileShader(GL_VERTEX_SHADER, vertexShaderSource);
-		int fragmentShader = compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
-
-		glAttachShader(program, vertexShader);
-		glAttachShader(program, fragmentShader);
-		glLinkProgram(program);
-
-		glValidateProgram(program);
-
-		return program;
+			for (int i = 0; i < ids.length; i++) {
+				newIDs[i] = ids[i];
+			}
+			newIDs[ids.length] = id;
+			ids = newIDs;
+		}
 	}
 
 	public void setUniform3f(String name, Vector3f vector) {
@@ -112,6 +111,19 @@ public class Shader implements Bindable, Destructable {
 
 	public void setUniform1f(String name, float v0) {
 		glUniform1f(getUniformLocation(name), v0);
+	}
+
+	public void compile() {
+		int program = glCreateProgram();
+
+		for (int id : ids) {
+			glAttachShader(program, id);
+		}
+
+		glLinkProgram(program);
+		glValidateProgram(program);
+
+		this.shaderProgramID = program;
 	}
 
 }
