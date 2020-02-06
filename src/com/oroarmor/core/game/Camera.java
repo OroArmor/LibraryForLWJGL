@@ -153,9 +153,9 @@ public class Camera extends Entity {
 			rotationVector.add(0, 0.1f, 0);
 		}
 
-		if (lookPitch == Look.DOWN) {
+		if (lookPitch == Look.DOWN && rotationVector.x > (float) -Math.PI / 2) {
 			rotationVector.add(-0.1f, 0, 0);
-		} else if (lookPitch == Look.UP) {
+		} else if (lookPitch == Look.UP && rotationVector.x < (float) Math.PI / 2) {
 			rotationVector.add(0.1f, 0, 0);
 		}
 

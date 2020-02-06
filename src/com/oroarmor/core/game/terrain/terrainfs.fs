@@ -1,5 +1,8 @@
 #version 330 core 
  
+#define MAX_SUN_LIGHTS 3
+#define MAX_POINT_LIGHTS 10
+
 layout(location = 0) out vec4 color; 
 
 uniform float u_waterHeight;
@@ -10,14 +13,49 @@ uniform float u_rockHeight;
 uniform float u_snowHeight;
 
 in vec4 v_normal;
-in vec4 v_lightDir;
 in float v_height;
+
+struct SunLight
+{
+	vec3 direction;
+	vec4 color;
+};
+
+uniform SunLight u_sunlights[MAX_SUN_LIGHTS];
+
+struct PointLight
+{
+	vec3 position;
+	vec4 color;
+	float strength;
+};
+
+uniform PointLight u_pointlights[MAX_POINT_LIGHTS];
+in vec4 v_vectorToPointLights[MAX_POINT_LIGHTS];
 
 void main(){
 	
-	float sunlight = max(0.4, dot(normalize(v_normal), normalize(v_lightDir)));
+	float sunlightValues[MAX_SUN_LIGHTS];
 	
-	vec4 terrainColor = vec4(1,0,0,1);
+	vec4 normal = normalize(v_normal);
+	
+	for(int i = 0; i < MAX_SUN_LIGHTS; i++){
+		sunlightValues[i] = max(0.2, dot(normal, normalize(vec4(u_sunlights[i].direction,0))))
+		+ max(0.1, dot(normal, normalize(-vec4(u_sunlights[i].direction,0))))*0.2;
+	}
+	
+	float pointlightValues[MAX_POINT_LIGHTS];
+	
+	for(int i = 0; i < MAX_POINT_LIGHTS; i++){
+	
+		float dist = length(v_vectorToPointLights[i]);
+		pointlightValues[i] = max(0,dot(normal, normalize(v_vectorToPointLights[i])) 
+		* u_pointlights[i].strength/(1 + 0.1*dist+ 0.01*dist*dist));
+	}
+	
+	
+	
+	vec4 terrainColor = vec4(0,0,0,1);
 	if(v_height < u_waterHeight){
 		terrainColor = vec4(0,0,1,1);
 	}  else if(v_height < u_waterWarmHeight){
@@ -32,5 +70,15 @@ void main(){
 		terrainColor = vec4(0.9,.9,.9,1);
 	}
 	
-	color = terrainColor * sunlight + vec4(0,0,0,1);
+	color = vec4(0,0,0,1);
+	
+	for(int i = 0; i < MAX_SUN_LIGHTS; i++){
+		color = color + terrainColor * u_sunlights[i].color * vec4(sunlightValues[i],sunlightValues[i],sunlightValues[i],1);
+	}
+	
+	for(int i = 0; i < MAX_POINT_LIGHTS; i++){
+		color = color + terrainColor * u_pointlights[i].color * vec4(pointlightValues[i],pointlightValues[i],pointlightValues[i],1);
+	}
+	
+	color = color + vec4(0,0,0,1);
 }

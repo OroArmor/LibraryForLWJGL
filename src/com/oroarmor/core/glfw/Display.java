@@ -134,7 +134,7 @@ public abstract class Display implements KeyEventListener {
 		Matrix4f mat = new Matrix4f().zero();
 
 		float near = -1;
-		float far = 1000;
+		float far = 400;
 
 		mat.m00(1f / (aspect * tanfov));
 		mat.m11(1 / tanfov);

@@ -18,6 +18,8 @@ public class TerrainMesh {
 		terrainVbo.pushFloats(1);
 	}
 
+	public static float maxHeight = 20;
+
 	private Mesh mesh;
 	private float[][] heightMap;
 	private int[] triangles;
@@ -43,10 +45,10 @@ public class TerrainMesh {
 		for (int i = 0; i < width - 1; i++) {
 			for (int j = 0; j < height - 1; j++) {
 
-				float y00 = Math.max((30) * generatedNoiseMap[i][j], min) - min;
-				float y10 = Math.max((30) * generatedNoiseMap[i + 1][j], min) - min;
-				float y11 = Math.max((30) * generatedNoiseMap[i + 1][j + 1], min) - min;
-				float y01 = Math.max((30) * generatedNoiseMap[i][j + 1], min) - min;
+				float y00 = Math.max((maxHeight + min) * generatedNoiseMap[i][j], min) - min;
+				float y10 = Math.max((maxHeight + min) * generatedNoiseMap[i + 1][j], min) - min;
+				float y11 = Math.max((maxHeight + min) * generatedNoiseMap[i + 1][j + 1], min) - min;
+				float y01 = Math.max((maxHeight + min) * generatedNoiseMap[i][j + 1], min) - min;
 
 				float t1h = (y00 + y10 + y11) / 3;
 				float t2h = (y00 + y01 + y11) / 3;
