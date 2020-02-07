@@ -13,6 +13,8 @@ public abstract class Entity implements KeyEventListener {
 	protected Vector3f rotationVector;
 	protected Vector3f scaleVector;
 
+	private boolean active = true;
+
 	public Entity(Vector3f position, Vector3f rotation, Vector3f scale) {
 		this.positionVector = position;
 		this.rotationVector = rotation;
@@ -22,16 +24,9 @@ public abstract class Entity implements KeyEventListener {
 		EventListenerManager.addListener(this);
 	}
 
-	protected void setModelMatrix() {
-		modelMatrix = new Matrix4f().identity().translateLocal(positionVector).rotateLocalX(rotationVector.x)
-				.rotateLocalY(rotationVector.y).rotateLocalZ(rotationVector.z).scale(scaleVector);
-	}
-
 	public Matrix4f getModelMatrix() {
 		return modelMatrix;
 	}
-
-	private boolean active = true;
 
 	@Override
 	public boolean isActive() {
@@ -43,10 +38,15 @@ public abstract class Entity implements KeyEventListener {
 		this.active = active;
 	}
 
-	public abstract void update();
+	protected void setModelMatrix() {
+		modelMatrix = new Matrix4f().identity().translateLocal(positionVector).rotateLocalX(rotationVector.x)
+				.rotateLocalY(rotationVector.y).rotateLocalZ(rotationVector.z).scale(scaleVector);
+	}
 
 	public void tick() {
 		update();
 		setModelMatrix();
 	}
+
+	public abstract void update();
 }

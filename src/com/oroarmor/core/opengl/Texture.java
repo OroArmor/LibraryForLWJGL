@@ -1,5 +1,11 @@
 package com.oroarmor.core.opengl;
 
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glDeleteTextures;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
+
 import java.nio.ByteBuffer;
 
 import org.lwjgl.stb.STBImage;
@@ -8,7 +14,6 @@ import com.oroarmor.core.Bindable;
 import com.oroarmor.core.Destructable;
 import com.oroarmor.core.Destructor;
 import com.oroarmor.util.TextureLoader;
-import static org.lwjgl.opengl.GL45.*;
 
 public class Texture implements Bindable, Destructable {
 	private int textureID;

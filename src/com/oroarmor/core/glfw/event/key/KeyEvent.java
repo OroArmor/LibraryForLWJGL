@@ -11,31 +11,6 @@ public abstract class KeyEvent implements Event {
 		PRESS, HOLD, RELEASE;
 	}
 
-	public Key key;
-
-	public long window;
-
-	@Override
-	public void setWindow(long window) {
-		this.window = window;
-	}
-
-	@Override
-	public long getWindow() {
-		return window;
-	}
-
-	public Key getKey() {
-		return key;
-	}
-
-	public abstract KeyEventType getKeyEventType();
-
-	@Override
-	public EventType getEventType() {
-		return EventType.KEY;
-	}
-
 	public static void create(int keyCode, int action, long window) {
 		KeyEvent newEvent;
 		Key key = Key.getKey(keyCode);
@@ -48,6 +23,31 @@ public abstract class KeyEvent implements Event {
 		}
 
 		EventListenerManager.addKeyEvent(newEvent);
+	}
+
+	public Key key;
+
+	public long window;
+
+	@Override
+	public EventType getEventType() {
+		return EventType.KEY;
+	}
+
+	public Key getKey() {
+		return key;
+	}
+
+	public abstract KeyEventType getKeyEventType();
+
+	@Override
+	public long getWindow() {
+		return window;
+	}
+
+	@Override
+	public void setWindow(long window) {
+		this.window = window;
 	}
 
 	@Override

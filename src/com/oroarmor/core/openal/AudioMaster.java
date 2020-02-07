@@ -1,16 +1,32 @@
 package com.oroarmor.core.openal;
 
-import static org.lwjgl.openal.AL11.*;
-import static org.lwjgl.openal.ALC11.*;
-import static org.lwjgl.stb.STBVorbis.*;
-import static org.lwjgl.system.libc.LibCStdlib.*;
-import static org.lwjgl.system.MemoryStack.*;
+import static org.lwjgl.openal.AL10.AL_FORMAT_MONO16;
+import static org.lwjgl.openal.AL10.AL_FORMAT_STEREO16;
+import static org.lwjgl.openal.AL10.alBufferData;
+import static org.lwjgl.openal.AL10.alDeleteBuffers;
+import static org.lwjgl.openal.ALC10.ALC_DEFAULT_DEVICE_SPECIFIER;
+import static org.lwjgl.openal.ALC10.alcCloseDevice;
+import static org.lwjgl.openal.ALC10.alcCreateContext;
+import static org.lwjgl.openal.ALC10.alcDestroyContext;
+import static org.lwjgl.openal.ALC10.alcGetString;
+import static org.lwjgl.openal.ALC10.alcMakeContextCurrent;
+import static org.lwjgl.openal.ALC10.alcOpenDevice;
+import static org.lwjgl.stb.STBVorbis.stb_vorbis_decode_filename;
+import static org.lwjgl.system.MemoryStack.stackMallocInt;
+import static org.lwjgl.system.MemoryStack.stackPop;
+import static org.lwjgl.system.MemoryStack.stackPush;
+import static org.lwjgl.system.libc.LibCStdlib.free;
 
-import java.nio.*;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
 import java.util.HashMap;
-import java.util.function.Consumer;
 
-import org.lwjgl.openal.*;
+import org.lwjgl.openal.AL;
+import org.lwjgl.openal.AL10;
+import org.lwjgl.openal.AL11;
+import org.lwjgl.openal.ALC;
+import org.lwjgl.openal.ALCCapabilities;
+import org.lwjgl.openal.ALCapabilities;
 
 import com.oroarmor.core.Destructable;
 import com.oroarmor.core.Destructor;
@@ -39,8 +55,12 @@ public class AudioMaster implements Destructable {
 
 	private static HashMap<String, Integer> sounds;
 
+	public static int getSound(String soundName) {
+		return sounds.get(soundName);
+	}
+
 	public static int loadSound(String path, String name) {
-		int soundIDBuffer = AL11.alGenBuffers();
+		int soundIDBuffer = AL10.alGenBuffers();
 
 		// Allocate space to store return information from the function
 		stackPush();
@@ -74,10 +94,6 @@ public class AudioMaster implements Destructable {
 		sounds.put(name, soundIDBuffer);
 
 		return soundIDBuffer;
-	}
-
-	public static int getSound(String soundName) {
-		return sounds.get(soundName);
 	}
 
 	@Override

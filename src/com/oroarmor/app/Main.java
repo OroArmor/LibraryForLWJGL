@@ -3,7 +3,7 @@ package com.oroarmor.app;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import com.oroarmor.core.*;
+import com.oroarmor.core.Destructor;
 import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
@@ -30,14 +30,14 @@ public class Main {
 			}
 
 			@Override
+			public void processKeyPressedEvent(KeyPressEvent event) {
+			}
+
+			@Override
 			public void processKeyReleasedEvent(KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
 					this.close();
 				}
-			}
-
-			@Override
-			public void processKeyPressedEvent(KeyPressEvent event) {
 			}
 		};
 

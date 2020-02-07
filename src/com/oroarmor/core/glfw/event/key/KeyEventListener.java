@@ -16,9 +16,9 @@ public interface KeyEventListener extends EventListener {
 		}
 	}
 
-	public void processKeyPressedEvent(KeyPressEvent event);
-
 	public void processKeyHeldEvent(KeyHoldEvent event);
+
+	public void processKeyPressedEvent(KeyPressEvent event);
 
 	public void processKeyReleasedEvent(KeyReleaseEvent event);
 }

@@ -30,15 +30,15 @@ public class TerrainTest {
 		// Create a new window with a onKey function that prints the typed key
 		Display display = new Display(640, 480, "Open GL Learning") {
 			@Override
+			public void processKeyHeldEvent(KeyHoldEvent event) {
+			}
+
+			@Override
 			public void processKeyPressedEvent(KeyPressEvent event) {
 				if (event.getKey() == Key.G) {
 					sun.setColor((sunToggle) ? new Vector4f(1, 1, 1, 1) : new Vector4f(1f, .9f, .8f, 1));
 					sunToggle = !sunToggle;
 				}
-			}
-
-			@Override
-			public void processKeyHeldEvent(KeyHoldEvent event) {
 			}
 
 			@Override
@@ -60,7 +60,15 @@ public class TerrainTest {
 		int size = 200;
 
 		TerrainMesh terrain = new TerrainMesh(size, size, 0, 0);
-		Matrix4f objectModel = new Matrix4f().scale(10, 5, 10).translate(-size / 2, -30, -size / 2);
+		TerrainMesh terrain2 = new TerrainMesh(size, size, size - 1, 0);
+		TerrainMesh terrain3 = new TerrainMesh(size, size, size - 1, size - 1);
+		TerrainMesh terrain4 = new TerrainMesh(size, size, 0, size - 1);
+
+		Matrix4f objectModel = new Matrix4f().scale(10, 5, 10).translate(0, -30, 0).translate(-size, 0, size);
+		Matrix4f object2 = new Matrix4f().scale(10, 5, 10).translate(size - 1, -30, 0).translate(-size, 0, size);
+		Matrix4f object3 = new Matrix4f().scale(10, 5, 10).translate(size - 1, -30, -(size - 1)).translate(-size, 0,
+				size);
+		Matrix4f object4 = new Matrix4f().scale(10, 5, 10).translate(0, -30, -(size - 1)).translate(-size, 0, size);
 
 		// Load the shader files
 		TerrainShader shader = new TerrainShader();
@@ -92,8 +100,19 @@ public class TerrainTest {
 			shader.update();
 			shader.setUniformMat4f("u_MV", MV);
 			shader.setUniformMat4f("u_P", objectModel);
-
 			terrain.getMesh().render(renderer, shader);
+
+			shader.bind();
+			shader.setUniformMat4f("u_P", object2);
+			terrain2.getMesh().render(renderer, shader);
+
+			shader.bind();
+			shader.setUniformMat4f("u_P", object3);
+			terrain3.getMesh().render(renderer, shader);
+
+			shader.bind();
+			shader.setUniformMat4f("u_P", object4);
+			terrain4.getMesh().render(renderer, shader);
 			// Render the current frame buffer
 			display.render();
 		}

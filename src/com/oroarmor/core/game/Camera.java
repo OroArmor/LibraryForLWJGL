@@ -12,12 +12,12 @@ import com.oroarmor.core.glfw.event.key.KeyStatus;
 
 public class Camera extends Entity {
 
-	private static enum Movement {
-		LEFT, RIGHT, NONE, FOWARD, BACKWARD, UP, DOWN;
-	}
-
 	private static enum Look {
 		LEFT, RIGHT, UP, DOWN, NONE, ROLL_LEFT, ROLL_RIGHT;
+	}
+
+	private static enum Movement {
+		LEFT, RIGHT, NONE, FOWARD, BACKWARD, UP, DOWN;
 	}
 
 	Movement frontBack = Movement.NONE;
@@ -35,6 +35,16 @@ public class Camera extends Entity {
 	public Matrix4f getModelMatrix() {
 		return new Matrix4f().rotate(rotationVector.x, 1, 0, 0).rotate(rotationVector.y, 0, 1, 0)
 				.rotate(rotationVector.z, 0, 0, 1).scale(scaleVector).translate(positionVector.negate(new Vector3f()));
+	}
+
+	@Override
+	public void processEvent(Event event) {
+
+	}
+
+	@Override
+	public void processKeyHeldEvent(KeyHoldEvent event) {
+
 	}
 
 	@Override
@@ -79,11 +89,6 @@ public class Camera extends Entity {
 	}
 
 	@Override
-	public void processKeyHeldEvent(KeyHoldEvent event) {
-
-	}
-
-	@Override
 	public void processKeyReleasedEvent(KeyReleaseEvent event) {
 		Key key = event.getKey();
 
@@ -115,11 +120,6 @@ public class Camera extends Entity {
 		} else if (key == Key.RIGHT) {
 			lookYaw = (lookYaw == Look.RIGHT) ? Look.NONE : Look.LEFT;
 		}
-	}
-
-	@Override
-	public void processEvent(Event event) {
-
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package com.oroarmor.core.game.terrain;
 import org.joml.Vector2f;
 
 public class NoiseSettings {
-	private float scale = 50;
+	private float scale = 500;
 	private float persistance = .6f;
 	private float lacunarity = 2;
 
@@ -25,14 +25,6 @@ public class NoiseSettings {
 		this.offset = offset;
 	}
 
-	public float getScale() {
-		return scale;
-	}
-
-	public float getPersistance() {
-		return persistance;
-	}
-
 	public float getLacunarity() {
 		return lacunarity;
 	}
@@ -41,11 +33,19 @@ public class NoiseSettings {
 		return octaves;
 	}
 
-	public int getSeed() {
-		return seed;
-	}
-
 	public Vector2f getOffset() {
 		return offset;
+	}
+
+	public float getPersistance() {
+		return persistance;
+	}
+
+	public float getScale() {
+		return scale;
+	}
+
+	public int getSeed() {
+		return seed;
 	}
 }

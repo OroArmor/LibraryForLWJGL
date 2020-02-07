@@ -28,6 +28,26 @@ public class TerrainShader extends Shader {
 
 	}
 
+	public void addPointlight(Pointlight light) {
+
+		if (currentPointlight == MAX_SUN_LIGHTS) {
+			System.out.println("Max sunlights reached");
+			return;
+		}
+
+		pointlights[currentPointlight++] = light;
+	}
+
+	public void addSunlight(Sunlight light) {
+
+		if (currentSunlight == MAX_SUN_LIGHTS) {
+			System.out.println("Max sunlights reached");
+			return;
+		}
+
+		sunlights[currentSunlight++] = light;
+	}
+
 	public void update() {
 		this.bind();
 
@@ -63,26 +83,6 @@ public class TerrainShader extends Shader {
 				this.setUniform1f("u_pointlights[" + i + "].strength", pointlight.getStrength());
 			}
 		}
-	}
-
-	public void addSunlight(Sunlight light) {
-
-		if (currentSunlight == MAX_SUN_LIGHTS) {
-			System.out.println("Max sunlights reached");
-			return;
-		}
-
-		sunlights[currentSunlight++] = light;
-	}
-
-	public void addPointlight(Pointlight light) {
-
-		if (currentPointlight == MAX_SUN_LIGHTS) {
-			System.out.println("Max sunlights reached");
-			return;
-		}
-
-		pointlights[currentPointlight++] = light;
 	}
 
 }

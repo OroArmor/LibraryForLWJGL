@@ -1,7 +1,30 @@
 package com.oroarmor.core.glfw;
 
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowMonitor;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowShouldClose;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowSizeCallback;
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
+import static org.lwjgl.glfw.GLFW.glfwTerminate;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
+import static org.lwjgl.opengl.GL11.GL_BACK;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.GL_LESS;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glClearDepth;
+import static org.lwjgl.opengl.GL11.glCullFace;
+import static org.lwjgl.opengl.GL11.glDepthFunc;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.joml.Matrix4f;
@@ -23,15 +46,7 @@ public abstract class Display implements KeyEventListener {
 
 	boolean active = true;
 
-	@Override
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
+	boolean maximized = false;
 
 	public Display(int width, int height, String name) {
 		this.width = width;
@@ -61,30 +76,8 @@ public abstract class Display implements KeyEventListener {
 		EventListenerManager.addListener(this);
 	}
 
-	public void enableTransparentcy() {
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	}
-
-	public void setKeyClose(Key closeKey) {
-		this.closeKey = closeKey;
-	}
-
-	public boolean shouldClose() {
-		return glfwWindowShouldClose(window);
-	}
-
-	public void render() {
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
-
 	public void clear() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-
-	public void setClearColor(float red, float green, float blue, float alpha) {
-		glClearColor(red, green, blue, alpha);
 	}
 
 	public void close() {
@@ -92,11 +85,14 @@ public abstract class Display implements KeyEventListener {
 			glfwSetWindowShouldClose(window, true);
 	}
 
+	public void enableTransparentcy() {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
 	public void end() {
 		glfwTerminate();
 	}
-
-	boolean maximized = false;
 
 	public void fullscreen() {
 		if (!maximized) {
@@ -105,18 +101,6 @@ public abstract class Display implements KeyEventListener {
 			glfwSetWindowMonitor(window, NULL, 100, 100, owidth, oheight, 60);
 		}
 		maximized = !maximized;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public int getWidth() {
-		return width;
 	}
 
 	public int getHeight() {
@@ -144,11 +128,50 @@ public abstract class Display implements KeyEventListener {
 		return mat;
 	}
 
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public boolean isActive() {
+		return active;
+	}
+
 	@Override
 	public void processEvent(Event event) {
 	}
 
 	@Override
 	public abstract void processKeyPressedEvent(KeyPressEvent event);
+
+	public void render() {
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public void setClearColor(float red, float green, float blue, float alpha) {
+		glClearColor(red, green, blue, alpha);
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void setKeyClose(Key closeKey) {
+		this.closeKey = closeKey;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public boolean shouldClose() {
+		return glfwWindowShouldClose(window);
+	}
 
 }

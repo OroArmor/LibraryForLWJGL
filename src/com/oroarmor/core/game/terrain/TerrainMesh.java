@@ -18,7 +18,7 @@ public class TerrainMesh {
 		terrainVbo.pushFloats(1);
 	}
 
-	public static float maxHeight = 20;
+	public static float maxHeight = 200;
 
 	private Mesh mesh;
 	private float[][] heightMap;
@@ -38,7 +38,7 @@ public class TerrainMesh {
 		ArrayList<Float> tempVertexData = new ArrayList<Float>();
 		ArrayList<Integer> tempTriangles = new ArrayList<Integer>();
 
-		float min = 10;
+		float min = 100;
 
 		int triangleCount = 0;
 

@@ -33,11 +33,11 @@ public class OBJTest {
 		// Create a new window with a onKey function that prints the typed key
 		Display display = new Display(640, 480, "Open GL Learning") {
 			@Override
-			public void processKeyPressedEvent(KeyPressEvent event) {
+			public void processKeyHeldEvent(KeyHoldEvent event) {
 			}
 
 			@Override
-			public void processKeyHeldEvent(KeyHoldEvent event) {
+			public void processKeyPressedEvent(KeyPressEvent event) {
 			}
 
 			@Override

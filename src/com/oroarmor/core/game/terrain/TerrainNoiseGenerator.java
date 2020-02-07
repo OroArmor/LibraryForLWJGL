@@ -13,16 +13,15 @@ public class TerrainNoiseGenerator {
 
 		float amplitude = 1;
 		float frequency = 1;
-
+		float maxPossibleHeight = 1;
 		for (int i = 0; i < settings.getOctaves(); i++) {
 			float offsetX = prng.nextFloat() + settings.getOffset().x + positionOffset.x;
 			float offsetY = prng.nextFloat() - settings.getOffset().y - positionOffset.y;
 			octaveOffsets[i] = new Vector2f(offsetX, offsetY);
 
 			amplitude *= settings.getPersistance();
+			maxPossibleHeight += amplitude;
 		}
-
-		float maxLocalNoiseHeight = Float.MIN_VALUE;
 
 		float halfWidth = width / 2f;
 		float halfHeight = height / 2f;
@@ -45,17 +44,8 @@ public class TerrainNoiseGenerator {
 					frequency *= settings.getLacunarity();
 				}
 
-				if (noiseHeight > maxLocalNoiseHeight) {
-					maxLocalNoiseHeight = noiseHeight;
-				}
-				noiseMap[x][y] = noiseHeight;
+				noiseMap[x][y] = noiseHeight / maxPossibleHeight;
 
-			}
-		}
-
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				noiseMap[x][y] = noiseMap[x][y] / maxLocalNoiseHeight;
 			}
 		}
 
