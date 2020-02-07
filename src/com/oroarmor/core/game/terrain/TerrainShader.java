@@ -51,9 +51,9 @@ public class TerrainShader extends Shader {
 	public void update() {
 		this.bind();
 
-		this.setUniform1f("u_waterHeight", .02f * TerrainMesh.maxHeight);
-		this.setUniform1f("u_waterWarmHeight", .04f * TerrainMesh.maxHeight);
-		this.setUniform1f("u_sandHeight", .1f * TerrainMesh.maxHeight);
+		this.setUniform1f("u_waterHeight", .002f * TerrainMesh.maxHeight);
+		this.setUniform1f("u_waterWarmHeight", .004f * TerrainMesh.maxHeight);
+		this.setUniform1f("u_sandHeight", .05f * TerrainMesh.maxHeight);
 		this.setUniform1f("u_grassHeight", .5f * TerrainMesh.maxHeight);
 		this.setUniform1f("u_rockHeight", .8f * TerrainMesh.maxHeight);
 		this.setUniform1f("u_snowHeight", 1f * TerrainMesh.maxHeight);

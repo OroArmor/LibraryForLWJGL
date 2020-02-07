@@ -59,16 +59,18 @@ public class TerrainTest {
 
 		int size = 200;
 
-		TerrainMesh terrain = new TerrainMesh(size, size, 0, 0);
-		TerrainMesh terrain2 = new TerrainMesh(size, size, size - 1, 0);
-		TerrainMesh terrain3 = new TerrainMesh(size, size, size - 1, size - 1);
-		TerrainMesh terrain4 = new TerrainMesh(size, size, 0, size - 1);
+		int count = 4;
 
-		Matrix4f objectModel = new Matrix4f().scale(10, 5, 10).translate(0, -30, 0).translate(-size, 0, size);
-		Matrix4f object2 = new Matrix4f().scale(10, 5, 10).translate(size - 1, -30, 0).translate(-size, 0, size);
-		Matrix4f object3 = new Matrix4f().scale(10, 5, 10).translate(size - 1, -30, -(size - 1)).translate(-size, 0,
-				size);
-		Matrix4f object4 = new Matrix4f().scale(10, 5, 10).translate(0, -30, -(size - 1)).translate(-size, 0, size);
+		TerrainMesh[] terrains = new TerrainMesh[count * count];
+		Matrix4f[] terrainModels = new Matrix4f[count * count];
+
+		for (int i = 0; i < count; i++) {
+			for (int j = 0; j < count; j++) {
+				terrains[i * count + j] = new TerrainMesh(size, size, (size - 1) * i, (size - 1) * j);
+				terrainModels[i * count + j] = new Matrix4f().scale(20, 5, 20).translate((size - 1) * i, -30,
+						-(size - 1) * j);
+			}
+		}
 
 		// Load the shader files
 		TerrainShader shader = new TerrainShader();
@@ -99,20 +101,12 @@ public class TerrainTest {
 			shader.bind();
 			shader.update();
 			shader.setUniformMat4f("u_MV", MV);
-			shader.setUniformMat4f("u_P", objectModel);
-			terrain.getMesh().render(renderer, shader);
 
-			shader.bind();
-			shader.setUniformMat4f("u_P", object2);
-			terrain2.getMesh().render(renderer, shader);
-
-			shader.bind();
-			shader.setUniformMat4f("u_P", object3);
-			terrain3.getMesh().render(renderer, shader);
-
-			shader.bind();
-			shader.setUniformMat4f("u_P", object4);
-			terrain4.getMesh().render(renderer, shader);
+			for (int i = 0; i < terrainModels.length; i++) {
+				shader.bind();
+				shader.setUniformMat4f("u_P", terrainModels[i]);
+				terrains[i].getMesh().render(renderer, shader);
+			}
 			// Render the current frame buffer
 			display.render();
 		}
