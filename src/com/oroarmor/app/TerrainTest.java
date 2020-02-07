@@ -57,9 +57,9 @@ public class TerrainTest {
 		// Set the OpenGL version to 4.5 core
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);
 
-		int size = 200;
+		int size = 20;
 
-		int count = 4;
+		int count = 20;
 
 		TerrainMesh[] terrains = new TerrainMesh[count * count];
 		Matrix4f[] terrainModels = new Matrix4f[count * count];

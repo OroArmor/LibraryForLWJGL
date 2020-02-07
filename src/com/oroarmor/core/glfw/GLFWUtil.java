@@ -6,12 +6,15 @@ import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_ANY_PROFILE;
 import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_COMPAT_PROFILE;
 import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_CORE_PROFILE;
 import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_PROFILE;
+import static org.lwjgl.glfw.GLFW.GLFW_SAMPLES;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL13.GL_MULTISAMPLE;
 
 import org.lwjgl.opengl.GL;
 
@@ -38,7 +41,7 @@ public class GLFWUtil {
 		if (!glfwInit()) {
 			System.exit(-1);
 		}
-
+		glfwWindowHint(GLFW_SAMPLES, 4);
 		window = glfwCreateWindow(width, height, name, monitorHandle, windowHandle);
 		if (window == -1) {
 			glfwTerminate();
@@ -49,6 +52,7 @@ public class GLFWUtil {
 
 		glfwSwapInterval(1);
 		GL.createCapabilities();
+		glEnable(GL_MULTISAMPLE);
 		return window;
 	}
 

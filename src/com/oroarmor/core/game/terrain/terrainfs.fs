@@ -47,14 +47,11 @@ void main(){
 	float pointlightValues[MAX_POINT_LIGHTS];
 	
 	for(int i = 0; i < MAX_POINT_LIGHTS; i++){
-	
 		float dist = length(v_vectorToPointLights[i]);
 		pointlightValues[i] = max(0,dot(normal, normalize(v_vectorToPointLights[i])) 
 		* u_pointlights[i].strength/(1 + 0.1*dist+ 0.01*dist*dist));
 	}
-	
-	
-	
+
 	vec4 terrainColor = vec4(0,0,0,1);
 	if(v_height < u_waterHeight){
 		terrainColor = vec4(0,0,1,1);
