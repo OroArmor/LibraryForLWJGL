@@ -9,9 +9,13 @@ import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
 import com.oroarmor.core.glfw.event.key.Key;
-import com.oroarmor.core.glfw.event.key.KeyHoldEvent;
-import com.oroarmor.core.glfw.event.key.KeyPressEvent;
-import com.oroarmor.core.glfw.event.key.KeyReleaseEvent;
+import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
+import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
+import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
+import com.oroarmor.core.glfw.event.mouse.MouseButtonEvent;
+import com.oroarmor.core.glfw.event.mouse.MouseEnterEvent;
+import com.oroarmor.core.glfw.event.mouse.MousePositionEvent;
+import com.oroarmor.core.glfw.event.mouse.MouseScrollEvent;
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.Renderer;
 import com.oroarmor.core.opengl.Shader;
@@ -46,6 +50,30 @@ public class OBJTest {
 				if (key == this.closeKey) {
 					this.close();
 				}
+			}
+
+			@Override
+			public void processMouseButtonEvent(MouseButtonEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void processMousePositionEvent(MousePositionEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void processMouseEnterEvent(MouseEnterEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void processMouseScrollEvent(MouseScrollEvent event) {
+				// TODO Auto-generated method stub
+
 			}
 		};
 

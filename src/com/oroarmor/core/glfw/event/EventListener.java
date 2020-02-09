@@ -1,10 +1,10 @@
 package com.oroarmor.core.glfw.event;
 
-public interface EventListener {
+import com.oroarmor.core.glfw.event.key.KeyEventListener;
+import com.oroarmor.core.glfw.event.mouse.MouseEventListener;
 
-	public boolean isActive();
+public interface EventListener extends KeyEventListener, MouseEventListener {
 
 	public void processEvent(Event event);
 
-	public void setActive(boolean active);
 }

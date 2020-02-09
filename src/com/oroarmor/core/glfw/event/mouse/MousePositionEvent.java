@@ -29,7 +29,7 @@ public class MousePositionEvent extends MouseEvent {
 	}
 
 	public static void create(long window, float xpos, float ypos) {
-		
+
 	}
 
 }

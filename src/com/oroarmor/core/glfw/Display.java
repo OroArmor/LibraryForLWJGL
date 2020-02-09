@@ -32,12 +32,12 @@ import org.lwjgl.glfw.GLFWWindowSizeCallbackI;
 
 import com.oroarmor.core.glfw.event.Event;
 import com.oroarmor.core.glfw.event.EventCreator;
+import com.oroarmor.core.glfw.event.EventListener;
 import com.oroarmor.core.glfw.event.EventListenerManager;
 import com.oroarmor.core.glfw.event.key.Key;
-import com.oroarmor.core.glfw.event.key.KeyEventListener;
-import com.oroarmor.core.glfw.event.key.KeyPressEvent;
+import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
 
-public abstract class Display implements KeyEventListener {
+public abstract class Display implements EventListener {
 	long window;
 	public Key closeKey = Key.ESCAPE;
 

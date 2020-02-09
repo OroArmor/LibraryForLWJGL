@@ -28,7 +28,7 @@ public class EventListenerManager {
 		boolean found = false;
 
 		if (listener instanceof KeyEventListener) {
-			keyListeners.add((KeyEventListener) listener);
+			keyListeners.add(listener);
 			found = true;
 		}
 
@@ -46,5 +46,9 @@ public class EventListenerManager {
 		for (MouseEventListener listener : mouseListeners) {
 			listener.processMouseEvent(event);
 		}
+	}
+
+	public static void addKeyListener(KeyEventListener listener) {
+		keyListeners.add(listener);
 	}
 }

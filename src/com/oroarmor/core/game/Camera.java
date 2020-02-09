@@ -3,12 +3,11 @@ package com.oroarmor.core.game;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import com.oroarmor.core.glfw.event.Event;
 import com.oroarmor.core.glfw.event.key.Key;
-import com.oroarmor.core.glfw.event.key.KeyHoldEvent;
-import com.oroarmor.core.glfw.event.key.KeyPressEvent;
-import com.oroarmor.core.glfw.event.key.KeyReleaseEvent;
 import com.oroarmor.core.glfw.event.key.KeyStatus;
+import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
+import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
+import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
 
 public class Camera extends Entity {
 
@@ -35,11 +34,6 @@ public class Camera extends Entity {
 	public Matrix4f getModelMatrix() {
 		return new Matrix4f().rotate(rotationVector.x, 1, 0, 0).rotate(rotationVector.y, 0, 1, 0)
 				.rotate(rotationVector.z, 0, 0, 1).scale(scaleVector).translate(positionVector.negate(new Vector3f()));
-	}
-
-	@Override
-	public void processEvent(Event event) {
-
 	}
 
 	@Override

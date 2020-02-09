@@ -14,9 +14,13 @@ import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
 import com.oroarmor.core.glfw.event.key.Key;
-import com.oroarmor.core.glfw.event.key.KeyHoldEvent;
-import com.oroarmor.core.glfw.event.key.KeyPressEvent;
-import com.oroarmor.core.glfw.event.key.KeyReleaseEvent;
+import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
+import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
+import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
+import com.oroarmor.core.glfw.event.mouse.MouseButtonEvent;
+import com.oroarmor.core.glfw.event.mouse.MouseEnterEvent;
+import com.oroarmor.core.glfw.event.mouse.MousePositionEvent;
+import com.oroarmor.core.glfw.event.mouse.MouseScrollEvent;
 import com.oroarmor.core.opengl.Renderer;
 
 public class TerrainTest {
@@ -50,6 +54,30 @@ public class TerrainTest {
 					this.fullscreen();
 				}
 			}
+
+			@Override
+			public void processMouseButtonEvent(MouseButtonEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void processMousePositionEvent(MousePositionEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void processMouseEnterEvent(MouseEnterEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void processMouseScrollEvent(MouseScrollEvent event) {
+				// TODO Auto-generated method stub
+
+			}
 		};
 
 		display.enableTransparentcy();
@@ -57,9 +85,9 @@ public class TerrainTest {
 		// Set the OpenGL version to 4.5 core
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);
 
-		int size = 20;
+		int size = 200;
 
-		int count = 20;
+		int count = 4;
 
 		TerrainMesh[] terrains = new TerrainMesh[count * count];
 		Matrix4f[] terrainModels = new Matrix4f[count * count];
@@ -67,8 +95,7 @@ public class TerrainTest {
 		for (int i = 0; i < count; i++) {
 			for (int j = 0; j < count; j++) {
 				terrains[i * count + j] = new TerrainMesh(size, size, (size - 1) * i, (size - 1) * j);
-				terrainModels[i * count + j] = new Matrix4f().scale(20, 5, 20).translate((size - 1) * i, -30,
-						-(size - 1) * j);
+				terrainModels[i * count + j] = new Matrix4f().translate((size - 1) * i, -30, -(size - 1) * j);
 			}
 		}
 

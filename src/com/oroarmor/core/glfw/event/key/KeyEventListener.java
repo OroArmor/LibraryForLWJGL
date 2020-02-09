@@ -1,9 +1,14 @@
 package com.oroarmor.core.glfw.event.key;
 
-import com.oroarmor.core.glfw.event.EventListener;
 import com.oroarmor.core.glfw.event.key.KeyEvent.KeyEventType;
+import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
+import com.oroarmor.core.glfw.event.key.hold.KeyHoldEventListener;
+import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
+import com.oroarmor.core.glfw.event.key.press.KeyPressEventListener;
+import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
+import com.oroarmor.core.glfw.event.key.release.KeyReleaseEventListener;
 
-public interface KeyEventListener extends EventListener {
+public interface KeyEventListener extends KeyPressEventListener, KeyHoldEventListener, KeyReleaseEventListener {
 	public default void processKeyEvent(KeyEvent event) {
 		if (event.getKeyEventType() == KeyEventType.PRESS) {
 			processKeyPressedEvent((KeyPressEvent) event);
@@ -15,10 +20,4 @@ public interface KeyEventListener extends EventListener {
 			processKeyReleasedEvent((KeyReleaseEvent) event);
 		}
 	}
-
-	public void processKeyHeldEvent(KeyHoldEvent event);
-
-	public void processKeyPressedEvent(KeyPressEvent event);
-
-	public void processKeyReleasedEvent(KeyReleaseEvent event);
 }

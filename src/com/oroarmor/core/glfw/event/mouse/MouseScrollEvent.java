@@ -21,8 +21,8 @@ public class MouseScrollEvent extends MouseEvent {
 
 	public static void create(long window, float xoffset, float yoffset) {
 		MouseScrollEvent event = new MouseScrollEvent(window, xoffset, yoffset);
-		
+
 		EventListenerManager.addMouseEvent(event);
-		
+
 	}
 }

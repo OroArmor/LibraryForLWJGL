@@ -5,6 +5,9 @@ import org.lwjgl.glfw.GLFW;
 import com.oroarmor.core.glfw.event.Event;
 import com.oroarmor.core.glfw.event.EventListenerManager;
 import com.oroarmor.core.glfw.event.EventType;
+import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
+import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
+import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
 
 public abstract class KeyEvent implements Event {
 	public static enum KeyEventType {

@@ -41,7 +41,7 @@ void main(){
 	
 	for(int i = 0; i < MAX_SUN_LIGHTS; i++){
 		sunlightValues[i] = max(0.2, dot(normal, normalize(vec4(u_sunlights[i].direction,0))))
-		+ max(0.1, dot(normal, normalize(-vec4(u_sunlights[i].direction,0))))*0.2;
+		+ max(0.1, 1 - dot(normal, normalize(-vec4(u_sunlights[i].direction,0))))*0.2;
 	}
 	
 	float pointlightValues[MAX_POINT_LIGHTS];

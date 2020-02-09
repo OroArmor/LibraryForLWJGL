@@ -21,7 +21,7 @@ public abstract class Entity implements KeyEventListener {
 		this.scaleVector = scale;
 
 		setModelMatrix();
-		EventListenerManager.addListener(this);
+		EventListenerManager.addKeyListener(this);
 	}
 
 	public Matrix4f getModelMatrix() {
