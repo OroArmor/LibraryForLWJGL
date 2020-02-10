@@ -37,7 +37,7 @@ public class TerrainNoiseGenerator {
 					float sampleX = (x - halfWidth + octaveOffsets[i].x) / settings.getScale() * frequency;
 					float sampleY = (y - halfHeight + octaveOffsets[i].y) / settings.getScale() * frequency;
 
-					float perlinValue = SimplexNoise.noise(sampleX, sampleY) * 0.5f + 0.5f;
+					float perlinValue = SimplexNoise.noise(sampleX, sampleY, settings.getSeed()) * 0.5f + 0.5f;
 					noiseHeight += perlinValue * amplitude;
 
 					amplitude *= settings.getPersistance();

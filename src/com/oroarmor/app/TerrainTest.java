@@ -6,7 +6,6 @@ import org.joml.Vector4f;
 
 import com.oroarmor.core.Destructor;
 import com.oroarmor.core.game.Camera;
-import com.oroarmor.core.game.light.Pointlight;
 import com.oroarmor.core.game.light.Sunlight;
 import com.oroarmor.core.game.terrain.TerrainMesh;
 import com.oroarmor.core.game.terrain.TerrainShader;
@@ -87,7 +86,7 @@ public class TerrainTest {
 
 		int size = 200;
 
-		int count = 4;
+		int count = 3;
 
 		TerrainMesh[] terrains = new TerrainMesh[count * count];
 		Matrix4f[] terrainModels = new Matrix4f[count * count];
@@ -104,10 +103,6 @@ public class TerrainTest {
 		shader.update();
 
 		shader.addSunlight(sun);
-		shader.addPointlight(new Pointlight(new Vector4f(1, 0.1f, 0.1f, 1), new Vector3f(0, 100, 0), 500));
-		shader.addPointlight(new Pointlight(new Vector4f(0.1f, 0.1f, 1, 1), new Vector3f(-size * 5, 100, 0), 1000));
-		shader.addPointlight(
-				new Pointlight(new Vector4f(0.1f, 1, 0.1f, 1), new Vector3f(size * 5, 100, size * 5), 1000));
 
 		// Create a renderer
 		Renderer renderer = new Renderer();
@@ -117,6 +112,10 @@ public class TerrainTest {
 		display.setClearColor(0.5f, 0.7f, 0.9f, 1);
 
 		// Dont close the display until its set closed
+
+		long startMillis = System.currentTimeMillis();
+		float frames = 1;
+
 		while (!display.shouldClose()) {
 			camera.tick();
 			// Clear the display
@@ -132,7 +131,10 @@ public class TerrainTest {
 			for (int i = 0; i < terrainModels.length; i++) {
 				shader.bind();
 				shader.setUniformMat4f("u_P", terrainModels[i]);
-				terrains[i].getMesh().render(renderer, shader);
+				if (terrains[i].getMesh() != null)
+					terrains[i].getMesh().render(renderer, shader);
+
+				System.out.println("loop" + (System.currentTimeMillis() - startMillis) / (frames++));
 			}
 			// Render the current frame buffer
 			display.render();

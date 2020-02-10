@@ -76,6 +76,4 @@ void main(){
 	for(int i = 0; i < MAX_POINT_LIGHTS; i++){
 		color = color + terrainColor * u_pointlights[i].color * vec4(pointlightValues[i],pointlightValues[i],pointlightValues[i],1);
 	}
-	
-	color = color + vec4(0,0,0,1);
 }

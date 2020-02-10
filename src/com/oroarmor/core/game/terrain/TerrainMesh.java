@@ -1,5 +1,6 @@
 package com.oroarmor.core.game.terrain;
 
+import java.lang.Thread.State;
 import java.util.ArrayList;
 
 import org.joml.Vector2f;
@@ -8,7 +9,6 @@ import org.joml.Vector3f;
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.VertexBufferLayout;
 
-@SuppressWarnings("unused")
 public class TerrainMesh {
 
 	private static VertexBufferLayout terrainVbo = new VertexBufferLayout();
@@ -18,23 +18,49 @@ public class TerrainMesh {
 		terrainVbo.pushFloats(1);
 	}
 
+	private static class MeshData {
+		public float[] verticies;
+		public int[] tris;
+
+		public MeshData(float[] verticies, int[] tris) {
+			this.verticies = verticies;
+			this.tris = tris;
+		}
+	}
+
 	public static float maxHeight = 200;
 
 	private Mesh mesh;
 	private float[][] heightMap;
-	private int[] triangles;
-	private float[] vertexData;
 
 	int width, height;
+	float x, y;
+
+	private MeshData meshData;
+
+	Runnable meshGenRunnable = new Runnable() {
+		@Override
+		public void run() {
+			long millis = System.currentTimeMillis();
+			heightMap = TerrainNoiseGenerator.generateNoiseMap(width, height, new Vector2f(x, y));
+			MeshData tempData = generateMeshData(heightMap);
+			setMeshData(tempData);
+			System.out.println(x + " " + y + " time: " + (System.currentTimeMillis() - millis));
+
+		}
+	};
+
+	Thread meshGenThread = new Thread(meshGenRunnable);
 
 	public TerrainMesh(int width, int height, float x, float y) {
 		this.width = width;
 		this.height = height;
-		this.heightMap = TerrainNoiseGenerator.generateNoiseMap(width, height, new Vector2f(x, y));
-		this.mesh = generateMeshData(heightMap);
+		this.x = x;
+		this.y = y;
+
 	}
 
-	private Mesh generateMeshData(float[][] generatedNoiseMap) {
+	private MeshData generateMeshData(float[][] generatedNoiseMap) {
 		ArrayList<Float> tempVertexData = new ArrayList<Float>();
 		ArrayList<Integer> tempTriangles = new ArrayList<Integer>();
 
@@ -133,13 +159,27 @@ public class TerrainMesh {
 			triangleArray[i] = triangleArrayG[i].intValue();
 		}
 
-		this.vertexData = meshDataArray;
-		this.triangles = triangleArray;
+		return new MeshData(meshDataArray, triangleArray);
+	}
 
-		return new Mesh(meshDataArray, triangleArray, terrainVbo);
+	private synchronized MeshData getMeshData() {
+		return meshData;
+	}
+
+	private synchronized void setMeshData(MeshData data) {
+		this.meshData = data;
 	}
 
 	public Mesh getMesh() {
+		if (getMeshData() == null && meshGenThread.getState() == State.NEW) {
+			meshGenThread.start();
+		}
+
+		if (mesh == null && getMeshData() != null) {
+
+			mesh = new Mesh(getMeshData().verticies, getMeshData().tris, terrainVbo);
+		}
+
 		return mesh;
 	}
 
