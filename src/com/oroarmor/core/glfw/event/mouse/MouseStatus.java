@@ -2,6 +2,8 @@ package com.oroarmor.core.glfw.event.mouse;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+import com.oroarmor.core.glfw.event.mouse.button.MouseButton;
+
 public class MouseStatus {
 	private static float mouseX, mouseY, pastMouseX, pastMouseY, deltaMouseX, deltaMouseY;
 

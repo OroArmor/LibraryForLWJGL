@@ -8,6 +8,11 @@ public abstract class MouseEvent implements Event {
 	protected long window;
 	protected MouseEventType type;
 
+	public MouseEvent(long window, MouseEventType type) {
+		this.window = window;
+		this.type = type;
+	}
+
 	@Override
 	public EventType getEventType() {
 		return EventType.MOUSE;

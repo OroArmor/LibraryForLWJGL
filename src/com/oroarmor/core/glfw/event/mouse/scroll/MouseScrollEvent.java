@@ -1,12 +1,13 @@
-package com.oroarmor.core.glfw.event.mouse;
+package com.oroarmor.core.glfw.event.mouse.scroll;
 
 import com.oroarmor.core.glfw.event.EventListenerManager;
+import com.oroarmor.core.glfw.event.mouse.MouseEvent;
 
 public class MouseScrollEvent extends MouseEvent {
 	private float scrollX, scrollY;
 
 	public MouseScrollEvent(long window, float scrollX, float scrollY) {
-		setWindow(window);
+		super(window, MouseEventType.SCROLL);
 		this.scrollX = scrollX;
 		this.scrollY = scrollY;
 	}

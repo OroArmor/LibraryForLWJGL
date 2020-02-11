@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.oroarmor.core.glfw.event.key.KeyEvent;
 import com.oroarmor.core.glfw.event.key.KeyEventListener;
 import com.oroarmor.core.glfw.event.mouse.MouseEventListener;
-import com.oroarmor.core.glfw.event.mouse.MouseScrollEvent;
+import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEvent;
 
 public class EventListenerManager {
 	public static ArrayList<KeyEventListener> keyListeners = new ArrayList<KeyEventListener>();
