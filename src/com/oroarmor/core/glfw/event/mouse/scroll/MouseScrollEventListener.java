@@ -9,17 +9,17 @@ public interface MouseScrollEventListener extends ActiveListener {
 
 	public static ArrayList<MouseScrollEventListener> mouseScrollListeners = new ArrayList<MouseScrollEventListener>();
 
-	public static void addMouseListener(MouseScrollEventListener listener) {
+	public static void addMouseScrollListener(MouseScrollEventListener listener) {
 		mouseScrollListeners.add(listener);
 	}
 
-	public static void processAllMouseEvent(MouseScrollEvent event) {
+	public static void processAllMouseScrollEvent(MouseScrollEvent event) {
 		for (MouseScrollEventListener listener : mouseScrollListeners) {
 			listener.processMouseScrolledEvent(event);
 		}
 	}
 
 	public default void addToScrollListeners() {
-		addMouseListener(this);
+		addMouseScrollListener(this);
 	}
 }

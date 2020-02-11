@@ -16,10 +16,11 @@ import com.oroarmor.core.glfw.event.key.Key;
 import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
 import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
 import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
-import com.oroarmor.core.glfw.event.mouse.MouseEnterEvent;
-import com.oroarmor.core.glfw.event.mouse.MousePositionEvent;
 import com.oroarmor.core.glfw.event.mouse.button.press.MousePressEvent;
 import com.oroarmor.core.glfw.event.mouse.button.release.MouseReleaseEvent;
+import com.oroarmor.core.glfw.event.mouse.over.enter.MouseEnterEvent;
+import com.oroarmor.core.glfw.event.mouse.over.leave.MouseLeaveEvent;
+import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
 import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEvent;
 import com.oroarmor.core.opengl.Renderer;
 
@@ -57,20 +58,12 @@ public class TerrainTest {
 
 			@Override
 			public void processMousePositionEvent(MousePositionEvent event) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void processMouseEnterEvent(MouseEnterEvent event) {
-				// TODO Auto-generated method stub
-
+				System.out.println(event);
 			}
 
 			@Override
 			public void processMouseScrolledEvent(MouseScrollEvent event) {
-				// TODO Auto-generated method stub
-
+				System.out.println(event);
 			}
 
 			@Override
@@ -84,6 +77,16 @@ public class TerrainTest {
 				System.out.println(event);
 
 			}
+
+			@Override
+			public void processMouseLeaveEvent(MouseLeaveEvent event) {
+				System.out.println(event);
+			}
+
+			@Override
+			public void processMouseEnterEvent(MouseEnterEvent event) {
+				System.out.println(event);
+			}
 		};
 
 		display.enableTransparentcy();
@@ -94,6 +97,8 @@ public class TerrainTest {
 		int size = 200;
 
 		int count = 1;
+
+		new MousePositionEvent(0, 0, 0, 0, 0);
 
 		TerrainMesh[] terrains = new TerrainMesh[count * count];
 		Matrix4f[] terrainModels = new Matrix4f[count * count];

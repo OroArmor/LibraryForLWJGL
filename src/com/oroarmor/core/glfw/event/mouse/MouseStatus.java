@@ -28,7 +28,7 @@ public class MouseStatus {
 		mouseY = _mouseY;
 	}
 
-	public float getPastMouseX() {
+	public static float getPastMouseX() {
 		return pastMouseX;
 	}
 
@@ -36,7 +36,7 @@ public class MouseStatus {
 		pastMouseX = _pastMouseX;
 	}
 
-	public float getPastMouseY() {
+	public static float getPastMouseY() {
 		return pastMouseY;
 	}
 
@@ -44,7 +44,7 @@ public class MouseStatus {
 		pastMouseY = _pastMouseY;
 	}
 
-	public float getDeltaMouseX() {
+	public static float getDeltaMouseX() {
 		return deltaMouseX;
 	}
 
@@ -52,7 +52,7 @@ public class MouseStatus {
 		deltaMouseX = _deltaMouseX;
 	}
 
-	public float getDeltaMouseY() {
+	public static float getDeltaMouseY() {
 		return deltaMouseY;
 	}
 
@@ -60,7 +60,7 @@ public class MouseStatus {
 		deltaMouseY = _deltaMouseY;
 	}
 
-	public boolean isMouseButtonDown(MouseButton button) {
+	public static boolean isMouseButtonDown(MouseButton button) {
 		return mouseButtonStatus[button.getMouseButtonID()];
 	}
 

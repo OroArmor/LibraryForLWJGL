@@ -33,6 +33,6 @@ public abstract class MouseEvent implements Event {
 	}
 
 	public static enum MouseEventType {
-		BUTTON, POSITION, SCROLL, ENTER;
+		BUTTON, POSITION, SCROLL, OVER;
 	}
 }

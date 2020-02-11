@@ -74,7 +74,7 @@ public abstract class Display implements EventListener {
 
 		EventCreator.initalizeWindow(window);
 		EventListenerManager.addListener(this);
-		addToButtonListeners();
+		addToMouseListeners();
 	}
 
 	public void clear() {
