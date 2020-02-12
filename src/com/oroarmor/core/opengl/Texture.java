@@ -16,12 +16,12 @@ import com.oroarmor.core.Destructor;
 import com.oroarmor.util.TextureLoader;
 
 public class Texture implements Bindable, Destructable {
-	private int textureID;
 	private String filePath;
+	private int slot = 0;
+
+	private int textureID;
 
 	private int width, height;
-
-	private int slot = 0;
 
 	public Texture(String filePath) {
 		this.filePath = filePath;

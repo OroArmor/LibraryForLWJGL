@@ -12,8 +12,8 @@ import com.oroarmor.core.Destructable;
 import com.oroarmor.core.Destructor;
 
 public class IndexBufferObject implements Bindable, Destructable {
-	private int ibo_id;
 	private int count;
+	private int ibo_id;
 
 	public IndexBufferObject(int[] data) {
 		ibo_id = glGenBuffers();

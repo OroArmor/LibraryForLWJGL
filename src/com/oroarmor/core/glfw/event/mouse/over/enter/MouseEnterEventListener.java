@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import com.oroarmor.core.glfw.event.ActiveListener;
 
 public interface MouseEnterEventListener extends ActiveListener {
-	public void processMouseEnterEvent(MouseEnterEvent event);
-
 	public static ArrayList<MouseEnterEventListener> mouseEnterListener = new ArrayList<MouseEnterEventListener>();
 
 	public static void addMouseEnterListener(MouseEnterEventListener listener) {
@@ -22,4 +20,6 @@ public interface MouseEnterEventListener extends ActiveListener {
 	public default void addToEnterListeners() {
 		addMouseEnterListener(this);
 	}
+
+	public void processMouseEnterEvent(MouseEnterEvent event);
 }

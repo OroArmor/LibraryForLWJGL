@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import com.oroarmor.core.glfw.event.ActiveListener;
 
 public interface MouseButtonPressEventListener extends ActiveListener {
-	public void processMousePressEvent(MousePressEvent event);
-
 	public static ArrayList<MouseButtonPressEventListener> mousePressListeners = new ArrayList<MouseButtonPressEventListener>();
 
 	public static void addMousePressListener(MouseButtonPressEventListener listener) {
@@ -22,4 +20,6 @@ public interface MouseButtonPressEventListener extends ActiveListener {
 	public default void addToPressListeners() {
 		addMousePressListener(this);
 	}
+
+	public void processMousePressEvent(MousePressEvent event);
 }

@@ -4,8 +4,8 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 public class Sunlight {
-	public Vector3f direction = new Vector3f(0, 1, 0);
 	public Vector4f color = new Vector4f(1, 1, 1, 1);
+	public Vector3f direction = new Vector3f(0, 1, 0);
 
 	public Sunlight() {
 	}

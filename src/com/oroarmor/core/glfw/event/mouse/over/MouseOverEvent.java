@@ -10,6 +10,14 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseOverEvent extends MouseEvent {
 
+	public static void create(long window, int action) {
+		if (action == GLFW_TRUE) {
+			MouseEnterEventListener.processAllMouseEnterEvent(new MouseEnterEvent(window));
+		} else if (action == GLFW_FALSE) {
+			MouseLeaveEventListener.processAllMouseLeaveEvent(new MouseLeaveEvent(window));
+		}
+	}
+
 	MouseOverEventType type;
 
 	public MouseOverEvent(long window, MouseOverEventType type) {
@@ -22,14 +30,7 @@ public class MouseOverEvent extends MouseEvent {
 		return this.type;
 	}
 
-	public static void create(long window, int action) {
-		if (action == GLFW_TRUE) {
-			MouseEnterEventListener.processAllMouseEnterEvent(new MouseEnterEvent(window));
-		} else if (action == GLFW_FALSE) {
-			MouseLeaveEventListener.processAllMouseLeaveEvent(new MouseLeaveEvent(window));
-		}
-	}
-
+	@Override
 	public String toString() {
 		return "Over event type: " + type;
 	}

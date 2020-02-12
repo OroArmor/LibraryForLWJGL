@@ -12,6 +12,13 @@ import com.oroarmor.core.glfw.event.mouse.position.MousePositionEventListener;
 
 public interface MouseEventListener
 		extends MouseScrollEventListener, MouseButtonEventListener, MousePositionEventListener, MouseOverEventListener {
+	public default void addToMouseListeners() {
+		addToPositionListeners();
+		addToButtonListeners();
+		addToScrollListeners();
+		addToOverListeners();
+	}
+
 	public default void processMouseEvent(MouseEvent event) {
 		if (event.getMouseEventType() == MouseEventType.BUTTON) {
 			processMouseButtonEvent((MouseButtonEvent) event);
@@ -25,12 +32,5 @@ public interface MouseEventListener
 		if (event.getMouseEventType() == MouseEventType.SCROLL) {
 			processMouseScrolledEvent((MouseScrollEvent) event);
 		}
-	}
-
-	public default void addToMouseListeners() {
-		addToPositionListeners();
-		addToButtonListeners();
-		addToScrollListeners();
-		addToOverListeners();
 	}
 }

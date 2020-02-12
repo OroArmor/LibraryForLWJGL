@@ -31,7 +31,18 @@ public class Main {
 		// Create a new window with a onKey function that prints the typed key
 		Display display = new Display(640, 640, "Open GL Learning") {
 
-			
+			@Override
+			public void processKeyHeldEvent(KeyHoldEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void processKeyPressedEvent(KeyPressEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
 			@Override
 			public void processKeyReleasedEvent(KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
@@ -40,51 +51,39 @@ public class Main {
 			}
 
 			@Override
-			public void processKeyHeldEvent(KeyHoldEvent event) {
+			public void processMouseEnterEvent(MouseEnterEvent event) {
 				// TODO Auto-generated method stub
-				
-			}
 
-			@Override
-			public void processMouseScrolledEvent(MouseScrollEvent event) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void processMousePressEvent(MousePressEvent event) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void processMouseReleasedEvent(MouseReleaseEvent event) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void processMousePositionEvent(MousePositionEvent event) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void processMouseLeaveEvent(MouseLeaveEvent event) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
-			public void processMouseEnterEvent(MouseEnterEvent event) {
+			public void processMousePositionEvent(MousePositionEvent event) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
-			public void processKeyPressedEvent(KeyPressEvent event) {
+			public void processMousePressEvent(MousePressEvent event) {
 				// TODO Auto-generated method stub
-				
+
+			}
+
+			@Override
+			public void processMouseReleasedEvent(MouseReleaseEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void processMouseScrolledEvent(MouseScrollEvent event) {
+				// TODO Auto-generated method stub
+
 			}
 
 		};

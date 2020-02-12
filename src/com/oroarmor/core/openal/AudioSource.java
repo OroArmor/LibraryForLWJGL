@@ -17,8 +17,8 @@ import com.oroarmor.core.Destructor;
 
 public class AudioSource implements Destructable {
 
-	private Vector3f position = new Vector3f(), velocity = new Vector3f();
 	private float gain = 1, pitch = 1;
+	private Vector3f position = new Vector3f(), velocity = new Vector3f();
 
 	private int sourceID;
 

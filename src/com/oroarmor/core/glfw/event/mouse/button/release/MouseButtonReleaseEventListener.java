@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import com.oroarmor.core.glfw.event.ActiveListener;
 
 public interface MouseButtonReleaseEventListener extends ActiveListener {
-	public void processMouseReleasedEvent(MouseReleaseEvent event);
-
 	public static ArrayList<MouseButtonReleaseEventListener> mouseReleaseListeners = new ArrayList<MouseButtonReleaseEventListener>();
 
 	public static void addMouseReleaseListener(MouseButtonReleaseEventListener listener) {
@@ -22,4 +20,6 @@ public interface MouseButtonReleaseEventListener extends ActiveListener {
 	public default void addToReleaseListeners() {
 		addMouseReleaseListener(this);
 	}
+
+	public void processMouseReleasedEvent(MouseReleaseEvent event);
 }

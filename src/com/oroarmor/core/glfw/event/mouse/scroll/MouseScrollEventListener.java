@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import com.oroarmor.core.glfw.event.ActiveListener;
 
 public interface MouseScrollEventListener extends ActiveListener {
-	public void processMouseScrolledEvent(MouseScrollEvent event);
-
 	public static ArrayList<MouseScrollEventListener> mouseScrollListeners = new ArrayList<MouseScrollEventListener>();
 
 	public static void addMouseScrollListener(MouseScrollEventListener listener) {
@@ -22,4 +20,6 @@ public interface MouseScrollEventListener extends ActiveListener {
 	public default void addToScrollListeners() {
 		addMouseScrollListener(this);
 	}
+
+	public void processMouseScrolledEvent(MouseScrollEvent event);
 }

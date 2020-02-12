@@ -46,6 +46,12 @@ public class OBJTest {
 			}
 
 			@Override
+			public void processKeyPressedEvent(KeyPressEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
 			public void processKeyReleasedEvent(KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
 					this.close();
@@ -54,7 +60,19 @@ public class OBJTest {
 			}
 
 			@Override
-			public void processMouseScrolledEvent(MouseScrollEvent event) {
+			public void processMouseEnterEvent(MouseEnterEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void processMouseLeaveEvent(MouseLeaveEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void processMousePositionEvent(MousePositionEvent event) {
 				// TODO Auto-generated method stub
 
 			}
@@ -71,25 +89,7 @@ public class OBJTest {
 			}
 
 			@Override
-			public void processMousePositionEvent(MousePositionEvent event) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void processMouseLeaveEvent(MouseLeaveEvent event) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void processMouseEnterEvent(MouseEnterEvent event) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void processKeyPressedEvent(KeyPressEvent event) {
+			public void processMouseScrolledEvent(MouseScrollEvent event) {
 				// TODO Auto-generated method stub
 
 			}

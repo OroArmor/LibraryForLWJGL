@@ -37,6 +37,8 @@ public class AudioMaster implements Destructable {
 
 	private static AudioMaster instance = new AudioMaster();
 
+	private static HashMap<String, Integer> sounds;
+
 	static {
 		String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
 		device = alcOpenDevice(defaultDeviceName);
@@ -51,8 +53,6 @@ public class AudioMaster implements Destructable {
 		sounds = new HashMap<String, Integer>();
 		Destructor.addDestructable(instance);
 	}
-
-	private static HashMap<String, Integer> sounds;
 
 	public static int getSound(String soundName) {
 		return sounds.get(soundName);

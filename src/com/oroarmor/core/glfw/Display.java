@@ -38,15 +38,15 @@ import com.oroarmor.core.glfw.event.key.Key;
 import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
 
 public abstract class Display implements EventListener {
-	long window;
+	boolean active = true;
 	public Key closeKey = Key.ESCAPE;
 
-	private int width, height;
+	boolean maximized = false;
 	private int owidth, oheight;
 
-	boolean active = true;
+	private int width, height;
 
-	boolean maximized = false;
+	long window;
 
 	public Display(int width, int height, String name) {
 		this.width = width;

@@ -11,7 +11,7 @@ import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
 
 public abstract class KeyEvent implements Event {
 	public static enum KeyEventType {
-		PRESS, HOLD, RELEASE;
+		HOLD, PRESS, RELEASE;
 	}
 
 	public static void create(int keyCode, int action, long window) {

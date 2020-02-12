@@ -8,8 +8,21 @@ import com.oroarmor.core.glfw.event.mouse.button.release.MouseButtonReleaseEvent
 import com.oroarmor.core.glfw.event.mouse.button.release.MouseReleaseEvent;
 
 public class MouseButtonEvent extends MouseEvent {
+	public static void create(long window, int button, int action) {
+		if (action == MouseButtonEventType.PRESS.getAction()) {
+			MousePressEvent event = new MousePressEvent(MouseButton.getButtonFromCode(button), MouseStatus.getMouseX(),
+					MouseStatus.getMouseY(), window);
+			MouseButtonPressEventListener.processAllMousePressEvent(event);
+		}
+		if (action == MouseButtonEventType.RELEASE.getAction()) {
+			MouseReleaseEvent event = new MouseReleaseEvent(MouseButton.getButtonFromCode(button),
+					MouseStatus.getMouseX(), MouseStatus.getMouseY(), window);
+			MouseButtonReleaseEventListener.processAllMouseReleaseEvent(event);
+		}
+	}
 	private MouseButton button;
 	private MouseButtonEventType type;
+
 	private float x, y;
 
 	public MouseButtonEvent(MouseButton button, float x, float y, MouseButtonEventType type, long window) {
@@ -34,19 +47,6 @@ public class MouseButtonEvent extends MouseEvent {
 
 	public float getY() {
 		return y;
-	}
-
-	public static void create(long window, int button, int action) {
-		if (action == MouseButtonEventType.PRESS.getAction()) {
-			MousePressEvent event = new MousePressEvent(MouseButton.getButtonFromCode(button), MouseStatus.getMouseX(),
-					MouseStatus.getMouseY(), window);
-			MouseButtonPressEventListener.processAllMousePressEvent(event);
-		}
-		if (action == MouseButtonEventType.RELEASE.getAction()) {
-			MouseReleaseEvent event = new MouseReleaseEvent(MouseButton.getButtonFromCode(button),
-					MouseStatus.getMouseX(), MouseStatus.getMouseY(), window);
-			MouseButtonReleaseEventListener.processAllMouseReleaseEvent(event);
-		}
 	}
 
 	@Override

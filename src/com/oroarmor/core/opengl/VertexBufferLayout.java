@@ -7,9 +7,9 @@ import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
 import java.util.ArrayList;
 
 public class VertexBufferLayout {
-	private ArrayList<VertexBufferElement> vbElements = new ArrayList<VertexBufferElement>();
-
 	private int stride;
+
+	private ArrayList<VertexBufferElement> vbElements = new ArrayList<VertexBufferElement>();
 
 	public VertexBufferLayout() {
 		stride = 0;

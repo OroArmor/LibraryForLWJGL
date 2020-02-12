@@ -11,33 +11,29 @@ import com.oroarmor.core.opengl.VertexBufferLayout;
 
 public class TerrainMesh {
 
-	private static VertexBufferLayout terrainVbo = new VertexBufferLayout();
-	static {
-		terrainVbo.pushFloats(3);
-		terrainVbo.pushFloats(3);
-		terrainVbo.pushFloats(1);
-	}
-
 	private static class MeshData {
-		public float[] verticies;
 		public int[] tris;
+		public float[] verticies;
 
 		public MeshData(float[] verticies, int[] tris) {
 			this.verticies = verticies;
 			this.tris = tris;
 		}
 	}
-
 	public static float maxHeight = 200;
 
-	private Mesh mesh;
-	private float[][] heightMap;
+	private static VertexBufferLayout terrainVbo = new VertexBufferLayout();
 
-	int width, height;
-	float x, y;
+	static {
+		terrainVbo.pushFloats(3);
+		terrainVbo.pushFloats(3);
+		terrainVbo.pushFloats(1);
+	}
+
+	private float[][] heightMap;
+	private Mesh mesh;
 
 	private MeshData meshData;
-
 	Runnable meshGenRunnable = new Runnable() {
 		@Override
 		public void run() {
@@ -51,6 +47,10 @@ public class TerrainMesh {
 	};
 
 	Thread meshGenThread = new Thread(meshGenRunnable);
+
+	int width, height;
+
+	float x, y;
 
 	public TerrainMesh(int width, int height, float x, float y) {
 		this.width = width;
@@ -162,14 +162,6 @@ public class TerrainMesh {
 		return new MeshData(meshDataArray, triangleArray);
 	}
 
-	private synchronized MeshData getMeshData() {
-		return meshData;
-	}
-
-	private synchronized void setMeshData(MeshData data) {
-		this.meshData = data;
-	}
-
 	public Mesh getMesh() {
 		if (getMeshData() == null && meshGenThread.getState() == State.NEW) {
 			meshGenThread.start();
@@ -181,6 +173,14 @@ public class TerrainMesh {
 		}
 
 		return mesh;
+	}
+
+	private synchronized MeshData getMeshData() {
+		return meshData;
+	}
+
+	private synchronized void setMeshData(MeshData data) {
+		this.meshData = data;
 	}
 
 }

@@ -57,12 +57,17 @@ public class TerrainTest {
 			}
 
 			@Override
-			public void processMousePositionEvent(MousePositionEvent event) {
+			public void processMouseEnterEvent(MouseEnterEvent event) {
 				System.out.println(event);
 			}
 
 			@Override
-			public void processMouseScrolledEvent(MouseScrollEvent event) {
+			public void processMouseLeaveEvent(MouseLeaveEvent event) {
+				System.out.println(event);
+			}
+
+			@Override
+			public void processMousePositionEvent(MousePositionEvent event) {
 				System.out.println(event);
 			}
 
@@ -79,12 +84,7 @@ public class TerrainTest {
 			}
 
 			@Override
-			public void processMouseLeaveEvent(MouseLeaveEvent event) {
-				System.out.println(event);
-			}
-
-			@Override
-			public void processMouseEnterEvent(MouseEnterEvent event) {
+			public void processMouseScrolledEvent(MouseScrollEvent event) {
 				System.out.println(event);
 			}
 		};

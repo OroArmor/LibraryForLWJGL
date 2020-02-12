@@ -8,8 +8,8 @@ import com.oroarmor.core.glfw.event.mouse.MouseEventListener;
 import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEvent;
 
 public class EventListenerManager {
-	public static ArrayList<KeyEventListener> keyListeners = new ArrayList<KeyEventListener>();
 	public static ArrayList<EventListener> eventListeners = new ArrayList<EventListener>();
+	public static ArrayList<KeyEventListener> keyListeners = new ArrayList<KeyEventListener>();
 	public static ArrayList<MouseEventListener> mouseListeners = new ArrayList<MouseEventListener>();
 
 	public static void addEvent(Event event) {
@@ -22,6 +22,10 @@ public class EventListenerManager {
 		for (KeyEventListener listener : keyListeners) {
 			listener.processKeyEvent(event);
 		}
+	}
+
+	public static void addKeyListener(KeyEventListener listener) {
+		keyListeners.add(listener);
 	}
 
 	public static void addListener(EventListener listener) {
@@ -37,18 +41,14 @@ public class EventListenerManager {
 		}
 	}
 
-	public static void removeListener(EventListener listener) {
-		eventListeners.remove(listener);
-		keyListeners.remove(listener);
-	}
-
 	public static void addMouseEvent(MouseScrollEvent event) {
 		for (MouseEventListener listener : mouseListeners) {
 			listener.processMouseEvent(event);
 		}
 	}
 
-	public static void addKeyListener(KeyEventListener listener) {
-		keyListeners.add(listener);
+	public static void removeListener(EventListener listener) {
+		eventListeners.remove(listener);
+		keyListeners.remove(listener);
 	}
 }

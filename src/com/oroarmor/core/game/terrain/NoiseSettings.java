@@ -3,14 +3,14 @@ package com.oroarmor.core.game.terrain;
 import org.joml.Vector2f;
 
 public class NoiseSettings {
-	private float scale = 1000;
-	private float persistance = .6f;
 	private float lacunarity = 2;
-
 	private int octaves = 7;
-
-	private int seed = 25;
 	private Vector2f offset = new Vector2f(0, 0);
+
+	private float persistance = .6f;
+
+	private float scale = 1000;
+	private int seed = 25;
 
 	public NoiseSettings() {
 

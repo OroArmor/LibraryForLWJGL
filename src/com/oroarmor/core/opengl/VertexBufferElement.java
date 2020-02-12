@@ -19,9 +19,9 @@ public class VertexBufferElement {
 	}
 
 	private int count;
-	private int type;
-
 	private boolean normalized;
+
+	private int type;
 
 	public VertexBufferElement(int count, int type, boolean normalized) {
 		this.count = count;

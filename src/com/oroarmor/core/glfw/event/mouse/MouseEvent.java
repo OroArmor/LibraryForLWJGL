@@ -5,8 +5,12 @@ import com.oroarmor.core.glfw.event.EventType;
 
 public abstract class MouseEvent implements Event {
 
-	protected long window;
+	public static enum MouseEventType {
+		BUTTON, OVER, POSITION, SCROLL;
+	}
 	protected MouseEventType type;
+
+	protected long window;
 
 	public MouseEvent(long window, MouseEventType type) {
 		this.window = window;
@@ -18,6 +22,10 @@ public abstract class MouseEvent implements Event {
 		return EventType.MOUSE;
 	}
 
+	public MouseEventType getMouseEventType() {
+		return type;
+	}
+
 	@Override
 	public long getWindow() {
 		return window;
@@ -26,13 +34,5 @@ public abstract class MouseEvent implements Event {
 	@Override
 	public void setWindow(long window) {
 		this.window = window;
-	}
-
-	public MouseEventType getMouseEventType() {
-		return type;
-	}
-
-	public static enum MouseEventType {
-		BUTTON, POSITION, SCROLL, OVER;
 	}
 }

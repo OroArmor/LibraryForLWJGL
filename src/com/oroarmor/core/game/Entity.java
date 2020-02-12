@@ -8,12 +8,12 @@ import com.oroarmor.core.glfw.event.key.KeyEventListener;
 
 public abstract class Entity implements KeyEventListener {
 
+	private boolean active = true;
 	protected Matrix4f modelMatrix;
 	protected Vector3f positionVector;
 	protected Vector3f rotationVector;
-	protected Vector3f scaleVector;
 
-	private boolean active = true;
+	protected Vector3f scaleVector;
 
 	public Entity(Vector3f position, Vector3f rotation, Vector3f scale) {
 		this.positionVector = position;

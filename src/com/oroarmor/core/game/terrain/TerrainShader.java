@@ -10,14 +10,14 @@ import com.oroarmor.util.ResourceLoader;
 
 public class TerrainShader extends Shader {
 
-	public static int MAX_SUN_LIGHTS = 3;
 	public static int MAX_POINT_LIGHTS = 10;
+	public static int MAX_SUN_LIGHTS = 3;
 
-	private Sunlight[] sunlights = new Sunlight[MAX_SUN_LIGHTS];
+	private int currentPointlight = 0;
 	private int currentSunlight = 0;
 
 	private Pointlight[] pointlights = new Pointlight[MAX_POINT_LIGHTS];
-	private int currentPointlight = 0;
+	private Sunlight[] sunlights = new Sunlight[MAX_SUN_LIGHTS];
 
 	public TerrainShader() {
 		super(ResourceLoader.loadFile(Class.class.getResourceAsStream("/com/oroarmor/core/game/terrain/terrainvs.vs")),

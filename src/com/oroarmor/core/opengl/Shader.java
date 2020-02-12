@@ -31,12 +31,12 @@ import com.oroarmor.core.Destructable;
 
 public class Shader implements Bindable, Destructable {
 
-	private String vertexSource, fragmentSource;
-
-	protected int shaderProgramID;
 	protected int[] ids;
 
+	protected int shaderProgramID;
 	private HashMap<String, Integer> uniforms;
+
+	private String vertexSource, fragmentSource;
 
 	public Shader(String vertexSource, String fragmentSource) {
 		this.vertexSource = vertexSource;

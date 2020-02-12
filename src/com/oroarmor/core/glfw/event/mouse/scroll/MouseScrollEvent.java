@@ -3,6 +3,12 @@ package com.oroarmor.core.glfw.event.mouse.scroll;
 import com.oroarmor.core.glfw.event.mouse.MouseEvent;
 
 public class MouseScrollEvent extends MouseEvent {
+	public static void create(long window, float xoffset, float yoffset) {
+		MouseScrollEvent event = new MouseScrollEvent(window, xoffset, yoffset);
+
+		MouseScrollEventListener.processAllMouseScrollEvent(event);
+	}
+
 	private float scrollX, scrollY;
 
 	public MouseScrollEvent(long window, float scrollX, float scrollY) {
@@ -19,12 +25,7 @@ public class MouseScrollEvent extends MouseEvent {
 		return scrollY;
 	}
 
-	public static void create(long window, float xoffset, float yoffset) {
-		MouseScrollEvent event = new MouseScrollEvent(window, xoffset, yoffset);
-
-		MouseScrollEventListener.processAllMouseScrollEvent(event);
-	}
-
+	@Override
 	public String toString() {
 		return "scroll x: " + scrollX + ", scroll y: " + scrollY;
 	}

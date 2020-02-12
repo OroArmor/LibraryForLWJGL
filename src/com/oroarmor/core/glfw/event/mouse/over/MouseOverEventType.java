@@ -6,6 +6,13 @@ public enum MouseOverEventType {
 
 	ENTER(GLFW_TRUE), LEAVE(GLFW_FALSE);
 
+	public static MouseOverEventType getTypeFromInt(int type) {
+		if (type == 1) {
+			return ENTER;
+		}
+		return LEAVE;
+	}
+
 	private int action;
 
 	private MouseOverEventType(int action) {
@@ -14,12 +21,5 @@ public enum MouseOverEventType {
 
 	public int getAction() {
 		return action;
-	}
-
-	public static MouseOverEventType getTypeFromInt(int type) {
-		if (type == 1) {
-			return ENTER;
-		}
-		return LEAVE;
 	}
 }

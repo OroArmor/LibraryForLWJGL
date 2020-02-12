@@ -6,6 +6,11 @@ import com.oroarmor.core.glfw.event.mouse.button.release.MouseButtonReleaseEvent
 import com.oroarmor.core.glfw.event.mouse.button.release.MouseReleaseEvent;
 
 public interface MouseButtonEventListener extends MouseButtonPressEventListener, MouseButtonReleaseEventListener {
+	public default void addToButtonListeners() {
+		addToPressListeners();
+		addToReleaseListeners();
+	}
+
 	public default void processMouseButtonEvent(MouseButtonEvent event) {
 		System.out.println(event);
 		if (event.getMouseButtonEventType() == MouseButtonEventType.PRESS) {
@@ -13,10 +18,5 @@ public interface MouseButtonEventListener extends MouseButtonPressEventListener,
 		} else if (event.getMouseButtonEventType() == MouseButtonEventType.RELEASE) {
 			processMouseReleasedEvent((MouseReleaseEvent) event);
 		}
-	}
-
-	public default void addToButtonListeners() {
-		addToPressListeners();
-		addToReleaseListeners();
 	}
 }

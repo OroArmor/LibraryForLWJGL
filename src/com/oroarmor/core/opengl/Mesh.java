@@ -2,8 +2,8 @@ package com.oroarmor.core.opengl;
 
 public class Mesh {
 
-	VertexArrayObject vao;
 	IndexBufferObject ibo;
+	VertexArrayObject vao;
 
 	public Mesh(float[] vertexPositions, int[] indexPositions, VertexBufferLayout layout) {
 		long millis = System.currentTimeMillis();

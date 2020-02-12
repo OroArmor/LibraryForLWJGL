@@ -12,19 +12,19 @@ import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
 public class Camera extends Entity {
 
 	private static enum Look {
-		LEFT, RIGHT, UP, DOWN, NONE, ROLL_LEFT, ROLL_RIGHT;
+		DOWN, LEFT, NONE, RIGHT, ROLL_LEFT, ROLL_RIGHT, UP;
 	}
 
 	private static enum Movement {
-		LEFT, RIGHT, NONE, FOWARD, BACKWARD, UP, DOWN;
+		BACKWARD, DOWN, FOWARD, LEFT, NONE, RIGHT, UP;
 	}
 
 	Movement frontBack = Movement.NONE;
 	Movement leftRight = Movement.NONE;
-	Movement upDown = Movement.NONE;
 	Look lookPitch = Look.NONE;
-	Look lookYaw = Look.NONE;
 	Look lookRoll = Look.NONE;
+	Look lookYaw = Look.NONE;
+	Movement upDown = Movement.NONE;
 
 	public Camera(Vector3f position, Vector3f rotation, Vector3f scale) {
 		super(position, rotation, scale);
