@@ -15,14 +15,43 @@ import com.oroarmor.core.Destructable;
 import com.oroarmor.core.Destructor;
 import com.oroarmor.util.TextureLoader;
 
+/**
+ * A class that represents a texture in OpenGL
+ * 
+ * @author OroArmor
+ *
+ */
 public class Texture implements Bindable, Destructable {
+	/**
+	 * Path to the image texture
+	 */
 	private String filePath;
+
+	/**
+	 * The slot to bind the texture to, default is 0
+	 */
 	private int slot = 0;
 
+	/**
+	 * OpenGL texture id
+	 */
 	private int textureID;
 
-	private int width, height;
+	/**
+	 * The width of the image
+	 */
+	private int width;
 
+	/**
+	 * The height of the image
+	 */
+	private int height;
+
+	/**
+	 * Creates a new {@link Texture} based on a path to an image
+	 * 
+	 * @param filePath The path to the image texture
+	 */
 	public Texture(String filePath) {
 		this.filePath = filePath;
 
@@ -42,12 +71,20 @@ public class Texture implements Bindable, Destructable {
 		Destructor.addDestructable(this);
 	}
 
+	/**
+	 * Binds the texture to the previously set slot (or default if not set)
+	 */
 	@Override
 	public void bind() {
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, textureID);
 	}
 
+	/**
+	 * Bind the {@link Texture} to a certain slot
+	 * 
+	 * @param slot Slot to bind the texture to
+	 */
 	public void bind(int slot) {
 		this.slot = Math.min(slot, 31);
 		bind();
@@ -58,14 +95,26 @@ public class Texture implements Bindable, Destructable {
 		glDeleteTextures(textureID);
 	}
 
+	/**
+	 * 
+	 * @return The path to the image of the texture
+	 */
 	public String getFilePath() {
 		return filePath;
 	}
 
+	/**
+	 * 
+	 * @return The height of the texture
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * 
+	 * @return The width of the image
+	 */
 	public int getWidth() {
 		return width;
 	}

@@ -24,9 +24,32 @@ import javax.imageio.ImageIO;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL12;
 
+/**
+ * This class loads textures from either a string/buffered image or a byte
+ * buffer. Currently the byte buffer is the only supported way.
+ * 
+ * @author OroArmor
+ *
+ * 
+ */
 public class TextureLoader {
+	/**
+	 * The number of bytes in an rgba png image
+	 */
 	private static final int BYTES_PER_PIXEL = 4;// 3 for RGB, 4 for RGBA
 
+	/**
+	 * No instances for you
+	 */
+	private TextureLoader() {
+	}
+
+	/**
+	 * 
+	 * @param loc String pointing to the location of the image
+	 * @return A java.awt.BufferedImage for the string
+	 */
+	@Deprecated
 	public static BufferedImage loadImage(String loc) {
 		try {
 			return ImageIO.read(new File(loc));
@@ -36,6 +59,12 @@ public class TextureLoader {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param image The image to create a texture of
+	 * @return The OpenGL id for the Texture
+	 */
+	@Deprecated
 	public static int loadTexture(BufferedImage image) {
 
 		int[] pixels = new int[image.getWidth() * image.getHeight()];
@@ -60,6 +89,13 @@ public class TextureLoader {
 		return loadTexture(buffer, image.getWidth(), image.getHeight());
 	}
 
+	/**
+	 * 
+	 * @param imageBuffer The image data
+	 * @param x           The width of the image
+	 * @param y           The height of the image
+	 * @return The OpenGL id for the textures
+	 */
 	public static int loadTexture(ByteBuffer imageBuffer, int x, int y) {
 		// You now have a ByteBuffer filled with the color data of each pixel.
 		// Now just create a texture ID and bind it. Then you can load it using

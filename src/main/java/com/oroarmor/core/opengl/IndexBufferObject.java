@@ -11,10 +11,28 @@ import com.oroarmor.core.Bindable;
 import com.oroarmor.core.Destructable;
 import com.oroarmor.core.Destructor;
 
+/**
+ * A class that represents an Index Buffer for OpenGL
+ * 
+ * @author OroArmor
+ *
+ */
 public class IndexBufferObject implements Bindable, Destructable {
+	/**
+	 * The count of indexes
+	 */
 	private int count;
+
+	/**
+	 * The OpenGL id of the indes
+	 */
 	private int ibo_id;
 
+	/**
+	 * Creates a new {@link IndexBufferObject} with data
+	 * 
+	 * @param data The data for the {@link IndexBufferObject}
+	 */
 	public IndexBufferObject(int[] data) {
 		ibo_id = glGenBuffers();
 
@@ -36,6 +54,10 @@ public class IndexBufferObject implements Bindable, Destructable {
 		glDeleteBuffers(ibo_id);
 	}
 
+	/**
+	 * 
+	 * @return The count of indices in the {@link IndexBufferObject}
+	 */
 	public int getCount() {
 		return count;
 	}

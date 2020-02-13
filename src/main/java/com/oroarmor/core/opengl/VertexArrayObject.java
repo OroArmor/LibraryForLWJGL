@@ -12,15 +12,38 @@ import com.oroarmor.core.Bindable;
 import com.oroarmor.core.Destructable;
 import com.oroarmor.core.Destructor;
 
+/**
+ * This is a class for storing a {@link VertexBufferObject} and a
+ * {@link VertexBufferLayout} object into one OpenGL concept, reducing the
+ * number of needed calls
+ * 
+ * @author OroArmor
+ *
+ */
 public class VertexArrayObject implements Bindable, Destructable {
 
+	/**
+	 * Id of the {@link VertexArrayObject}
+	 */
 	private int vao_id;
 
+	/**
+	 * Creates a new {@link VertexArrayObject}
+	 */
 	public VertexArrayObject() {
 		vao_id = glGenVertexArrays();
 		Destructor.addDestructable(this);
 	}
 
+	/**
+	 * Adds a {@link VertexBufferObject} and a {@link VertexBufferLayout} to the
+	 * {@link VertexArrayObject}
+	 * 
+	 * @param vbo      The {@link VertexBufferObject} of the
+	 *                 {@link VertexArrayObject}
+	 * @param vbLayout The {@link VertexBufferLayout} of the
+	 *                 {@link VertexArrayObject}
+	 */
 	public void addBuffer(VertexBufferObject vbo, VertexBufferLayout vbLayout) {
 		bind();
 		vbo.bind();

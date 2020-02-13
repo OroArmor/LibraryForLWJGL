@@ -6,8 +6,24 @@ import java.util.HashMap;
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.VertexBufferLayout;
 
+/**
+ * This file loads wavefront object files. (.obj)
+ * 
+ * @author OroArmor
+ *
+ */
 public class OBJLoader {
 
+	/**
+	 * No instances for you
+	 */
+	private OBJLoader() {
+	};
+
+	/**
+	 * This is the {@link VertexBufferLayout} for object files. 3 coords for
+	 * position, 2 for texture, and 3 for normals.
+	 */
 	public static VertexBufferLayout objLayout = new VertexBufferLayout();
 
 	static {
@@ -16,6 +32,11 @@ public class OBJLoader {
 		objLayout.pushFloats(3);
 	}
 
+	/**
+	 * 
+	 * @param filePath The path to the object file
+	 * @return A mesh with the data from the object file
+	 */
 	public static Mesh loadOBJ(String filePath) {
 		String[] fileData = ResourceLoader.loadFile(filePath).split("\\n");
 

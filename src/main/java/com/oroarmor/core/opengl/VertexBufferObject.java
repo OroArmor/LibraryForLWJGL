@@ -11,9 +11,22 @@ import com.oroarmor.core.Bindable;
 import com.oroarmor.core.Destructable;
 import com.oroarmor.core.Destructor;
 
+/**
+ * Vertex Buffer Object stores the data for a list of vertexes.
+ * 
+ * @author OroArmor
+ *
+ */
 public class VertexBufferObject implements Bindable, Destructable {
+	/**
+	 * The id of the vbo
+	 */
 	private int vbo_id;
 
+	/**
+	 * 
+	 * @param data The vertex data
+	 */
 	public VertexBufferObject(float[] data) {
 		vbo_id = glGenBuffers();
 
