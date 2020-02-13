@@ -25,6 +25,7 @@ public class Camera extends Entity {
 	Look lookRoll = Look.NONE;
 	Look lookYaw = Look.NONE;
 	Movement upDown = Movement.NONE;
+	private float minHeight;
 
 	public Camera(Vector3f position, Vector3f rotation, Vector3f scale) {
 		super(position, rotation, scale);
@@ -100,7 +101,7 @@ public class Camera extends Entity {
 		if (key == Key.LEFT_SHIFT) {
 			upDown = (upDown == Movement.DOWN) ? Movement.NONE : Movement.UP;
 		} else if (key == Key.SPACE) {
-			upDown = (upDown == Movement.UP) ? Movement.NONE : Movement.DOWN;
+			upDown = Movement.NONE;
 		}
 
 		// Look TODO: change to mouse
@@ -119,6 +120,11 @@ public class Camera extends Entity {
 	@Override
 	public void update() {
 
+		if(this.positionVector.y < minHeight) {
+			this.positionVector.y = minHeight;
+			this.velocityVector.y = 0;
+		}
+		
 		float speed = 5f;
 
 		if (KeyStatus.isKeyDown(Key.LEFT_CONTROL)) {
@@ -153,10 +159,19 @@ public class Camera extends Entity {
 			rotationVector.add(0.1f, 0, 0);
 		}
 
-		if (upDown == Movement.DOWN) {
-			positionVector.add(0, -speed, 0f);
+		if (upDown != Movement.UP) {
+			velocityVector.add(0, -speed*0.1f, 0f);
 		} else if (upDown == Movement.UP) {
-			positionVector.add(0, speed, 0f);
+			velocityVector.set(0, speed, 0f);
+			upDown = Movement.NONE;
 		}
+		
+		
 	}
+
+	public void setMinHeight(float currentHeight) {
+		this.minHeight = currentHeight;
+	}
+
+	
 }

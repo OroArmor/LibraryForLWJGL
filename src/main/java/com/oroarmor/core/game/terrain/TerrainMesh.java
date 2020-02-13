@@ -73,7 +73,7 @@ public class TerrainMesh {
 
 	private TerrainMeshData generateMeshData(float[][] generatedNoiseMap) {
 
-		float min = 50;
+		float min = maxHeight * 0.25f;
 
 		int triangleCount = 0;
 
@@ -154,6 +154,10 @@ public class TerrainMesh {
 
 	private void setMeshData(TerrainMeshData data) {
 		this.meshData = data;
+	}
+
+	public float[][] getHeightMap() {
+		return this.heightMap;
 	}
 
 }

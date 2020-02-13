@@ -11,6 +11,7 @@ public abstract class Entity implements KeyEventListener {
 	private boolean active = true;
 	protected Matrix4f modelMatrix;
 	protected Vector3f positionVector;
+	protected Vector3f velocityVector;
 	protected Vector3f rotationVector;
 
 	protected Vector3f scaleVector;
@@ -19,6 +20,7 @@ public abstract class Entity implements KeyEventListener {
 		this.positionVector = position;
 		this.rotationVector = rotation;
 		this.scaleVector = scale;
+		this.velocityVector = new Vector3f();
 
 		setModelMatrix();
 		EventListenerManager.addKeyListener(this);
@@ -44,8 +46,14 @@ public abstract class Entity implements KeyEventListener {
 	}
 
 	public void tick() {
+		positionVector.add(velocityVector);
+		
 		update();
 		setModelMatrix();
+	}
+	
+	public Vector3f getPosition() {
+		return positionVector;
 	}
 
 	public abstract void update();
