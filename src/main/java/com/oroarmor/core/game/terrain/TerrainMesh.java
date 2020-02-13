@@ -1,28 +1,38 @@
 package com.oroarmor.core.game.terrain;
 
 import java.lang.Thread.State;
-import java.util.ArrayList;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
 
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.VertexBufferLayout;
+import com.oroarmor.util.VectorUtils;
 
 public class TerrainMesh {
 
-	private static class MeshData {
-		public int[] tris;
-		public float[] verticies;
+	private static class TerrainMeshData {
+		public IntBuffer tris;
+		public FloatBuffer verticies;
 
-		public MeshData(float[] verticies, int[] tris) {
+		public TerrainMeshData(FloatBuffer verticies, IntBuffer tris) {
 			this.verticies = verticies;
 			this.tris = tris;
 		}
 	}
-	public static float maxHeight = 200;
+
+	private FloatBuffer meshDataFloatBuffer;
+	private IntBuffer meshDataIntBuffer;
+
+	public static float maxHeight = 100;
 
 	private static VertexBufferLayout terrainVbo = new VertexBufferLayout();
+
+	private static int MAX_THREADS = 5;
+	private static int currentThreads = 0;
 
 	static {
 		terrainVbo.pushFloats(3);
@@ -33,16 +43,15 @@ public class TerrainMesh {
 	private float[][] heightMap;
 	private Mesh mesh;
 
-	private MeshData meshData;
+	private TerrainMeshData meshData = null;
 	Runnable meshGenRunnable = new Runnable() {
 		@Override
 		public void run() {
-			long millis = System.currentTimeMillis();
+			currentThreads++;
 			heightMap = TerrainNoiseGenerator.generateNoiseMap(width, height, new Vector2f(x, y));
-			MeshData tempData = generateMeshData(heightMap);
+			TerrainMeshData tempData = generateMeshData(heightMap);
 			setMeshData(tempData);
-			System.out.println(x + " " + y + " time: " + (System.currentTimeMillis() - millis));
-
+			currentThreads--;
 		}
 	};
 
@@ -58,13 +67,13 @@ public class TerrainMesh {
 		this.x = x;
 		this.y = y;
 
+		this.meshDataFloatBuffer = BufferUtils.createFloatBuffer(6 * 7 * width * height);
+		this.meshDataIntBuffer = BufferUtils.createIntBuffer(6 * width * height);
 	}
 
-	private MeshData generateMeshData(float[][] generatedNoiseMap) {
-		ArrayList<Float> tempVertexData = new ArrayList<Float>();
-		ArrayList<Integer> tempTriangles = new ArrayList<Integer>();
+	private TerrainMeshData generateMeshData(float[][] generatedNoiseMap) {
 
-		float min = 100;
+		float min = 50;
 
 		int triangleCount = 0;
 
@@ -90,96 +99,60 @@ public class TerrainMesh {
 				// There needs to be a better way to do this... maybe a mesh generator class
 				// that does the calculations automatically
 
-				tempVertexData.add(p1.x);
-				tempVertexData.add(p1.y);
-				tempVertexData.add(p1.z);
-				tempVertexData.add(n1.x);
-				tempVertexData.add(n1.y);
-				tempVertexData.add(n1.z);
-				tempVertexData.add(t1h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p1));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n1));
+				meshDataFloatBuffer.put(t1h);
 
-				tempVertexData.add(p2.x);
-				tempVertexData.add(p2.y);
-				tempVertexData.add(p2.z);
-				tempVertexData.add(n1.x);
-				tempVertexData.add(n1.y);
-				tempVertexData.add(n1.z);
-				tempVertexData.add(t1h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p2));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n1));
+				meshDataFloatBuffer.put(t1h);
 
-				tempVertexData.add(p3.x);
-				tempVertexData.add(p3.y);
-				tempVertexData.add(p3.z);
-				tempVertexData.add(n1.x);
-				tempVertexData.add(n1.y);
-				tempVertexData.add(n1.z);
-				tempVertexData.add(t1h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p3));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n1));
+				meshDataFloatBuffer.put(t1h);
 
-				tempVertexData.add(p1.x);
-				tempVertexData.add(p1.y);
-				tempVertexData.add(p1.z);
-				tempVertexData.add(n2.x);
-				tempVertexData.add(n2.y);
-				tempVertexData.add(n2.z);
-				tempVertexData.add(t2h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p1));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n2));
+				meshDataFloatBuffer.put(t2h);
 
-				tempVertexData.add(p3.x);
-				tempVertexData.add(p3.y);
-				tempVertexData.add(p3.z);
-				tempVertexData.add(n2.x);
-				tempVertexData.add(n2.y);
-				tempVertexData.add(n2.z);
-				tempVertexData.add(t2h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p3));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n2));
+				meshDataFloatBuffer.put(t2h);
 
-				tempVertexData.add(p4.x);
-				tempVertexData.add(p4.y);
-				tempVertexData.add(p4.z);
-				tempVertexData.add(n2.x);
-				tempVertexData.add(n2.y);
-				tempVertexData.add(n2.z);
-				tempVertexData.add(t2h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p4));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n2));
+				meshDataFloatBuffer.put(t2h);
 
 				for (int k = 0; k < 6; k++)
-					tempTriangles.add(triangleCount++);
+					meshDataIntBuffer.put(triangleCount++);
 
 			}
 		}
 
-		Float[] meshDataArrayG = new Float[tempVertexData.size()];
-		float[] meshDataArray = new float[tempVertexData.size()];
-		Integer[] triangleArrayG = new Integer[tempTriangles.size()];
-		int[] triangleArray = new int[tempTriangles.size()];
-		tempVertexData.toArray(meshDataArrayG);
-		tempTriangles.toArray(triangleArrayG);
+		meshDataFloatBuffer.flip();
+		meshDataIntBuffer.flip();
 
-		for (int i = 0; i < meshDataArray.length; i++) {
-			meshDataArray[i] = meshDataArrayG[i].floatValue();
-		}
-
-		for (int i = 0; i < triangleArray.length; i++) {
-			triangleArray[i] = triangleArrayG[i].intValue();
-		}
-
-		return new MeshData(meshDataArray, triangleArray);
+		return new TerrainMeshData(meshDataFloatBuffer, meshDataIntBuffer);
 	}
 
 	public Mesh getMesh() {
 		if (getMeshData() == null && meshGenThread.getState() == State.NEW) {
-			meshGenThread.start();
+			if (currentThreads < MAX_THREADS)
+				meshGenThread.start();
 		}
 
 		if (mesh == null && getMeshData() != null) {
-
 			mesh = new Mesh(getMeshData().verticies, getMeshData().tris, terrainVbo);
 		}
 
 		return mesh;
 	}
 
-	private synchronized MeshData getMeshData() {
+	private TerrainMeshData getMeshData() {
 		return meshData;
 	}
 
-	private synchronized void setMeshData(MeshData data) {
+	private void setMeshData(TerrainMeshData data) {
 		this.meshData = data;
 	}
 

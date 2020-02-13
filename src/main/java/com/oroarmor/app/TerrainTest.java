@@ -31,7 +31,8 @@ public class TerrainTest {
 
 		Sunlight sun = new Sunlight(new Vector3f(-1, -1, 0), new Vector4f(1f, .9f, .8f, 1));
 
-		Camera camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
+		Camera camera = new Camera(new Vector3f(0, 100, 0), new Vector3f(0, -(float) Math.PI / 2, 0),
+				new Vector3f(1, 1, 1));
 		// Create a new window with a onKey function that prints the typed key
 		Display display = new Display(640, 480, "Open GL Learning") {
 			@Override
@@ -96,9 +97,7 @@ public class TerrainTest {
 
 		int size = 200;
 
-		int count = 1;
-
-		new MousePositionEvent(0, 0, 0, 0, 0);
+		int count = 5;
 
 		TerrainMesh[] terrains = new TerrainMesh[count * count];
 		Matrix4f[] terrainModels = new Matrix4f[count * count];

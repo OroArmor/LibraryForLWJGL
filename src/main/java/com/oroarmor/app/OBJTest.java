@@ -30,7 +30,7 @@ public class OBJTest {
 	public static void main(String[] args) {
 
 		Matrix4f objectModel = new Matrix4f().translate(0, 0, 100).rotateXYZ((float) -Math.PI / 2, (float) Math.PI, 0)
-				.scale(5);
+				.scale(100);
 
 //		Matrix4f camera = new Matrix4f().translate(new Vector3f(0, 0, 0));
 
@@ -100,7 +100,7 @@ public class OBJTest {
 		// Set the OpenGL version to 4.5 core
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);
 
-		Mesh cube = OBJLoader.loadOBJ("./res/calicat.obj");
+		Mesh cube = OBJLoader.loadOBJ("./res/square.obj");
 
 		// Load the shader files
 		String shaderName = "weird";
@@ -116,7 +116,7 @@ public class OBJTest {
 
 		// Create a texture and bind it to the square shader
 
-		display.setClearColor(0, 0, 0, 1);
+		display.setClearColor(0, 0, 1, 1);
 
 		Texture texture = new Texture("./res/TitansLogo.png");
 

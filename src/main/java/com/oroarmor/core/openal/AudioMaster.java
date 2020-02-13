@@ -31,8 +31,21 @@ import com.oroarmor.core.Destructable;
 import com.oroarmor.core.Destructor;
 
 @SuppressWarnings("unused")
+/**
+ * This class initializes and creates sounds for OpenAL
+ * 
+ * @author OroArmor
+ *
+ */
 public class AudioMaster implements Destructable {
+	/**
+	 * The context for OpenAL
+	 */
 	private static long context;
+
+	/**
+	 * The device for OpenAL
+	 */
 	private static long device;
 
 	private static AudioMaster instance = new AudioMaster();
