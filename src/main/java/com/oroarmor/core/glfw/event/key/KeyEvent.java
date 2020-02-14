@@ -3,11 +3,13 @@ package com.oroarmor.core.glfw.event.key;
 import org.lwjgl.glfw.GLFW;
 
 import com.oroarmor.core.glfw.event.Event;
-import com.oroarmor.core.glfw.event.EventListenerManager;
 import com.oroarmor.core.glfw.event.EventType;
 import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
+import com.oroarmor.core.glfw.event.key.hold.KeyHoldEventListener;
 import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
+import com.oroarmor.core.glfw.event.key.press.KeyPressEventListener;
 import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
+import com.oroarmor.core.glfw.event.key.release.KeyReleaseEventListener;
 
 public abstract class KeyEvent implements Event {
 	public static enum KeyEventType {
@@ -15,17 +17,17 @@ public abstract class KeyEvent implements Event {
 	}
 
 	public static void create(int keyCode, int action, long window) {
-		KeyEvent newEvent;
 		Key key = Key.getKey(keyCode);
 		if (action == GLFW.GLFW_PRESS) {
-			newEvent = new KeyPressEvent(key, window);
+			KeyPressEvent newEvent = new KeyPressEvent(key, window);
+			KeyPressEventListener.processAllKeyPressEvent(newEvent);
 		} else if (action == GLFW.GLFW_RELEASE) {
-			newEvent = new KeyReleaseEvent(key, window);
+			KeyReleaseEvent newEvent = new KeyReleaseEvent(key, window);
+			KeyReleaseEventListener.processAllKeyReleaseEvent(newEvent);
 		} else {
-			newEvent = new KeyHoldEvent(key, window);
+			KeyHoldEvent newEvent = new KeyHoldEvent(key, window);
+			KeyHoldEventListener.processAllKeyPressEvent(newEvent);
 		}
-
-		EventListenerManager.addKeyEvent(newEvent);
 	}
 
 	public Key key;

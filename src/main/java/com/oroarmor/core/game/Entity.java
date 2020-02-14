@@ -3,7 +3,6 @@ package com.oroarmor.core.game;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import com.oroarmor.core.glfw.event.EventListenerManager;
 import com.oroarmor.core.glfw.event.key.KeyEventListener;
 
 public abstract class Entity implements KeyEventListener {
@@ -23,7 +22,7 @@ public abstract class Entity implements KeyEventListener {
 		this.velocityVector = new Vector3f();
 
 		setModelMatrix();
-		EventListenerManager.addKeyListener(this);
+		addToKeyListeners();
 	}
 
 	public Matrix4f getModelMatrix() {
@@ -47,11 +46,11 @@ public abstract class Entity implements KeyEventListener {
 
 	public void tick() {
 		positionVector.add(velocityVector);
-		
+
 		update();
 		setModelMatrix();
 	}
-	
+
 	public Vector3f getPosition() {
 		return positionVector;
 	}

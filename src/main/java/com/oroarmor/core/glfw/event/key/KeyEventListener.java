@@ -20,4 +20,10 @@ public interface KeyEventListener extends KeyPressEventListener, KeyHoldEventLis
 			processKeyReleasedEvent((KeyReleaseEvent) event);
 		}
 	}
+
+	public default void addToKeyListeners() {
+		this.addToKeyHoldListeners();
+		this.addToKeyReleaseListeners();
+		this.addToKeyPressListeners();
+	}
 }

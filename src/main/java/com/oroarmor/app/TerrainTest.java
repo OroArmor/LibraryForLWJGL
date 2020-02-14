@@ -101,7 +101,7 @@ public class TerrainTest {
 
 		TerrainMesh[] terrains = new TerrainMesh[count * count];
 		Matrix4f[] terrainModels = new Matrix4f[count * count];
- 
+
 		for (int i = 0; i < count; i++) {
 			for (int j = 0; j < count; j++) {
 				terrains[i * count + j] = new TerrainMesh(size, size, (size - 1) * i, -(size - 1) * j);
@@ -132,15 +132,13 @@ public class TerrainTest {
 			int y = (int) (cameraPos.z / size);
 
 			try {
-				System.out.println(x + " " + y);
 				float currentHeight = terrains[x * count + y].getHeightMap()[(int) cameraPos.x
 						- size * x][(int) (cameraPos.z) - size * y];
 
 				camera.setMinHeight(Math.max(currentHeight * TerrainMesh.maxHeight - TerrainMesh.maxHeight * 0.25f, 0));
-				System.out.println(currentHeight);
 			} catch (Exception e) {
-				e.printStackTrace();
 			}
+
 			camera.tick();
 			// Clear the display
 			display.clear();

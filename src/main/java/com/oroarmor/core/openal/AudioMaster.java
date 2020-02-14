@@ -48,8 +48,14 @@ public class AudioMaster implements Destructable {
 	 */
 	private static long device;
 
+	/**
+	 * An instance of AudioMaster to close OpenAL properly
+	 */
 	private static AudioMaster instance = new AudioMaster();
 
+	/**
+	 * A map of the sounds to their name
+	 */
 	private static HashMap<String, Integer> sounds;
 
 	static {
@@ -67,10 +73,22 @@ public class AudioMaster implements Destructable {
 		Destructor.addDestructable(instance);
 	}
 
+	/**
+	 * 
+	 * @param soundName Name of the sound to play
+	 * @return The OpenAL sound id
+	 */
 	public static int getSound(String soundName) {
 		return sounds.get(soundName);
 	}
 
+	/**
+	 * Loads a sound from the path, saving the name and id into a map
+	 * 
+	 * @param path Path to the sound
+	 * @param name Name for the sound. NOT part of the path, just an identifier
+	 * @return The OpenAL sound id for the sound
+	 */
 	public static int loadSound(String path, String name) {
 		int soundIDBuffer = AL10.alGenBuffers();
 
