@@ -8,6 +8,7 @@ public class MousePositionEvent extends MouseEvent {
 		MousePositionEventListener.processAllMousePositionEvent(new MousePositionEvent(window, MouseStatus.getMouseX(),
 				MouseStatus.getMouseY(), MouseStatus.getDeltaMouseX(), MouseStatus.getDeltaMouseY()));
 	}
+
 	private float deltaX, deltaY;
 
 	private float mouseX, mouseY;

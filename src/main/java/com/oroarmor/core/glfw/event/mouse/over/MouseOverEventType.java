@@ -1,6 +1,7 @@
 package com.oroarmor.core.glfw.event.mouse.over;
 
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
+import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 
 public enum MouseOverEventType {
 

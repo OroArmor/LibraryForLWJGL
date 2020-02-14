@@ -15,16 +15,10 @@ import com.oroarmor.core.opengl.VertexBufferLayout;
 public class OBJLoader {
 
 	/**
-	 * No instances for you
-	 */
-	private OBJLoader() {
-	};
-
-	/**
 	 * This is the {@link VertexBufferLayout} for object files. 3 coords for
 	 * position, 2 for texture, and 3 for normals.
 	 */
-	public static VertexBufferLayout objLayout = new VertexBufferLayout();
+	public static VertexBufferLayout objLayout = new VertexBufferLayout();;
 
 	static {
 		objLayout.pushFloats(3);
@@ -120,6 +114,12 @@ public class OBJLoader {
 		}
 
 		return new Mesh(meshDataArray, triangleArray, objLayout);
+	}
+
+	/**
+	 * No instances for you
+	 */
+	private OBJLoader() {
 	}
 
 }

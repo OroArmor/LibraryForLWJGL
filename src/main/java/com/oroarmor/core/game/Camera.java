@@ -24,8 +24,8 @@ public class Camera extends Entity {
 	Look lookPitch = Look.NONE;
 	Look lookRoll = Look.NONE;
 	Look lookYaw = Look.NONE;
-	Movement upDown = Movement.NONE;
 	private float minHeight;
+	Movement upDown = Movement.NONE;
 
 	public Camera(Vector3f position, Vector3f rotation, Vector3f scale) {
 		super(position, rotation, scale);
@@ -117,14 +117,18 @@ public class Camera extends Entity {
 		}
 	}
 
+	public void setMinHeight(float currentHeight) {
+		this.minHeight = currentHeight;
+	}
+
 	@Override
 	public void update() {
 
-		if(this.positionVector.y < minHeight) {
+		if (this.positionVector.y < minHeight) {
 			this.positionVector.y = minHeight;
 			this.velocityVector.y = 0;
 		}
-		
+
 		float speed = 5f;
 
 		if (KeyStatus.isKeyDown(Key.LEFT_CONTROL)) {
@@ -160,18 +164,12 @@ public class Camera extends Entity {
 		}
 
 		if (upDown != Movement.UP) {
-			velocityVector.add(0, -speed*0.1f, 0f);
+			velocityVector.add(0, -speed * 0.1f, 0f);
 		} else if (upDown == Movement.UP) {
 			velocityVector.set(0, speed, 0f);
 			upDown = Movement.NONE;
 		}
-		
-		
+
 	}
 
-	public void setMinHeight(float currentHeight) {
-		this.minHeight = currentHeight;
-	}
-
-	
 }

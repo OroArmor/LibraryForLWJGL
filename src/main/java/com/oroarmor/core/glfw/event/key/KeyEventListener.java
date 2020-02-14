@@ -9,6 +9,12 @@ import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
 import com.oroarmor.core.glfw.event.key.release.KeyReleaseEventListener;
 
 public interface KeyEventListener extends KeyPressEventListener, KeyHoldEventListener, KeyReleaseEventListener {
+	public default void addToKeyListeners() {
+		this.addToKeyHoldListeners();
+		this.addToKeyReleaseListeners();
+		this.addToKeyPressListeners();
+	}
+
 	public default void processKeyEvent(KeyEvent event) {
 		if (event.getKeyEventType() == KeyEventType.PRESS) {
 			processKeyPressedEvent((KeyPressEvent) event);
@@ -19,11 +25,5 @@ public interface KeyEventListener extends KeyPressEventListener, KeyHoldEventLis
 		if (event.getKeyEventType() == KeyEventType.RELEASE) {
 			processKeyReleasedEvent((KeyReleaseEvent) event);
 		}
-	}
-
-	public default void addToKeyListeners() {
-		this.addToKeyHoldListeners();
-		this.addToKeyReleaseListeners();
-		this.addToKeyPressListeners();
 	}
 }

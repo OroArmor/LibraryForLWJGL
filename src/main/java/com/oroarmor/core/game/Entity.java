@@ -10,10 +10,10 @@ public abstract class Entity implements KeyEventListener {
 	private boolean active = true;
 	protected Matrix4f modelMatrix;
 	protected Vector3f positionVector;
-	protected Vector3f velocityVector;
 	protected Vector3f rotationVector;
-
 	protected Vector3f scaleVector;
+
+	protected Vector3f velocityVector;
 
 	public Entity(Vector3f position, Vector3f rotation, Vector3f scale) {
 		this.positionVector = position;
@@ -27,6 +27,10 @@ public abstract class Entity implements KeyEventListener {
 
 	public Matrix4f getModelMatrix() {
 		return modelMatrix;
+	}
+
+	public Vector3f getPosition() {
+		return positionVector;
 	}
 
 	@Override
@@ -49,10 +53,6 @@ public abstract class Entity implements KeyEventListener {
 
 		update();
 		setModelMatrix();
-	}
-
-	public Vector3f getPosition() {
-		return positionVector;
 	}
 
 	public abstract void update();

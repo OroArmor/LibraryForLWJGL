@@ -39,12 +39,6 @@ public class TextureLoader {
 	private static final int BYTES_PER_PIXEL = 4;// 3 for RGB, 4 for RGBA
 
 	/**
-	 * No instances for you
-	 */
-	private TextureLoader() {
-	}
-
-	/**
 	 * 
 	 * @param loc String pointing to the location of the image
 	 * @return A java.awt.BufferedImage for the string
@@ -115,5 +109,11 @@ public class TextureLoader {
 		// Send texel data to OpenGL
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageBuffer);
 		return textureID;
+	}
+
+	/**
+	 * No instances for you
+	 */
+	private TextureLoader() {
 	}
 }

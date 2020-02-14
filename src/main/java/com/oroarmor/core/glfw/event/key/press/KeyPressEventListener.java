@@ -2,11 +2,9 @@ package com.oroarmor.core.glfw.event.key.press;
 
 import java.util.ArrayList;
 
-import com.oroarmor.core.glfw.event.ActiveListener;
+import com.oroarmor.core.glfw.event.Active;
 
-public interface KeyPressEventListener extends ActiveListener {
-	public void processKeyPressedEvent(KeyPressEvent event);
-
+public interface KeyPressEventListener extends Active {
 	public static ArrayList<KeyPressEventListener> keyPressListeners = new ArrayList<KeyPressEventListener>();
 
 	public static void addKeyPressListener(KeyPressEventListener listener) {
@@ -22,4 +20,6 @@ public interface KeyPressEventListener extends ActiveListener {
 	public default void addToKeyPressListeners() {
 		addKeyPressListener(this);
 	}
+
+	public void processKeyPressedEvent(KeyPressEvent event);
 }

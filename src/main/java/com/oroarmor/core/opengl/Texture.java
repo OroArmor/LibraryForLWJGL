@@ -28,6 +28,11 @@ public class Texture implements Bindable, Destructable {
 	private String filePath;
 
 	/**
+	 * The height of the image
+	 */
+	private int height;
+
+	/**
 	 * The slot to bind the texture to, default is 0
 	 */
 	private int slot = 0;
@@ -41,11 +46,6 @@ public class Texture implements Bindable, Destructable {
 	 * The width of the image
 	 */
 	private int width;
-
-	/**
-	 * The height of the image
-	 */
-	private int height;
 
 	/**
 	 * Creates a new {@link Texture} based on a path to an image

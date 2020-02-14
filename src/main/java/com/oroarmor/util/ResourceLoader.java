@@ -14,12 +14,6 @@ import java.io.InputStream;
 public class ResourceLoader {
 
 	/**
-	 * No instances for you
-	 */
-	private ResourceLoader() {
-	}
-
-	/**
 	 * 
 	 * @param resourceAsStream The input stream for the file
 	 * @return The data in the string returned as a file
@@ -55,5 +49,11 @@ public class ResourceLoader {
 		}
 
 		return fileString;
+	}
+
+	/**
+	 * No instances for you
+	 */
+	private ResourceLoader() {
 	}
 }

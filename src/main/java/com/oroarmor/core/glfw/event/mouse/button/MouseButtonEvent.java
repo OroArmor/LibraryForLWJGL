@@ -20,6 +20,7 @@ public class MouseButtonEvent extends MouseEvent {
 			MouseButtonReleaseEventListener.processAllMouseReleaseEvent(event);
 		}
 	}
+
 	private MouseButton button;
 	private MouseButtonEventType type;
 

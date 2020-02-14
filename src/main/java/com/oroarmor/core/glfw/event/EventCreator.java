@@ -1,16 +1,13 @@
 package com.oroarmor.core.glfw.event;
 
+import static org.lwjgl.glfw.GLFW.glfwSetCursorEnterCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetCursorPosCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetMouseButtonCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
 
 import org.lwjgl.glfw.GLFWCursorEnterCallback;
-
-import static org.lwjgl.glfw.GLFW.glfwSetMouseButtonCallback;
-
 import org.lwjgl.glfw.GLFWCursorPosCallback;
-
-import static org.lwjgl.glfw.GLFW.*;
-
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWScrollCallback;
@@ -22,6 +19,12 @@ import com.oroarmor.core.glfw.event.mouse.over.MouseOverEvent;
 import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
 import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEvent;
 
+/**
+ * Class that is in charge of creating new events based on GLFW actions
+ * 
+ * @author OroArmor
+ *
+ */
 public class EventCreator {
 
 	public static void initalizeWindow(long window) {

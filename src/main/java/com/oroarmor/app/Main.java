@@ -88,7 +88,7 @@ public class Main {
 
 		};
 
-		display.enableTransparentcy();
+		display.enableTransparency();
 
 		// Set the OpenGL version to 4.5 core
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);

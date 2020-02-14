@@ -24,26 +24,26 @@ public class TerrainMesh {
 		}
 	}
 
-	private FloatBuffer meshDataFloatBuffer;
-	private IntBuffer meshDataIntBuffer;
+	private static int currentThreads = 0;
+	private static int MAX_THREADS = 5;
 
 	public static float maxHeight = 100;
 
 	private static VertexBufferLayout terrainVbo = new VertexBufferLayout();
-
-	private static int MAX_THREADS = 5;
-	private static int currentThreads = 0;
 
 	static {
 		terrainVbo.pushFloats(3);
 		terrainVbo.pushFloats(3);
 		terrainVbo.pushFloats(1);
 	}
-
 	private float[][] heightMap;
+
 	private Mesh mesh;
 
 	private TerrainMeshData meshData = null;
+	private FloatBuffer meshDataFloatBuffer;
+
+	private IntBuffer meshDataIntBuffer;
 	Runnable meshGenRunnable = new Runnable() {
 		@Override
 		public void run() {
@@ -135,6 +135,10 @@ public class TerrainMesh {
 		return new TerrainMeshData(meshDataFloatBuffer, meshDataIntBuffer);
 	}
 
+	public float[][] getHeightMap() {
+		return this.heightMap;
+	}
+
 	public Mesh getMesh() {
 		if (getMeshData() == null && meshGenThread.getState() == State.NEW) {
 			if (currentThreads < MAX_THREADS)
@@ -154,10 +158,6 @@ public class TerrainMesh {
 
 	private void setMeshData(TerrainMeshData data) {
 		this.meshData = data;
-	}
-
-	public float[][] getHeightMap() {
-		return this.heightMap;
 	}
 
 }

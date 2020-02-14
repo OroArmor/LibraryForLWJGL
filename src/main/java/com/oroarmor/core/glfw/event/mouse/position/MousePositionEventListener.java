@@ -2,9 +2,9 @@ package com.oroarmor.core.glfw.event.mouse.position;
 
 import java.util.ArrayList;
 
-import com.oroarmor.core.glfw.event.ActiveListener;
+import com.oroarmor.core.glfw.event.Active;
 
-public interface MousePositionEventListener extends ActiveListener {
+public interface MousePositionEventListener extends Active {
 	public static ArrayList<MousePositionEventListener> mousePositionListener = new ArrayList<MousePositionEventListener>();
 
 	public static void addMousePositionListener(MousePositionEventListener listener) {

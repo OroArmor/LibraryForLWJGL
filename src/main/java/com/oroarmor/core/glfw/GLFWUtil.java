@@ -18,9 +18,33 @@ import static org.lwjgl.opengl.GL13.GL_MULTISAMPLE;
 
 import org.lwjgl.opengl.GL;
 
+/**
+ * A utility class for GLFW that can create windows and do some other
+ * configuration
+ * 
+ * @author OroArmor
+ *
+ */
 public class GLFWUtil {
+	/**
+	 * OpenGL Profiles
+	 * 
+	 * @author OroArmor
+	 *
+	 */
 	public static enum OpenGLProfile {
-		ANY(GLFW_OPENGL_ANY_PROFILE), COMPAT(GLFW_OPENGL_COMPAT_PROFILE), CORE(GLFW_OPENGL_CORE_PROFILE);
+		/**
+		 * Any profile
+		 */
+		ANY(GLFW_OPENGL_ANY_PROFILE),
+		/**
+		 * Compatibility Profile
+		 */
+		COMPAT(GLFW_OPENGL_COMPAT_PROFILE),
+		/**
+		 * Core Profile
+		 */
+		CORE(GLFW_OPENGL_CORE_PROFILE);
 
 		private int profile;
 
@@ -28,12 +52,26 @@ public class GLFWUtil {
 			this.profile = profile;
 		}
 
+		/**
+		 * 
+		 * @return The GLFW id for the profile
+		 */
 		public int getProfile() {
 			return profile;
 		}
 
 	}
 
+	/**
+	 * Creates a window from the input parameters
+	 * 
+	 * @param width         The width of the window
+	 * @param height        The height of the window
+	 * @param name          The name of the window
+	 * @param monitorHandle The monitor to display the window on for full screen
+	 * @param windowHandle  Another GLFW Window to share with
+	 * @return The window handle
+	 */
 	public static long glfwCreateWindowHelper(int width, int height, CharSequence name, long monitorHandle,
 			long windowHandle) {
 		long window = -1;
@@ -56,6 +94,13 @@ public class GLFWUtil {
 		return window;
 	}
 
+	/**
+	 * Sets the OpenGL Version
+	 * 
+	 * @param glfwMajorVersion  Major version
+	 * @param glfwMinorVersion  MinorVersion
+	 * @param glfwOpenGLProfile Compatibility Profile {@link OpenGLProfile}
+	 */
 	public static void setWindowHints(int glfwMajorVersion, int glfwMinorVersion, OpenGLProfile glfwOpenGLProfile) {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfwMajorVersion);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfwMinorVersion);

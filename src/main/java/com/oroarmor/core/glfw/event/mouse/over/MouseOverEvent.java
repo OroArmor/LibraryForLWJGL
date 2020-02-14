@@ -1,12 +1,13 @@
 package com.oroarmor.core.glfw.event.mouse.over;
 
+import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
+import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
+
 import com.oroarmor.core.glfw.event.mouse.MouseEvent;
 import com.oroarmor.core.glfw.event.mouse.over.enter.MouseEnterEvent;
 import com.oroarmor.core.glfw.event.mouse.over.enter.MouseEnterEventListener;
 import com.oroarmor.core.glfw.event.mouse.over.leave.MouseLeaveEvent;
 import com.oroarmor.core.glfw.event.mouse.over.leave.MouseLeaveEventListener;
-
-import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseOverEvent extends MouseEvent {
 

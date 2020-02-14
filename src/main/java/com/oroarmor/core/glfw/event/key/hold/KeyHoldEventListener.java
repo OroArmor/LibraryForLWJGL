@@ -2,11 +2,9 @@ package com.oroarmor.core.glfw.event.key.hold;
 
 import java.util.ArrayList;
 
-import com.oroarmor.core.glfw.event.ActiveListener;
+import com.oroarmor.core.glfw.event.Active;
 
-public interface KeyHoldEventListener extends ActiveListener {
-	public void processKeyHeldEvent(KeyHoldEvent event);
-
+public interface KeyHoldEventListener extends Active {
 	public static ArrayList<KeyHoldEventListener> keyPressListeners = new ArrayList<KeyHoldEventListener>();
 
 	public static void addKeyHoldListener(KeyHoldEventListener listener) {
@@ -22,4 +20,6 @@ public interface KeyHoldEventListener extends ActiveListener {
 	public default void addToKeyHoldListeners() {
 		addKeyHoldListener(this);
 	}
+
+	public void processKeyHeldEvent(KeyHoldEvent event);
 }

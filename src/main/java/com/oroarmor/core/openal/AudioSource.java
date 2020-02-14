@@ -39,14 +39,14 @@ public class AudioSource implements Destructable {
 	private Vector3f position = new Vector3f();
 
 	/**
-	 * The velocity of the sound
-	 */
-	private Vector3f velocity = new Vector3f();
-
-	/**
 	 * The OpenAL id for this source
 	 */
 	private int sourceID;
+
+	/**
+	 * The velocity of the sound
+	 */
+	private Vector3f velocity = new Vector3f();
 
 	/**
 	 * Construct an audiosource
