@@ -40,16 +40,18 @@ public abstract class PhysicsEntity extends Entity {
 		this.accelerationVector.add(acceleration);
 	}
 
+	public void accelerateLocalXZ(Vector3f xzAcceleration) {
+		this.addAcceleration(xzAcceleration.rotateY(rotationVector.y));
+	}
+
 	@Override
 	public void tick(float delta) {
 		super.tick(delta);
 
-		velocityVector.add(accelerationVector);
-		positionVector.add(velocityVector.mul(delta, new Vector3f()));
-		accelerationVector.mul(1 - delta);
+		velocityVector.add(accelerationVector.mul(delta, new Vector3f()));
+		positionVector.add(velocityVector);
 
-		System.out.println(accelerationVector.y);
-
+		accelerationVector.zero();
 	}
 
 }

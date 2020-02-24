@@ -60,7 +60,7 @@ public class Camera extends PhysicsEntity {
 		}
 
 		if (key == Key.SPACE) {
-			this.addForce(new Vector3f(0, 100, 0));
+			this.addForce(new Vector3f(0, 130, 0));
 		}
 
 		// Look TODO: change to mouse
@@ -130,11 +130,12 @@ public class Camera extends PhysicsEntity {
 		}
 
 		if (leftRight == Movement.LEFT) {
-			positionVector.add(-speed * (float) Math.cos(rotationVector.y), 0,
-					-speed * (float) Math.sin(rotationVector.y));
+//			positionVector.add(-speed * (float) Math.cos(rotationVector.y), 0,
+//					-speed * (float) Math.sin(rotationVector.y));
+
+			this.accelerateLocalXZ(new Vector3f(speed, 0, 0));
 		} else if (leftRight == Movement.RIGHT) {
-			positionVector.add(speed * (float) Math.cos(rotationVector.y), 0,
-					speed * (float) Math.sin(rotationVector.y));
+			this.accelerateLocalXZ(new Vector3f(-speed, 0, 0));
 		}
 
 		if (frontBack == Movement.FOWARD) {
