@@ -60,7 +60,7 @@ public class Camera extends PhysicsEntity {
 		}
 
 		if (key == Key.SPACE) {
-			this.addForce(new Vector3f(0, 100, 0));
+			this.addForce(new Vector3f(0, 1000, 0));
 		}
 
 		// Look TODO: change to mouse
