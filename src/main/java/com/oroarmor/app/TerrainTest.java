@@ -59,34 +59,26 @@ public class TerrainTest {
 
 			@Override
 			public void processMouseEnterEvent(MouseEnterEvent event) {
-				System.out.println(event);
 			}
 
 			@Override
 			public void processMouseLeaveEvent(MouseLeaveEvent event) {
-				System.out.println(event);
 			}
 
 			@Override
 			public void processMousePositionEvent(MousePositionEvent event) {
-				System.out.println(event);
 			}
 
 			@Override
 			public void processMousePressEvent(MousePressEvent event) {
-				System.out.println(event);
-
 			}
 
 			@Override
 			public void processMouseReleasedEvent(MouseReleaseEvent event) {
-				System.out.println(event);
-
 			}
 
 			@Override
 			public void processMouseScrolledEvent(MouseScrollEvent event) {
-				System.out.println(event);
 			}
 		};
 
@@ -123,7 +115,6 @@ public class TerrainTest {
 		display.setClearColor(0.5f, 0.7f, 0.9f, 1);
 
 		// Dont close the display until its set closed
-
 		while (!display.shouldClose()) {
 
 			Vector3f cameraPos = camera.getPosition();
@@ -139,7 +130,7 @@ public class TerrainTest {
 			} catch (Exception e) {
 			}
 
-			camera.tick();
+			camera.tick(1 / 60f);
 			// Clear the display
 			display.clear();
 

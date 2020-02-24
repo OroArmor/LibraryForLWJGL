@@ -13,13 +13,10 @@ public abstract class Entity implements KeyEventListener {
 	protected Vector3f rotationVector;
 	protected Vector3f scaleVector;
 
-	protected Vector3f velocityVector;
-
 	public Entity(Vector3f position, Vector3f rotation, Vector3f scale) {
 		this.positionVector = position;
 		this.rotationVector = rotation;
 		this.scaleVector = scale;
-		this.velocityVector = new Vector3f();
 
 		setModelMatrix();
 		addToKeyListeners();
@@ -48,12 +45,10 @@ public abstract class Entity implements KeyEventListener {
 				.rotateLocalY(rotationVector.y).rotateLocalZ(rotationVector.z).scale(scaleVector);
 	}
 
-	public void tick() {
-		positionVector.add(velocityVector);
-
-		update();
+	public void tick(float delta) {
+		update(delta);
 		setModelMatrix();
 	}
 
-	public abstract void update();
+	public abstract void update(float delta);
 }

@@ -9,7 +9,7 @@ import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
 import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
 import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
 
-public class Camera extends Entity {
+public class Camera extends PhysicsEntity {
 
 	private static enum Look {
 		DOWN, LEFT, NONE, RIGHT, ROLL_LEFT, ROLL_RIGHT, UP;
@@ -28,7 +28,7 @@ public class Camera extends Entity {
 	Movement upDown = Movement.NONE;
 
 	public Camera(Vector3f position, Vector3f rotation, Vector3f scale) {
-		super(position, rotation, scale);
+		super(position, rotation, scale, 1);
 	}
 
 	@Override
@@ -59,10 +59,8 @@ public class Camera extends Entity {
 			frontBack = (frontBack == Movement.NONE) ? Movement.BACKWARD : Movement.NONE;
 		}
 
-		if (key == Key.LEFT_SHIFT) {
-			upDown = (upDown == Movement.NONE) ? Movement.DOWN : Movement.NONE;
-		} else if (key == Key.SPACE) {
-			upDown = (upDown == Movement.NONE) ? Movement.UP : Movement.NONE;
+		if (key == Key.SPACE) {
+			this.addForce(new Vector3f(0, 100, 0));
 		}
 
 		// Look TODO: change to mouse
@@ -98,11 +96,6 @@ public class Camera extends Entity {
 		} else if (key == Key.S) {
 			frontBack = (frontBack == Movement.BACKWARD) ? Movement.NONE : Movement.FOWARD;
 		}
-		if (key == Key.LEFT_SHIFT) {
-			upDown = (upDown == Movement.DOWN) ? Movement.NONE : Movement.UP;
-		} else if (key == Key.SPACE) {
-			upDown = Movement.NONE;
-		}
 
 		// Look TODO: change to mouse
 		if (key == Key.UP) {
@@ -122,11 +115,12 @@ public class Camera extends Entity {
 	}
 
 	@Override
-	public void update() {
-
-		if (this.positionVector.y < minHeight) {
+	public void update(float delta) {
+		this.addAcceleration(new Vector3f(0, -9.81f, 0));
+		if (this.positionVector.y <= minHeight && this.accelerationVector.y < 0) {
 			this.positionVector.y = minHeight;
 			this.velocityVector.y = 0;
+			this.accelerationVector.y = 0;
 		}
 
 		float speed = 5f;
@@ -161,13 +155,6 @@ public class Camera extends Entity {
 			rotationVector.add(-0.1f, 0, 0);
 		} else if (lookPitch == Look.UP && rotationVector.x < (float) Math.PI / 2) {
 			rotationVector.add(0.1f, 0, 0);
-		}
-
-		if (upDown != Movement.UP) {
-			velocityVector.add(0, -speed * 0.1f, 0f);
-		} else if (upDown == Movement.UP) {
-			velocityVector.set(0, speed, 0f);
-			upDown = Movement.NONE;
 		}
 
 	}

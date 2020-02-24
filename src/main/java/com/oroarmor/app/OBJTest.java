@@ -128,7 +128,7 @@ public class OBJTest {
 
 		// Dont close the display until its set closed
 		while (!display.shouldClose()) {
-			camera.tick();
+			camera.tick(0.05f);
 			// Clear the display
 			display.clear();
 
