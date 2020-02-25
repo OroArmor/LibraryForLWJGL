@@ -1,5 +1,6 @@
 package com.oroarmor.core.game;
 
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public abstract class PhysicsEntity extends Entity {
@@ -40,8 +41,14 @@ public abstract class PhysicsEntity extends Entity {
 		this.accelerationVector.add(acceleration);
 	}
 
-	public void accelerateLocalXZ(Vector3f xzAcceleration) {
-		this.addAcceleration(xzAcceleration.rotateY(rotationVector.y));
+	public void accelerateLocalXZ(Vector2f xzAcceleration) {
+		this.addAcceleration(new Vector3f(
+				xzAcceleration.x * (float) Math.cos(rotationVector.y)
+						+ xzAcceleration.y * (float) Math.cos(Math.PI / 2 + rotationVector.y), //
+				0, //
+				xzAcceleration.x * (float) Math.sin(rotationVector.y)
+						+ xzAcceleration.y * (float) Math.sin(Math.PI / 2 + rotationVector.y)//
+		));
 	}
 
 	@Override

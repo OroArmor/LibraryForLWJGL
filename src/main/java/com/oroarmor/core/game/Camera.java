@@ -1,6 +1,7 @@
 package com.oroarmor.core.game;
 
 import org.joml.Matrix4f;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import com.oroarmor.core.glfw.event.key.Key;
@@ -116,6 +117,7 @@ public class Camera extends PhysicsEntity {
 
 	@Override
 	public void update(float delta) {
+
 		this.addAcceleration(new Vector3f(0, -9.81f, 0));
 		if (this.positionVector.y <= minHeight && this.accelerationVector.y < 0) {
 			this.positionVector.y = minHeight;
@@ -130,20 +132,19 @@ public class Camera extends PhysicsEntity {
 		}
 
 		if (leftRight == Movement.LEFT) {
-//			positionVector.add(-speed * (float) Math.cos(rotationVector.y), 0,
-//					-speed * (float) Math.sin(rotationVector.y));
-
-			this.accelerateLocalXZ(new Vector3f(speed, 0, 0));
+			this.accelerateLocalXZ(new Vector2f(-speed, 0));
 		} else if (leftRight == Movement.RIGHT) {
-			this.accelerateLocalXZ(new Vector3f(-speed, 0, 0));
+			this.accelerateLocalXZ(new Vector2f(speed, 0));
 		}
 
 		if (frontBack == Movement.FOWARD) {
-			positionVector.add(speed * (float) Math.cos(Math.PI / 2 + rotationVector.y), 0,
-					speed * (float) Math.sin(Math.PI / 2 + rotationVector.y));
+			this.accelerateLocalXZ(new Vector2f(0, speed));
 		} else if (frontBack == Movement.BACKWARD) {
-			positionVector.add(-speed * (float) Math.cos(Math.PI / 2 + rotationVector.y), 0,
-					-speed * (float) Math.sin(Math.PI / 2 + rotationVector.y));
+			this.accelerateLocalXZ(new Vector2f(0, -speed));
+		}
+
+		if (frontBack == Movement.NONE && leftRight == Movement.NONE) {
+			this.velocityVector.mul(0.9f, 1, 0.9f);
 		}
 
 		if (lookYaw == Look.RIGHT) {
