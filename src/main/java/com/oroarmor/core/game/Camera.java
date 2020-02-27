@@ -30,6 +30,7 @@ public class Camera extends PhysicsEntity {
 
 	public Camera(Vector3f position, Vector3f rotation, Vector3f scale) {
 		super(position, rotation, scale, 1);
+		this.setMaxSpeed(10);
 	}
 
 	@Override
@@ -144,7 +145,7 @@ public class Camera extends PhysicsEntity {
 		}
 
 		if (frontBack == Movement.NONE && leftRight == Movement.NONE) {
-			this.velocityVector.mul(0.9f, 1, 0.9f);
+			this.drag(0.3f, 0, 0.3f);
 		}
 
 		if (lookYaw == Look.RIGHT) {
