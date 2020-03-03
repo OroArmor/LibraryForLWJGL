@@ -2,8 +2,8 @@
  
 layout(location = 0) out vec4 color; 
 
-in vec4 frag_pos;
+in vec2 v_tex;
 
 void main(){
-	color = vec4(1,0,0,1);
+	color = vec4(v_tex.x, v_tex.y,0,1);
 }

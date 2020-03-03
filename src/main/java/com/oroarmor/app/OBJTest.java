@@ -6,6 +6,7 @@ import org.joml.Vector3f;
 import com.oroarmor.core.Destructor;
 import com.oroarmor.core.game.Camera;
 import com.oroarmor.core.glfw.Display;
+import com.oroarmor.core.glfw.Display.CullFace;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
 import com.oroarmor.core.glfw.event.key.Key;
@@ -30,7 +31,7 @@ public class OBJTest {
 	public static void main(String[] args) {
 
 		Matrix4f objectModel = new Matrix4f().translate(0, 0, 100).rotateXYZ((float) -Math.PI / 2, (float) Math.PI, 0)
-				.scale(100);
+				.scale(10);
 
 //		Matrix4f camera = new Matrix4f().translate(new Vector3f(0, 0, 0));
 
@@ -96,33 +97,35 @@ public class OBJTest {
 		};
 
 		display.enableTransparency();
+		display.setCullFace(CullFace.FRONT);
 
 		// Set the OpenGL version to 4.5 core
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);
 
-		Mesh cube = OBJLoader.loadOBJ("./res/square.obj");
+		Mesh cube = OBJLoader.loadOBJ("./LibraryForLWJGL/res/TitansLogo.obj");
 
 		// Load the shader files
-		String shaderName = "weird";
+		String shaderName = "basic";
 
-		String vertex = ResourceLoader.loadFile("./res/" + shaderName + "vs.vs");
-		String fragment = ResourceLoader.loadFile("./res/" + shaderName + "fs.fs");
+		String vertex = ResourceLoader.loadFile("./LibraryForLWJGL/res/" + shaderName + "vs.vs");
+		String fragment = ResourceLoader.loadFile("./LibraryForLWJGL/res/" + shaderName + "fs.fs");
 
 		// Create two shaders based on the files
 		Shader shader = new Shader(vertex, fragment);
 
+		shader.compile();
 		// Create a renderer
 		Renderer renderer = new Renderer();
 
 		// Create a texture and bind it to the square shader
 
-		display.setClearColor(0, 0, 1, 1);
+		display.setClearColor(0, 0, 0, 1);
 
-		Texture texture = new Texture("./res/TitansLogo.png");
+		Texture texture = new Texture("./LibraryForLWJGL/res/TitansLogo.png");
 
-		texture.bind(0);
+		texture.bind(1);
 		shader.bind();
-		shader.setUniform1i("u_Texture", 0);
+		shader.setUniform1i("u_Texture", 1);
 
 		shader.setUniform3f("u_lightDir", new Vector3f(0, 1, -1));
 

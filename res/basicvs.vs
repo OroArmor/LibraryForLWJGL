@@ -15,6 +15,6 @@ out vec4 v_lightDir;
 void main(){
 	v_texCoor = texCoor;
  	gl_Position = u_MV * u_P * position;
- 	v_normal = u_MV * u_P * vec4(normal,0);
- 	v_lightDir = u_MV * vec4(u_lightDir,0);
+ 	v_normal = u_P * vec4(normal,0);
+ 	v_lightDir = vec4(u_lightDir,0);
 }

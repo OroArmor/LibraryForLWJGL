@@ -9,6 +9,7 @@ import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.opengl.GL11.GL_BACK;
+import static org.lwjgl.opengl.GL11.GL_FRONT;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
@@ -66,6 +67,16 @@ public abstract class Display implements EventListener {
 	 */
 	private long window;
 
+	public enum CullFace {
+		FRONT(GL_FRONT), BACK(GL_BACK);
+
+		public int id;
+
+		private CullFace(int id) {
+			this.id = id;
+		}
+	}
+
 	/**
 	 * Creates a new display
 	 * 
@@ -94,11 +105,14 @@ public abstract class Display implements EventListener {
 		glClearDepth(1.0f);
 		glDepthFunc(GL_LESS);
 		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
 
 		EventCreator.initalizeWindow(window);
 		addToListeners();
+	}
+
+	public void setCullFace(CullFace face) {
+		glEnable(GL_CULL_FACE);
+		glCullFace(face.id);
 	}
 
 	/**

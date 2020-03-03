@@ -18,5 +18,9 @@ public enum EventType {
 	/**
 	 * A mouse event
 	 */
-	MOUSE;
+	MOUSE,
+	/**
+	 * Custom
+	 */
+	CUSTOM;
 }

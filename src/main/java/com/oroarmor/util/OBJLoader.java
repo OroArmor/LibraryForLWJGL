@@ -71,29 +71,29 @@ public class OBJLoader {
 				break;
 			case "f":
 				for (int i = 1; i < tokens.length; i++) {
-//					if (triangleNames.containsKey(tokens[i])) {
-//						triangles.add(triangleNames.get(tokens[i]));
-//					} else {
-					String[] vtxUvNorm = tokens[i].split("/");
-					int vertexID = Integer.parseInt(vtxUvNorm[0]) - 1;
-					int uvID = Integer.parseInt(vtxUvNorm[1]) - 1;
-					int normID = Integer.parseInt(vtxUvNorm[2]) - 1;
+					if (triangleNames.containsKey(tokens[i])) {
+						triangles.add(triangleNames.get(tokens[i]));
+					} else {
+						String[] vtxUvNorm = tokens[i].split("/");
+						int vertexID = Integer.parseInt(vtxUvNorm[0]) - 1;
+						int uvID = Integer.parseInt(vtxUvNorm[1]) - 1;
+						int normID = Integer.parseInt(vtxUvNorm[2]) - 1;
 
-					meshData.add(verticies.get(vertexID * 3));
-					meshData.add(verticies.get(vertexID * 3 + 1));
-					meshData.add(verticies.get(vertexID * 3 + 2));
+						meshData.add(verticies.get(vertexID * 3));
+						meshData.add(verticies.get(vertexID * 3 + 1));
+						meshData.add(verticies.get(vertexID * 3 + 2));
 
-					meshData.add(uv.get(uvID * 2));
-					meshData.add(uv.get(uvID * 2 + 1));
+						meshData.add(uv.get(uvID * 2));
+						meshData.add(uv.get(uvID * 2 + 1));
 
-					meshData.add(normals.get(normID * 3));
-					meshData.add(normals.get(normID * 3 + 1));
-					meshData.add(normals.get(normID * 3 + 2));
+						meshData.add(normals.get(normID * 3));
+						meshData.add(normals.get(normID * 3 + 1));
+						meshData.add(normals.get(normID * 3 + 2));
 
-					triangles.add(vertexCounts);
-					triangleNames.put(tokens[i], vertexCounts);
-					vertexCounts++;
-//					}
+						triangles.add(vertexCounts);
+						triangleNames.put(tokens[i], vertexCounts);
+						vertexCounts++;
+					}
 				}
 			}
 		}

@@ -2,22 +2,32 @@ package com.oroarmor.core.game;
 
 import com.oroarmor.util.FixedUpdateThread;
 
-public class Game {
+public class Game<T extends GameInfo> {
 
-	private GameRenderer gameGraphics;
-	private GameLogic gameLogic;
+	private GameRenderer<T> gameGraphics;
+	private GameLogic<T> gameLogic;
 
-	private Thread renderThread;
-	private Thread logicThread;
+	private FixedUpdateThread renderThread;
+	private FixedUpdateThread logicThread;
 
-	public Game(GameRenderer gameGraphics, GameLogic gameLogic) {
+	public Game(GameRenderer<T> gameGraphics, GameLogic<T> gameLogic) {
 		this.gameGraphics = gameGraphics;
 		this.gameLogic = gameLogic;
 
 		renderThread = new FixedUpdateThread(60) {
 			@Override
+			public void initalize() {
+				gameGraphics.initialize();
+			}
+
+			@Override
 			public void tick() {
 				gameGraphics.render(1f / 60f);
+			}
+
+			@Override
+			public void deinitalize() {
+				gameGraphics.deinitialize();
 			}
 		};
 
@@ -26,41 +36,62 @@ public class Game {
 			public void tick() {
 				gameLogic.tick(0.05f);
 			}
+
+			@Override
+			public void initalize() {
+				gameLogic.initialize();
+			}
+
+			@Override
+			public void deinitalize() {
+				gameLogic.deinitialize();
+			}
 		};
 
-		renderThread.run();
-		logicThread.run();
 	}
 
-	public GameRenderer getGameGraphics() {
+	public Game<T> run() {
+		renderThread.start();
+		logicThread.start();
+
+		try {
+			renderThread.join();
+			logicThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return this;
+	}
+
+	public GameRenderer<T> getGameGraphics() {
 		return gameGraphics;
 	}
 
-	public void setGameGraphics(GameRenderer gameGraphics) {
+	public void setGameGraphics(GameRenderer<T> gameGraphics) {
 		this.gameGraphics = gameGraphics;
 	}
 
-	public GameLogic getGameLogic() {
+	public GameLogic<T> getGameLogic() {
 		return gameLogic;
 	}
 
-	public void setGameLogic(GameLogic gameLogic) {
+	public void setGameLogic(GameLogic<T> gameLogic) {
 		this.gameLogic = gameLogic;
 	}
 
-	public Thread getRenderThread() {
+	public FixedUpdateThread getRenderThread() {
 		return renderThread;
 	}
 
-	public void setRenderThread(Thread renderThread) {
+	public void setRenderThread(FixedUpdateThread renderThread) {
 		this.renderThread = renderThread;
 	}
 
-	public Thread getLogicThread() {
+	public FixedUpdateThread getLogicThread() {
 		return logicThread;
 	}
 
-	public void setLogicThread(Thread logicThread) {
+	public void setLogicThread(FixedUpdateThread logicThread) {
 		this.logicThread = logicThread;
 	}
 

@@ -10,6 +10,7 @@ import com.oroarmor.core.game.light.Sunlight;
 import com.oroarmor.core.game.terrain.TerrainMesh;
 import com.oroarmor.core.game.terrain.TerrainShader;
 import com.oroarmor.core.glfw.Display;
+import com.oroarmor.core.glfw.Display.CullFace;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
 import com.oroarmor.core.glfw.event.key.Key;
@@ -83,6 +84,8 @@ public class TerrainTest {
 		};
 
 		display.enableTransparency();
+
+		display.setCullFace(CullFace.BACK);
 
 		// Set the OpenGL version to 4.5 core
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);
