@@ -5,12 +5,13 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import com.oroarmor.core.glfw.event.key.Key;
+import com.oroarmor.core.glfw.event.key.KeyEventListener;
 import com.oroarmor.core.glfw.event.key.KeyStatus;
 import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
 import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
 import com.oroarmor.core.glfw.event.key.release.KeyReleaseEvent;
 
-public class Camera extends PhysicsEntity {
+public class Camera extends PhysicsEntity implements KeyEventListener {
 
 	private static enum Look {
 		DOWN, LEFT, NONE, RIGHT, ROLL_LEFT, ROLL_RIGHT, UP;
@@ -28,9 +29,10 @@ public class Camera extends PhysicsEntity {
 	private float minHeight;
 	Movement upDown = Movement.NONE;
 
-	public Camera(Vector3f position, Vector3f rotation, Vector3f scale) {
-		super(position, rotation, scale, 1);
+	public Camera(Vector3f position, Vector3f rotation) {
+		super(position, rotation, new Vector3f(0, 0, 0), 1);
 		this.setMaxSpeed(10);
+		this.addToKeyListeners();
 	}
 
 	@Override
@@ -159,6 +161,16 @@ public class Camera extends PhysicsEntity {
 		} else if (lookPitch == Look.UP && rotationVector.x < (float) Math.PI / 2) {
 			rotationVector.add(0.1f, 0, 0);
 		}
+
+	}
+
+	@Override
+	public boolean isActive() {
+		return true;
+	}
+
+	@Override
+	public void setActive(boolean active) {
 
 	}
 

@@ -35,7 +35,7 @@ public class OBJTest {
 
 //		Matrix4f camera = new Matrix4f().translate(new Vector3f(0, 0, 0));
 
-		Camera camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
+		Camera camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0));
 
 		// Create a new window with a onKey function that prints the typed key
 		Display display = new Display(640, 480, "Open GL Learning") {

@@ -31,8 +31,9 @@ public class OBJLoader {
 	 * @param filePath The path to the object file
 	 * @return A mesh with the data from the object file
 	 */
-	public static Mesh loadOBJ(String filePath) {
-		String[] fileData = ResourceLoader.loadFile(filePath).split("\\n");
+	public static Mesh loadOBJ(String fileUnsplitData) {
+
+		String[] fileData = fileUnsplitData.split("\\n");
 
 		// x, y, x
 		ArrayList<Float> verticies = new ArrayList<Float>();
