@@ -128,7 +128,7 @@ public class TerrainTest {
 				float currentHeight = terrains[x * count + y].getHeightMap()[(int) cameraPos.x
 						- size * x][(int) (cameraPos.z) - size * y];
 
-				camera.setMinHeight(Math.max(currentHeight * TerrainMesh.maxHeight - TerrainMesh.maxHeight * 0.25f, 0));
+//				camera.setMinHeight(Math.max(currentHeight * TerrainMesh.maxHeight - TerrainMesh.maxHeight * 0.25f, 0));
 			} catch (Exception e) {
 			}
 

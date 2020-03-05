@@ -26,11 +26,10 @@ public class Camera extends PhysicsEntity implements KeyEventListener {
 	Look lookPitch = Look.NONE;
 	Look lookRoll = Look.NONE;
 	Look lookYaw = Look.NONE;
-	private float minHeight;
 	Movement upDown = Movement.NONE;
 
 	public Camera(Vector3f position, Vector3f rotation) {
-		super(position, rotation, new Vector3f(0, 0, 0), 1);
+		super(position, rotation, new Vector3f(1, 1, 1), 1);
 		this.setMaxSpeed(10);
 		this.addToKeyListeners();
 	}
@@ -114,19 +113,8 @@ public class Camera extends PhysicsEntity implements KeyEventListener {
 		}
 	}
 
-	public void setMinHeight(float currentHeight) {
-		this.minHeight = currentHeight;
-	}
-
 	@Override
 	public void update(float delta) {
-
-		this.addAcceleration(new Vector3f(0, -9.81f, 0));
-		if (this.positionVector.y <= minHeight && this.accelerationVector.y < 0) {
-			this.positionVector.y = minHeight;
-			this.velocityVector.y = 0;
-			this.accelerationVector.y = 0;
-		}
 
 		float speed = 5f;
 
@@ -171,7 +159,6 @@ public class Camera extends PhysicsEntity implements KeyEventListener {
 
 	@Override
 	public void setActive(boolean active) {
-
 	}
 
 }
