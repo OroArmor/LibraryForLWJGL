@@ -28,11 +28,11 @@ public class OBJLoader {
 
 	/**
 	 * 
-	 * @param filePath The path to the object file
+	 * @param data The data of the object file
 	 * @return A mesh with the data from the object file
 	 */
-	public static Mesh loadOBJ(String filePath) {
-		String[] fileData = ResourceLoader.loadFile(filePath).split("\\n");
+	public static Mesh loadOBJ(String data) {
+		String[] fileData = data.split("\\n");
 
 		// x, y, x
 		ArrayList<Float> verticies = new ArrayList<Float>();
@@ -114,6 +114,10 @@ public class OBJLoader {
 		}
 
 		return new Mesh(meshDataArray, triangleArray, objLayout);
+	}
+
+	public static Mesh loadOBJFromFile(String filePath) {
+		return loadOBJ(ResourceLoader.loadFile(filePath));
 	}
 
 	/**

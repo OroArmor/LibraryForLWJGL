@@ -32,8 +32,7 @@ public class TerrainTest {
 
 		Sunlight sun = new Sunlight(new Vector3f(-1, -1, 0), new Vector4f(1f, .9f, .8f, 1));
 
-		Camera camera = new Camera(new Vector3f(0, 100, 0), new Vector3f(0, -(float) Math.PI / 2, 0),
-				new Vector3f(1, 1, 1));
+		Camera camera = new Camera(new Vector3f(0, 100, 0), new Vector3f(0, -(float) Math.PI / 2, 0));
 		// Create a new window with a onKey function that prints the typed key
 		Display display = new Display(640, 480, "Open GL Learning") {
 			@Override
@@ -129,7 +128,7 @@ public class TerrainTest {
 				float currentHeight = terrains[x * count + y].getHeightMap()[(int) cameraPos.x
 						- size * x][(int) (cameraPos.z) - size * y];
 
-				camera.setMinHeight(Math.max(currentHeight * TerrainMesh.maxHeight - TerrainMesh.maxHeight * 0.25f, 0));
+//				camera.setMinHeight(Math.max(currentHeight * TerrainMesh.maxHeight - TerrainMesh.maxHeight * 0.25f, 0));
 			} catch (Exception e) {
 			}
 

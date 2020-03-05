@@ -3,11 +3,8 @@ package com.oroarmor.core.game;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import com.oroarmor.core.glfw.event.key.KeyEventListener;
+public abstract class Entity {
 
-public abstract class Entity implements KeyEventListener {
-
-	private boolean active = true;
 	protected Matrix4f modelMatrix;
 	protected Vector3f positionVector;
 	protected Vector3f rotationVector;
@@ -19,7 +16,6 @@ public abstract class Entity implements KeyEventListener {
 		this.scaleVector = scale;
 
 		setModelMatrix();
-		addToKeyListeners();
 	}
 
 	public Matrix4f getModelMatrix() {
@@ -28,16 +24,6 @@ public abstract class Entity implements KeyEventListener {
 
 	public Vector3f getPosition() {
 		return positionVector;
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 
 	protected void setModelMatrix() {
