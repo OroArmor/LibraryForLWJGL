@@ -119,19 +119,6 @@ public class TerrainTest {
 		// Dont close the display until its set closed
 		while (!display.shouldClose()) {
 
-			Vector3f cameraPos = camera.getPosition();
-
-			int x = (int) (cameraPos.x / size);
-			int y = (int) (cameraPos.z / size);
-
-			try {
-				float currentHeight = terrains[x * count + y].getHeightMap()[(int) cameraPos.x
-						- size * x][(int) (cameraPos.z) - size * y];
-
-//				camera.setMinHeight(Math.max(currentHeight * TerrainMesh.maxHeight - TerrainMesh.maxHeight * 0.25f, 0));
-			} catch (Exception e) {
-			}
-
 			camera.tick(1 / 60f);
 			// Clear the display
 			display.clear();
