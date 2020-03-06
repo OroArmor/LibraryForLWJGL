@@ -30,7 +30,6 @@ public class Camera extends PhysicsEntity implements KeyEventListener {
 
 	public Camera(Vector3f position, Vector3f rotation) {
 		super(position, rotation, new Vector3f(1, 1, 1), 1);
-		this.setMaxSpeed(10);
 		this.addToKeyListeners();
 	}
 
@@ -81,6 +80,7 @@ public class Camera extends PhysicsEntity implements KeyEventListener {
 		if (key == Key.PERIOD) {
 			positionVector = new Vector3f(0, 0, 0);
 			rotationVector = new Vector3f(0, 0, 0);
+			velocityVector = new Vector3f(0, 0, 0);
 		}
 	}
 
@@ -116,7 +116,7 @@ public class Camera extends PhysicsEntity implements KeyEventListener {
 	@Override
 	public void update(float delta) {
 
-		float speed = 5f;
+		float speed = 0.0005f;
 
 		if (KeyStatus.isKeyDown(Key.LEFT_CONTROL)) {
 			speed *= 2;
@@ -134,20 +134,18 @@ public class Camera extends PhysicsEntity implements KeyEventListener {
 			this.accelerateLocalXZ(new Vector2f(0, -speed));
 		}
 
-		if (frontBack == Movement.NONE && leftRight == Movement.NONE) {
-			this.drag(0.3f, 0, 0.3f);
-		}
+		this.drag(0.3f, 0, 0.3f);
 
 		if (lookYaw == Look.RIGHT) {
-			rotationVector.add(0, -0.1f, 0);
+			rotationVector.add(0, -0.001f, 0);
 		} else if (lookYaw == Look.LEFT) {
-			rotationVector.add(0, 0.1f, 0);
+			rotationVector.add(0, 0.001f, 0);
 		}
 
 		if (lookPitch == Look.DOWN && rotationVector.x > (float) -Math.PI / 2) {
-			rotationVector.add(-0.1f, 0, 0);
+			rotationVector.add(-0.001f, 0, 0);
 		} else if (lookPitch == Look.UP && rotationVector.x < (float) Math.PI / 2) {
-			rotationVector.add(0.1f, 0, 0);
+			rotationVector.add(0.001f, 0, 0);
 		}
 
 	}

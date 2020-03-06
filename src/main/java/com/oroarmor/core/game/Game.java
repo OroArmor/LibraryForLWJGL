@@ -34,7 +34,7 @@ public class Game<T extends GameInfo> {
 		logicThread = new FixedUpdateThread(20) {
 			@Override
 			public void tick() {
-				gameLogic.tick(0.05f);
+				gameLogic.tick(0.005f);
 			}
 
 			@Override
