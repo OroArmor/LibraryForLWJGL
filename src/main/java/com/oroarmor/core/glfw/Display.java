@@ -170,7 +170,7 @@ public abstract class Display implements EventListener {
 	 * @return An orthographic view model for the display
 	 */
 	public Matrix4f getOrthoViewModel() {
-		return new Matrix4f().ortho(0, width, 0, height, -10000, 10000);
+		return new Matrix4f().setOrtho(0, width, height, 0, -10000, 10000);
 	}
 
 	/**

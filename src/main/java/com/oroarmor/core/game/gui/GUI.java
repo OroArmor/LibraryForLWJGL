@@ -1,5 +1,7 @@
 package com.oroarmor.core.game.gui;
 
+import org.joml.Matrix4f;
+
 import com.oroarmor.core.glfw.event.mouse.button.press.MousePressEvent;
 import com.oroarmor.core.glfw.event.mouse.button.release.MouseReleaseEvent;
 import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
@@ -15,9 +17,16 @@ public abstract class GUI implements IGUIObject {
 
 	protected IGUICallback callback = new GUICallback();
 
+	protected Matrix4f animationMatrix;
+
 	public GUI(float x, float y) {
 		this.x = x;
 		this.y = y;
+
+		this.addToButtonListeners();
+		this.addToPositionListeners();
+
+		animationMatrix = new Matrix4f();
 	}
 
 	@Override
