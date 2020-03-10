@@ -50,7 +50,13 @@ public abstract class GUI implements IGUIObject {
 	@Override
 	public void processMouseReleasedEvent(MouseReleaseEvent event) {
 		if (this.clicked) {
-			this.callback.onRelease(event.getButton());
+			boolean inbounds = inBounds(event.getX(), event.getY());
+			this.callback.onRelease(event.getButton(), inbounds);
+			if (inbounds) {
+				this.callback.onHover();
+			} else {
+				this.callback.onHoverStop();
+			}
 			this.clicked = false;
 		}
 	}
@@ -79,12 +85,14 @@ public abstract class GUI implements IGUIObject {
 
 	@Override
 	public void processMousePositionEvent(MousePositionEvent event) {
-		if (this.inBounds(event.getMouseX(), event.getMouseY())) {
-			this.callback.onHover();
-			this.hovered = true;
-		} else if (this.hovered) {
-			this.hovered = false;
-			this.callback.onHoverStop();
+		if (!clicked) {
+			if (this.inBounds(event.getMouseX(), event.getMouseY())) {
+				this.callback.onHover();
+				this.hovered = true;
+			} else if (this.hovered) {
+				this.hovered = false;
+				this.callback.onHoverStop();
+			}
 		}
 	}
 

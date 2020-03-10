@@ -1,4 +1,4 @@
-package com.oroarmor.core.game.gui.shader;
+package com.oroarmor.core.game.gui.shader.solidcolor;
 
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
@@ -9,10 +9,11 @@ import com.oroarmor.util.ResourceLoader;
 public class SolidColorShader extends Shader {
 
 	public SolidColorShader() {
-		super(ResourceLoader
-				.loadFile(Class.class.getResourceAsStream("/com/oroarmor/core/game/gui/shader/solidcolor.vs")),
-				ResourceLoader
-						.loadFile(Class.class.getResourceAsStream("/com/oroarmor/core/game/gui/shader/solidcolor.fs")));
+		super(//
+				ResourceLoader.loadFile(
+						Class.class.getResourceAsStream("/com/oroarmor/core/game/gui/shader/solidcolor/solidcolor.vs")),
+				ResourceLoader.loadFile(Class.class
+						.getResourceAsStream("/com/oroarmor/core/game/gui/shader/solidcolor/solidcolor.fs")));
 
 		this.compile();
 	}

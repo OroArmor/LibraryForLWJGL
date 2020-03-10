@@ -10,22 +10,12 @@ public class GUICallback implements IGUICallback {
 	}
 
 	@Override
-	public void onRelease(MouseButton button) {
-
-	}
-
-	@Override
-	public void whileHeld(MouseButton button) {
+	public void onRelease(MouseButton button, boolean inbounds) {
 
 	}
 
 	@Override
 	public void onHover() {
-
-	}
-
-	@Override
-	public void whileHovered() {
 
 	}
 

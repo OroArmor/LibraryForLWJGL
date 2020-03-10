@@ -31,19 +31,22 @@ public class GUIBox extends GUI {
 		this.callback = new GUICallback() {
 			@Override
 			public void onHover() {
-				if (!clicked)
-					color = new Vector4f(1, 0.5f, 0.5f, 1);
+				color = new Vector4f(1, 0.2f, 0.2f, 1);
 			}
 
 			@Override
 			public void onHoverStop() {
-				if (!clicked)
-					color = new Vector4f(1, 0, 0, 1);
+				color = new Vector4f(1, 0, 0, 1);
 			}
 
 			@Override
 			public void onClick(MouseButton button) {
 				color = new Vector4f(0, 1, 0, 1);
+			}
+
+			@Override
+			public void onRelease(MouseButton button, boolean inbounds) {
+				System.out.println(inbounds ? "Release In Bounds!" : "Release Out of Bounds!");
 			}
 		};
 
