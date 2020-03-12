@@ -1,20 +1,42 @@
 package com.oroarmor.core.game.gui.text;
 
 public class FontMetaData {
+	public static class Padding {
+		float width;
+		float height;
+
+		public Padding(float width, float height) {
+			this.width = width;
+			this.height = height;
+		}
+
+		public float getWidth() {
+			return width;
+		}
+
+		public float getHeight() {
+			return height;
+		}
+
+	}
+
 	private final int base;
 	private final boolean bold;
 	private final String fontName;
 	private final int fontSize;
 	private final boolean italic;
 	private final int lineHeight;
+	private final Padding padding;
 
-	public FontMetaData(String fontName, int fontSize, boolean bold, boolean italic, int lineHeight, int base) {
+	public FontMetaData(String fontName, int fontSize, boolean bold, boolean italic, int lineHeight, int base,
+			Padding padding) {
 		this.fontName = fontName;
 		this.fontSize = fontSize;
 		this.bold = bold;
 		this.italic = italic;
 		this.lineHeight = lineHeight;
 		this.base = base;
+		this.padding = padding;
 	}
 
 	public int getBase() {
@@ -39,6 +61,10 @@ public class FontMetaData {
 
 	public boolean isItalic() {
 		return italic;
+	}
+
+	public Padding getPadding() {
+		return this.padding;
 	}
 
 }

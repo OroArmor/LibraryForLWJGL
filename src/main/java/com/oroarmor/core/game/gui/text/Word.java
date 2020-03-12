@@ -5,21 +5,17 @@ import java.util.List;
 
 public class Word {
 
-	private List<FontCharacter> characters;
-	private int fontSize;
+	private List<FontCharacter> characters = new ArrayList<FontCharacter>(1);
+	private float fontSize;
 	private float wordWidth;
 
-	public Word(int fontSize) {
-		this.fontSize = fontSize;
+	public Word(float textSize) {
+		this.fontSize = textSize;
 	}
 
 	public void addCharacter(FontCharacter character) {
-		if (characters == null) {
-			characters = new ArrayList<FontCharacter>(1);
-		}
-
 		characters.add(character);
-		this.wordWidth += character.xadvance * (float) fontSize;
+		this.wordWidth += character.xadvance * fontSize;
 	}
 
 	public List<FontCharacter> getCharacters() {
@@ -28,6 +24,11 @@ public class Word {
 
 	public float getWordWidth() {
 		return wordWidth;
+	}
+
+	@Override
+	public String toString() {
+		return "Word [characters=" + characters + ", fontSize=" + fontSize + ", wordWidth=" + wordWidth + "]";
 	}
 
 }

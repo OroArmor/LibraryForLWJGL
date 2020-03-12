@@ -1,5 +1,6 @@
 package com.oroarmor.core.game.gui.text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Line {
@@ -8,7 +9,7 @@ public class Line {
 
 	private float spaceWidth;
 
-	private List<Word> words;
+	private List<Word> words = new ArrayList<Word>();
 
 	public Line(float maxLength, float spaceWidth, float fontSize) {
 		this.maxLength = maxLength;
@@ -39,4 +40,9 @@ public class Line {
 		return words;
 	}
 
+	@Override
+	public String toString() {
+		return "Line [currentLength=" + currentLength + ", maxLength=" + maxLength + ", spaceWidth=" + spaceWidth
+				+ ", words=" + words + "]";
+	}
 }

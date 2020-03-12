@@ -54,8 +54,7 @@ public class Font {
 		return metaData;
 	}
 
-	public Mesh getTextMesh(String text, float textSize) {
-
+	public Mesh getTextMesh(String text, float textSize, float textWidth) {
 		if (fontMeshes == null) {
 			fontMeshes = new HashMap<TextSizePair, Mesh>();
 		}
@@ -66,7 +65,7 @@ public class Font {
 			return fontMeshes.get(textSizePair);
 		}
 
-		Mesh newTextMesh = FontMeshCreator.createMesh(this, text, textSize);
+		Mesh newTextMesh = FontMeshCreator.createMesh(this, text, textSize, textWidth);
 
 		fontMeshes.put(textSizePair, newTextMesh);
 

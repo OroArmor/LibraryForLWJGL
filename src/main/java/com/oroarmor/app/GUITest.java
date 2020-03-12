@@ -1,8 +1,12 @@
 package com.oroarmor.app;
 
+import org.joml.Matrix4f;
+import org.joml.Vector4f;
+
 import com.oroarmor.core.Destructor;
-import com.oroarmor.core.game.gui.GUIBox;
-import com.oroarmor.core.game.gui.shader.GUIShaders;
+import com.oroarmor.core.game.gui.shader.font.FontShader;
+import com.oroarmor.core.game.gui.text.Font;
+import com.oroarmor.core.game.gui.text.FontLoader;
 import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
@@ -17,8 +21,11 @@ import com.oroarmor.core.glfw.event.mouse.over.leave.MouseLeaveEvent;
 import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
 import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEvent;
 import com.oroarmor.core.opengl.Renderer;
+import com.oroarmor.core.opengl.Texture;
+import com.oroarmor.util.ResourceLoader;
 
 public class GUITest {
+	static String textString = "a";
 
 	public static void main(String[] args) {
 
@@ -34,7 +41,10 @@ public class GUITest {
 			@Override
 			public void processKeyPressedEvent(KeyPressEvent event) {
 				// TODO Auto-generated method stub
-
+				if (event.key != Key.BACKSPACE)
+					textString += event.key.getChar();
+				else if (textString.length() > 0)
+					textString = textString.substring(0, textString.length() - 1);
 			}
 
 			@Override
@@ -90,17 +100,26 @@ public class GUITest {
 		// Create a renderer
 		Renderer renderer = new Renderer();
 
-		GUIBox box = new GUIBox(100, 100, 300, 300);
+		Font testFont = FontLoader.loadFontFromData(ResourceLoader.loadFile("./res/bank.fnt"),
+				new Texture("./res/bank.png"));
 
-		display.setClearColor(0, 0, 1, 1);
+		display.setClearColor(0, 0, 0, 1);
+
+		FontShader shader = new FontShader();
+		shader.bind();
+		shader.setTexture(testFont.getTexture());
+		shader.setColor(new Vector4f(1, 0, 0, 1));
+		shader.setObjectModel(new Matrix4f().translation(0, 0, 0));
 
 		while (!display.shouldClose()) {
 			// Clear the display
 			display.clear();
 
-			GUIShaders.updateShaderView(display.getOrthoViewModel());
+			shader.setColor(
+					new Vector4f(1, 0, (float) Math.sin(((System.currentTimeMillis()) / 1000d)) * 0.5f + 0.5f, 1));
 
-			box.render(renderer);
+			shader.setOrthoView(display.getOrthoViewModel());
+			testFont.getTextMesh(textString, 1f, display.getWidth()).render(renderer, shader);
 
 			display.render();
 		}

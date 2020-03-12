@@ -1,21 +1,27 @@
-package com.oroarmor.core.game.gui.shader.solidcolor;
+package com.oroarmor.core.game.gui.shader.font;
 
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
 import com.oroarmor.core.opengl.Shader;
+import com.oroarmor.core.opengl.Texture;
 import com.oroarmor.util.ResourceLoader;
 
-public class SolidColorShader extends Shader {
+public class FontShader extends Shader {
 
-	public SolidColorShader() {
+	public FontShader() {
 		super(//
-				ResourceLoader.loadFile(
-						Class.class.getResourceAsStream("/com/oroarmor/core/game/gui/shader/solidcolor/solidcolor.vs")),
-				ResourceLoader.loadFile(Class.class
-						.getResourceAsStream("/com/oroarmor/core/game/gui/shader/solidcolor/solidcolor.fs")));
+				ResourceLoader
+						.loadFile(Class.class.getResourceAsStream("/com/oroarmor/core/game/gui/shader/font/font.vs")),
+				ResourceLoader
+						.loadFile(Class.class.getResourceAsStream("/com/oroarmor/core/game/gui/shader/font/font.fs")));
 
 		this.compile();
+	}
+
+	public void setTexture(Texture texture) {
+		texture.bind(1);
+		this.setUniform1i("u_Texture", 1);
 	}
 
 	public void setOrthoView(Matrix4f orthoView) {

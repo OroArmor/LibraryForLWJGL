@@ -20,4 +20,11 @@ public class FontCharacter {
 		this.yoffset = yoffset;
 		this.xadvance = xadvance;
 	}
+
+	@Override
+	public String toString() {
+		return "FontCharacter [character=" + (char) character + ", height=" + height + ", width=" + width + ", x=" + x
+				+ ", xadvance=" + xadvance + ", xoffset=" + xoffset + ", y=" + y + ", yoffset=" + yoffset + "]";
+	}
+
 }
