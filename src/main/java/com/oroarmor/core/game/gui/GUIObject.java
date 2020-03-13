@@ -6,7 +6,7 @@ import com.oroarmor.core.glfw.event.mouse.button.press.MousePressEvent;
 import com.oroarmor.core.glfw.event.mouse.button.release.MouseReleaseEvent;
 import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
 
-public abstract class GUI implements IGUIObject {
+public abstract class GUIObject implements IGUIObject {
 
 	protected boolean active = true;
 	protected boolean hovered = false;
@@ -19,7 +19,7 @@ public abstract class GUI implements IGUIObject {
 
 	protected Matrix4f animationMatrix;
 
-	public GUI(float x, float y) {
+	public GUIObject(float x, float y) {
 		this.x = x;
 		this.y = y;
 
@@ -94,6 +94,16 @@ public abstract class GUI implements IGUIObject {
 				this.callback.onHoverStop();
 			}
 		}
+	}
+
+	private boolean hasParent = false;
+
+	public void setHasParent(boolean hasParent) {
+		this.hasParent = true;
+	}
+
+	public boolean hasParent() {
+		return hasParent;
 	}
 
 }

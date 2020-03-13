@@ -8,7 +8,7 @@ import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.Renderer;
 import com.oroarmor.core.opengl.VertexBufferLayout;
 
-public class GUIBox extends GUI {
+public class GUIBox extends GUIObject {
 
 	protected float width;
 	protected float height;
