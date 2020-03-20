@@ -27,9 +27,8 @@ import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 
 import com.oroarmor.core.Bindable;
-import com.oroarmor.core.Destructable;
 
-public class Shader implements Bindable, Destructable {
+public class Shader implements Bindable {
 	/**
 	 * The different ids of the shader programs
 	 */
@@ -113,7 +112,7 @@ public class Shader implements Bindable, Destructable {
 	}
 
 	@Override
-	public void destroy() {
+	public void finalize() {
 		glDeleteProgram(shaderProgramID);
 		uniforms.clear();
 		glDeleteShader(shaderProgramID);

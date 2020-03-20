@@ -10,8 +10,6 @@ import static org.lwjgl.opengl.GL15.glGenBuffers;
 import java.nio.IntBuffer;
 
 import com.oroarmor.core.Bindable;
-import com.oroarmor.core.Destructable;
-import com.oroarmor.core.Destructor;
 
 /**
  * A class that represents an Index Buffer for OpenGL
@@ -19,7 +17,7 @@ import com.oroarmor.core.Destructor;
  * @author OroArmor
  *
  */
-public class IndexBufferObject implements Bindable, Destructable {
+public class IndexBufferObject implements Bindable {
 	/**
 	 * The count of indexes
 	 */
@@ -42,7 +40,6 @@ public class IndexBufferObject implements Bindable, Destructable {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, data, GL_STATIC_DRAW);
 
 		count = data.length;
-		Destructor.addDestructable(this);
 	}
 
 	/**
@@ -57,7 +54,6 @@ public class IndexBufferObject implements Bindable, Destructable {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, data, GL_STATIC_DRAW);
 
 		count = data.limit();
-		Destructor.addDestructable(this);
 	}
 
 	@Override
@@ -66,8 +62,7 @@ public class IndexBufferObject implements Bindable, Destructable {
 	}
 
 	@Override
-	public void destroy() {
-
+	public void finalize() {
 		glDeleteBuffers(ibo_id);
 	}
 

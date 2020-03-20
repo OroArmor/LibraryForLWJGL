@@ -3,7 +3,6 @@ package com.oroarmor.app;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
-import com.oroarmor.core.Destructor;
 import com.oroarmor.core.game.gui.shader.font.FontShader;
 import com.oroarmor.core.game.gui.text.Font;
 import com.oroarmor.core.game.gui.text.FontLoader;
@@ -125,7 +124,6 @@ public class GUITest {
 		}
 
 		// Destroy all destructables
-		Destructor.destroyAll();
 
 		// Close the display
 		display.close();

@@ -3,7 +3,6 @@ package com.oroarmor.app;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import com.oroarmor.core.Destructor;
 import com.oroarmor.core.game.Camera;
 import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.Display.CullFace;
@@ -149,7 +148,6 @@ public class OBJTest {
 		}
 
 		// Destroy all destructables
-		Destructor.destroyAll();
 
 		// Close the display
 		display.end();

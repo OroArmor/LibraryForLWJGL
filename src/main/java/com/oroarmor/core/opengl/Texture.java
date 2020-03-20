@@ -11,8 +11,6 @@ import java.nio.ByteBuffer;
 import org.lwjgl.stb.STBImage;
 
 import com.oroarmor.core.Bindable;
-import com.oroarmor.core.Destructable;
-import com.oroarmor.core.Destructor;
 import com.oroarmor.util.TextureLoader;
 
 /**
@@ -21,7 +19,7 @@ import com.oroarmor.util.TextureLoader;
  * @author OroArmor
  *
  */
-public class Texture implements Bindable, Destructable {
+public class Texture implements Bindable {
 	/**
 	 * Path to the image texture
 	 */
@@ -68,7 +66,6 @@ public class Texture implements Bindable, Destructable {
 		this.height = y[0];
 
 		this.textureID = TextureLoader.loadTexture(buffer, width, height);
-		Destructor.addDestructable(this);
 	}
 
 	/**
@@ -91,7 +88,7 @@ public class Texture implements Bindable, Destructable {
 	}
 
 	@Override
-	public void destroy() {
+	public void finalize() {
 		glDeleteTextures(textureID);
 	}
 
