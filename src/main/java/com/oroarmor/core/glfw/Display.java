@@ -9,12 +9,12 @@ import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.opengl.GL11.GL_BACK;
-import static org.lwjgl.opengl.GL11.GL_FRONT;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.GL_FRONT;
 import static org.lwjgl.opengl.GL11.GL_LESS;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
@@ -31,12 +31,12 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFWWindowSizeCallbackI;
 
-import com.oroarmor.core.glfw.event.Event;
-import com.oroarmor.core.glfw.event.EventCreator;
-import com.oroarmor.core.glfw.event.EventListener;
+import com.oroarmor.core.glfw.event.GLFWEventCreator;
+import com.oroarmor.core.glfw.event.GLFWEvent;
+import com.oroarmor.core.glfw.event.GLFWEventListener;
 import com.oroarmor.core.glfw.event.key.Key;
 
-public abstract class Display implements EventListener {
+public abstract class Display implements GLFWEventListener {
 	/**
 	 * When true, the display is listening to events
 	 */
@@ -106,7 +106,7 @@ public abstract class Display implements EventListener {
 		glDepthFunc(GL_LESS);
 		glEnable(GL_DEPTH_TEST);
 
-		EventCreator.initalizeWindow(window);
+		GLFWEventCreator.initalizeWindow(window);
 		addToListeners();
 	}
 
@@ -209,7 +209,7 @@ public abstract class Display implements EventListener {
 	}
 
 	@Override
-	public void processEvent(Event event) {
+	public void processGLFWEvent(GLFWEvent event) {
 	}
 
 	/**

@@ -2,7 +2,7 @@ package com.oroarmor.core.glfw.event.key.hold;
 
 import java.util.ArrayList;
 
-import com.oroarmor.core.glfw.event.Active;
+import com.oroarmor.core.game.event.Active;
 
 public interface KeyHoldEventListener extends Active {
 	public static ArrayList<KeyHoldEventListener> keyPressListeners = new ArrayList<KeyHoldEventListener>();

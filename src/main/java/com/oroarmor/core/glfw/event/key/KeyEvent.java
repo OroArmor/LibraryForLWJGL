@@ -2,8 +2,8 @@ package com.oroarmor.core.glfw.event.key;
 
 import org.lwjgl.glfw.GLFW;
 
-import com.oroarmor.core.glfw.event.Event;
-import com.oroarmor.core.glfw.event.EventType;
+import com.oroarmor.core.game.event.Event;
+import com.oroarmor.core.game.event.EventType;
 import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
 import com.oroarmor.core.glfw.event.key.hold.KeyHoldEventListener;
 import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;

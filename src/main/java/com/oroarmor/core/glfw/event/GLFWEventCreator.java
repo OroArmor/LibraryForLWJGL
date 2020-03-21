@@ -25,7 +25,7 @@ import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEvent;
  * @author OroArmor
  *
  */
-public class EventCreator {
+public class GLFWEventCreator {
 
 	public static void initalizeWindow(long window) {
 		glfwSetKeyCallback(window, new GLFWKeyCallback() {
@@ -39,7 +39,7 @@ public class EventCreator {
 
 			@Override
 			public void invoke(long window, double xoffset, double yoffset) {
-				MouseScrollEvent.create(window, (float) xoffset, (float) yoffset);
+				MouseScrollEvent.create(window, (float) xoffset, (float) yoffset, new GLFWEventMods(0));
 			}
 
 		});

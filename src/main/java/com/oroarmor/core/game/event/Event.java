@@ -1,4 +1,4 @@
-package com.oroarmor.core.glfw.event;
+package com.oroarmor.core.game.event;
 
 /**
  * A interface all events extend
