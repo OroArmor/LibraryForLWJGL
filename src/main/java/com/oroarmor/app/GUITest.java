@@ -9,6 +9,7 @@ import com.oroarmor.core.game.gui.text.FontLoader;
 import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
+import com.oroarmor.core.glfw.event.GLFWEventMods.GLFWModIDs;
 import com.oroarmor.core.glfw.event.key.Key;
 import com.oroarmor.core.glfw.event.key.hold.KeyHoldEvent;
 import com.oroarmor.core.glfw.event.key.press.KeyPressEvent;
@@ -39,11 +40,24 @@ public class GUITest {
 
 			@Override
 			public void processKeyPressedEvent(KeyPressEvent event) {
+
+				System.out.println(java.util.Arrays.toString(GLFWModIDs.getIDsFromInt(event.getEventMods().getMod())));
+
 				// TODO Auto-generated method stub
-				if (event.key != Key.BACKSPACE)
-					textString += event.key.getChar();
-				else if (textString.length() > 0)
+				if (event.key != Key.BACKSPACE) {
+					char c = '\0';
+
+					if (event.getEventMods().isShift()) {
+						c = event.key.getUpperChar();
+					} else {
+						c = event.key.getLowerChar();
+					}
+
+					textString += c == '\0' ? "" : c;
+
+				} else if (textString.length() > 0) {
 					textString = textString.substring(0, textString.length() - 1);
+				}
 			}
 
 			@Override

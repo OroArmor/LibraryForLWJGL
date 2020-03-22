@@ -4,6 +4,9 @@ import static org.lwjgl.glfw.GLFW.*;
 
 import java.util.ArrayList;
 
+import com.oroarmor.core.glfw.event.key.Key;
+import com.oroarmor.core.glfw.event.key.KeyStatus;
+
 public class GLFWEventMods {
 
 	public static enum GLFWModIDs {
@@ -15,17 +18,17 @@ public class GLFWEventMods {
 		private GLFWModIDs(int modID) {
 			this.modID = modID;
 		}
-		
+
 		public static GLFWModIDs[] getIDsFromInt(int mods) {
 			ArrayList<GLFWModIDs> idsArr = new ArrayList<GLFWModIDs>();
-			
-			for(GLFWModIDs id : values()) {
-				if((id.modID & mods) == id.modID) {
+
+			for (GLFWModIDs id : values()) {
+				if ((id.modID & mods) == id.modID) {
 					idsArr.add(id);
-					
+
 				}
 			}
-			
+
 			GLFWModIDs[] ids = new GLFWModIDs[idsArr.size()];
 			return idsArr.toArray(ids);
 		}
@@ -33,12 +36,38 @@ public class GLFWEventMods {
 
 	private int mod;
 
+	private GLFWModIDs[] mods;
+
 	public GLFWEventMods(int mod) {
 		this.mod = mod;
+		this.mods = GLFWModIDs.getIDsFromInt(mod);
 	}
 
 	public int getMod() {
 		return mod;
+	}
+
+	public static GLFWEventMods createFromCurrentStatus() {
+		int mod = 0;
+
+		if (KeyStatus.isKeyDown(Key.LEFT_SHIFT) || KeyStatus.isKeyDown(Key.RIGHT_SHIFT)) {
+			mod += GLFWModIDs.SHIFT.modID;
+		}
+
+		if (KeyStatus.isKeyDown(Key.LEFT_CONTROL)) {
+			mod += GLFWModIDs.CONTROL.modID;
+		}
+
+		return new GLFWEventMods(mod);
+	}
+
+	public boolean isShift() {
+		for (GLFWModIDs id : this.mods) {
+			if (id == GLFWModIDs.SHIFT) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

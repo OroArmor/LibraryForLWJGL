@@ -1,20 +1,34 @@
 package com.oroarmor.core.glfw.event.key.press;
 
+import com.oroarmor.core.glfw.event.GLFWEventMods;
 import com.oroarmor.core.glfw.event.key.Key;
 import com.oroarmor.core.glfw.event.key.KeyEvent;
 import com.oroarmor.core.glfw.event.key.KeyStatus;
 
 public class KeyPressEvent extends KeyEvent {
 
-	public KeyPressEvent(Key key, long window) {
+	private GLFWEventMods mods;
+
+	public KeyPressEvent(Key key, long window, GLFWEventMods mods) {
 		this.key = key;
 		this.window = window;
+		this.mods = mods;
 		KeyStatus.setKeyDown(key);
 	}
 
 	@Override
 	public KeyEventType getKeyEventType() {
 		return KeyEventType.PRESS;
+	}
+
+	@Override
+	public GLFWEventMods getEventMods() {
+		return mods;
+	}
+
+	@Override
+	public void setEventMods(GLFWEventMods newMods) {
+		this.mods = newMods;
 	}
 
 }
