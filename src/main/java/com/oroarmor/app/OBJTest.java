@@ -3,7 +3,7 @@ package com.oroarmor.app;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import com.oroarmor.core.game.Camera;
+import com.oroarmor.core.game.entity.Camera;
 import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.Display.CullFace;
 import com.oroarmor.core.glfw.GLFWUtil;

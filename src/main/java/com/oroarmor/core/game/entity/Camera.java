@@ -1,9 +1,10 @@
-package com.oroarmor.core.game;
+package com.oroarmor.core.game.entity;
 
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import com.oroarmor.core.game.entity.physics.PhysicsEntity;
 import com.oroarmor.core.glfw.event.key.Key;
 import com.oroarmor.core.glfw.event.key.KeyEventListener;
 import com.oroarmor.core.glfw.event.key.KeyStatus;

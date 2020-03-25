@@ -1,7 +1,9 @@
-package com.oroarmor.core.game;
+package com.oroarmor.core.game.entity.physics;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+
+import com.oroarmor.core.game.entity.Entity;
 
 public abstract class PhysicsEntity extends Entity {
 

@@ -4,7 +4,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import com.oroarmor.core.game.Camera;
+import com.oroarmor.core.game.entity.Camera;
 import com.oroarmor.core.game.light.Sunlight;
 import com.oroarmor.core.game.terrain.TerrainMesh;
 import com.oroarmor.core.game.terrain.TerrainShader;
