@@ -14,7 +14,7 @@ public interface MouseEnterEventListener extends Active {
 	public static void processAllMouseEnterEvent(MouseEnterEvent event) {
 		for (MouseEnterEventListener listener : mouseEnterListener) {
 			if (!listener.isActive()) {
-				return;
+				continue;
 			}
 			listener.processMouseEnterEvent(event);
 		}

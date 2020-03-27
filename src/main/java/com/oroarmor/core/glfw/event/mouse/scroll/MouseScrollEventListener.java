@@ -35,7 +35,7 @@ public interface MouseScrollEventListener extends Active {
 	public static void processAllMouseScrollEvent(MouseScrollEvent event) {
 		for (MouseScrollEventListener listener : mouseScrollListeners) {
 			if (!listener.isActive()) {
-				return;
+				continue;
 			}
 			listener.processMouseScrolledEvent(event);
 		}

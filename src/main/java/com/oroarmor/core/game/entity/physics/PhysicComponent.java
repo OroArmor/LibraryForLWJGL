@@ -2,6 +2,7 @@ package com.oroarmor.core.game.entity.physics;
 
 import org.joml.Vector3f;
 
+@Deprecated
 public class PhysicComponent {
 
 	private Vector3f position;
@@ -36,6 +37,10 @@ public class PhysicComponent {
 
 	public void setVelocity(Vector3f velocity) {
 		this.velocity = velocity;
+	}
+
+	public void addAcceleration(Vector3f add) {
+		this.acceleration.add(add);
 	}
 
 	public void update(float delta) {

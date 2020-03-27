@@ -14,7 +14,7 @@ public interface MousePositionEventListener extends Active {
 	public static void processAllMousePositionEvent(MousePositionEvent event) {
 		for (MousePositionEventListener listener : mousePositionListener) {
 			if (!listener.isActive()) {
-				return;
+				continue;
 			}
 			listener.processMousePositionEvent(event);
 		}

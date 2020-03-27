@@ -14,7 +14,7 @@ public interface MouseButtonPressEventListener extends Active {
 	public static void processAllMousePressEvent(MousePressEvent event) {
 		for (MouseButtonPressEventListener listener : mousePressListeners) {
 			if (!listener.isActive()) {
-				return;
+				continue;
 			}
 			listener.processMousePressEvent(event);
 		}

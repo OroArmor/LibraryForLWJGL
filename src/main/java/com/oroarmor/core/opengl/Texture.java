@@ -120,4 +120,12 @@ public class Texture implements Bindable {
 	public void unbind() {
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+
+	/**
+	 * 
+	 * @return The slot that the texture is bound to currently
+	 */
+	public int getSlot() {
+		return this.slot;
+	}
 }

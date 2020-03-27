@@ -14,7 +14,7 @@ public interface MouseLeaveEventListener extends Active {
 	public static void processAllMouseLeaveEvent(MouseLeaveEvent event) {
 		for (MouseLeaveEventListener listener : mouseLeaveListener) {
 			if (!listener.isActive()) {
-				return;
+				continue;
 			}
 			listener.processMouseLeaveEvent(event);
 		}

@@ -14,7 +14,7 @@ public interface KeyPressEventListener extends Active {
 	public static void processAllKeyPressEvent(KeyPressEvent event) {
 		for (KeyPressEventListener listener : keyPressListeners) {
 			if (!listener.isActive()) {
-				return;
+				continue;
 			}
 			listener.processKeyPressedEvent(event);
 		}

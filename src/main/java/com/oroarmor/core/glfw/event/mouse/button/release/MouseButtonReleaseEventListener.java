@@ -14,7 +14,7 @@ public interface MouseButtonReleaseEventListener extends Active {
 	public static void processAllMouseReleaseEvent(MouseReleaseEvent event) {
 		for (MouseButtonReleaseEventListener listener : mouseReleaseListeners) {
 			if (!listener.isActive()) {
-				return;
+				continue;
 			}
 			listener.processMouseReleasedEvent(event);
 		}
