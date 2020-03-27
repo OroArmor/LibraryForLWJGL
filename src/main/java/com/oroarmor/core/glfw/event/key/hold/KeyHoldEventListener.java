@@ -13,6 +13,9 @@ public interface KeyHoldEventListener extends Active {
 
 	public static void processAllKeyPressEvent(KeyHoldEvent event) {
 		for (KeyHoldEventListener listener : keyPressListeners) {
+			if (!listener.isActive()) {
+				return;
+			}
 			listener.processKeyHeldEvent(event);
 		}
 	}

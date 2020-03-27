@@ -13,6 +13,9 @@ public interface KeyReleaseEventListener extends Active {
 
 	public static void processAllKeyReleaseEvent(KeyReleaseEvent event) {
 		for (KeyReleaseEventListener listener : keyReleaseListeners) {
+			if (!listener.isActive()) {
+				return;
+			}
 			listener.processKeyReleasedEvent(event);
 		}
 	}

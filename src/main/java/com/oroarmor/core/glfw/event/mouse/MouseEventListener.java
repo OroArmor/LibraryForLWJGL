@@ -36,6 +36,9 @@ public interface MouseEventListener
 	 * @param event Event to process
 	 */
 	public default void processMouseEvent(MouseEvent event) {
+		if (!isActive()) {
+			return;
+		}
 		if (event.getMouseEventType() == MouseEventType.BUTTON) {
 			processMouseButtonEvent((MouseButtonEvent) event);
 		}
