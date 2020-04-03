@@ -23,7 +23,6 @@ public class TexturedGUIBox extends GUIBox {
 
 	@Override
 	public void render(Renderer renderer) {
-		System.out.println("yay");
 		boxMesh.render(renderer, GUIShaders.getTextureShader().setTexture(texture).setObjectModel(animationMatrix));
 	}
 

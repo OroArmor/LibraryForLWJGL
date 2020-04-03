@@ -22,12 +22,15 @@ import com.oroarmor.core.glfw.event.mouse.over.enter.MouseEnterEvent;
 import com.oroarmor.core.glfw.event.mouse.over.leave.MouseLeaveEvent;
 import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
 import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEvent;
+import com.oroarmor.core.openal.AudioMaster;
+import com.oroarmor.core.openal.AudioSource;
 import com.oroarmor.core.opengl.Renderer;
 import com.oroarmor.core.opengl.Texture;
 
 public class GUIExampleTest {
 
 	static GUIGroup main, sub1, sub2, sub3;
+	static float soundVolume = 0.5f;
 
 	public static void main(String[] args) {
 
@@ -178,6 +181,7 @@ public class GUIExampleTest {
 					return;
 				System.out.println("main1");
 				sub1.makeVisable(true);
+				sub3.makeVisable(false);
 				main.makeVisable(false);
 			}
 
@@ -204,7 +208,50 @@ public class GUIExampleTest {
 		};
 
 		main.addChildren(mainbox1, mainbox2, mainbg);
-		ui.addChildren(main, sub1, sub2);
+
+		TexturedGUIBox volUp = new TexturedGUIBox(400, 100, 40, 40, new Texture("./res/plus.png"));
+		volUp.setCallback(new GUICallback() {
+			@Override
+			public void onRelease(MouseButton button, boolean inBounds) {
+				if (!inBounds) {
+					return;
+				}
+
+				soundVolume += 0.1f;
+
+				if (soundVolume > 1) {
+					soundVolume = 1;
+				}
+			}
+		});
+
+		TexturedGUIBox volDown = new TexturedGUIBox(400, 160, 40, 40, new Texture("./res/minus.png"));
+		volDown.setCallback(new GUICallback() {
+			@Override
+			public void onRelease(MouseButton button, boolean inBounds) {
+				if (!inBounds) {
+					return;
+				}
+
+				soundVolume -= 0.1f;
+
+				if (soundVolume < 0) {
+					soundVolume = 0;
+				}
+			}
+		});
+
+		GUIGroup vol = new GUIGroup(400, 100) {
+		};
+
+		vol.addChildren(volUp, volDown);
+
+		ui.addChildren(main, sub1, sub2, vol);
+
+		AudioMaster.loadSound("./res/space_racer.ogg", "space_racer");
+		AudioSource radio = new AudioSource();
+
+		radio.playSound(AudioMaster.getSound("space_racer"));
 
 		while (!display.shouldClose()) {
 			// Clear the display
@@ -214,6 +261,11 @@ public class GUIExampleTest {
 			ui.renderChildren(renderer);
 
 			display.render();
+
+			radio.setGain(soundVolume);
+			if (radio.isFinished()) {
+				radio.playSound(AudioMaster.getSound("space_racer"));
+			}
 		}
 
 		// Close the display
