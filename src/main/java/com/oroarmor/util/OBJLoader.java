@@ -77,7 +77,7 @@ public class OBJLoader {
 						String[] vtxUvNorm = tokens[i].split("/");
 						int vertexID = Integer.parseInt(vtxUvNorm[0]) - 1;
 						int uvID = Integer.parseInt(vtxUvNorm[1]) - 1;
-						int normID = Integer.parseInt(vtxUvNorm[2]) - 1;
+						int normID = Integer.parseInt(vtxUvNorm[2].trim()) - 1;
 
 						meshData.add(verticies.get(vertexID * 3));
 						meshData.add(verticies.get(vertexID * 3 + 1));

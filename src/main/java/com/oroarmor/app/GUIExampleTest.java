@@ -176,10 +176,8 @@ public class GUIExampleTest {
 		mainbox1.setCallback(new GUICallback() {
 			@Override
 			public void onRelease(MouseButton button, boolean inBounds) {
-				System.out.println(inBounds);
 				if (!inBounds)
 					return;
-				System.out.println("main1");
 				sub1.makeVisable(true);
 				sub3.makeVisable(false);
 				main.makeVisable(false);
