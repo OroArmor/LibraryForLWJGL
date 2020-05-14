@@ -1,5 +1,6 @@
 package com.oroarmor.core.game;
 
+import com.oroarmor.core.Destructor;
 import com.oroarmor.util.FixedUpdateThread;
 
 public class Game<T extends GameInfo> {
@@ -28,6 +29,7 @@ public class Game<T extends GameInfo> {
 			@Override
 			public void deinitalize() {
 				gameGraphics.deinitialize();
+				Destructor.destroyAll();
 			}
 		};
 

@@ -27,6 +27,9 @@ import org.lwjgl.openal.ALC;
 import org.lwjgl.openal.ALCCapabilities;
 import org.lwjgl.openal.ALCapabilities;
 
+import com.oroarmor.core.Destructable;
+import com.oroarmor.core.Destructor;
+
 @SuppressWarnings("unused")
 /**
  * This class initializes and creates sounds for OpenAL
@@ -34,7 +37,7 @@ import org.lwjgl.openal.ALCapabilities;
  * @author OroArmor
  *
  */
-public class AudioMaster {
+public class AudioMaster implements Destructable {
 	/**
 	 * The context for OpenAL
 	 */
@@ -67,6 +70,8 @@ public class AudioMaster {
 		ALCapabilities alCapabilities = AL.createCapabilities(alcCapabilities);
 
 		sounds = new HashMap<String, Integer>();
+
+		Destructor.addDestructable(instance);
 	}
 
 	/**
@@ -123,7 +128,7 @@ public class AudioMaster {
 	}
 
 	@Override
-	public void finalize() {
+	public void destroy() {
 		Integer[] soundBufferIDs = new Integer[sounds.size()];
 
 		sounds.values().toArray(soundBufferIDs);

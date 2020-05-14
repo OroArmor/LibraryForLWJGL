@@ -13,13 +13,16 @@ import static org.lwjgl.openal.AL10.*;
 
 import org.joml.Vector3f;
 
+import com.oroarmor.core.Destructable;
+import com.oroarmor.core.Destructor;
+
 /**
  * A class that can play sounds
  * 
  * @author OroArmor
  *
  */
-public class AudioSource {
+public class AudioSource implements Destructable {
 
 	/**
 	 * Gain of the sound
@@ -51,10 +54,11 @@ public class AudioSource {
 	 */
 	public AudioSource() {
 		sourceID = alGenSources();
+		Destructor.addDestructable(this);
 	}
 
 	@Override
-	public void finalize() {
+	public void destroy() {
 		alDeleteSources(sourceID);
 	}
 
