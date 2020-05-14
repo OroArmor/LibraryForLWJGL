@@ -11,8 +11,6 @@ import java.nio.ByteBuffer;
 import org.lwjgl.stb.STBImage;
 
 import com.oroarmor.core.Bindable;
-import com.oroarmor.core.Destructable;
-import com.oroarmor.core.Destructor;
 import com.oroarmor.util.TextureLoader;
 
 /**
@@ -21,31 +19,31 @@ import com.oroarmor.util.TextureLoader;
  * @author OroArmor
  *
  */
-public class Texture implements Bindable, Destructable {
+public class Texture implements Bindable {
 	/**
 	 * Path to the image texture
 	 */
-	private String filePath;
+	protected String filePath;
 
 	/**
 	 * The height of the image
 	 */
-	private int height;
+	protected int height;
 
 	/**
 	 * The slot to bind the texture to, default is 0
 	 */
-	private int slot = 0;
+	protected int slot = 0;
 
 	/**
 	 * OpenGL texture id
 	 */
-	private int textureID;
+	protected int textureID;
 
 	/**
 	 * The width of the image
 	 */
-	private int width;
+	protected int width;
 
 	/**
 	 * Creates a new {@link Texture} based on a path to an image
@@ -68,7 +66,13 @@ public class Texture implements Bindable, Destructable {
 		this.height = y[0];
 
 		this.textureID = TextureLoader.loadTexture(buffer, width, height);
-		Destructor.addDestructable(this);
+		STBImage.stbi_image_free(buffer);
+	}
+
+	/**
+	 * For subclasses
+	 */
+	protected Texture() {
 	}
 
 	/**
@@ -91,7 +95,7 @@ public class Texture implements Bindable, Destructable {
 	}
 
 	@Override
-	public void destroy() {
+	public void finalize() {
 		glDeleteTextures(textureID);
 	}
 
@@ -122,5 +126,13 @@ public class Texture implements Bindable, Destructable {
 	@Override
 	public void unbind() {
 		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	/**
+	 * 
+	 * @return The slot that the texture is bound to currently
+	 */
+	public int getSlot() {
+		return this.slot;
 	}
 }

@@ -25,13 +25,13 @@ import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEvent;
  * @author OroArmor
  *
  */
-public class EventCreator {
+public class GLFWEventCreator {
 
 	public static void initalizeWindow(long window) {
 		glfwSetKeyCallback(window, new GLFWKeyCallback() {
 			@Override
 			public void invoke(long window, int key, int scancode, int action, int mods) {
-				KeyEvent.create(key, action, window);
+				KeyEvent.create(key, action, window, new GLFWEventMods(mods));
 			}
 		});
 
@@ -39,7 +39,7 @@ public class EventCreator {
 
 			@Override
 			public void invoke(long window, double xoffset, double yoffset) {
-				MouseScrollEvent.create(window, (float) xoffset, (float) yoffset);
+				MouseScrollEvent.create(window, (float) xoffset, (float) yoffset, new GLFWEventMods(0));
 			}
 
 		});
@@ -48,21 +48,21 @@ public class EventCreator {
 			@Override
 			public void invoke(long window, double xpos, double ypos) {
 				MouseStatus.updateMousePositon((float) xpos, (float) ypos);
-				MousePositionEvent.create(window);
+				MousePositionEvent.create(window, GLFWEventMods.createFromCurrentStatus());
 			}
 		});
 
 		glfwSetMouseButtonCallback(window, new GLFWMouseButtonCallback() {
 			@Override
 			public void invoke(long window, int button, int action, int mods) {
-				MouseButtonEvent.create(window, button, action);
+				MouseButtonEvent.create(window, button, action, new GLFWEventMods(mods));
 			}
 		});
 
 		glfwSetCursorEnterCallback(window, new GLFWCursorEnterCallback() {
 			@Override
 			public void invoke(long window, boolean entered) {
-				MouseOverEvent.create(window, entered ? 1 : 0);
+				MouseOverEvent.create(window, entered ? 1 : 0, GLFWEventMods.createFromCurrentStatus());
 			}
 		});
 

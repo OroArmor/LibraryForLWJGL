@@ -2,7 +2,7 @@ package com.oroarmor.core.glfw.event.mouse.button.press;
 
 import java.util.ArrayList;
 
-import com.oroarmor.core.glfw.event.Active;
+import com.oroarmor.core.game.event.Active;
 
 public interface MouseButtonPressEventListener extends Active {
 	public static ArrayList<MouseButtonPressEventListener> mousePressListeners = new ArrayList<MouseButtonPressEventListener>();
@@ -13,6 +13,9 @@ public interface MouseButtonPressEventListener extends Active {
 
 	public static void processAllMousePressEvent(MousePressEvent event) {
 		for (MouseButtonPressEventListener listener : mousePressListeners) {
+			if (!listener.isActive()) {
+				continue;
+			}
 			listener.processMousePressEvent(event);
 		}
 	}

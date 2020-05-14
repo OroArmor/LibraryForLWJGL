@@ -2,7 +2,7 @@ package com.oroarmor.core.glfw.event.mouse.scroll;
 
 import java.util.ArrayList;
 
-import com.oroarmor.core.glfw.event.Active;
+import com.oroarmor.core.game.event.Active;
 
 /**
  * A Listener for {@link MouseScrollEvents}
@@ -34,6 +34,9 @@ public interface MouseScrollEventListener extends Active {
 	 */
 	public static void processAllMouseScrollEvent(MouseScrollEvent event) {
 		for (MouseScrollEventListener listener : mouseScrollListeners) {
+			if (!listener.isActive()) {
+				continue;
+			}
 			listener.processMouseScrolledEvent(event);
 		}
 	}

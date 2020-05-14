@@ -1,5 +1,6 @@
 package com.oroarmor.core.glfw.event.mouse.position;
 
+import com.oroarmor.core.glfw.event.GLFWEventMods;
 import com.oroarmor.core.glfw.event.mouse.MouseEvent;
 import com.oroarmor.core.glfw.event.mouse.MouseStatus;
 
@@ -16,9 +17,9 @@ public class MousePositionEvent extends MouseEvent {
 	 * 
 	 * @param window The window of the {@link MousePositionEvent}
 	 */
-	public static void create(long window) {
+	public static void create(long window, GLFWEventMods mods) {
 		MousePositionEventListener.processAllMousePositionEvent(new MousePositionEvent(window, MouseStatus.getMouseX(),
-				MouseStatus.getMouseY(), MouseStatus.getDeltaMouseX(), MouseStatus.getDeltaMouseY()));
+				MouseStatus.getMouseY(), MouseStatus.getDeltaMouseX(), MouseStatus.getDeltaMouseY(), mods));
 	}
 
 	/**
@@ -40,8 +41,8 @@ public class MousePositionEvent extends MouseEvent {
 	 * @param deltaX The delta x
 	 * @param deltaY The delta y
 	 */
-	public MousePositionEvent(long window, float mouseX, float mouseY, float deltaX, float deltaY) {
-		super(window, MouseEventType.POSITION);
+	public MousePositionEvent(long window, float mouseX, float mouseY, float deltaX, float deltaY, GLFWEventMods mods) {
+		super(window, MouseEventType.POSITION, mods);
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
 		this.deltaX = deltaX;

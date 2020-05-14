@@ -3,7 +3,6 @@ package com.oroarmor.app;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import com.oroarmor.core.Destructor;
 import com.oroarmor.core.glfw.Display;
 import com.oroarmor.core.glfw.GLFWUtil;
 import com.oroarmor.core.glfw.GLFWUtil.OpenGLProfile;
@@ -17,6 +16,7 @@ import com.oroarmor.core.glfw.event.mouse.over.enter.MouseEnterEvent;
 import com.oroarmor.core.glfw.event.mouse.over.leave.MouseLeaveEvent;
 import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
 import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEvent;
+import com.oroarmor.core.opengl.BufferedImage;
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.Renderer;
 import com.oroarmor.core.opengl.Shader;
@@ -151,7 +151,14 @@ public class Main {
 		mShader.bind();
 		mShader.setUniformMat4f("u_MVP", display.getOrthoViewModel());
 
-		Texture texture = new Texture("./res/testtransparentcy.png");
+		BufferedImage texture = new BufferedImage("./res/test.png");
+
+		System.out.println();
+		System.out.println(texture.getR(0, 255) & 0xFF);
+		System.out.println(texture.getG(0, 255) & 0xFF);
+		System.out.println(texture.getB(0, 255) & 0xFF);
+		System.out.println(texture.getA(0, 255) & 0xFF);
+
 		texture.bind();
 		squareShader.bind();
 		squareShader.setUniform1i("u_Texture", 0);
@@ -192,7 +199,6 @@ public class Main {
 		}
 
 		// Destroy all destructables
-		Destructor.destroyAll();
 
 		// Close the display
 		display.close();

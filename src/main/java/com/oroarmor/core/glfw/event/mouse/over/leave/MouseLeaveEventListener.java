@@ -2,7 +2,7 @@ package com.oroarmor.core.glfw.event.mouse.over.leave;
 
 import java.util.ArrayList;
 
-import com.oroarmor.core.glfw.event.Active;
+import com.oroarmor.core.game.event.Active;
 
 public interface MouseLeaveEventListener extends Active {
 	public static ArrayList<MouseLeaveEventListener> mouseLeaveListener = new ArrayList<MouseLeaveEventListener>();
@@ -13,6 +13,9 @@ public interface MouseLeaveEventListener extends Active {
 
 	public static void processAllMouseLeaveEvent(MouseLeaveEvent event) {
 		for (MouseLeaveEventListener listener : mouseLeaveListener) {
+			if (!listener.isActive()) {
+				continue;
+			}
 			listener.processMouseLeaveEvent(event);
 		}
 	}

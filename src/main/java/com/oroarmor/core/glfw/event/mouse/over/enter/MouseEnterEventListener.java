@@ -2,7 +2,7 @@ package com.oroarmor.core.glfw.event.mouse.over.enter;
 
 import java.util.ArrayList;
 
-import com.oroarmor.core.glfw.event.Active;
+import com.oroarmor.core.game.event.Active;
 
 public interface MouseEnterEventListener extends Active {
 	public static ArrayList<MouseEnterEventListener> mouseEnterListener = new ArrayList<MouseEnterEventListener>();
@@ -13,6 +13,9 @@ public interface MouseEnterEventListener extends Active {
 
 	public static void processAllMouseEnterEvent(MouseEnterEvent event) {
 		for (MouseEnterEventListener listener : mouseEnterListener) {
+			if (!listener.isActive()) {
+				continue;
+			}
 			listener.processMouseEnterEvent(event);
 		}
 	}

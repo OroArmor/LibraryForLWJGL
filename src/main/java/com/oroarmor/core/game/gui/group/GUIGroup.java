@@ -1,16 +1,20 @@
-package com.oroarmor.core.game.gui;
+package com.oroarmor.core.game.gui.group;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.oroarmor.core.game.gui.IGUI;
+import com.oroarmor.core.game.gui.object.IGUIObject;
 import com.oroarmor.core.opengl.Renderer;
 
 public abstract class GUIGroup implements IGUIGroup {
 
-	private float x;
-	private float y;
-	private boolean hidden;
-	private List<IGUI> children;
+	protected float x;
+	protected float y;
+	protected boolean hidden;
+	protected List<IGUI> children;
+
+	protected boolean hasParent = false;
 
 	public GUIGroup(float x, float y) {
 		this(x, y, false);
@@ -50,6 +54,10 @@ public abstract class GUIGroup implements IGUIGroup {
 
 		for (IGUI child : children) {
 			child.render(renderer);
+
+			if (child instanceof IGUIGroup) {
+				((IGUIGroup) child).renderChildren(renderer);
+			}
 		}
 	}
 
@@ -86,8 +94,37 @@ public abstract class GUIGroup implements IGUIGroup {
 					continue;
 				}
 			}
-
 			this.children.add(newChild);
+		}
+	}
+
+	@Override
+	public boolean hasParent() {
+		return hasParent;
+	}
+
+	@Override
+	public void setHasParent(boolean hasParent) {
+		this.hasParent = hasParent;
+	}
+
+	@Override
+	public void render(Renderer renderer) {
+
+	}
+
+	@Override
+	public void makeVisable(boolean visable) {
+		this.hidden = !visable;
+
+		for (IGUI igui : children) {
+			if (igui instanceof IGUIObject) {
+				((IGUIObject) igui).setActive(visable);
+			}
+
+			if (igui instanceof IGUIGroup) {
+				((IGUIGroup) igui).makeVisable(visable);
+			}
 		}
 	}
 

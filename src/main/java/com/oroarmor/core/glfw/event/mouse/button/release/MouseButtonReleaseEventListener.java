@@ -2,7 +2,7 @@ package com.oroarmor.core.glfw.event.mouse.button.release;
 
 import java.util.ArrayList;
 
-import com.oroarmor.core.glfw.event.Active;
+import com.oroarmor.core.game.event.Active;
 
 public interface MouseButtonReleaseEventListener extends Active {
 	public static ArrayList<MouseButtonReleaseEventListener> mouseReleaseListeners = new ArrayList<MouseButtonReleaseEventListener>();
@@ -13,6 +13,9 @@ public interface MouseButtonReleaseEventListener extends Active {
 
 	public static void processAllMouseReleaseEvent(MouseReleaseEvent event) {
 		for (MouseButtonReleaseEventListener listener : mouseReleaseListeners) {
+			if (!listener.isActive()) {
+				continue;
+			}
 			listener.processMouseReleasedEvent(event);
 		}
 	}

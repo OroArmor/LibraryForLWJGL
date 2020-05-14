@@ -1,6 +1,7 @@
 package com.oroarmor.core.glfw.event.mouse.scroll;
 
-import com.oroarmor.core.glfw.event.Event;
+import com.oroarmor.core.game.event.Event;
+import com.oroarmor.core.glfw.event.GLFWEventMods;
 import com.oroarmor.core.glfw.event.mouse.MouseEvent;
 
 /**
@@ -19,8 +20,8 @@ public class MouseScrollEvent extends MouseEvent {
 	 * @param xoffset The X offset of the scroll
 	 * @param yoffset The Y offset of the scroll
 	 */
-	public static void create(long window, float xoffset, float yoffset) {
-		MouseScrollEvent event = new MouseScrollEvent(window, xoffset, yoffset);
+	public static void create(long window, float xoffset, float yoffset, GLFWEventMods mods) {
+		MouseScrollEvent event = new MouseScrollEvent(window, xoffset, yoffset, mods);
 
 		MouseScrollEventListener.processAllMouseScrollEvent(event);
 	}
@@ -37,8 +38,8 @@ public class MouseScrollEvent extends MouseEvent {
 	 * @param scrollX The scroll x value
 	 * @param scrollY The scroll y value
 	 */
-	public MouseScrollEvent(long window, float scrollX, float scrollY) {
-		super(window, MouseEventType.SCROLL);
+	public MouseScrollEvent(long window, float scrollX, float scrollY, GLFWEventMods mods) {
+		super(window, MouseEventType.SCROLL, mods);
 		this.scrollX = scrollX;
 		this.scrollY = scrollY;
 	}

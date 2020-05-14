@@ -1,7 +1,9 @@
-package com.oroarmor.core.game.gui;
+package com.oroarmor.core.game.gui.object;
 
 import org.joml.Matrix4f;
 
+import com.oroarmor.core.game.gui.GUICallback;
+import com.oroarmor.core.game.gui.IGUICallback;
 import com.oroarmor.core.glfw.event.mouse.button.press.MousePressEvent;
 import com.oroarmor.core.glfw.event.mouse.button.release.MouseReleaseEvent;
 import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
@@ -26,7 +28,7 @@ public abstract class GUIObject implements IGUIObject {
 		this.addToButtonListeners();
 		this.addToPositionListeners();
 
-		animationMatrix = new Matrix4f();
+		animationMatrix = new Matrix4f().identity();
 	}
 
 	@Override
@@ -98,10 +100,12 @@ public abstract class GUIObject implements IGUIObject {
 
 	private boolean hasParent = false;
 
+	@Override
 	public void setHasParent(boolean hasParent) {
 		this.hasParent = true;
 	}
 
+	@Override
 	public boolean hasParent() {
 		return hasParent;
 	}

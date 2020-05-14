@@ -9,11 +9,9 @@ import static org.lwjgl.openal.AL10.alSource3f;
 import static org.lwjgl.openal.AL10.alSourcePlay;
 import static org.lwjgl.openal.AL10.alSourcef;
 import static org.lwjgl.openal.AL10.alSourcei;
+import static org.lwjgl.openal.AL10.*;
 
 import org.joml.Vector3f;
-
-import com.oroarmor.core.Destructable;
-import com.oroarmor.core.Destructor;
 
 /**
  * A class that can play sounds
@@ -21,7 +19,7 @@ import com.oroarmor.core.Destructor;
  * @author OroArmor
  *
  */
-public class AudioSource implements Destructable {
+public class AudioSource {
 
 	/**
 	 * Gain of the sound
@@ -53,11 +51,10 @@ public class AudioSource implements Destructable {
 	 */
 	public AudioSource() {
 		sourceID = alGenSources();
-		Destructor.addDestructable(this);
 	}
 
 	@Override
-	public void destroy() {
+	public void finalize() {
 		alDeleteSources(sourceID);
 	}
 
@@ -115,6 +112,7 @@ public class AudioSource implements Destructable {
 	 */
 	public void setGain(float gain) {
 		this.gain = gain;
+		alSourcef(sourceID, AL_GAIN, gain);
 	}
 
 	/**
@@ -142,5 +140,14 @@ public class AudioSource implements Destructable {
 	 */
 	public void setVelocity(Vector3f velocity) {
 		this.velocity = velocity;
+	}
+
+	/**
+	 * Returns if the current source is not playing or has finished playing a sound
+	 * 
+	 * @return True if sound is not playing, false if sound is playing
+	 */
+	public boolean isFinished() {
+		return AL_PLAYING != alGetSourcei(sourceID, AL_SOURCE_STATE);
 	}
 }

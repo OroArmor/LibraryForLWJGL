@@ -8,6 +8,7 @@ import org.joml.Vector4f;
 
 import com.oroarmor.core.game.gui.shader.font.FontShader;
 import com.oroarmor.core.game.gui.shader.solidcolor.SolidColorShader;
+import com.oroarmor.core.game.gui.shader.texture.TextureShader;
 import com.oroarmor.core.game.gui.text.Font;
 
 public class GUIShaders {
@@ -15,6 +16,8 @@ public class GUIShaders {
 	private static SolidColorShader solidColorShader;
 
 	private static Map<Font, FontShader> fontShaders;
+
+	private static TextureShader textureShader;
 
 	public static SolidColorShader getSolidColorShader(Vector4f color) {
 		if (solidColorShader == null) {
@@ -57,6 +60,21 @@ public class GUIShaders {
 				shader.setOrthoView(orthoView);
 			}
 		}
+
+		if (textureShader != null) {
+			textureShader.bind();
+			textureShader.setOrthoView(orthoView);
+		}
+	}
+
+	public static TextureShader getTextureShader() {
+		if (textureShader == null) {
+			textureShader = new TextureShader();
+		}
+
+		textureShader.bind();
+
+		return textureShader;
 	}
 
 }

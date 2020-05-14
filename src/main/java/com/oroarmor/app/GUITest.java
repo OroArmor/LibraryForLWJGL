@@ -3,7 +3,10 @@ package com.oroarmor.app;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
-import com.oroarmor.core.Destructor;
+import com.oroarmor.core.game.gui.group.GUIGroup;
+import com.oroarmor.core.game.gui.object.box.GUIBox;
+import com.oroarmor.core.game.gui.object.box.GUIColorBox;
+import com.oroarmor.core.game.gui.shader.GUIShaders;
 import com.oroarmor.core.game.gui.shader.font.FontShader;
 import com.oroarmor.core.game.gui.text.Font;
 import com.oroarmor.core.game.gui.text.FontLoader;
@@ -40,11 +43,22 @@ public class GUITest {
 
 			@Override
 			public void processKeyPressedEvent(KeyPressEvent event) {
+
 				// TODO Auto-generated method stub
-				if (event.key != Key.BACKSPACE)
-					textString += event.key.getChar();
-				else if (textString.length() > 0)
+				if (event.key != Key.BACKSPACE) {
+					char c = '\0';
+
+					if (event.getEventMods().isShift()) {
+						c = event.key.getUpperChar();
+					} else {
+						c = event.key.getLowerChar();
+					}
+
+					textString += c == '\0' ? "" : c;
+
+				} else if (textString.length() > 0) {
 					textString = textString.substring(0, textString.length() - 1);
+				}
 			}
 
 			@Override
@@ -111,9 +125,26 @@ public class GUITest {
 		shader.setColor(new Vector4f(1, 0, 0, 1));
 		shader.setObjectModel(new Matrix4f().translation(0, 0, 0));
 
+		GUIColorBox box = new GUIColorBox(105, 105, 190, 90, new Vector4f(1, 0, 1, 1));
+		GUIColorBox box2 = new GUIColorBox(105, 205, 190, 90, new Vector4f(0, 0.7f, 0.6f, 1));
+
+		GUIBox bg = new GUIBox(100, 100, 200, 200);
+
+		GUIGroup group = new GUIGroup(100, 100) {
+		};
+
+		group.addChildren(box, box2);
+
+		GUIGroup ui = new GUIGroup(0, 0) {
+		};
+
+		ui.addChildren(group, bg);
+
 		while (!display.shouldClose()) {
 			// Clear the display
 			display.clear();
+
+			GUIShaders.updateShaderView(display.getOrthoViewModel());
 
 			shader.setColor(
 					new Vector4f(1, 0, (float) Math.sin(((System.currentTimeMillis()) / 1000d)) * 0.5f + 0.5f, 1));
@@ -121,11 +152,9 @@ public class GUITest {
 			shader.setOrthoView(display.getOrthoViewModel());
 			testFont.getTextMesh(textString, 1f, display.getWidth()).render(renderer, shader);
 
+			ui.renderChildren(renderer);
 			display.render();
 		}
-
-		// Destroy all destructables
-		Destructor.destroyAll();
 
 		// Close the display
 		display.close();

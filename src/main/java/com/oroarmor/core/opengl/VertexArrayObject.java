@@ -9,8 +9,6 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 import java.util.ArrayList;
 
 import com.oroarmor.core.Bindable;
-import com.oroarmor.core.Destructable;
-import com.oroarmor.core.Destructor;
 
 /**
  * This is a class for storing a {@link VertexBufferObject} and a
@@ -20,7 +18,7 @@ import com.oroarmor.core.Destructor;
  * @author OroArmor
  *
  */
-public class VertexArrayObject implements Bindable, Destructable {
+public class VertexArrayObject implements Bindable {
 
 	/**
 	 * Id of the {@link VertexArrayObject}
@@ -32,7 +30,6 @@ public class VertexArrayObject implements Bindable, Destructable {
 	 */
 	public VertexArrayObject() {
 		vao_id = glGenVertexArrays();
-		Destructor.addDestructable(this);
 	}
 
 	/**
@@ -68,7 +65,7 @@ public class VertexArrayObject implements Bindable, Destructable {
 	}
 
 	@Override
-	public void destroy() {
+	public void finalize() {
 		glDeleteVertexArrays(vao_id);
 	}
 

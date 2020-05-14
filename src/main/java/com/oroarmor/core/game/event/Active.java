@@ -1,4 +1,4 @@
-package com.oroarmor.core.glfw.event;
+package com.oroarmor.core.game.event;
 
 /**
  * A class to see if something is active

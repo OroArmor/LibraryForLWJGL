@@ -10,8 +10,6 @@ import static org.lwjgl.opengl.GL15.glGenBuffers;
 import java.nio.FloatBuffer;
 
 import com.oroarmor.core.Bindable;
-import com.oroarmor.core.Destructable;
-import com.oroarmor.core.Destructor;
 
 /**
  * Vertex Buffer Object stores the data for a list of vertexes.
@@ -19,7 +17,7 @@ import com.oroarmor.core.Destructor;
  * @author OroArmor
  *
  */
-public class VertexBufferObject implements Bindable, Destructable {
+public class VertexBufferObject implements Bindable {
 	/**
 	 * The id of the vbo
 	 */
@@ -35,7 +33,6 @@ public class VertexBufferObject implements Bindable, Destructable {
 
 		bind();
 		glBufferData(GL_ARRAY_BUFFER, data, GL_STATIC_DRAW);
-		Destructor.addDestructable(this);
 	}
 
 	/**
@@ -48,7 +45,6 @@ public class VertexBufferObject implements Bindable, Destructable {
 
 		bind();
 		glBufferData(GL_ARRAY_BUFFER, data, GL_STATIC_DRAW);
-		Destructor.addDestructable(this);
 	}
 
 	@Override
@@ -57,7 +53,7 @@ public class VertexBufferObject implements Bindable, Destructable {
 	}
 
 	@Override
-	public void destroy() {
+	public void finalize() {
 		glDeleteBuffers(vbo_id);
 	}
 

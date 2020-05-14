@@ -1,4 +1,4 @@
-package com.oroarmor.core.game;
+package com.oroarmor.core.game.entity;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;

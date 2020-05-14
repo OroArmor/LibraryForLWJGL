@@ -1,6 +1,5 @@
 package com.oroarmor.app;
 
-import com.oroarmor.core.Destructor;
 import com.oroarmor.core.openal.AudioMaster;
 import com.oroarmor.core.openal.AudioSource;
 
@@ -14,7 +13,6 @@ public class AudioTest {
 
 		Thread.sleep(1000);
 
-		Destructor.destroyAll();
 	}
 
 }
