@@ -10,6 +10,7 @@ import java.util.ArrayList;
  *
  */
 public class Destructor {
+
 	/**
 	 * This is the list of all the {@link Destructable} classes
 	 */

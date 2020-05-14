@@ -24,5 +24,6 @@ public interface Destructable {
 			Destructor.removeDestructable(this);
 		}
 		destroy();
+
 	}
 }
