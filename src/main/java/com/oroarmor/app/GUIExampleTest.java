@@ -3,6 +3,8 @@ package com.oroarmor.app;
 import org.joml.Vector4f;
 
 import com.oroarmor.core.game.gui.GUICallback;
+import com.oroarmor.core.game.gui.animation.ColorTransition;
+import com.oroarmor.core.game.gui.animation.ScaleAnimation;
 import com.oroarmor.core.game.gui.group.GUIGroup;
 import com.oroarmor.core.game.gui.object.box.GUIBox;
 import com.oroarmor.core.game.gui.object.box.GUIColorBox;
@@ -183,6 +185,20 @@ public class GUIExampleTest {
 				main.makeVisable(false);
 			}
 
+			@Override
+			public void onHover() {
+				mainbox1.setCurrentColorAsOriginal();
+				mainbox1.triggerAnimation(new ColorTransition(100L, new Vector4f(1, 0.2f, 0.2f, 1)));
+				mainbox1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, 0.025f));
+			}
+
+			@Override
+			public void onHoverStop() {
+				mainbox1.setCurrentColorAsOriginal();
+				mainbox1.triggerAnimation(new ColorTransition(100L, new Vector4f(1, 0, 0, 1)));
+				mainbox1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, 0f));
+			}
+
 		});
 
 		GUIColorBox mainbox2 = new GUIColorBox(105, 205, 190, 90, new Vector4f(0, 0, 0.6f, 1));
@@ -197,6 +213,20 @@ public class GUIExampleTest {
 				sub2.makeVisable(true);
 				main.makeVisable(false);
 
+			}
+
+			@Override
+			public void onHover() {
+				mainbox2.setCurrentColorAsOriginal();
+				mainbox2.triggerAnimation(new ColorTransition(100L, new Vector4f(0.2f, 0.2f, 1, 1)));
+				mainbox2.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, 0.025f));
+			}
+
+			@Override
+			public void onHoverStop() {
+				mainbox2.setCurrentColorAsOriginal();
+				mainbox2.triggerAnimation(new ColorTransition(100L, new Vector4f(0f, 0f, 1, 1)));
+				mainbox2.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, 0f));
 			}
 		});
 
@@ -221,6 +251,7 @@ public class GUIExampleTest {
 					soundVolume = 1;
 				}
 			}
+
 		});
 
 		TexturedGUIBox volDown = new TexturedGUIBox(400, 160, 40, 40, new Texture("./res/minus.png"));

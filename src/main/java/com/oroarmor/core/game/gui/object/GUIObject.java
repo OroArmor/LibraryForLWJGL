@@ -1,14 +1,19 @@
 package com.oroarmor.core.game.gui.object;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joml.Matrix4f;
 
 import com.oroarmor.core.game.gui.GUICallback;
+import com.oroarmor.core.game.gui.IGUI;
 import com.oroarmor.core.game.gui.IGUICallback;
+import com.oroarmor.core.game.gui.animation.IAnimation;
 import com.oroarmor.core.glfw.event.mouse.button.press.MousePressEvent;
 import com.oroarmor.core.glfw.event.mouse.button.release.MouseReleaseEvent;
 import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
 
-public abstract class GUIObject implements IGUIObject {
+public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T> {
 
 	protected boolean active = true;
 	protected boolean hovered = false;
@@ -20,6 +25,8 @@ public abstract class GUIObject implements IGUIObject {
 	protected IGUICallback callback = new GUICallback();
 
 	protected Matrix4f animationMatrix;
+
+	protected float scale = 1;
 
 	public GUIObject(float x, float y) {
 		this.x = x;
@@ -89,7 +96,8 @@ public abstract class GUIObject implements IGUIObject {
 	public void processMousePositionEvent(MousePositionEvent event) {
 		if (!clicked) {
 			if (this.inBounds(event.getMouseX(), event.getMouseY())) {
-				this.callback.onHover();
+				if (!this.hovered)
+					this.callback.onHover();
 				this.hovered = true;
 			} else if (this.hovered) {
 				this.hovered = false;
@@ -108,6 +116,32 @@ public abstract class GUIObject implements IGUIObject {
 	@Override
 	public boolean hasParent() {
 		return hasParent;
+	}
+
+	protected List<IAnimation<T>> animations = new ArrayList<IAnimation<T>>();
+	protected List<Long> animationDurations = new ArrayList<Long>();
+
+	@Override
+	public void triggerAnimation(IAnimation<T> animation) {
+		animations.add(animation);
+		animationDurations.add(System.currentTimeMillis());
+	}
+
+	public Matrix4f getAnimationMatrix() {
+		return animationMatrix;
+	}
+
+	public void setAnimationMatrix(Matrix4f animationMatrix) {
+		this.animationMatrix = animationMatrix;
+	}
+
+	public void setScale(float newScale) {
+		animationMatrix.scale(newScale / scale);
+		scale = newScale;
+	}
+
+	public float getScale() {
+		return scale;
 	}
 
 }

@@ -5,12 +5,12 @@ import java.util.List;
 import com.oroarmor.core.game.gui.IGUI;
 import com.oroarmor.core.opengl.Renderer;
 
-public interface IGUIGroup extends IGUI {
+public interface IGUIGroup<T extends IGUIGroup<T>> extends IGUI<IGUIGroup<T>> {
 	public int numObjects();
 
-	public List<IGUI> getChildren();
+	public List<IGUI<?>> getChildren();
 
-	public void addChildren(IGUI... children);
+	public void addChildren(IGUI<?>... children);
 
 	public void renderChildren(Renderer renderer);
 
