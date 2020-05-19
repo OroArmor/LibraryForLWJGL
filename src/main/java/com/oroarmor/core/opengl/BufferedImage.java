@@ -4,27 +4,50 @@ import java.nio.ByteBuffer;
 
 import org.lwjgl.stb.STBImage;
 
-public class BufferedImage extends Texture {
+public class BufferedImage {
 
 	/**
 	 * The bytes for the image
 	 */
 	protected ByteBuffer imageBuffer;
 
+	/**
+	 * The height of the image
+	 */
+	protected int height;
+
+	/**
+	 * The width of the image
+	 */
+	protected int width;
+
+	/**
+	 * 
+	 */
+	protected int channels;
+
 	public BufferedImage(String filePath) {
-		super(filePath);
 
 		int[] x = new int[1];
 		int[] y = new int[1];
 		int[] channels_in_file = new int[1];
-		int desired_channels = 4;
+		int desired_channels = 3;
 
 		imageBuffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
 
-		System.out.println(this.getR(0, 255) & 0xFF);
-		System.out.println(this.getG(0, 255) & 0xFF);
-		System.out.println(this.getB(0, 255) & 0xFF);
-		System.out.println(this.getA(0, 255) & 0xFF);
+		System.out.println(channels_in_file[0]);
+
+		channels = channels_in_file[0];
+
+		this.width = x[0];
+		this.height = y[0];
+
+		System.out.println(width);
+
+		System.out.println(this.getR(0, 0) & 0xFF);
+		System.out.println(this.getG(0, 0) & 0xFF);
+		System.out.println(this.getB(0, 0) & 0xFF);
+		System.out.println(this.getA(0, 0) & 0xFF);
 	}
 
 	/**
@@ -43,7 +66,7 @@ public class BufferedImage extends Texture {
 	 * @return The value of the red channel
 	 */
 	public byte getR(int x, int y) {
-		return imageBuffer.get(x + y * height + 0);
+		return imageBuffer.get(channels * (x + y * height) + 0);
 	}
 
 	/**
@@ -54,7 +77,7 @@ public class BufferedImage extends Texture {
 	 * @return The value of the green channel
 	 */
 	public byte getG(int x, int y) {
-		return imageBuffer.get(x + y * height + 1);
+		return imageBuffer.get(channels * (x + y * height) + 1);
 	}
 
 	/**
@@ -65,7 +88,7 @@ public class BufferedImage extends Texture {
 	 * @return The value of the blue channel
 	 */
 	public byte getB(int x, int y) {
-		return imageBuffer.get(x + y * height + 2);
+		return imageBuffer.get(channels * (x + y * height) + 2);
 	}
 
 	/**
@@ -76,6 +99,10 @@ public class BufferedImage extends Texture {
 	 * @return The value of the alpha channel
 	 */
 	public byte getA(int x, int y) {
-		return imageBuffer.get(x + y * height + 3);
+		if (channels < 4) {
+			return 0;
+		}
+
+		return imageBuffer.get(channels * (x + y * height) + 3);
 	}
 }

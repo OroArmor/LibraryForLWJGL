@@ -153,12 +153,11 @@ public class Main {
 		BufferedImage texture = new BufferedImage("./res/test.png");
 
 		System.out.println();
-		System.out.println(texture.getR(0, 255) & 0xFF);
-		System.out.println(texture.getG(0, 255) & 0xFF);
-		System.out.println(texture.getB(0, 255) & 0xFF);
-		System.out.println(texture.getA(0, 255) & 0xFF);
+		System.out.println(texture.getR(255, 255) & 0xFF);
+		System.out.println(texture.getG(255, 255) & 0xFF);
+		System.out.println(texture.getB(255, 255) & 0xFF);
+		System.out.println(texture.getA(255, 255) & 0xFF);
 
-		texture.bind();
 		squareShader.bind();
 		squareShader.setUniform1i("u_Texture", 0);
 		squareShader.setUniformMat4f("u_MVP", display.getOrthoViewModel());
