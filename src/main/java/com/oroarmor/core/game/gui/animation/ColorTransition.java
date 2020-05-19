@@ -4,24 +4,23 @@ import org.joml.Vector4f;
 
 import com.oroarmor.core.game.gui.object.box.GUIColorBox;
 
-public class ColorTransition implements IAnimation<GUIColorBox> {
+public class ColorTransition extends Animation<GUIColorBox> {
 
-	long duration;
 	Vector4f color;
 
 	@Override
 	public void animate(GUIColorBox object, float percent) {
-		object.setColor(object.getOriginalColor().lerp(color, percent, new Vector4f()));
+		object.setColor(object.getOriginalColor().lerp(color, this.easing.calculate(percent), new Vector4f()));
 	}
 
 	public ColorTransition(long duration, Vector4f color) {
-		this.duration = duration;
+		super(duration);
 		this.color = color;
 	}
 
-	@Override
-	public long getDurationInMillis() {
-		return duration;
+	public ColorTransition(long duration, Easing easing, Vector4f color) {
+		super(duration, easing);
+		this.color = color;
 	}
 
 }

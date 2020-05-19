@@ -4,6 +4,7 @@ import org.joml.Vector4f;
 
 import com.oroarmor.core.game.gui.GUICallback;
 import com.oroarmor.core.game.gui.animation.ColorTransition;
+import com.oroarmor.core.game.gui.animation.Easing;
 import com.oroarmor.core.game.gui.animation.ScaleAnimation;
 import com.oroarmor.core.game.gui.group.GUIGroup;
 import com.oroarmor.core.game.gui.object.box.GUIBox;
@@ -188,15 +189,16 @@ public class GUIExampleTest {
 			@Override
 			public void onHover() {
 				mainbox1.setCurrentColorAsOriginal();
-				mainbox1.triggerAnimation(new ColorTransition(100L, new Vector4f(1, 0.2f, 0.2f, 1)));
-				mainbox1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, 0.025f));
+				mainbox1.triggerAnimation(
+						new ColorTransition(100L, Easing.EaseInOutSin, new Vector4f(1, 0.2f, 0.2f, 1)));
+				mainbox1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0.025f));
 			}
 
 			@Override
 			public void onHoverStop() {
 				mainbox1.setCurrentColorAsOriginal();
-				mainbox1.triggerAnimation(new ColorTransition(100L, new Vector4f(1, 0, 0, 1)));
-				mainbox1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, 0f));
+				mainbox1.triggerAnimation(new ColorTransition(100L, Easing.EaseInOutSin, new Vector4f(1, 0, 0, 1)));
+				mainbox1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0f));
 			}
 
 		});

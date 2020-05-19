@@ -6,7 +6,6 @@ import java.util.List;
 import org.joml.Matrix4f;
 
 import com.oroarmor.core.game.gui.GUICallback;
-import com.oroarmor.core.game.gui.IGUI;
 import com.oroarmor.core.game.gui.IGUICallback;
 import com.oroarmor.core.game.gui.animation.IAnimation;
 import com.oroarmor.core.glfw.event.mouse.button.press.MousePressEvent;
