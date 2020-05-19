@@ -8,7 +8,7 @@ import com.oroarmor.core.game.gui.animation.IAnimation;
 import com.oroarmor.core.game.gui.object.IGUIObject;
 import com.oroarmor.core.opengl.Renderer;
 
-public abstract class GUIGroup implements IGUIGroup<GUIGroup> {
+public abstract class GUIGroup implements IGUIGroup {
 
 	protected float x;
 	protected float y;
@@ -57,7 +57,7 @@ public abstract class GUIGroup implements IGUIGroup<GUIGroup> {
 			child.render(renderer);
 
 			if (child instanceof IGUIGroup) {
-				((IGUIGroup<?>) child).renderChildren(renderer);
+				((IGUIGroup) child).renderChildren(renderer);
 			}
 		}
 	}
@@ -89,7 +89,7 @@ public abstract class GUIGroup implements IGUIGroup<GUIGroup> {
 			}
 
 			if (newChild instanceof IGUIGroup) {
-				IGUIGroup<?> newGUIGroup = (IGUIGroup<?>) newChild;
+				IGUIGroup newGUIGroup = (IGUIGroup) newChild;
 
 				if (newGUIGroup.getChildren().contains(this)) {
 					continue;
@@ -124,14 +124,13 @@ public abstract class GUIGroup implements IGUIGroup<GUIGroup> {
 			}
 
 			if (igui instanceof IGUIGroup) {
-				((IGUIGroup<?>) igui).makeVisable(visable);
+				((IGUIGroup) igui).makeVisable(visable);
 			}
 		}
 	}
 
 	@Override
-	public void triggerAnimation(IAnimation<IGUIGroup<GUIGroup>> animation) {
-
+	public void triggerAnimation(IAnimation<IGUIGroup> animation) {
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import com.oroarmor.core.game.gui.IGUI;
 import com.oroarmor.core.opengl.Renderer;
 
-public interface IGUIGroup<T extends IGUIGroup<T>> extends IGUI<IGUIGroup<T>> {
+public interface IGUIGroup extends IGUI<IGUIGroup> {
 	public int numObjects();
 
 	public List<IGUI<?>> getChildren();

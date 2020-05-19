@@ -1,8 +1,8 @@
 package com.oroarmor.core.game.gui.animation;
 
-import com.oroarmor.core.game.gui.object.GUIObject;
+import com.oroarmor.core.game.gui.object.IGUIObject;
 
-public class ScaleAnimation<T extends GUIObject<T>> extends Animation<T> {
+public class ScaleAnimation<T extends IGUIObject<T>> extends Animation<T> {
 
 	private float scaleFactor;
 

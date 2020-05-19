@@ -121,6 +121,20 @@ public class GUIExampleTest {
 					return;
 				sub3.makeVisable(sub3.isVisable());
 			}
+
+			@Override
+			public void onHover() {
+				sub1box1.setCurrentColorAsOriginal();
+				sub1box1.triggerAnimation(new ColorTransition(200L, Easing.EaseInOutSin, new Vector4f(1, 0.2f, 1, 1)));
+				sub1box1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0.025f));
+			}
+
+			@Override
+			public void onHoverStop() {
+				sub1box1.setCurrentColorAsOriginal();
+				sub1box1.triggerAnimation(new ColorTransition(200L, Easing.EaseInOutSin, new Vector4f(1, 0, 1, 1)));
+				sub1box1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0f));
+			}
 		});
 
 		GUIColorBox sub1box2 = new GUIColorBox(205, 205, 190, 90, new Vector4f(0, 0.7f, 0.6f, 1));
@@ -135,6 +149,23 @@ public class GUIExampleTest {
 				main.makeVisable(true);
 
 			}
+
+			@Override
+			public void onHover() {
+				sub1box2.setCurrentColorAsOriginal();
+				sub1box2.triggerAnimation(
+						new ColorTransition(200L, Easing.EaseInOutSin, new Vector4f(0.2f, 0.9f, 0.8f, 1)));
+				sub1box2.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0.025f));
+			}
+
+			@Override
+			public void onHoverStop() {
+				sub1box2.setCurrentColorAsOriginal();
+				sub1box2.triggerAnimation(
+						new ColorTransition(200L, Easing.EaseInOutSin, new Vector4f(0, 0.7f, 0.6f, 1)));
+				sub1box2.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0f));
+			}
+
 		});
 
 		GUIBox sub1bg = new GUIBox(200, 100, 200, 200);
@@ -155,6 +186,21 @@ public class GUIExampleTest {
 				sub2.makeVisable(false);
 				main.makeVisable(true);
 
+			}
+
+			@Override
+			public void onHover() {
+				sub2box2.setCurrentColorAsOriginal();
+				sub2box2.triggerAnimation(
+						new ColorTransition(200L, Easing.EaseInOutSin, new Vector4f(0.2f, 0.5f, 0.2f, 1)));
+				sub2box2.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0.025f));
+			}
+
+			@Override
+			public void onHoverStop() {
+				sub2box2.setCurrentColorAsOriginal();
+				sub2box2.triggerAnimation(new ColorTransition(200L, Easing.EaseInOutSin, new Vector4f(0, 0.3f, 0, 1)));
+				sub2box2.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0f));
 			}
 		});
 
@@ -184,20 +230,21 @@ public class GUIExampleTest {
 				sub1.makeVisable(true);
 				sub3.makeVisable(false);
 				main.makeVisable(false);
+
 			}
 
 			@Override
 			public void onHover() {
 				mainbox1.setCurrentColorAsOriginal();
 				mainbox1.triggerAnimation(
-						new ColorTransition(100L, Easing.EaseInOutSin, new Vector4f(1, 0.2f, 0.2f, 1)));
+						new ColorTransition(200L, Easing.EaseInOutSin, new Vector4f(1, 0.2f, 0.2f, 1)));
 				mainbox1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0.025f));
 			}
 
 			@Override
 			public void onHoverStop() {
 				mainbox1.setCurrentColorAsOriginal();
-				mainbox1.triggerAnimation(new ColorTransition(100L, Easing.EaseInOutSin, new Vector4f(1, 0, 0, 1)));
+				mainbox1.triggerAnimation(new ColorTransition(200L, Easing.EaseInOutSin, new Vector4f(1, 0, 0, 1)));
 				mainbox1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0f));
 			}
 

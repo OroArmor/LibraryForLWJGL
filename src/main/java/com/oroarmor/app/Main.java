@@ -20,7 +20,6 @@ import com.oroarmor.core.opengl.BufferedImage;
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.Renderer;
 import com.oroarmor.core.opengl.Shader;
-import com.oroarmor.core.opengl.Texture;
 import com.oroarmor.core.opengl.VertexBufferLayout;
 import com.oroarmor.util.ResourceLoader;
 
