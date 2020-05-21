@@ -63,7 +63,11 @@ public class Camera extends PhysicsEntity implements KeyEventListener {
 		}
 
 		if (key == Key.SPACE) {
-			this.addForce(new Vector3f(0, 130, 0));
+//			this.addForce(new Vector3f(0, 130, 0));
+		}
+
+		if (key == Key.LEFT_SHIFT) {
+//			this.addForce(new Vector3f(0, -130, 0));
 		}
 
 		// Look TODO: change to mouse
@@ -117,7 +121,7 @@ public class Camera extends PhysicsEntity implements KeyEventListener {
 	@Override
 	public void update(float delta) {
 
-		float speed = 0.0005f;
+		float speed = 0.005f;
 
 		if (KeyStatus.isKeyDown(Key.LEFT_CONTROL)) {
 			speed *= 2;
@@ -147,6 +151,14 @@ public class Camera extends PhysicsEntity implements KeyEventListener {
 			rotationVector.add(-0.001f, 0, 0);
 		} else if (lookPitch == Look.UP && rotationVector.x < (float) Math.PI / 2) {
 			rotationVector.add(0.001f, 0, 0);
+		}
+
+		if (KeyStatus.isKeyDown(Key.SPACE)) {
+			this.velocityVector.add(new Vector3f(0, speed / 5, 0));
+		} else if (KeyStatus.isKeyDown(Key.LEFT_SHIFT)) {
+			this.velocityVector.add(new Vector3f(0, -speed / 5, 0));
+		} else {
+			this.velocityVector.y = 0;
 		}
 
 	}
