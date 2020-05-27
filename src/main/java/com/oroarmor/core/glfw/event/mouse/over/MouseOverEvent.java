@@ -12,7 +12,7 @@ import com.oroarmor.core.glfw.event.mouse.over.leave.MouseLeaveEventListener;
 
 public class MouseOverEvent extends MouseEvent {
 
-	public static void create(long window, int action, GLFWEventMods mods) {
+	public static void create(final long window, final int action, final GLFWEventMods mods) {
 		if (action == GLFW_TRUE) {
 			MouseEnterEventListener.processAllMouseEnterEvent(new MouseEnterEvent(window, mods));
 		} else if (action == GLFW_FALSE) {
@@ -22,7 +22,7 @@ public class MouseOverEvent extends MouseEvent {
 
 	MouseOverEventType type;
 
-	public MouseOverEvent(long window, MouseOverEventType type, GLFWEventMods mods) {
+	public MouseOverEvent(final long window, final MouseOverEventType type, final GLFWEventMods mods) {
 		super(window, MouseEventType.OVER, mods);
 
 		this.type = type;
@@ -34,6 +34,6 @@ public class MouseOverEvent extends MouseEvent {
 
 	@Override
 	public String toString() {
-		return "Over event type: " + type;
+		return "Over event type: " + this.type;
 	}
 }

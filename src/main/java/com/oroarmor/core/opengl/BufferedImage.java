@@ -22,27 +22,27 @@ public class BufferedImage {
 	protected int width;
 
 	/**
-	 * 
+	 *
 	 */
 	protected int channels;
 
-	public BufferedImage(String filePath) {
+	public BufferedImage(final String filePath) {
 
-		int[] x = new int[1];
-		int[] y = new int[1];
-		int[] channels_in_file = new int[1];
-		int desired_channels = 3;
+		final int[] x = new int[1];
+		final int[] y = new int[1];
+		final int[] channels_in_file = new int[1];
+		final int desired_channels = 3;
 
-		imageBuffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
+		this.imageBuffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
 
 		System.out.println(channels_in_file[0]);
 
-		channels = channels_in_file[0];
+		this.channels = channels_in_file[0];
 
 		this.width = x[0];
 		this.height = y[0];
 
-		System.out.println(width);
+		System.out.println(this.width);
 
 		System.out.println(this.getR(0, 0) & 0xFF);
 		System.out.println(this.getG(0, 0) & 0xFF);
@@ -51,58 +51,58 @@ public class BufferedImage {
 	}
 
 	/**
-	 * 
-	 * @return The byte for the image
-	 */
-	public ByteBuffer getImageBuffer() {
-		return imageBuffer;
-	}
-
-	/**
-	 * Gets the value of the red channel
-	 * 
-	 * @param x x-coord of the pixel
-	 * @param y y-coord of the pixel
-	 * @return The value of the red channel
-	 */
-	public byte getR(int x, int y) {
-		return imageBuffer.get(channels * (x + y * height) + 0);
-	}
-
-	/**
-	 * Gets the value of the green channel
-	 * 
-	 * @param x x-coord of the pixel
-	 * @param y y-coord of the pixel
-	 * @return The value of the green channel
-	 */
-	public byte getG(int x, int y) {
-		return imageBuffer.get(channels * (x + y * height) + 1);
-	}
-
-	/**
-	 * Gets the value of the blue channel
-	 * 
-	 * @param x x-coord of the pixel
-	 * @param y y-coord of the pixel
-	 * @return The value of the blue channel
-	 */
-	public byte getB(int x, int y) {
-		return imageBuffer.get(channels * (x + y * height) + 2);
-	}
-
-	/**
 	 * Gets the value of the alpha channel
-	 * 
+	 *
 	 * @param x x-coord of the pixel
 	 * @param y y-coord of the pixel
 	 * @return The value of the alpha channel
 	 */
-	public byte getA(int x, int y) {
-		if (channels < 4) {
+	public byte getA(final int x, final int y) {
+		if (this.channels < 4) {
 			return 0;
 		}
 
-		return imageBuffer.get(channels * (x + y * height) + 3);
+		return this.imageBuffer.get(this.channels * (x + y * this.height) + 3);
+	}
+
+	/**
+	 * Gets the value of the blue channel
+	 *
+	 * @param x x-coord of the pixel
+	 * @param y y-coord of the pixel
+	 * @return The value of the blue channel
+	 */
+	public byte getB(final int x, final int y) {
+		return this.imageBuffer.get(this.channels * (x + y * this.height) + 2);
+	}
+
+	/**
+	 * Gets the value of the green channel
+	 *
+	 * @param x x-coord of the pixel
+	 * @param y y-coord of the pixel
+	 * @return The value of the green channel
+	 */
+	public byte getG(final int x, final int y) {
+		return this.imageBuffer.get(this.channels * (x + y * this.height) + 1);
+	}
+
+	/**
+	 *
+	 * @return The byte for the image
+	 */
+	public ByteBuffer getImageBuffer() {
+		return this.imageBuffer;
+	}
+
+	/**
+	 * Gets the value of the red channel
+	 *
+	 * @param x x-coord of the pixel
+	 * @param y y-coord of the pixel
+	 * @return The value of the red channel
+	 */
+	public byte getR(final int x, final int y) {
+		return this.imageBuffer.get(this.channels * (x + y * this.height) + 0);
 	}
 }

@@ -6,17 +6,17 @@ import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
 
 /**
  * This class represents one element of a Vertex when passed into OpenGL
- * 
+ *
  * @author OroArmor
  *
  */
 public class VertexBufferElement {
 	/**
-	 * 
+	 *
 	 * @param type The type of the {@link VertexBufferElement}
 	 * @return The size in bytes of the type
 	 */
-	public static int getSize(int type) {
+	public static int getSize(final int type) {
 		switch (type) {
 		case GL_FLOAT:
 			return 4;
@@ -32,51 +32,51 @@ public class VertexBufferElement {
 	/**
 	 * The count of bytes
 	 */
-	private int count;
+	private final int count;
 
 	/**
 	 * If the data is normalized
 	 */
-	private boolean normalized;
+	private final boolean normalized;
 
 	/**
 	 * The type of the {@link VertexBufferElement}. One of the OpenGL data types.
 	 */
-	private int type;
+	private final int type;
 
 	/**
-	 * 
+	 *
 	 * @param count      The count in bytes of the data
 	 * @param type       The type of the data
 	 * @param normalized If the data is normalized
 	 */
-	public VertexBufferElement(int count, int type, boolean normalized) {
+	public VertexBufferElement(final int count, final int type, final boolean normalized) {
 		this.count = count;
 		this.type = type;
 		this.normalized = normalized;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The count in bytes
 	 */
 	public int getCount() {
-		return count;
+		return this.count;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The type of the data
 	 */
 	public int getType() {
-		return type;
+		return this.type;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return True the data is normalize
 	 */
 	public boolean isNormalized() {
-		return normalized;
+		return this.normalized;
 	}
 }

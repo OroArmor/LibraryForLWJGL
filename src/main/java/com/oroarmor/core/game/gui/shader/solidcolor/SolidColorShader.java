@@ -18,20 +18,20 @@ public class SolidColorShader extends Shader {
 		this.compile();
 	}
 
-	public void setOrthoView(Matrix4f orthoView) {
-		this.setUniformMat4f("u_V", orthoView);
+	public void setColor(final Vector4f color) {
+		this.setUniform4f("u_color", color);
 	}
 
-	public Shader setObjectModel(Matrix4f objectModel) {
+	public Shader setObjectModel(final Matrix4f objectModel) {
 		this.setUniformMat4f("u_M", objectModel);
 		return this;
 	}
 
-	public void setColor(Vector4f color) {
-		this.setUniform4f("u_color", color);
+	public void setOrthoView(final Matrix4f orthoView) {
+		this.setUniformMat4f("u_V", orthoView);
 	}
 
-	public Shader setZ(int i) {
+	public Shader setZ(final int i) {
 		this.setUniform1f("u_Z", i);
 		return this;
 	}

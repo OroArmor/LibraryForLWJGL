@@ -7,7 +7,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * Class in charge of rendering object to the screen
- * 
+ *
  * @author OroArmor
  *
  */
@@ -16,12 +16,12 @@ public class Renderer {
 	/**
 	 * Renders the {@link VertexArrayObject} with the {@link IndexBufferObject}
 	 * using the {@link Shader}
-	 * 
+	 *
 	 * @param vao    {@link VertexArrayObject}
 	 * @param ibo    {@link IndexBufferObject}
 	 * @param shader {@link Shader}
 	 */
-	public void draw(VertexArrayObject vao, IndexBufferObject ibo, Shader shader) {
+	public void draw(final VertexArrayObject vao, final IndexBufferObject ibo, final Shader shader) {
 		shader.bind();
 		vao.bind();
 		ibo.bind();

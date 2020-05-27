@@ -1,96 +1,110 @@
 package com.oroarmor.util;
 
-import java.util.ArrayList;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.HashMap;
+
+import org.lwjgl.BufferUtils;
 
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.VertexBufferLayout;
 
 /**
  * This file loads wavefront object files. (.obj)
- * 
+ *
  * @author OroArmor
  *
  */
 public class OBJLoader {
 
+	public static final int VERTICIES_PER_FACE = 3;
+	public static final int UV_COORD_LENGTH = 2;
+	public static final int NORMAL_COORD_LENGTH = 3;
+	public static final int POSITION_COORD_LENGTH = 3;
+
 	/**
 	 * This is the {@link VertexBufferLayout} for object files. 3 coords for
 	 * position, 2 for texture, and 3 for normals.
 	 */
-	public static VertexBufferLayout objLayout = new VertexBufferLayout();;
-
-	static {
-		objLayout.pushFloats(3);
-		objLayout.pushFloats(2);
-		objLayout.pushFloats(3);
-	}
+	public static VertexBufferLayout objLayout = new VertexBufferLayout() //
+			.pushFloats(POSITION_COORD_LENGTH) //
+			.pushFloats(UV_COORD_LENGTH) //
+			.pushFloats(NORMAL_COORD_LENGTH);
 
 	/**
-	 * 
+	 * <strong> --WARNING -- </strong> <br>
+	 * Do not pass in the file path, pass in the data from the file
+	 *
 	 * @param data The data of the object file
 	 * @return A mesh with the data from the object file
 	 */
-	public static Mesh loadOBJ(String data) {
-		String[] fileData = data.split("\\n");
+	public static Mesh loadOBJ(final String data) {
+
+		final int vertexCount = StringUtils.countOf("v", data);
+		final int uvCount = StringUtils.countOf("vt", data);
+		final int normalCount = StringUtils.countOf("vn", data);
+		final int faceCount = StringUtils.countOf("f", data);
+
+		final String[] fileData = data.split("\\n");
 
 		// x, y, x
-		ArrayList<Float> verticies = new ArrayList<Float>();
+		final FloatBuffer verticies = BufferUtils.createFloatBuffer(vertexCount * POSITION_COORD_LENGTH);
 		// u, v
-		ArrayList<Float> uv = new ArrayList<Float>();
+		final FloatBuffer uv = BufferUtils.createFloatBuffer(uvCount * UV_COORD_LENGTH);
 		// nx, ny, nz
-		ArrayList<Float> normals = new ArrayList<Float>();
+		final FloatBuffer normals = BufferUtils.createFloatBuffer(normalCount * NORMAL_COORD_LENGTH);
 
 		// x, y, z, u, v, nx, ny, nz
-		ArrayList<Float> meshData = new ArrayList<Float>();
-		ArrayList<Integer> triangles = new ArrayList<Integer>();
+		final FloatBuffer meshData = BufferUtils.createFloatBuffer(
+				faceCount * VERTICIES_PER_FACE * (POSITION_COORD_LENGTH + UV_COORD_LENGTH + NORMAL_COORD_LENGTH));
+		final IntBuffer triangles = BufferUtils.createIntBuffer(faceCount * VERTICIES_PER_FACE);
 
-		HashMap<String, Integer> triangleNames = new HashMap<String, Integer>();
+		final HashMap<String, Integer> triangleNames = new HashMap<>();
 
 		int vertexCounts = 0;
 
-		for (String line : fileData) {
-			String[] tokens = line.split(" ");
+		for (final String line : fileData) {
+			final String[] tokens = line.split(" ");
 
-			String token = tokens[0];
+			final String token = tokens[0];
 
 			switch (token) {
 			case "v":
-				verticies.add(Float.parseFloat(tokens[1]));
-				verticies.add(Float.parseFloat(tokens[2]));
-				verticies.add(Float.parseFloat(tokens[3]));
+				verticies.put(Float.parseFloat(tokens[1]));
+				verticies.put(Float.parseFloat(tokens[2]));
+				verticies.put(Float.parseFloat(tokens[3]));
 				break;
 			case "vt":
-				uv.add(Float.parseFloat(tokens[1]));
-				uv.add(Float.parseFloat(tokens[2]));
+				uv.put(Float.parseFloat(tokens[1]));
+				uv.put(Float.parseFloat(tokens[2]));
 				break;
 			case "vn":
-				normals.add(Float.parseFloat(tokens[1]));
-				normals.add(Float.parseFloat(tokens[2]));
-				normals.add(Float.parseFloat(tokens[3]));
+				normals.put(Float.parseFloat(tokens[1]));
+				normals.put(Float.parseFloat(tokens[2]));
+				normals.put(Float.parseFloat(tokens[3]));
 				break;
 			case "f":
 				for (int i = 1; i < tokens.length; i++) {
 					if (triangleNames.containsKey(tokens[i])) {
-						triangles.add(triangleNames.get(tokens[i]));
+						triangles.put(triangleNames.get(tokens[i]));
 					} else {
-						String[] vtxUvNorm = tokens[i].split("/");
-						int vertexID = Integer.parseInt(vtxUvNorm[0]) - 1;
-						int uvID = Integer.parseInt(vtxUvNorm[1]) - 1;
-						int normID = Integer.parseInt(vtxUvNorm[2].trim()) - 1;
+						final String[] vtxUvNorm = tokens[i].split("/");
+						final int vertexID = Integer.parseInt(vtxUvNorm[0]) - 1;
+						final int uvID = Integer.parseInt(vtxUvNorm[1]) - 1;
+						final int normID = Integer.parseInt(vtxUvNorm[2].trim()) - 1;
 
-						meshData.add(verticies.get(vertexID * 3));
-						meshData.add(verticies.get(vertexID * 3 + 1));
-						meshData.add(verticies.get(vertexID * 3 + 2));
+						meshData.put(verticies.get(vertexID * POSITION_COORD_LENGTH));
+						meshData.put(verticies.get(vertexID * POSITION_COORD_LENGTH + 1));
+						meshData.put(verticies.get(vertexID * POSITION_COORD_LENGTH + 2));
 
-						meshData.add(uv.get(uvID * 2));
-						meshData.add(uv.get(uvID * 2 + 1));
+						meshData.put(uv.get(uvID * UV_COORD_LENGTH));
+						meshData.put(uv.get(uvID * UV_COORD_LENGTH + 1));
 
-						meshData.add(normals.get(normID * 3));
-						meshData.add(normals.get(normID * 3 + 1));
-						meshData.add(normals.get(normID * 3 + 2));
+						meshData.put(normals.get(normID * NORMAL_COORD_LENGTH));
+						meshData.put(normals.get(normID * NORMAL_COORD_LENGTH + 1));
+						meshData.put(normals.get(normID * NORMAL_COORD_LENGTH + 2));
 
-						triangles.add(vertexCounts);
+						triangles.put(vertexCounts);
 						triangleNames.put(tokens[i], vertexCounts);
 						vertexCounts++;
 					}
@@ -98,25 +112,19 @@ public class OBJLoader {
 			}
 		}
 
-		Float[] meshDataArrayG = new Float[meshData.size()];
-		float[] meshDataArray = new float[meshData.size()];
-		Integer[] triangleArrayG = new Integer[triangles.size()];
-		int[] triangleArray = new int[triangles.size()];
-		meshData.toArray(meshDataArrayG);
-		triangles.toArray(triangleArrayG);
+		meshData.flip();
+		triangles.flip();
 
-		for (int i = 0; i < meshDataArray.length; i++) {
-			meshDataArray[i] = meshDataArrayG[i].floatValue();
-		}
-
-		for (int i = 0; i < triangleArray.length; i++) {
-			triangleArray[i] = triangleArrayG[i].intValue();
-		}
-
-		return new Mesh(meshDataArray, triangleArray, objLayout);
+		return new Mesh(meshData, triangles, objLayout);
 	}
 
-	public static Mesh loadOBJFromFile(String filePath) {
+	/**
+	 * Loads an OBJ from a file
+	 *
+	 * @param filePath The path to the file
+	 * @return A mesh with the OBJ data
+	 */
+	public static Mesh loadOBJFromFile(final String filePath) {
 		return loadOBJ(ResourceLoader.loadFile(filePath));
 	}
 

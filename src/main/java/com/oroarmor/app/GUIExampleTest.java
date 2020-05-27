@@ -35,60 +35,60 @@ public class GUIExampleTest {
 	static GUIGroup main, sub1, sub2, sub3;
 	static float soundVolume = 0.5f;
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
 		// Create a new window with a onKey function that prints the typed key
-		Display display = new Display(640, 640, "Open GL Learning") {
+		final Display display = new Display(640, 640, "Open GL Learning") {
 
 			@Override
-			public void processKeyHeldEvent(KeyHoldEvent event) {
+			public void processKeyHeldEvent(final KeyHoldEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processKeyPressedEvent(KeyPressEvent event) {
+			public void processKeyPressedEvent(final KeyPressEvent event) {
 				// TODO Auto-generated method stub
 			}
 
 			@Override
-			public void processKeyReleasedEvent(KeyReleaseEvent event) {
+			public void processKeyReleasedEvent(final KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
 					this.close();
 				}
 			}
 
 			@Override
-			public void processMouseEnterEvent(MouseEnterEvent event) {
+			public void processMouseEnterEvent(final MouseEnterEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMouseLeaveEvent(MouseLeaveEvent event) {
+			public void processMouseLeaveEvent(final MouseLeaveEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMousePositionEvent(MousePositionEvent event) {
+			public void processMousePositionEvent(final MousePositionEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMousePressEvent(MousePressEvent event) {
+			public void processMousePressEvent(final MousePressEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMouseReleasedEvent(MouseReleaseEvent event) {
+			public void processMouseReleasedEvent(final MouseReleaseEvent event) {
 				// TODO Auto-generated method stub
 			}
 
 			@Override
-			public void processMouseScrolledEvent(MouseScrollEvent event) {
+			public void processMouseScrolledEvent(final MouseScrollEvent event) {
 				// TODO Auto-generated method stub
 
 			}
@@ -103,25 +103,18 @@ public class GUIExampleTest {
 		sub3 = new GUIGroup(0, 0) {
 		};
 
-		TexturedGUIBox mario = new TexturedGUIBox(300, 300, 100, 100, new Texture("./res/mario-nes.png"));
+		final TexturedGUIBox mario = new TexturedGUIBox(300, 300, 100, 100, new Texture("./res/mario-nes.png"));
 
 		sub3.addChildren(mario);
 
 		// Create a renderer
-		Renderer renderer = new Renderer();
+		final Renderer renderer = new Renderer();
 		display.setClearColor(0.8f, 0.8f, 0.8f, 1);
 
-		GUIColorBox sub1box1 = new GUIColorBox(205, 105, 190, 90, new Vector4f(1, 0, 1, 1));
+		final GUIColorBox sub1box1 = new GUIColorBox(205, 105, 190, 90, new Vector4f(1, 0, 1, 1));
 		sub1box1.setActive(false);
 
 		sub1box1.setCallback(new GUICallback() {
-			@Override
-			public void onRelease(MouseButton button, boolean inBounds) {
-				if (!inBounds)
-					return;
-				sub3.makeVisable(sub3.isVisable());
-			}
-
 			@Override
 			public void onHover() {
 				sub1box1.setCurrentColorAsOriginal();
@@ -135,21 +128,20 @@ public class GUIExampleTest {
 				sub1box1.triggerAnimation(new ColorTransition(200L, Easing.EaseInOutSin, new Vector4f(1, 0, 1, 1)));
 				sub1box1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0f));
 			}
+
+			@Override
+			public void onRelease(final MouseButton button, final boolean inBounds) {
+				if (!inBounds) {
+					return;
+				}
+				sub3.makeVisable(sub3.isVisable());
+			}
 		});
 
-		GUIColorBox sub1box2 = new GUIColorBox(205, 205, 190, 90, new Vector4f(0, 0.7f, 0.6f, 1));
+		final GUIColorBox sub1box2 = new GUIColorBox(205, 205, 190, 90, new Vector4f(0, 0.7f, 0.6f, 1));
 		sub1box2.setActive(false);
 
 		sub1box2.setCallback(new GUICallback() {
-			@Override
-			public void onRelease(MouseButton button, boolean inBounds) {
-				if (!inBounds)
-					return;
-				sub1.makeVisable(false);
-				main.makeVisable(true);
-
-			}
-
 			@Override
 			public void onHover() {
 				sub1box2.setCurrentColorAsOriginal();
@@ -166,28 +158,29 @@ public class GUIExampleTest {
 				sub1box2.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0f));
 			}
 
+			@Override
+			public void onRelease(final MouseButton button, final boolean inBounds) {
+				if (!inBounds) {
+					return;
+				}
+				sub1.makeVisable(false);
+				main.makeVisable(true);
+
+			}
+
 		});
 
-		GUIBox sub1bg = new GUIBox(200, 100, 200, 200);
+		final GUIBox sub1bg = new GUIBox(200, 100, 200, 200);
 		sub1bg.setActive(false);
 		sub1 = new GUIGroup(100, 100, true) {
 		};
 
 		sub1.addChildren(sub1box1, sub1box2, sub1bg, sub3);
 
-		GUIColorBox sub2box1 = new GUIColorBox(105, 205, 190, 90, new Vector4f(1, 1, 0, 1));
-		GUIColorBox sub2box2 = new GUIColorBox(105, 305, 190, 90, new Vector4f(0, 0.3f, 0, 1));
+		final GUIColorBox sub2box1 = new GUIColorBox(105, 205, 190, 90, new Vector4f(1, 1, 0, 1));
+		final GUIColorBox sub2box2 = new GUIColorBox(105, 305, 190, 90, new Vector4f(0, 0.3f, 0, 1));
 
 		sub2box2.setCallback(new GUICallback() {
-			@Override
-			public void onRelease(MouseButton button, boolean inBounds) {
-				if (!inBounds)
-					return;
-				sub2.makeVisable(false);
-				main.makeVisable(true);
-
-			}
-
 			@Override
 			public void onHover() {
 				sub2box2.setCurrentColorAsOriginal();
@@ -202,9 +195,19 @@ public class GUIExampleTest {
 				sub2box2.triggerAnimation(new ColorTransition(200L, Easing.EaseInOutSin, new Vector4f(0, 0.3f, 0, 1)));
 				sub2box2.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0f));
 			}
+
+			@Override
+			public void onRelease(final MouseButton button, final boolean inBounds) {
+				if (!inBounds) {
+					return;
+				}
+				sub2.makeVisable(false);
+				main.makeVisable(true);
+
+			}
 		});
 
-		GUIBox sub2bg = new GUIBox(100, 200, 200, 200);
+		final GUIBox sub2bg = new GUIBox(100, 200, 200, 200);
 
 		sub2box1.setActive(false);
 		sub2box2.setActive(false);
@@ -215,24 +218,14 @@ public class GUIExampleTest {
 
 		sub2.addChildren(sub2box1, sub2box2, sub2bg);
 
-		GUIGroup ui = new GUIGroup(0, 0) {
+		final GUIGroup ui = new GUIGroup(0, 0) {
 		};
 
-		GUIColorBox mainbox1 = new GUIColorBox(105, 105, 190, 90, new Vector4f(1, 0, 0, 1));
+		final GUIColorBox mainbox1 = new GUIColorBox(105, 105, 190, 90, new Vector4f(1, 0, 0, 1));
 
 		mainbox1.setActive(true);
 
 		mainbox1.setCallback(new GUICallback() {
-			@Override
-			public void onRelease(MouseButton button, boolean inBounds) {
-				if (!inBounds)
-					return;
-				sub1.makeVisable(true);
-				sub3.makeVisable(false);
-				main.makeVisable(false);
-
-			}
-
 			@Override
 			public void onHover() {
 				mainbox1.setCurrentColorAsOriginal();
@@ -248,22 +241,22 @@ public class GUIExampleTest {
 				mainbox1.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, Easing.EaseInOutSin, 0f));
 			}
 
-		});
-
-		GUIColorBox mainbox2 = new GUIColorBox(105, 205, 190, 90, new Vector4f(0, 0, 0.6f, 1));
-		mainbox2.setActive(true);
-		mainbox2.setCallback(new GUICallback() {
 			@Override
-			public void onRelease(MouseButton button, boolean inBounds) {
-
-				if (!inBounds)
+			public void onRelease(final MouseButton button, final boolean inBounds) {
+				if (!inBounds) {
 					return;
-
-				sub2.makeVisable(true);
+				}
+				sub1.makeVisable(true);
+				sub3.makeVisable(false);
 				main.makeVisable(false);
 
 			}
 
+		});
+
+		final GUIColorBox mainbox2 = new GUIColorBox(105, 205, 190, 90, new Vector4f(0, 0, 0.6f, 1));
+		mainbox2.setActive(true);
+		mainbox2.setCallback(new GUICallback() {
 			@Override
 			public void onHover() {
 				mainbox2.setCurrentColorAsOriginal();
@@ -277,19 +270,31 @@ public class GUIExampleTest {
 				mainbox2.triggerAnimation(new ColorTransition(100L, new Vector4f(0f, 0f, 1, 1)));
 				mainbox2.triggerAnimation(new ScaleAnimation<GUIColorBox>(200L, 0f));
 			}
+
+			@Override
+			public void onRelease(final MouseButton button, final boolean inBounds) {
+
+				if (!inBounds) {
+					return;
+				}
+
+				sub2.makeVisable(true);
+				main.makeVisable(false);
+
+			}
 		});
 
-		GUIBox mainbg = new GUIBox(100, 100, 200, 200);
+		final GUIBox mainbg = new GUIBox(100, 100, 200, 200);
 
 		main = new GUIGroup(100, 100) {
 		};
 
 		main.addChildren(mainbox1, mainbox2, mainbg);
 
-		TexturedGUIBox volUp = new TexturedGUIBox(400, 100, 40, 40, new Texture("./res/plus.png"));
+		final TexturedGUIBox volUp = new TexturedGUIBox(400, 100, 40, 40, new Texture("./res/plus.png"));
 		volUp.setCallback(new GUICallback() {
 			@Override
-			public void onRelease(MouseButton button, boolean inBounds) {
+			public void onRelease(final MouseButton button, final boolean inBounds) {
 				if (!inBounds) {
 					return;
 				}
@@ -303,10 +308,10 @@ public class GUIExampleTest {
 
 		});
 
-		TexturedGUIBox volDown = new TexturedGUIBox(400, 160, 40, 40, new Texture("./res/minus.png"));
+		final TexturedGUIBox volDown = new TexturedGUIBox(400, 160, 40, 40, new Texture("./res/minus.png"));
 		volDown.setCallback(new GUICallback() {
 			@Override
-			public void onRelease(MouseButton button, boolean inBounds) {
+			public void onRelease(final MouseButton button, final boolean inBounds) {
 				if (!inBounds) {
 					return;
 				}
@@ -319,7 +324,7 @@ public class GUIExampleTest {
 			}
 		});
 
-		GUIGroup vol = new GUIGroup(400, 100) {
+		final GUIGroup vol = new GUIGroup(400, 100) {
 		};
 
 		vol.addChildren(volUp, volDown);
@@ -327,7 +332,7 @@ public class GUIExampleTest {
 		ui.addChildren(main, sub1, sub2, vol);
 
 		AudioMaster.loadSound("./res/space_racer.ogg", "space_racer");
-		AudioSource radio = new AudioSource();
+		final AudioSource radio = new AudioSource();
 
 		radio.playSound(AudioMaster.getSound("space_racer"));
 

@@ -5,23 +5,23 @@ import java.util.List;
 
 public class Line {
 	private float currentLength;
-	private float maxLength;
+	private final float maxLength;
 
-	private float spaceWidth;
+	private final float spaceWidth;
 
-	private List<Word> words = new ArrayList<Word>();
+	private final List<Word> words = new ArrayList<>();
 
-	public Line(float maxLength, float spaceWidth, float fontSize) {
+	public Line(final float maxLength, final float spaceWidth, final float fontSize) {
 		this.maxLength = maxLength;
 		this.spaceWidth = spaceWidth * fontSize;
 	}
 
-	public boolean addWord(Word word) {
+	public boolean addWord(final Word word) {
 		double additionalLength = word.getWordWidth();
-		additionalLength += !words.isEmpty() ? spaceWidth : 0;
-		if (currentLength + additionalLength <= maxLength) {
-			words.add(word);
-			currentLength += additionalLength;
+		additionalLength += !this.words.isEmpty() ? this.spaceWidth : 0;
+		if (this.currentLength + additionalLength <= this.maxLength) {
+			this.words.add(word);
+			this.currentLength += additionalLength;
 			return true;
 		} else {
 			return false;
@@ -29,20 +29,20 @@ public class Line {
 	}
 
 	public float getLineLength() {
-		return currentLength;
+		return this.currentLength;
 	}
 
 	public float getMaxLength() {
-		return maxLength;
+		return this.maxLength;
 	}
 
 	public List<Word> getWords() {
-		return words;
+		return this.words;
 	}
 
 	@Override
 	public String toString() {
-		return "Line [currentLength=" + currentLength + ", maxLength=" + maxLength + ", spaceWidth=" + spaceWidth
-				+ ", words=" + words + "]";
+		return "Line [currentLength=" + this.currentLength + ", maxLength=" + this.maxLength + ", spaceWidth=" + this.spaceWidth
+				+ ", words=" + this.words + "]";
 	}
 }

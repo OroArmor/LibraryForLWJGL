@@ -29,7 +29,6 @@ import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.joml.Matrix4f;
-import org.lwjgl.glfw.GLFWWindowSizeCallbackI;
 
 import com.oroarmor.core.glfw.event.GLFWEventCreator;
 import com.oroarmor.core.glfw.event.GLFWEvent;
@@ -37,6 +36,16 @@ import com.oroarmor.core.glfw.event.GLFWEventListener;
 import com.oroarmor.core.glfw.event.key.Key;
 
 public abstract class Display implements GLFWEventListener {
+	public enum CullFace {
+		FRONT(GL_FRONT), BACK(GL_BACK);
+
+		public int id;
+
+		private CullFace(final int id) {
+			this.id = id;
+		}
+	}
+
 	/**
 	 * When true, the display is listening to events
 	 */
@@ -55,7 +64,7 @@ public abstract class Display implements GLFWEventListener {
 	/**
 	 * The original dimensions
 	 */
-	private int owidth, oheight;
+	private final int owidth, oheight;
 
 	/**
 	 * The current dimensions
@@ -65,54 +74,35 @@ public abstract class Display implements GLFWEventListener {
 	/**
 	 * The GLFW window handle
 	 */
-	private long window;
-
-	public enum CullFace {
-		FRONT(GL_FRONT), BACK(GL_BACK);
-
-		public int id;
-
-		private CullFace(int id) {
-			this.id = id;
-		}
-	}
+	private final long window;
 
 	/**
 	 * Creates a new display
-	 * 
+	 *
 	 * @param width  The width of the display
 	 * @param height The height of the display
 	 * @param name   The name of the display
 	 */
-	public Display(int width, int height, String name) {
+	public Display(final int width, final int height, final String name) {
 		this.width = width;
 		this.height = height;
 		this.owidth = width;
 		this.oheight = height;
-		window = GLFWUtil.glfwCreateWindowHelper(width, height, name, NULL, NULL);
+		this.window = GLFWUtil.glfwCreateWindowHelper(width, height, name, NULL, NULL);
 
-		glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallbackI() {
+		glfwSetWindowSizeCallback(this.window, (window, _width, _height) -> {
+			Display.this.setWidth(_width);
+			Display.this.setHeight(_height);
 
-			@Override
-			public void invoke(long window, int _width, int _height) {
-				setWidth(_width);
-				setHeight(_height);
-
-				glViewport(0, 0, _width, _height);
-			}
+			glViewport(0, 0, _width, _height);
 		});
 
 		glClearDepth(1.0f);
 		glDepthFunc(GL_LESS);
 		glEnable(GL_DEPTH_TEST);
 
-		GLFWEventCreator.initalizeWindow(window);
-		addToListeners();
-	}
-
-	public void setCullFace(CullFace face) {
-		glEnable(GL_CULL_FACE);
-		glCullFace(face.id);
+		GLFWEventCreator.initalizeWindow(this.window);
+		this.addToListeners();
 	}
 
 	/**
@@ -126,8 +116,9 @@ public abstract class Display implements GLFWEventListener {
 	 * Tells the window to close
 	 */
 	public void close() {
-		if (!glfwWindowShouldClose(window))
-			glfwSetWindowShouldClose(window, true);
+		if (!glfwWindowShouldClose(this.window)) {
+			glfwSetWindowShouldClose(this.window, true);
+		}
 	}
 
 	/**
@@ -149,43 +140,43 @@ public abstract class Display implements GLFWEventListener {
 	 * Toggles fullscreen for the window
 	 */
 	public void fullscreen() {
-		if (!maximized) {
-			glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, 1920, 1080, 60);
+		if (!this.maximized) {
+			glfwSetWindowMonitor(this.window, glfwGetPrimaryMonitor(), 0, 0, 1920, 1080, 60);
 		} else {
-			glfwSetWindowMonitor(window, NULL, 100, 100, owidth, oheight, 60);
+			glfwSetWindowMonitor(this.window, NULL, 100, 100, this.owidth, this.oheight, 60);
 		}
-		maximized = !maximized;
+		this.maximized = !this.maximized;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The height of the windw
 	 */
 	public int getHeight() {
-		return height;
+		return this.height;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return An orthographic view model for the display
 	 */
 	public Matrix4f getOrthoViewModel() {
-		return new Matrix4f().setOrtho(0, width, height, 0, -10000, 10000);
+		return new Matrix4f().setOrtho(0, this.width, this.height, 0, -10000, 10000);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param fov The field of view for the camera
 	 * @return A perspective view model for the display
 	 */
-	public Matrix4f getPerspectiveViewModel(float fov) {
-		float aspect = (float) width / (float) height;
-		float tanfov = (float) Math.tan(Math.toRadians(fov / 2));
+	public Matrix4f getPerspectiveViewModel(final float fov) {
+		final float aspect = (float) this.width / (float) this.height;
+		final float tanfov = (float) Math.tan(Math.toRadians(fov / 2));
 
-		Matrix4f mat = new Matrix4f().zero();
+		final Matrix4f mat = new Matrix4f().zero();
 
-		float near = -1;
-		float far = 400;
+		final float near = -1;
+		final float far = 400;
 
 		mat.m00(1f / (aspect * tanfov));
 		mat.m11(1 / tanfov);
@@ -196,80 +187,85 @@ public abstract class Display implements GLFWEventListener {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The width of the window
 	 */
 	public int getWidth() {
-		return width;
+		return this.width;
 	}
 
 	@Override
 	public boolean isActive() {
-		return active;
+		return this.active;
 	}
 
 	@Override
-	public void processGLFWEvent(GLFWEvent event) {
+	public void processGLFWEvent(final GLFWEvent event) {
 	}
 
 	/**
 	 * Swaps the render buffer and display buffer Polls events
 	 */
 	public void render() {
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(this.window);
 		glfwPollEvents();
 	}
 
 	@Override
-	public void setActive(boolean active) {
+	public void setActive(final boolean active) {
 		this.active = active;
 	}
 
 	/**
 	 * Sets the clear color of the display
-	 * 
+	 *
 	 * @param red   Red channel (0 - 1)
 	 * @param green Green channel (0 - 1)
 	 * @param blue  Blue channel (0 - 1)
 	 * @param alpha Alpha channel (0 - 1)
 	 */
-	public void setClearColor(float red, float green, float blue, float alpha) {
+	public void setClearColor(final float red, final float green, final float blue, final float alpha) {
 		glClearColor(red, green, blue, alpha);
+	}
+
+	public void setCullFace(final CullFace face) {
+		glEnable(GL_CULL_FACE);
+		glCullFace(face.id);
 	}
 
 	/**
 	 * Sets the height of the window
-	 * 
+	 *
 	 * @param height New height
 	 */
-	public void setHeight(int height) {
+	public void setHeight(final int height) {
 		this.height = height;
 	}
 
 	/**
 	 * Sets the key that closes the window
-	 * 
+	 *
 	 * @param closeKey New key to close the window with
 	 */
-	public void setKeyClose(Key closeKey) {
+	public void setKeyClose(final Key closeKey) {
 		this.closeKey = closeKey;
 	}
 
 	/**
 	 * Sets the width of the window
-	 * 
+	 *
 	 * @param width New width
 	 */
-	public void setWidth(int width) {
+	public void setWidth(final int width) {
 		this.width = width;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return True if glfw thinks the window should close
 	 */
 	public boolean shouldClose() {
-		return glfwWindowShouldClose(window);
+		return glfwWindowShouldClose(this.window);
 	}
 
 }

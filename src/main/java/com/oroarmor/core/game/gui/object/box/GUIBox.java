@@ -19,7 +19,7 @@ public class GUIBox extends GUIObject<GUIBox> {
 
 	protected Vector4f color;
 
-	public GUIBox(float x, float y, float width, float height) {
+	public GUIBox(final float x, final float y, final float width, final float height) {
 		super(x, y);
 		this.width = width;
 		this.height = height;
@@ -29,9 +29,9 @@ public class GUIBox extends GUIObject<GUIBox> {
 						-width / 2, height / 2, 0, 1 },
 				new int[] { 0, 1, 2, 2, 3, 0 }, new VertexBufferLayout().pushFloats(2).pushFloats(2));
 
-		animationMatrix.translation(x + width / 2, y + height / 2, 0);
+		this.animationMatrix.translation(x + width / 2, y + height / 2, 0);
 
-		color = new Vector4f(1, 1, 1, 1);
+		this.color = new Vector4f(1, 1, 1, 1);
 
 		this.callback = new GUICallback() {
 
@@ -40,31 +40,31 @@ public class GUIBox extends GUIObject<GUIBox> {
 	}
 
 	@Override
-	public void render(Renderer renderer) {
+	public boolean inBounds(final float x, final float y) {
+		return this.x < x && this.x + this.width > x && this.y < y && this.y + this.height > y;
+	}
 
-		for (int i = 0; i < animations.size(); i++) {
-			long start = animationDurations.get(i);
-			IAnimation<GUIBox> animation = animations.get(i);
+	@Override
+	public void render(final Renderer renderer) {
 
-			long duration = System.currentTimeMillis() - start;
+		for (int i = 0; i < this.animations.size(); i++) {
+			final long start = this.animationDurations.get(i);
+			final IAnimation<GUIBox> animation = this.animations.get(i);
+
+			final long duration = System.currentTimeMillis() - start;
 
 			if (animation.getDurationInMillis() < duration) {
-				animationDurations.remove(i);
-				animations.remove(i);
+				this.animationDurations.remove(i);
+				this.animations.remove(i);
 				i--;
 				continue;
 			}
 
-			float percent = (float) duration / (float) animation.getDurationInMillis();
+			final float percent = (float) duration / (float) animation.getDurationInMillis();
 
 			animation.animate(this, percent);
 		}
 
-		boxMesh.render(renderer, GUIShaders.getSolidColorShader(color).setObjectModel(animationMatrix));
-	}
-
-	@Override
-	public boolean inBounds(float x, float y) {
-		return this.x < x && this.x + this.width > x && this.y < y && this.y + this.height > y;
+		this.boxMesh.render(renderer, GUIShaders.getSolidColorShader(this.color).setObjectModel(this.animationMatrix));
 	}
 }

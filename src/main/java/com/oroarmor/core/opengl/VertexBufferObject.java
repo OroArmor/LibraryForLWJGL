@@ -15,7 +15,7 @@ import com.oroarmor.core.Destructor;
 
 /**
  * Vertex Buffer Object stores the data for a list of vertexes.
- * 
+ *
  * @author OroArmor
  *
  */
@@ -23,17 +23,17 @@ public class VertexBufferObject implements Bindable, Destructable {
 	/**
 	 * The id of the vbo
 	 */
-	private int vbo_id;
+	private final int vbo_id;
 
 	/**
 	 * Constructs a {@link VertexBufferObject} with a float array
-	 * 
+	 *
 	 * @param data The vertex data
 	 */
-	public VertexBufferObject(float[] data) {
-		vbo_id = glGenBuffers();
+	public VertexBufferObject(final float[] data) {
+		this.vbo_id = glGenBuffers();
 
-		bind();
+		this.bind();
 		glBufferData(GL_ARRAY_BUFFER, data, GL_STATIC_DRAW);
 
 		Destructor.addDestructable(this);
@@ -41,24 +41,24 @@ public class VertexBufferObject implements Bindable, Destructable {
 
 	/**
 	 * Constructs a {@link VertexBufferObject} with a {@link FloatBuffer}
-	 * 
+	 *
 	 * @param vertexPositions
 	 */
-	public VertexBufferObject(FloatBuffer data) {
-		vbo_id = glGenBuffers();
+	public VertexBufferObject(final FloatBuffer data) {
+		this.vbo_id = glGenBuffers();
 
-		bind();
+		this.bind();
 		glBufferData(GL_ARRAY_BUFFER, data, GL_STATIC_DRAW);
 	}
 
 	@Override
 	public void bind() {
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
+		glBindBuffer(GL_ARRAY_BUFFER, this.vbo_id);
 	}
 
 	@Override
 	public void destroy() {
-		glDeleteBuffers(vbo_id);
+		glDeleteBuffers(this.vbo_id);
 	}
 
 	@Override

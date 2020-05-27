@@ -6,7 +6,7 @@ import com.oroarmor.core.glfw.event.mouse.button.MouseButton;
 
 /**
  * This class keeps track of all the down buttons and position of the mouse
- * 
+ *
  * @author OroArmor
  *
  */
@@ -22,7 +22,7 @@ public class MouseStatus {
 	private static float mouseX, mouseY, pastMouseX, pastMouseY, deltaMouseX, deltaMouseY;
 
 	/**
-	 * 
+	 *
 	 * @return The current delta x for the mouse
 	 */
 	public static float getDeltaMouseX() {
@@ -30,7 +30,7 @@ public class MouseStatus {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The current delta y for the mouse
 	 */
 	public static float getDeltaMouseY() {
@@ -38,7 +38,7 @@ public class MouseStatus {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The current x pos of the mouse
 	 */
 	public static float getMouseX() {
@@ -46,7 +46,7 @@ public class MouseStatus {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The current y pos of the mouse
 	 */
 	public static float getMouseY() {
@@ -54,7 +54,7 @@ public class MouseStatus {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The past mouse x position
 	 */
 	public static float getPastMouseX() {
@@ -62,7 +62,7 @@ public class MouseStatus {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The past mouse y position
 	 */
 	public static float getPastMouseY() {
@@ -71,53 +71,53 @@ public class MouseStatus {
 
 	/**
 	 * Returns true if the button is down
-	 * 
+	 *
 	 * @param button The button to check
 	 * @return True if down
 	 */
-	public static boolean isMouseButtonDown(MouseButton button) {
+	public static boolean isMouseButtonDown(final MouseButton button) {
 		return mouseButtonStatus[button.getMouseButtonID()];
 	}
 
-	public static void setDeltaMouseX(float _deltaMouseX) {
+	public static void setDeltaMouseX(final float _deltaMouseX) {
 		deltaMouseX = _deltaMouseX;
 	}
 
-	public static void setDeltaMouseY(float _deltaMouseY) {
+	public static void setDeltaMouseY(final float _deltaMouseY) {
 		deltaMouseY = _deltaMouseY;
 	}
 
-	public static void setMouseButtonDown(MouseButton button) {
+	public static void setMouseButtonDown(final MouseButton button) {
 		mouseButtonStatus[button.getMouseButtonID()] = true;
 	}
 
-	public static void setMouseButtonUp(MouseButton button) {
+	public static void setMouseButtonUp(final MouseButton button) {
 		mouseButtonStatus[button.getMouseButtonID()] = false;
 	}
 
-	public static void setMouseX(float _mouseX) {
+	public static void setMouseX(final float _mouseX) {
 		mouseX = _mouseX;
 	}
 
-	public static void setMouseY(float _mouseY) {
+	public static void setMouseY(final float _mouseY) {
 		mouseY = _mouseY;
 	}
 
-	public static void setPastMouseX(float _pastMouseX) {
+	public static void setPastMouseX(final float _pastMouseX) {
 		pastMouseX = _pastMouseX;
 	}
 
-	public static void setPastMouseY(float _pastMouseY) {
+	public static void setPastMouseY(final float _pastMouseY) {
 		pastMouseY = _pastMouseY;
 	}
 
 	/**
 	 * Updates the mouse values
-	 * 
+	 *
 	 * @param xpos New xpos
 	 * @param ypos New y pos
 	 */
-	public static void updateMousePositon(float xpos, float ypos) {
+	public static void updateMousePositon(final float xpos, final float ypos) {
 		pastMouseX = mouseX;
 		pastMouseY = mouseY;
 

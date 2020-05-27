@@ -27,10 +27,10 @@ import org.lwjgl.opengl.GL12;
 /**
  * This class loads textures from either a string/buffered image or a byte
  * buffer. Currently the byte buffer is the only supported way.
- * 
+ *
  * @author OroArmor
  *
- * 
+ *
  */
 public class TextureLoader {
 	/**
@@ -39,41 +39,41 @@ public class TextureLoader {
 	private static final int BYTES_PER_PIXEL = 4;// 3 for RGB, 4 for RGBA
 
 	/**
-	 * 
+	 *
 	 * @param loc String pointing to the location of the image
 	 * @return A java.awt.BufferedImage for the string
 	 */
 	@Deprecated
-	public static BufferedImage loadImage(String loc) {
+	public static BufferedImage loadImage(final String loc) {
 		try {
 			return ImageIO.read(new File(loc));
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			// Error Handling Here
 		}
 		return null;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param image The image to create a texture of
 	 * @return The OpenGL id for the Texture
 	 */
 	@Deprecated
-	public static int loadTexture(BufferedImage image) {
+	public static int loadTexture(final BufferedImage image) {
 
-		int[] pixels = new int[image.getWidth() * image.getHeight()];
+		final int[] pixels = new int[image.getWidth() * image.getHeight()];
 		image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 
-		ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * BYTES_PER_PIXEL);
+		final ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * BYTES_PER_PIXEL);
 		// 4 for RGBA, 3 for RGB
 
 		for (int y = 0; y < image.getHeight(); y++) {
 			for (int x = 0; x < image.getWidth(); x++) {
-				int pixel = pixels[y * image.getWidth() + x];
-				buffer.put((byte) ((pixel >> 16) & 0xFF)); // Red component
-				buffer.put((byte) ((pixel >> 8) & 0xFF)); // Green component
+				final int pixel = pixels[y * image.getWidth() + x];
+				buffer.put((byte) (pixel >> 16 & 0xFF)); // Red component
+				buffer.put((byte) (pixel >> 8 & 0xFF)); // Green component
 				buffer.put((byte) (pixel & 0xFF)); // Blue component
-				buffer.put((byte) ((pixel >> 24) & 0xFF)); // Alpha component. Only for RGBA
+				buffer.put((byte) (pixel >> 24 & 0xFF)); // Alpha component. Only for RGBA
 			}
 		}
 
@@ -84,18 +84,18 @@ public class TextureLoader {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param imageBuffer The image data
 	 * @param x           The width of the image
 	 * @param y           The height of the image
 	 * @return The OpenGL id for the textures
 	 */
-	public static int loadTexture(ByteBuffer imageBuffer, int x, int y) {
+	public static int loadTexture(final ByteBuffer imageBuffer, final int x, final int y) {
 		// You now have a ByteBuffer filled with the color data of each pixel.
 		// Now just create a texture ID and bind it. Then you can load it using
 		// whatever OpenGL method you want, for example:
 
-		int textureID = glGenTextures(); // Generate texture ID
+		final int textureID = glGenTextures(); // Generate texture ID
 		glBindTexture(GL_TEXTURE_2D, textureID); // Bind texture ID
 
 		// Setup wrap mode

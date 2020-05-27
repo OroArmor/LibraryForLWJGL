@@ -10,7 +10,7 @@ public class FontCharacter {
 	public int y;
 	public int yoffset;
 
-	public FontCharacter(int character, int x, int y, int width, int height, int xoffset, int yoffset, int xadvance) {
+	public FontCharacter(final int character, final int x, final int y, final int width, final int height, final int xoffset, final int yoffset, final int xadvance) {
 		this.character = character;
 		this.x = x;
 		this.y = y;
@@ -23,8 +23,8 @@ public class FontCharacter {
 
 	@Override
 	public String toString() {
-		return "FontCharacter [character=" + (char) character + ", height=" + height + ", width=" + width + ", x=" + x
-				+ ", xadvance=" + xadvance + ", xoffset=" + xoffset + ", y=" + y + ", yoffset=" + yoffset + "]";
+		return "FontCharacter [character=" + (char) this.character + ", height=" + this.height + ", width=" + this.width + ", x=" + this.x
+				+ ", xadvance=" + this.xadvance + ", xoffset=" + this.xoffset + ", y=" + this.y + ", yoffset=" + this.yoffset + "]";
 	}
 
 }

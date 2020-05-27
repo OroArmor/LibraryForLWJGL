@@ -15,7 +15,7 @@ public interface KeyEventListener extends KeyPressEventListener, KeyHoldEventLis
 		this.addToKeyPressListeners();
 	}
 
-	public default void processKeyEvent(KeyEvent event) {
+	public default void processKeyEvent(final KeyEvent event) {
 		if (event.getKeyEventType() == KeyEventType.PRESS) {
 			processKeyPressedEvent((KeyPressEvent) event);
 		}

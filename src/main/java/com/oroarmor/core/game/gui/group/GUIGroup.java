@@ -17,79 +17,29 @@ public abstract class GUIGroup implements IGUIGroup {
 
 	protected boolean hasParent = false;
 
-	public GUIGroup(float x, float y) {
+	public GUIGroup(final float x, final float y) {
 		this(x, y, false);
 	}
 
-	public GUIGroup(float x, float y, boolean hiddenOnCreation) {
+	public GUIGroup(final float x, final float y, final boolean hiddenOnCreation) {
 		this.x = x;
 		this.y = y;
 		this.hidden = hiddenOnCreation;
 	}
 
 	@Override
-	public float getX() {
-		return x;
-	}
-
-	@Override
-	public float getY() {
-		return y;
-	}
-
-	@Override
-	public int numObjects() {
-		return (children == null) ? 0 : children.size();
-	}
-
-	@Override
-	public List<IGUI<?>> getChildren() {
-		return children;
-	}
-
-	@Override
-	public void renderChildren(Renderer renderer) {
-		if (children == null || hidden) {
-			return;
+	public void addChildren(final IGUI<?>... newChildren) {
+		if (this.children == null) {
+			this.children = new ArrayList<>();
 		}
 
-		for (IGUI<?> child : children) {
-			child.render(renderer);
-
-			if (child instanceof IGUIGroup) {
-				((IGUIGroup) child).renderChildren(renderer);
-			}
-		}
-	}
-
-	@Override
-	public void hideAll() {
-		this.hidden = true;
-	}
-
-	@Override
-	public void showAll() {
-		this.hidden = false;
-	}
-
-	@Override
-	public boolean isVisable() {
-		return hidden;
-	}
-
-	@Override
-	public void addChildren(IGUI<?>... newChildren) {
-		if (children == null) {
-			children = new ArrayList<IGUI<?>>();
-		}
-
-		for (IGUI<?> newChild : newChildren) {
+		for (final IGUI<?> newChild : newChildren) {
 			if (newChild.hasParent()) {
 				continue;
 			}
 
 			if (newChild instanceof IGUIGroup) {
-				IGUIGroup newGUIGroup = (IGUIGroup) newChild;
+				final IGUIGroup newGUIGroup = (IGUIGroup) newChild;
 
 				if (newGUIGroup.getChildren().contains(this)) {
 					continue;
@@ -100,25 +50,40 @@ public abstract class GUIGroup implements IGUIGroup {
 	}
 
 	@Override
+	public List<IGUI<?>> getChildren() {
+		return this.children;
+	}
+
+	@Override
+	public float getX() {
+		return this.x;
+	}
+
+	@Override
+	public float getY() {
+		return this.y;
+	}
+
+	@Override
 	public boolean hasParent() {
-		return hasParent;
+		return this.hasParent;
 	}
 
 	@Override
-	public void setHasParent(boolean hasParent) {
-		this.hasParent = hasParent;
+	public void hideAll() {
+		this.hidden = true;
 	}
 
 	@Override
-	public void render(Renderer renderer) {
-
+	public boolean isVisable() {
+		return this.hidden;
 	}
 
 	@Override
-	public void makeVisable(boolean visable) {
+	public void makeVisable(final boolean visable) {
 		this.hidden = !visable;
 
-		for (IGUI<?> igui : children) {
+		for (final IGUI<?> igui : this.children) {
 			if (igui instanceof IGUIObject) {
 				((IGUIObject<?>) igui).setActive(visable);
 			}
@@ -130,7 +95,42 @@ public abstract class GUIGroup implements IGUIGroup {
 	}
 
 	@Override
-	public void triggerAnimation(IAnimation<IGUIGroup> animation) {
+	public int numObjects() {
+		return this.children == null ? 0 : this.children.size();
+	}
+
+	@Override
+	public void render(final Renderer renderer) {
+
+	}
+
+	@Override
+	public void renderChildren(final Renderer renderer) {
+		if (this.children == null || this.hidden) {
+			return;
+		}
+
+		for (final IGUI<?> child : this.children) {
+			child.render(renderer);
+
+			if (child instanceof IGUIGroup) {
+				((IGUIGroup) child).renderChildren(renderer);
+			}
+		}
+	}
+
+	@Override
+	public void setHasParent(final boolean hasParent) {
+		this.hasParent = hasParent;
+	}
+
+	@Override
+	public void showAll() {
+		this.hidden = false;
+	}
+
+	@Override
+	public void triggerAnimation(final IAnimation<IGUIGroup> animation) {
 	}
 
 }

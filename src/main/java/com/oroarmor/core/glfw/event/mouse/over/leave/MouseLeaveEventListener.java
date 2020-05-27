@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import com.oroarmor.core.game.event.Active;
 
 public interface MouseLeaveEventListener extends Active {
-	public static ArrayList<MouseLeaveEventListener> mouseLeaveListener = new ArrayList<MouseLeaveEventListener>();
+	public static ArrayList<MouseLeaveEventListener> mouseLeaveListener = new ArrayList<>();
 
-	public static void addMouseLeaveListener(MouseLeaveEventListener listener) {
+	public static void addMouseLeaveListener(final MouseLeaveEventListener listener) {
 		mouseLeaveListener.add(listener);
 	}
 
-	public static void processAllMouseLeaveEvent(MouseLeaveEvent event) {
-		for (MouseLeaveEventListener listener : mouseLeaveListener) {
+	public static void processAllMouseLeaveEvent(final MouseLeaveEvent event) {
+		for (final MouseLeaveEventListener listener : mouseLeaveListener) {
 			if (!listener.isActive()) {
 				continue;
 			}

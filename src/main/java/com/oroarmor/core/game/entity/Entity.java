@@ -10,30 +10,30 @@ public abstract class Entity {
 	protected Vector3f rotationVector;
 	protected Vector3f scaleVector;
 
-	public Entity(Vector3f position, Vector3f rotation, Vector3f scale) {
+	public Entity(final Vector3f position, final Vector3f rotation, final Vector3f scale) {
 		this.positionVector = position;
 		this.rotationVector = rotation;
 		this.scaleVector = scale;
 
-		setModelMatrix();
+		this.setModelMatrix();
 	}
 
 	public Matrix4f getModelMatrix() {
-		return modelMatrix;
+		return this.modelMatrix;
 	}
 
 	public Vector3f getPosition() {
-		return positionVector;
+		return this.positionVector;
 	}
 
 	protected void setModelMatrix() {
-		modelMatrix = new Matrix4f().identity().translateLocal(positionVector).rotateLocalX(rotationVector.x)
-				.rotateLocalY(rotationVector.y).rotateLocalZ(rotationVector.z).scale(scaleVector);
+		this.modelMatrix = new Matrix4f().identity().translateLocal(this.positionVector).rotateLocalX(this.rotationVector.x)
+				.rotateLocalY(this.rotationVector.y).rotateLocalZ(this.rotationVector.z).scale(this.scaleVector);
 	}
 
-	public void tick(float delta) {
-		update(delta);
-		setModelMatrix();
+	public void tick(final float delta) {
+		this.update(delta);
+		this.setModelMatrix();
 	}
 
 	public abstract void update(float delta);

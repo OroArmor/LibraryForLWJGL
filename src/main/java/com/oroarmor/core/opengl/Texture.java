@@ -17,7 +17,7 @@ import com.oroarmor.util.TextureLoader;
 
 /**
  * A class that represents a texture in OpenGL
- * 
+ *
  * @author OroArmor
  *
  */
@@ -48,35 +48,35 @@ public class Texture implements Bindable, Destructable {
 	protected int width;
 
 	/**
+	 * For subclasses
+	 */
+	protected Texture() {
+	}
+
+	/**
 	 * Creates a new {@link Texture} based on a path to an image
-	 * 
+	 *
 	 * @param filePath The path to the image texture
 	 */
-	public Texture(String filePath) {
+	public Texture(final String filePath) {
 		this.filePath = filePath;
 
-		int[] x = new int[1];
-		int[] y = new int[1];
-		int[] channels_in_file = new int[1];
-		int desired_channels = 4;
+		final int[] x = new int[1];
+		final int[] y = new int[1];
+		final int[] channels_in_file = new int[1];
+		final int desired_channels = 4;
 
 		STBImage.stbi_set_flip_vertically_on_load(true);
 
-		ByteBuffer buffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
+		final ByteBuffer buffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
 
 		this.width = x[0];
 		this.height = y[0];
 
-		this.textureID = TextureLoader.loadTexture(buffer, width, height);
+		this.textureID = TextureLoader.loadTexture(buffer, this.width, this.height);
 		STBImage.stbi_image_free(buffer);
 
 		Destructor.addDestructable(this);
-	}
-
-	/**
-	 * For subclasses
-	 */
-	protected Texture() {
 	}
 
 	/**
@@ -84,59 +84,59 @@ public class Texture implements Bindable, Destructable {
 	 */
 	@Override
 	public void bind() {
-		glActiveTexture(GL_TEXTURE0 + slot);
-		glBindTexture(GL_TEXTURE_2D, textureID);
+		glActiveTexture(GL_TEXTURE0 + this.slot);
+		glBindTexture(GL_TEXTURE_2D, this.textureID);
 	}
 
 	/**
 	 * Bind the {@link Texture} to a certain slot
-	 * 
+	 *
 	 * @param slot Slot to bind the texture to
 	 */
-	public void bind(int slot) {
+	public void bind(final int slot) {
 		this.slot = Math.min(slot, 31);
-		bind();
+		this.bind();
 	}
 
 	@Override
 	public void destroy() {
-		glDeleteTextures(textureID);
+		glDeleteTextures(this.textureID);
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The path to the image of the texture
 	 */
 	public String getFilePath() {
-		return filePath;
+		return this.filePath;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The height of the texture
 	 */
 	public int getHeight() {
-		return height;
+		return this.height;
 	}
 
 	/**
-	 * 
+	 *
+	 * @return The slot that the texture is bound to currently
+	 */
+	public int getSlot() {
+		return this.slot;
+	}
+
+	/**
+	 *
 	 * @return The width of the image
 	 */
 	public int getWidth() {
-		return width;
+		return this.width;
 	}
 
 	@Override
 	public void unbind() {
 		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-
-	/**
-	 * 
-	 * @return The slot that the texture is bound to currently
-	 */
-	public int getSlot() {
-		return this.slot;
 	}
 }

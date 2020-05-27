@@ -27,38 +27,86 @@ public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T>
 
 	protected float scale = 1;
 
-	public GUIObject(float x, float y) {
+	private boolean hasParent = false;
+
+	protected List<IAnimation<T>> animations = new ArrayList<>();
+
+	protected List<Long> animationDurations = new ArrayList<>();
+
+	public GUIObject(final float x, final float y) {
 		this.x = x;
 		this.y = y;
 
 		this.addToButtonListeners();
 		this.addToPositionListeners();
 
-		animationMatrix = new Matrix4f().identity();
+		this.animationMatrix = new Matrix4f().identity();
 	}
 
 	@Override
-	public void processMousePressEvent(MousePressEvent event) {
-		if (inBounds(event.getX(), event.getY())) {
+	public Matrix4f getAnimationMatrix() {
+		return this.animationMatrix;
+	}
+
+	@Override
+	public IGUICallback getCallback() {
+		return this.callback;
+	}
+
+	@Override
+	public float getScale() {
+		return this.scale;
+	}
+
+	@Override
+	public float getX() {
+		return this.x;
+	}
+
+	@Override
+	public float getY() {
+		return this.y;
+	}
+
+	@Override
+	public boolean hasParent() {
+		return this.hasParent;
+	}
+
+	public abstract boolean inBounds(float x, float y);
+
+	@Override
+	public boolean isActive() {
+		return this.active;
+	}
+
+	@Override
+	public void processMousePositionEvent(final MousePositionEvent event) {
+		if (!this.clicked) {
+			if (this.inBounds(event.getMouseX(), event.getMouseY())) {
+				if (!this.hovered) {
+					this.callback.onHover();
+				}
+				this.hovered = true;
+			} else if (this.hovered) {
+				this.hovered = false;
+				this.callback.onHoverStop();
+			}
+		}
+	}
+
+	@Override
+	public void processMousePressEvent(final MousePressEvent event) {
+		if (this.inBounds(event.getX(), event.getY())) {
 			this.callback.onClick(event.getButton());
 			this.clicked = true;
 		}
 	}
 
 	@Override
-	public boolean isActive() {
-		return active;
-	}
-
-	@Override
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	@Override
-	public void processMouseReleasedEvent(MouseReleaseEvent event) {
+	public void processMouseReleasedEvent(final MouseReleaseEvent event) {
 		if (this.clicked) {
-			boolean inbounds = inBounds(event.getX(), event.getY());
+			final boolean inbounds = this.inBounds(event.getX(), event.getY());
 			this.callback.onRelease(event.getButton(), inbounds);
 			if (inbounds) {
 				this.callback.onHover();
@@ -70,77 +118,35 @@ public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T>
 	}
 
 	@Override
-	public float getX() {
-		return x;
+	public void setActive(final boolean active) {
+		this.active = active;
 	}
 
 	@Override
-	public float getY() {
-		return y;
+	public void setAnimationMatrix(final Matrix4f animationMatrix) {
+		this.animationMatrix = animationMatrix;
 	}
 
 	@Override
-	public IGUICallback getCallback() {
-		return callback;
-	}
-
-	@Override
-	public void setCallback(IGUICallback callback) {
+	public void setCallback(final IGUICallback callback) {
 		this.callback = callback;
 	}
 
-	public abstract boolean inBounds(float x, float y);
-
 	@Override
-	public void processMousePositionEvent(MousePositionEvent event) {
-		if (!clicked) {
-			if (this.inBounds(event.getMouseX(), event.getMouseY())) {
-				if (!this.hovered)
-					this.callback.onHover();
-				this.hovered = true;
-			} else if (this.hovered) {
-				this.hovered = false;
-				this.callback.onHoverStop();
-			}
-		}
-	}
-
-	private boolean hasParent = false;
-
-	@Override
-	public void setHasParent(boolean hasParent) {
+	public void setHasParent(final boolean hasParent) {
 		this.hasParent = true;
 	}
 
 	@Override
-	public boolean hasParent() {
-		return hasParent;
+	public void setScale(final float newScale) {
+		this.animationMatrix.scale(newScale / this.scale);
+		this.scale = newScale;
 	}
-
-	protected List<IAnimation<T>> animations = new ArrayList<IAnimation<T>>();
-	protected List<Long> animationDurations = new ArrayList<Long>();
 
 	@Override
-	public void triggerAnimation(IAnimation<T> animation) {
-		animations.add(animation);
-		animationDurations.add(System.currentTimeMillis());
-	}
-
-	public Matrix4f getAnimationMatrix() {
-		return animationMatrix;
-	}
-
-	public void setAnimationMatrix(Matrix4f animationMatrix) {
-		this.animationMatrix = animationMatrix;
-	}
-
-	public void setScale(float newScale) {
-		animationMatrix.scale(newScale / scale);
-		scale = newScale;
-	}
-
-	public float getScale() {
-		return scale;
+	public void triggerAnimation(final IAnimation<T> animation) {
+		this.animations.add(animation);
+		this.animationDurations.add(System.currentTimeMillis());
 	}
 
 }

@@ -16,7 +16,7 @@ import com.oroarmor.core.Destructor;
  * This is a class for storing a {@link VertexBufferObject} and a
  * {@link VertexBufferLayout} object into one OpenGL concept, reducing the
  * number of needed calls
- * 
+ *
  * @author OroArmor
  *
  */
@@ -25,13 +25,13 @@ public class VertexArrayObject implements Bindable, Destructable {
 	/**
 	 * Id of the {@link VertexArrayObject}
 	 */
-	private int vao_id;
+	private final int vao_id;
 
 	/**
 	 * Creates a new {@link VertexArrayObject}
 	 */
 	public VertexArrayObject() {
-		vao_id = glGenVertexArrays();
+		this.vao_id = glGenVertexArrays();
 
 		Destructor.addDestructable(this);
 	}
@@ -39,22 +39,22 @@ public class VertexArrayObject implements Bindable, Destructable {
 	/**
 	 * Adds a {@link VertexBufferObject} and a {@link VertexBufferLayout} to the
 	 * {@link VertexArrayObject}
-	 * 
+	 *
 	 * @param vbo      The {@link VertexBufferObject} of the
 	 *                 {@link VertexArrayObject}
 	 * @param vbLayout The {@link VertexBufferLayout} of the
 	 *                 {@link VertexArrayObject}
 	 */
-	public void addBuffer(VertexBufferObject vbo, VertexBufferLayout vbLayout) {
-		bind();
+	public void addBuffer(final VertexBufferObject vbo, final VertexBufferLayout vbLayout) {
+		this.bind();
 		vbo.bind();
 
-		ArrayList<VertexBufferElement> elements = vbLayout.getVbElements();
+		final ArrayList<VertexBufferElement> elements = vbLayout.getVbElements();
 
 		int currentOffset = 0;
 
 		for (int i = 0; i < elements.size(); i++) {
-			VertexBufferElement element = elements.get(i);
+			final VertexBufferElement element = elements.get(i);
 			glEnableVertexAttribArray(i);
 			glVertexAttribPointer(i, element.getCount(), element.getType(), element.isNormalized(),
 					vbLayout.getStride(), currentOffset);
@@ -65,12 +65,12 @@ public class VertexArrayObject implements Bindable, Destructable {
 
 	@Override
 	public void bind() {
-		glBindVertexArray(vao_id);
+		glBindVertexArray(this.vao_id);
 	}
 
 	@Override
 	public void destroy() {
-		glDeleteVertexArrays(vao_id);
+		glDeleteVertexArrays(this.vao_id);
 	}
 
 	@Override

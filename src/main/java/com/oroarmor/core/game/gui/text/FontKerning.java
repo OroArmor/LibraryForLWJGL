@@ -8,23 +8,23 @@ public class FontKerning {
 	Map<FontCharacter, HashMap<FontCharacter, Integer>> kernings;
 
 	public FontKerning() {
-		kernings = new HashMap<FontCharacter, HashMap<FontCharacter, Integer>>();
+		this.kernings = new HashMap<>();
 	}
 
-	public void addKerning(FontCharacter leading, FontCharacter following, int offset) {
-		if (kernings.containsKey(leading)) {
-			kernings.get(leading).put(following, offset);
+	public void addKerning(final FontCharacter leading, final FontCharacter following, final int offset) {
+		if (this.kernings.containsKey(leading)) {
+			this.kernings.get(leading).put(following, offset);
 		} else {
-			HashMap<FontCharacter, Integer> map = new HashMap<FontCharacter, Integer>();
+			final HashMap<FontCharacter, Integer> map = new HashMap<>();
 			map.put(following, offset);
-			kernings.put(following, map);
+			this.kernings.put(following, map);
 		}
 	}
 
-	public int getKerning(FontCharacter leading, FontCharacter following) {
-		if (kernings.containsKey(leading)) {
-			if (kernings.get(leading).containsKey(following)) {
-				return kernings.get(leading).get(following);
+	public int getKerning(final FontCharacter leading, final FontCharacter following) {
+		if (this.kernings.containsKey(leading)) {
+			if (this.kernings.get(leading).containsKey(following)) {
+				return this.kernings.get(leading).get(following);
 			}
 		}
 		return 0;

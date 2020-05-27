@@ -27,28 +27,28 @@ import com.oroarmor.core.opengl.Renderer;
 public class TerrainTest {
 	public static boolean sunToggle = false;
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
-		Sunlight sun = new Sunlight(new Vector3f(-1, -1, 0), new Vector4f(1f, .9f, .8f, 1));
+		final Sunlight sun = new Sunlight(new Vector3f(-1, -1, 0), new Vector4f(1f, .9f, .8f, 1));
 
-		Camera camera = new Camera(new Vector3f(0, 100, 0), new Vector3f(0, -(float) Math.PI / 2, 0));
+		final Camera camera = new Camera(new Vector3f(0, 100, 0), new Vector3f(0, -(float) Math.PI / 2, 0));
 		// Create a new window with a onKey function that prints the typed key
-		Display display = new Display(640, 480, "Open GL Learning") {
+		final Display display = new Display(640, 480, "Open GL Learning") {
 			@Override
-			public void processKeyHeldEvent(KeyHoldEvent event) {
+			public void processKeyHeldEvent(final KeyHoldEvent event) {
 			}
 
 			@Override
-			public void processKeyPressedEvent(KeyPressEvent event) {
+			public void processKeyPressedEvent(final KeyPressEvent event) {
 				if (event.getKey() == Key.G) {
-					sun.setColor((sunToggle) ? new Vector4f(1, 1, 1, 1) : new Vector4f(1f, .9f, .8f, 1));
+					sun.setColor(sunToggle ? new Vector4f(1, 1, 1, 1) : new Vector4f(1f, .9f, .8f, 1));
 					sunToggle = !sunToggle;
 				}
 			}
 
 			@Override
-			public void processKeyReleasedEvent(KeyReleaseEvent event) {
-				Key key = event.getKey();
+			public void processKeyReleasedEvent(final KeyReleaseEvent event) {
+				final Key key = event.getKey();
 				if (key == this.closeKey) {
 					this.close();
 				} else if (key == Key.F11) {
@@ -57,27 +57,27 @@ public class TerrainTest {
 			}
 
 			@Override
-			public void processMouseEnterEvent(MouseEnterEvent event) {
+			public void processMouseEnterEvent(final MouseEnterEvent event) {
 			}
 
 			@Override
-			public void processMouseLeaveEvent(MouseLeaveEvent event) {
+			public void processMouseLeaveEvent(final MouseLeaveEvent event) {
 			}
 
 			@Override
-			public void processMousePositionEvent(MousePositionEvent event) {
+			public void processMousePositionEvent(final MousePositionEvent event) {
 			}
 
 			@Override
-			public void processMousePressEvent(MousePressEvent event) {
+			public void processMousePressEvent(final MousePressEvent event) {
 			}
 
 			@Override
-			public void processMouseReleasedEvent(MouseReleaseEvent event) {
+			public void processMouseReleasedEvent(final MouseReleaseEvent event) {
 			}
 
 			@Override
-			public void processMouseScrolledEvent(MouseScrollEvent event) {
+			public void processMouseScrolledEvent(final MouseScrollEvent event) {
 			}
 		};
 
@@ -88,12 +88,12 @@ public class TerrainTest {
 		// Set the OpenGL version to 4.5 core
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);
 
-		int size = 200;
+		final int size = 200;
 
-		int count = 5;
+		final int count = 5;
 
-		TerrainMesh[] terrains = new TerrainMesh[count * count];
-		Matrix4f[] terrainModels = new Matrix4f[count * count];
+		final TerrainMesh[] terrains = new TerrainMesh[count * count];
+		final Matrix4f[] terrainModels = new Matrix4f[count * count];
 
 		for (int i = 0; i < count; i++) {
 			for (int j = 0; j < count; j++) {
@@ -103,13 +103,13 @@ public class TerrainTest {
 		}
 
 		// Load the shader files
-		TerrainShader shader = new TerrainShader();
+		final TerrainShader shader = new TerrainShader();
 		shader.update();
 
 		shader.addSunlight(sun);
 
 		// Create a renderer
-		Renderer renderer = new Renderer();
+		final Renderer renderer = new Renderer();
 
 		// Create a texture and bind it to the square shader
 
@@ -122,7 +122,7 @@ public class TerrainTest {
 			// Clear the display
 			display.clear();
 
-			Matrix4f MV = display.getPerspectiveViewModel(70).mul(camera.getModelMatrix());
+			final Matrix4f MV = display.getPerspectiveViewModel(70).mul(camera.getModelMatrix());
 
 			// Bind the mShader and set u_Color
 			shader.bind();
@@ -132,8 +132,9 @@ public class TerrainTest {
 			for (int i = 0; i < terrainModels.length; i++) {
 				shader.bind();
 				shader.setUniformMat4f("u_P", terrainModels[i]);
-				if (terrains[i].getMesh() != null)
+				if (terrains[i].getMesh() != null) {
 					terrains[i].getMesh().render(renderer, shader);
+				}
 
 			}
 			// Render the current frame buffer

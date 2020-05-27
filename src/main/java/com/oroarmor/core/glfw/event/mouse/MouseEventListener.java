@@ -14,7 +14,7 @@ import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEventListener;
  * A Listener that listens to all mouse events
  * <p>
  * Must call {@code addToMouseListeners} to initialize properly
- * 
+ *
  * @author OroArmor
  *
  */
@@ -32,10 +32,10 @@ public interface MouseEventListener
 
 	/**
 	 * Processes a mouse event
-	 * 
+	 *
 	 * @param event Event to process
 	 */
-	public default void processMouseEvent(MouseEvent event) {
+	public default void processMouseEvent(final MouseEvent event) {
 		if (!isActive()) {
 			return;
 		}

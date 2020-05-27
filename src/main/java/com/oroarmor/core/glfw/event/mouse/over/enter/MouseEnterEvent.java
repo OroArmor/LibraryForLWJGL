@@ -6,7 +6,7 @@ import com.oroarmor.core.glfw.event.mouse.over.MouseOverEventType;
 
 public class MouseEnterEvent extends MouseOverEvent {
 
-	public MouseEnterEvent(long window, GLFWEventMods mods) {
+	public MouseEnterEvent(final long window, final GLFWEventMods mods) {
 		super(window, MouseOverEventType.ENTER, mods);
 	}
 

@@ -25,62 +25,62 @@ import com.oroarmor.util.ResourceLoader;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
 		// Create a new window with a onKey function that prints the typed key
-		Display display = new Display(640, 640, "Open GL Learning") {
+		final Display display = new Display(640, 640, "Open GL Learning") {
 
 			@Override
-			public void processKeyHeldEvent(KeyHoldEvent event) {
+			public void processKeyHeldEvent(final KeyHoldEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processKeyPressedEvent(KeyPressEvent event) {
+			public void processKeyPressedEvent(final KeyPressEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processKeyReleasedEvent(KeyReleaseEvent event) {
+			public void processKeyReleasedEvent(final KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
 					this.close();
 				}
 			}
 
 			@Override
-			public void processMouseEnterEvent(MouseEnterEvent event) {
+			public void processMouseEnterEvent(final MouseEnterEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMouseLeaveEvent(MouseLeaveEvent event) {
+			public void processMouseLeaveEvent(final MouseLeaveEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMousePositionEvent(MousePositionEvent event) {
+			public void processMousePositionEvent(final MousePositionEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMousePressEvent(MousePressEvent event) {
+			public void processMousePressEvent(final MousePressEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMouseReleasedEvent(MouseReleaseEvent event) {
+			public void processMouseReleasedEvent(final MouseReleaseEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMouseScrolledEvent(MouseScrollEvent event) {
+			public void processMouseScrolledEvent(final MouseScrollEvent event) {
 				// TODO Auto-generated method stub
 
 			}
@@ -95,7 +95,7 @@ public class Main {
 		// Data for M and a square
 
 		// M
-		float[] letterMVerticies = { -0.5f, -0.5f, -0.5f, 0.6f, -0.3f, -0.5f, -0.3f, 0.1f, 0f, -0.2f, 0f, 0.1f, 0.3f,
+		final float[] letterMVerticies = { -0.5f, -0.5f, -0.5f, 0.6f, -0.3f, -0.5f, -0.3f, 0.1f, 0f, -0.2f, 0f, 0.1f, 0.3f,
 				0.1f, 0.3f, -0.5f, 0.5f, 0.6f, 0.5f, -0.5f };
 
 		for (int i = 0; i < letterMVerticies.length; i += 2) {
@@ -103,7 +103,7 @@ public class Main {
 			letterMVerticies[i + 1] = (letterMVerticies[i + 1] + 1) * display.getHeight() / 2;
 		}
 
-		int[] letterMIndicies = { 0, 1, 2, //
+		final int[] letterMIndicies = { 0, 1, 2, //
 				1, 2, 3, //
 				1, 3, 5, //
 				3, 5, 4, //
@@ -112,45 +112,45 @@ public class Main {
 				8, 6, 5, //
 				6, 5, 4 };
 
-		float[] squareVerticies = { 0f, 0f, 0f, 1f, //
+		final float[] squareVerticies = { 0f, 0f, 0f, 1f, //
 				100f, 0f, 1f, 1f, //
 				100f, 100f, 1f, 0f, //
 				0f, 100f, 0f, 0f };
 
-		int[] squareIndicies = { 0, 1, 2, //
+		final int[] squareIndicies = { 0, 1, 2, //
 				2, 3, 0 };
 
 		// M "mesh" vao, vbo, and ibo
 
-		VertexBufferLayout layout = new VertexBufferLayout();
+		final VertexBufferLayout layout = new VertexBufferLayout();
 		layout.pushFloats(2);
-		Mesh mMesh = new Mesh(letterMVerticies, letterMIndicies, layout);
+		final Mesh mMesh = new Mesh(letterMVerticies, letterMIndicies, layout);
 
 		// Square "mesh" vao, vbo, and ibo
-		VertexBufferLayout layout2 = new VertexBufferLayout();
+		final VertexBufferLayout layout2 = new VertexBufferLayout();
 		layout2.pushFloats(2);
 		layout2.pushFloats(2);
 
-		Mesh squareMesh = new Mesh(squareVerticies, squareIndicies, layout2);
+		final Mesh squareMesh = new Mesh(squareVerticies, squareIndicies, layout2);
 
 		// Load the shader files
-		String vertex = ResourceLoader.loadFile("./res/basicvs.vs");
-		String vertex2 = ResourceLoader.loadFile("./res/weirdvs.vs");
-		String fragment = ResourceLoader.loadFile("./res/basicfs.fs");
-		String frag2 = ResourceLoader.loadFile("./res/weirdfs.fs");
+		final String vertex = ResourceLoader.loadFile("./res/basicvs.vs");
+		final String vertex2 = ResourceLoader.loadFile("./res/weirdvs.vs");
+		final String fragment = ResourceLoader.loadFile("./res/basicfs.fs");
+		final String frag2 = ResourceLoader.loadFile("./res/weirdfs.fs");
 
 		// Create two shaders based on the files
-		Shader squareShader = new Shader(vertex, fragment);
-		Shader mShader = new Shader(vertex2, frag2);
+		final Shader squareShader = new Shader(vertex, fragment);
+		final Shader mShader = new Shader(vertex2, frag2);
 
 		// Create a renderer
-		Renderer renderer = new Renderer();
+		final Renderer renderer = new Renderer();
 
 		// Create a texture and bind it to the square shader
 		mShader.bind();
 		mShader.setUniformMat4f("u_MVP", display.getOrthoViewModel());
 
-		BufferedImage texture = new BufferedImage("./res/test.png");
+		final BufferedImage texture = new BufferedImage("./res/test.png");
 
 		System.out.println();
 		System.out.println(texture.getR(255, 255) & 0xFF);
@@ -164,10 +164,10 @@ public class Main {
 
 		display.setClearColor(0, 0, 0, 1);
 
-		Matrix4f camera = new Matrix4f().translate(new Vector3f(100, 100, 0)).rotateX(-0.01f);
+		final Matrix4f camera = new Matrix4f().translate(new Vector3f(100, 100, 0)).rotateX(-0.01f);
 
-		Matrix4f squareModel = new Matrix4f().translate(1, 1, 1).scale(1, 1, 1).rotateXYZ(0, 0.1f, 0);
-		Matrix4f mModel = new Matrix4f();
+		final Matrix4f squareModel = new Matrix4f().translate(1, 1, 1).scale(1, 1, 1).rotateXYZ(0, 0.1f, 0);
+		final Matrix4f mModel = new Matrix4f();
 
 		// Dont close the display until its set closed
 		while (!display.shouldClose()) {
@@ -178,14 +178,14 @@ public class Main {
 			display.clear();
 			camera.rotateX(-0.01f);
 
-			Matrix4f MVP = display.getOrthoViewModel().mul(camera);
+			final Matrix4f MVP = display.getOrthoViewModel().mul(camera);
 
 			// Bind the mShader and set u_Color
 			squareShader.bind();
 			squareShader.setUniformMat4f("u_MVP", MVP.mul(squareModel.rotateZ(-0.01f), new Matrix4f()));
 			mShader.bind();
 			mShader.setUniformMat4f("u_MVP", MVP.mul(mModel.rotateY(0.01f), new Matrix4f()));
-			mShader.setUniform4f("u_Color", (float) Math.sin((System.currentTimeMillis() % (Math.PI * 1000d)) / 1000f),
+			mShader.setUniform4f("u_Color", (float) Math.sin(System.currentTimeMillis() % (Math.PI * 1000d) / 1000f),
 					0.2f, 0.8f, 1f);
 
 			// Draw the square and M

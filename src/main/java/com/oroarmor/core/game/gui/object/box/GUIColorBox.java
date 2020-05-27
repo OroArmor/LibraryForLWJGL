@@ -19,9 +19,9 @@ public class GUIColorBox extends GUIObject<GUIColorBox> {
 
 	protected Vector4f color;
 
-	private Vector4f originalColor = new Vector4f().zero();
+	private final Vector4f originalColor = new Vector4f().zero();
 
-	public GUIColorBox(float x, float y, float width, float height, Vector4f color) {
+	public GUIColorBox(final float x, final float y, final float width, final float height, final Vector4f color) {
 		super(x, y);
 		this.width = width;
 		this.height = height;
@@ -31,55 +31,55 @@ public class GUIColorBox extends GUIObject<GUIColorBox> {
 						-width / 2, height / 2, 0, 1 },
 				new int[] { 0, 1, 2, 2, 3, 0 }, new VertexBufferLayout().pushFloats(2).pushFloats(2));
 
-		animationMatrix.translation(x + width / 2, y + height / 2, 0);
+		this.animationMatrix.translation(x + width / 2, y + height / 2, 0);
 
 		this.callback = new GUICallback() {
 		};
 
 		this.color = color;
 
-		color.add(new Vector4f().zero(), originalColor);
+		color.add(new Vector4f().zero(), this.originalColor);
 
 	}
 
 	public Vector4f getOriginalColor() {
-		return originalColor;
+		return this.originalColor;
 	}
 
 	@Override
-	public boolean inBounds(float x, float y) {
+	public boolean inBounds(final float x, final float y) {
 		return this.x < x && this.x + this.width > x && this.y < y && this.y + this.height > y;
 	}
 
 	@Override
-	public void render(Renderer renderer) {
+	public void render(final Renderer renderer) {
 
-		for (int i = 0; i < animations.size(); i++) {
-			long start = animationDurations.get(i);
-			IAnimation<GUIColorBox> animation = animations.get(i);
+		for (int i = 0; i < this.animations.size(); i++) {
+			final long start = this.animationDurations.get(i);
+			final IAnimation<GUIColorBox> animation = this.animations.get(i);
 
-			long duration = System.currentTimeMillis() - start;
+			final long duration = System.currentTimeMillis() - start;
 
 			if (animation.getDurationInMillis() < duration) {
-				animationDurations.remove(i);
-				animations.remove(i);
+				this.animationDurations.remove(i);
+				this.animations.remove(i);
 				i--;
 				continue;
 			}
 
-			float percent = (float) duration / (float) animation.getDurationInMillis();
+			final float percent = (float) duration / (float) animation.getDurationInMillis();
 
 			animation.animate(this, percent);
 		}
 
-		boxMesh.render(renderer, GUIShaders.getSolidColorShader(color).setObjectModel(animationMatrix));
+		this.boxMesh.render(renderer, GUIShaders.getSolidColorShader(this.color).setObjectModel(this.animationMatrix));
 	}
 
-	public void setColor(Vector4f newColor) {
+	public void setColor(final Vector4f newColor) {
 		this.color = newColor;
 	}
 
 	public void setCurrentColorAsOriginal() {
-		color.add(new Vector4f().zero(), originalColor);
+		this.color.add(new Vector4f().zero(), this.originalColor);
 	}
 }

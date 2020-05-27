@@ -10,24 +10,24 @@ public class Sunlight {
 	public Sunlight() {
 	}
 
-	public Sunlight(Vector3f direction, Vector4f color) {
+	public Sunlight(final Vector3f direction, final Vector4f color) {
 		this.direction = direction;
 		this.color = color;
 	}
 
 	public Vector4f getColor() {
-		return color;
+		return this.color;
 	}
 
 	public Vector3f getDirection() {
-		return direction;
+		return this.direction;
 	}
 
-	public void setColor(Vector4f color) {
+	public void setColor(final Vector4f color) {
 		this.color = color;
 	}
 
-	public void setDirection(Vector3f direction) {
+	public void setDirection(final Vector3f direction) {
 		this.direction = direction;
 	}
 

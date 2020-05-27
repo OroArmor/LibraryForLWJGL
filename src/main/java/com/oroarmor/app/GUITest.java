@@ -30,19 +30,19 @@ import com.oroarmor.util.ResourceLoader;
 public class GUITest {
 	static String textString = "a";
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
 		// Create a new window with a onKey function that prints the typed key
-		Display display = new Display(640, 640, "Open GL Learning") {
+		final Display display = new Display(640, 640, "Open GL Learning") {
 
 			@Override
-			public void processKeyHeldEvent(KeyHoldEvent event) {
+			public void processKeyHeldEvent(final KeyHoldEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processKeyPressedEvent(KeyPressEvent event) {
+			public void processKeyPressedEvent(final KeyPressEvent event) {
 
 				// TODO Auto-generated method stub
 				if (event.key != Key.BACKSPACE) {
@@ -62,44 +62,44 @@ public class GUITest {
 			}
 
 			@Override
-			public void processKeyReleasedEvent(KeyReleaseEvent event) {
+			public void processKeyReleasedEvent(final KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
 					this.close();
 				}
 			}
 
 			@Override
-			public void processMouseEnterEvent(MouseEnterEvent event) {
+			public void processMouseEnterEvent(final MouseEnterEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMouseLeaveEvent(MouseLeaveEvent event) {
+			public void processMouseLeaveEvent(final MouseLeaveEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMousePositionEvent(MousePositionEvent event) {
+			public void processMousePositionEvent(final MousePositionEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMousePressEvent(MousePressEvent event) {
+			public void processMousePressEvent(final MousePressEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMouseReleasedEvent(MouseReleaseEvent event) {
+			public void processMouseReleasedEvent(final MouseReleaseEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMouseScrolledEvent(MouseScrollEvent event) {
+			public void processMouseScrolledEvent(final MouseScrollEvent event) {
 				// TODO Auto-generated method stub
 
 			}
@@ -112,30 +112,30 @@ public class GUITest {
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);
 
 		// Create a renderer
-		Renderer renderer = new Renderer();
+		final Renderer renderer = new Renderer();
 
-		Font testFont = FontLoader.loadFontFromData(ResourceLoader.loadFile("./res/bank.fnt"),
+		final Font testFont = FontLoader.loadFontFromData(ResourceLoader.loadFile("./res/bank.fnt"),
 				new Texture("./res/bank.png"));
 
 		display.setClearColor(0, 0, 0, 1);
 
-		FontShader shader = new FontShader();
+		final FontShader shader = new FontShader();
 		shader.bind();
 		shader.setTexture(testFont.getTexture());
 		shader.setColor(new Vector4f(1, 0, 0, 1));
 		shader.setObjectModel(new Matrix4f().translation(0, 0, 0));
 
-		GUIColorBox box = new GUIColorBox(105, 105, 190, 90, new Vector4f(1, 0, 1, 1));
-		GUIColorBox box2 = new GUIColorBox(105, 205, 190, 90, new Vector4f(0, 0.7f, 0.6f, 1));
+		final GUIColorBox box = new GUIColorBox(105, 105, 190, 90, new Vector4f(1, 0, 1, 1));
+		final GUIColorBox box2 = new GUIColorBox(105, 205, 190, 90, new Vector4f(0, 0.7f, 0.6f, 1));
 
-		GUIBox bg = new GUIBox(100, 100, 200, 200);
+		final GUIBox bg = new GUIBox(100, 100, 200, 200);
 
-		GUIGroup group = new GUIGroup(100, 100) {
+		final GUIGroup group = new GUIGroup(100, 100) {
 		};
 
 		group.addChildren(box, box2);
 
-		GUIGroup ui = new GUIGroup(0, 0) {
+		final GUIGroup ui = new GUIGroup(0, 0) {
 		};
 
 		ui.addChildren(group, bg);
@@ -147,7 +147,7 @@ public class GUITest {
 			GUIShaders.updateShaderView(display.getOrthoViewModel());
 
 			shader.setColor(
-					new Vector4f(1, 0, (float) Math.sin(((System.currentTimeMillis()) / 1000d)) * 0.5f + 0.5f, 1));
+					new Vector4f(1, 0, (float) Math.sin(System.currentTimeMillis() / 1000d) * 0.5f + 0.5f, 1));
 
 			shader.setOrthoView(display.getOrthoViewModel());
 			testFont.getTextMesh(textString, 1f, display.getWidth()).render(renderer, shader);

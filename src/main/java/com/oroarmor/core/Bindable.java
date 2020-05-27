@@ -2,7 +2,7 @@ package com.oroarmor.core;
 
 /**
  * This class is for objects that can be bound/unbound
- * 
+ *
  * @author OroArmor
  *
  */

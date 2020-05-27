@@ -33,7 +33,7 @@ import com.oroarmor.core.Destructor;
 @SuppressWarnings("unused")
 /**
  * This class initializes and creates sounds for OpenAL
- * 
+ *
  * @author OroArmor
  *
  */
@@ -59,51 +59,51 @@ public class AudioMaster implements Destructable {
 	private static HashMap<String, Integer> sounds;
 
 	static {
-		String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
+		final String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
 		device = alcOpenDevice(defaultDeviceName);
 
-		int[] attributes = { 0 };
+		final int[] attributes = { 0 };
 		context = alcCreateContext(device, attributes);
 		alcMakeContextCurrent(context);
 
-		ALCCapabilities alcCapabilities = ALC.createCapabilities(device);
-		ALCapabilities alCapabilities = AL.createCapabilities(alcCapabilities);
+		final ALCCapabilities alcCapabilities = ALC.createCapabilities(device);
+		final ALCapabilities alCapabilities = AL.createCapabilities(alcCapabilities);
 
-		sounds = new HashMap<String, Integer>();
+		sounds = new HashMap<>();
 
 		Destructor.addDestructable(instance);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param soundName Name of the sound to play
 	 * @return The OpenAL sound id
 	 */
-	public static int getSound(String soundName) {
+	public static int getSound(final String soundName) {
 		return sounds.get(soundName);
 	}
 
 	/**
 	 * Loads a sound from the path, saving the name and id into a map
-	 * 
+	 *
 	 * @param path Path to the sound
 	 * @param name Name for the sound. NOT part of the path, just an identifier
 	 * @return The OpenAL sound id for the sound
 	 */
-	public static int loadSound(String path, String name) {
-		int soundIDBuffer = AL10.alGenBuffers();
+	public static int loadSound(final String path, final String name) {
+		final int soundIDBuffer = AL10.alGenBuffers();
 
 		// Allocate space to store return information from the function
 		stackPush();
-		IntBuffer channelsBuffer = stackMallocInt(1);
+		final IntBuffer channelsBuffer = stackMallocInt(1);
 		stackPush();
-		IntBuffer sampleRateBuffer = stackMallocInt(1);
+		final IntBuffer sampleRateBuffer = stackMallocInt(1);
 
-		ShortBuffer rawAudioBuffer = stb_vorbis_decode_filename(path, channelsBuffer, sampleRateBuffer);
+		final ShortBuffer rawAudioBuffer = stb_vorbis_decode_filename(path, channelsBuffer, sampleRateBuffer);
 
 		// Retreive the extra information that was stored in the buffers by the function
-		int channels = channelsBuffer.get();
-		int sampleRate = sampleRateBuffer.get();
+		final int channels = channelsBuffer.get();
+		final int sampleRate = sampleRateBuffer.get();
 		// Free the space we allocated earlier
 		stackPop();
 		stackPop();
@@ -129,11 +129,11 @@ public class AudioMaster implements Destructable {
 
 	@Override
 	public void destroy() {
-		Integer[] soundBufferIDs = new Integer[sounds.size()];
+		final Integer[] soundBufferIDs = new Integer[sounds.size()];
 
 		sounds.values().toArray(soundBufferIDs);
 
-		for (int soundBufferID : soundBufferIDs) {
+		for (final int soundBufferID : soundBufferIDs) {
 			alDeleteBuffers(soundBufferID);
 		}
 

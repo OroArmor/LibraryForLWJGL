@@ -19,18 +19,9 @@ public class GUIShaders {
 
 	private static TextureShader textureShader;
 
-	public static SolidColorShader getSolidColorShader(Vector4f color) {
-		if (solidColorShader == null) {
-			solidColorShader = new SolidColorShader();
-		}
-		solidColorShader.bind();
-		solidColorShader.setColor(color);
-		return solidColorShader;
-	}
-
-	public static FontShader getFontShader(Font font) {
+	public static FontShader getFontShader(final Font font) {
 		if (fontShaders == null) {
-			fontShaders = new HashMap<Font, FontShader>(1);
+			fontShaders = new HashMap<>(1);
 		}
 
 		FontShader shader;
@@ -48,23 +39,13 @@ public class GUIShaders {
 		return shader;
 	}
 
-	public static void updateShaderView(Matrix4f orthoView) {
-		if (solidColorShader != null) {
-			solidColorShader.bind();
-			solidColorShader.setOrthoView(orthoView);
+	public static SolidColorShader getSolidColorShader(final Vector4f color) {
+		if (solidColorShader == null) {
+			solidColorShader = new SolidColorShader();
 		}
-
-		if (fontShaders != null) {
-			for (FontShader shader : fontShaders.values()) {
-				shader.bind();
-				shader.setOrthoView(orthoView);
-			}
-		}
-
-		if (textureShader != null) {
-			textureShader.bind();
-			textureShader.setOrthoView(orthoView);
-		}
+		solidColorShader.bind();
+		solidColorShader.setColor(color);
+		return solidColorShader;
 	}
 
 	public static TextureShader getTextureShader() {
@@ -75,6 +56,25 @@ public class GUIShaders {
 		textureShader.bind();
 
 		return textureShader;
+	}
+
+	public static void updateShaderView(final Matrix4f orthoView) {
+		if (solidColorShader != null) {
+			solidColorShader.bind();
+			solidColorShader.setOrthoView(orthoView);
+		}
+
+		if (fontShaders != null) {
+			for (final FontShader shader : fontShaders.values()) {
+				shader.bind();
+				shader.setOrthoView(orthoView);
+			}
+		}
+
+		if (textureShader != null) {
+			textureShader.bind();
+			textureShader.setOrthoView(orthoView);
+		}
 	}
 
 }

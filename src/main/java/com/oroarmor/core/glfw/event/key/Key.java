@@ -128,8 +128,8 @@ public enum Key {
 	BACKSPACE(GLFW_KEY_BACKSPACE, (char) 8);
 	//
 
-	public static Key getKey(int keyCode) {
-		for (Key key : values()) {
+	public static Key getKey(final int keyCode) {
+		for (final Key key : values()) {
 			if (key.getKeyCode() == keyCode) {
 				return key;
 			}
@@ -142,26 +142,26 @@ public enum Key {
 	private char lower;
 	private char upper;
 
-	private Key(int keyCode, char key) {
+	private Key(final int keyCode, final char key) {
 		this(keyCode, key, key);
 	}
 
-	private Key(int keyCode, char lower, char upper) {
+	private Key(final int keyCode, final char lower, final char upper) {
 		this.keyCode = keyCode;
 		this.lower = lower;
 		this.upper = upper;
 	}
 
 	public int getKeyCode() {
-		return keyCode;
+		return this.keyCode;
 	}
 
 	public char getLowerChar() {
-		return lower;
+		return this.lower;
 	}
 
 	public char getUpperChar() {
-		return upper;
+		return this.upper;
 	}
 
 }

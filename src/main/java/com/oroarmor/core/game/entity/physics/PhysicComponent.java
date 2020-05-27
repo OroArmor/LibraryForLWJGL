@@ -9,44 +9,44 @@ public class PhysicComponent {
 	private Vector3f velocity;
 	private Vector3f acceleration;
 
-	public PhysicComponent(Vector3f position, Vector3f velocity, Vector3f acceleration) {
+	public PhysicComponent(final Vector3f position, final Vector3f velocity, final Vector3f acceleration) {
 		this.position = position;
 		this.velocity = velocity;
 		this.acceleration = acceleration;
 	}
 
-	public Vector3f getAcceleration() {
-		return acceleration;
-	}
-
-	public Vector3f getPosition() {
-		return position;
-	}
-
-	public Vector3f getVelocity() {
-		return velocity;
-	}
-
-	public void setAcceleration(Vector3f acceleration) {
-		this.acceleration = acceleration;
-	}
-
-	public void setPosition(Vector3f position) {
-		this.position = position;
-	}
-
-	public void setVelocity(Vector3f velocity) {
-		this.velocity = velocity;
-	}
-
-	public void addAcceleration(Vector3f add) {
+	public void addAcceleration(final Vector3f add) {
 		this.acceleration.add(add);
 	}
 
-	public void update(float delta) {
-		velocity.add(acceleration.mul(delta, new Vector3f()));
-		position.add(velocity);
-		acceleration.zero();
+	public Vector3f getAcceleration() {
+		return this.acceleration;
+	}
+
+	public Vector3f getPosition() {
+		return this.position;
+	}
+
+	public Vector3f getVelocity() {
+		return this.velocity;
+	}
+
+	public void setAcceleration(final Vector3f acceleration) {
+		this.acceleration = acceleration;
+	}
+
+	public void setPosition(final Vector3f position) {
+		this.position = position;
+	}
+
+	public void setVelocity(final Vector3f velocity) {
+		this.velocity = velocity;
+	}
+
+	public void update(final float delta) {
+		this.velocity.add(this.acceleration.mul(delta, new Vector3f()));
+		this.position.add(this.velocity);
+		this.acceleration.zero();
 	}
 
 }

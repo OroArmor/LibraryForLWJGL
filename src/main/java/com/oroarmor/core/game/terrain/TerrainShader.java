@@ -16,8 +16,8 @@ public class TerrainShader extends Shader {
 	private int currentPointlight = 0;
 	private int currentSunlight = 0;
 
-	private Pointlight[] pointlights = new Pointlight[MAX_POINT_LIGHTS];
-	private Sunlight[] sunlights = new Sunlight[MAX_SUN_LIGHTS];
+	private final Pointlight[] pointlights = new Pointlight[MAX_POINT_LIGHTS];
+	private final Sunlight[] sunlights = new Sunlight[MAX_SUN_LIGHTS];
 
 	public TerrainShader() {
 		super(ResourceLoader.loadFile(Class.class.getResourceAsStream("/com/oroarmor/core/game/terrain/terrainvs.vs")),
@@ -28,24 +28,24 @@ public class TerrainShader extends Shader {
 
 	}
 
-	public void addPointlight(Pointlight light) {
+	public void addPointlight(final Pointlight light) {
 
-		if (currentPointlight == MAX_SUN_LIGHTS) {
+		if (this.currentPointlight == MAX_SUN_LIGHTS) {
 			System.out.println("Max sunlights reached");
 			return;
 		}
 
-		pointlights[currentPointlight++] = light;
+		this.pointlights[this.currentPointlight++] = light;
 	}
 
-	public void addSunlight(Sunlight light) {
+	public void addSunlight(final Sunlight light) {
 
-		if (currentSunlight == MAX_SUN_LIGHTS) {
+		if (this.currentSunlight == MAX_SUN_LIGHTS) {
 			System.out.println("Max sunlights reached");
 			return;
 		}
 
-		sunlights[currentSunlight++] = light;
+		this.sunlights[this.currentSunlight++] = light;
 	}
 
 	public void update() {
@@ -59,7 +59,7 @@ public class TerrainShader extends Shader {
 		this.setUniform1f("u_snowHeight", 1f * TerrainMesh.maxHeight);
 
 		for (int i = 0; i < MAX_SUN_LIGHTS; i++) {
-			Sunlight sunlight = sunlights[i];
+			final Sunlight sunlight = this.sunlights[i];
 
 			if (sunlight == null) {
 				this.setUniform3f("u_sunlights[" + i + "].direction", new Vector3f(0, 1, 0));
@@ -71,7 +71,7 @@ public class TerrainShader extends Shader {
 		}
 
 		for (int i = 0; i < MAX_POINT_LIGHTS; i++) {
-			Pointlight pointlight = pointlights[i];
+			final Pointlight pointlight = this.pointlights[i];
 
 			if (pointlight == null) {
 				this.setUniform3f("u_pointlights[" + i + "].position", new Vector3f(0, 0, 0));

@@ -4,28 +4,28 @@ import com.oroarmor.core.game.gui.IGUI;
 
 public abstract class Animation<T extends IGUI<T>> implements IAnimation<T> {
 
-	private long duration;
+	private final long duration;
 	protected Easing easing = Easing.LINEAR;
 
-	protected Animation(long duration, Easing easing) {
+	protected Animation(final long duration) {
+		this.duration = duration;
+	}
+
+	protected Animation(final long duration, final Easing easing) {
 		this.duration = duration;
 		this.easing = easing;
 	}
 
-	protected Animation(long duration) {
-		this.duration = duration;
-	}
-
 	@Override
 	public long getDurationInMillis() {
-		return duration;
+		return this.duration;
 	}
 
 	public Easing getEasing() {
-		return easing;
+		return this.easing;
 	}
 
-	public void setEasing(Easing easing) {
+	public void setEasing(final Easing easing) {
 		this.easing = easing;
 	}
 

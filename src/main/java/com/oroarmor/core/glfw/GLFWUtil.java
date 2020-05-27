@@ -21,14 +21,14 @@ import org.lwjgl.opengl.GL;
 /**
  * A utility class for GLFW that can create windows and do some other
  * configuration
- * 
+ *
  * @author OroArmor
  *
  */
 public class GLFWUtil {
 	/**
 	 * OpenGL Profiles
-	 * 
+	 *
 	 * @author OroArmor
 	 *
 	 */
@@ -46,25 +46,25 @@ public class GLFWUtil {
 		 */
 		CORE(GLFW_OPENGL_CORE_PROFILE);
 
-		private int profile;
+		private final int profile;
 
-		private OpenGLProfile(int profile) {
+		private OpenGLProfile(final int profile) {
 			this.profile = profile;
 		}
 
 		/**
-		 * 
+		 *
 		 * @return The GLFW id for the profile
 		 */
 		public int getProfile() {
-			return profile;
+			return this.profile;
 		}
 
 	}
 
 	/**
 	 * Creates a window from the input parameters
-	 * 
+	 *
 	 * @param width         The width of the window
 	 * @param height        The height of the window
 	 * @param name          The name of the window
@@ -72,8 +72,8 @@ public class GLFWUtil {
 	 * @param windowHandle  Another GLFW Window to share with
 	 * @return The window handle
 	 */
-	public static long glfwCreateWindowHelper(int width, int height, CharSequence name, long monitorHandle,
-			long windowHandle) {
+	public static long glfwCreateWindowHelper(final int width, final int height, final CharSequence name, final long monitorHandle,
+			final long windowHandle) {
 		long window = -1;
 
 		if (!glfwInit()) {
@@ -96,12 +96,12 @@ public class GLFWUtil {
 
 	/**
 	 * Sets the OpenGL Version
-	 * 
+	 *
 	 * @param glfwMajorVersion  Major version
 	 * @param glfwMinorVersion  MinorVersion
 	 * @param glfwOpenGLProfile Compatibility Profile {@link OpenGLProfile}
 	 */
-	public static void setWindowHints(int glfwMajorVersion, int glfwMinorVersion, OpenGLProfile glfwOpenGLProfile) {
+	public static void setWindowHints(final int glfwMajorVersion, final int glfwMinorVersion, final OpenGLProfile glfwOpenGLProfile) {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfwMajorVersion);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfwMinorVersion);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, glfwOpenGLProfile.getProfile());

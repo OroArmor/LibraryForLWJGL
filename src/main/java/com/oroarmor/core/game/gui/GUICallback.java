@@ -5,12 +5,7 @@ import com.oroarmor.core.glfw.event.mouse.button.MouseButton;
 public class GUICallback implements IGUICallback {
 
 	@Override
-	public void onClick(MouseButton button) {
-
-	}
-
-	@Override
-	public void onRelease(MouseButton button, boolean inbounds) {
+	public void onClick(final MouseButton button) {
 
 	}
 
@@ -21,6 +16,11 @@ public class GUICallback implements IGUICallback {
 
 	@Override
 	public void onHoverStop() {
+
+	}
+
+	@Override
+	public void onRelease(final MouseButton button, final boolean inbounds) {
 
 	}
 

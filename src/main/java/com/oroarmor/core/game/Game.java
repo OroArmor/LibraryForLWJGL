@@ -11,11 +11,17 @@ public class Game<T extends GameInfo> {
 	private FixedUpdateThread renderThread;
 	private FixedUpdateThread logicThread;
 
-	public Game(GameRenderer<T> gameGraphics, GameLogic<T> gameLogic) {
+	public Game(final GameRenderer<T> gameGraphics, final GameLogic<T> gameLogic) {
 		this.gameGraphics = gameGraphics;
 		this.gameLogic = gameLogic;
 
-		renderThread = new FixedUpdateThread(60) {
+		this.renderThread = new FixedUpdateThread(60) {
+			@Override
+			public void deinitalize() {
+				gameGraphics.deinitialize();
+				Destructor.destroyAll();
+			}
+
 			@Override
 			public void initalize() {
 				gameGraphics.initialize();
@@ -25,18 +31,12 @@ public class Game<T extends GameInfo> {
 			public void tick() {
 				gameGraphics.render(1f / 60f);
 			}
-
-			@Override
-			public void deinitalize() {
-				gameGraphics.deinitialize();
-				Destructor.destroyAll();
-			}
 		};
 
-		logicThread = new FixedUpdateThread(20) {
+		this.logicThread = new FixedUpdateThread(20) {
 			@Override
-			public void tick() {
-				gameLogic.tick(0.005f);
+			public void deinitalize() {
+				gameLogic.deinitialize();
 			}
 
 			@Override
@@ -45,56 +45,56 @@ public class Game<T extends GameInfo> {
 			}
 
 			@Override
-			public void deinitalize() {
-				gameLogic.deinitialize();
+			public void tick() {
+				gameLogic.tick(0.005f);
 			}
 		};
 
 	}
 
+	public GameRenderer<T> getGameGraphics() {
+		return this.gameGraphics;
+	}
+
+	public GameLogic<T> getGameLogic() {
+		return this.gameLogic;
+	}
+
+	public FixedUpdateThread getLogicThread() {
+		return this.logicThread;
+	}
+
+	public FixedUpdateThread getRenderThread() {
+		return this.renderThread;
+	}
+
 	public Game<T> run() {
-		renderThread.start();
-		logicThread.start();
+		this.renderThread.start();
+		this.logicThread.start();
 
 		try {
-			renderThread.join();
-			logicThread.join();
-		} catch (InterruptedException e) {
+			this.renderThread.join();
+			this.logicThread.join();
+		} catch (final InterruptedException e) {
 			e.printStackTrace();
 		}
 		return this;
 	}
 
-	public GameRenderer<T> getGameGraphics() {
-		return gameGraphics;
-	}
-
-	public void setGameGraphics(GameRenderer<T> gameGraphics) {
+	public void setGameGraphics(final GameRenderer<T> gameGraphics) {
 		this.gameGraphics = gameGraphics;
 	}
 
-	public GameLogic<T> getGameLogic() {
-		return gameLogic;
-	}
-
-	public void setGameLogic(GameLogic<T> gameLogic) {
+	public void setGameLogic(final GameLogic<T> gameLogic) {
 		this.gameLogic = gameLogic;
 	}
 
-	public FixedUpdateThread getRenderThread() {
-		return renderThread;
-	}
-
-	public void setRenderThread(FixedUpdateThread renderThread) {
-		this.renderThread = renderThread;
-	}
-
-	public FixedUpdateThread getLogicThread() {
-		return logicThread;
-	}
-
-	public void setLogicThread(FixedUpdateThread logicThread) {
+	public void setLogicThread(final FixedUpdateThread logicThread) {
 		this.logicThread = logicThread;
+	}
+
+	public void setRenderThread(final FixedUpdateThread renderThread) {
+		this.renderThread = renderThread;
 	}
 
 }

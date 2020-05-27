@@ -8,10 +8,15 @@ public class KeyHoldEvent extends KeyEvent {
 
 	private GLFWEventMods mods;
 
-	public KeyHoldEvent(Key key, long window, GLFWEventMods mods) {
+	public KeyHoldEvent(final Key key, final long window, final GLFWEventMods mods) {
 		this.key = key;
 		this.mods = mods;
 		this.window = window;
+	}
+
+	@Override
+	public GLFWEventMods getEventMods() {
+		return this.mods;
 	}
 
 	@Override
@@ -20,12 +25,7 @@ public class KeyHoldEvent extends KeyEvent {
 	}
 
 	@Override
-	public GLFWEventMods getEventMods() {
-		return mods;
-	}
-
-	@Override
-	public void setEventMods(GLFWEventMods newMods) {
+	public void setEventMods(final GLFWEventMods newMods) {
 		this.mods = newMods;
 	}
 

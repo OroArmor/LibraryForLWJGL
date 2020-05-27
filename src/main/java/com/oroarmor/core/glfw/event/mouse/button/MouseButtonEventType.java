@@ -8,11 +8,11 @@ public enum MouseButtonEventType {
 
 	private int action;
 
-	private MouseButtonEventType(int action) {
+	private MouseButtonEventType(final int action) {
 		this.action = action;
 	}
 
 	public int getAction() {
-		return action;
+		return this.action;
 	}
 }

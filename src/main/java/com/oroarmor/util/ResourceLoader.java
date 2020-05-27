@@ -7,25 +7,25 @@ import java.io.InputStream;
 
 /**
  * This class loads text files and returns them as a string.
- * 
+ *
  * @author OroArmor
  *
  */
 public class ResourceLoader {
 
 	/**
-	 * 
+	 *
 	 * @param resourceAsStream The input stream for the file
 	 * @return The data in the string returned as a file
 	 */
-	public static String loadFile(InputStream resourceAsStream) {
+	public static String loadFile(final InputStream resourceAsStream) {
 		String fileString = "";
 		try {
-			byte[] fileBytes = new byte[resourceAsStream.available()];
+			final byte[] fileBytes = new byte[resourceAsStream.available()];
 			resourceAsStream.read(fileBytes);
 			fileString = new String(fileBytes);
 			resourceAsStream.close();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 
@@ -33,17 +33,17 @@ public class ResourceLoader {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param filePath A string to the file
 	 * @return The data of the file as a string
 	 */
-	public static String loadFile(String filePath) {
+	public static String loadFile(final String filePath) {
 		String fileString = "";
-		File file = new File(filePath);
+		final File file = new File(filePath);
 
 		try {
 			fileString = loadFile(new FileInputStream(file));
-		} catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

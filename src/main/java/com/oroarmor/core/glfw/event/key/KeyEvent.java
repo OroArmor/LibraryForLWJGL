@@ -17,16 +17,16 @@ public abstract class KeyEvent implements GLFWEvent {
 		HOLD, PRESS, RELEASE;
 	}
 
-	public static void create(int keyCode, int action, long window, GLFWEventMods mods) {
-		Key key = Key.getKey(keyCode);
+	public static void create(final int keyCode, final int action, final long window, final GLFWEventMods mods) {
+		final Key key = Key.getKey(keyCode);
 		if (action == GLFW.GLFW_PRESS) {
-			KeyPressEvent newEvent = new KeyPressEvent(key, window, mods);
+			final KeyPressEvent newEvent = new KeyPressEvent(key, window, mods);
 			KeyPressEventListener.processAllKeyPressEvent(newEvent);
 		} else if (action == GLFW.GLFW_RELEASE) {
-			KeyReleaseEvent newEvent = new KeyReleaseEvent(key, window, mods);
+			final KeyReleaseEvent newEvent = new KeyReleaseEvent(key, window, mods);
 			KeyReleaseEventListener.processAllKeyReleaseEvent(newEvent);
 		} else {
-			KeyHoldEvent newEvent = new KeyHoldEvent(key, window, mods);
+			final KeyHoldEvent newEvent = new KeyHoldEvent(key, window, mods);
 			KeyHoldEventListener.processAllKeyPressEvent(newEvent);
 		}
 	}
@@ -41,23 +41,23 @@ public abstract class KeyEvent implements GLFWEvent {
 	}
 
 	public Key getKey() {
-		return key;
+		return this.key;
 	}
 
 	public abstract KeyEventType getKeyEventType();
 
 	@Override
 	public long getWindow() {
-		return window;
+		return this.window;
 	}
 
 	@Override
-	public void setWindow(long window) {
+	public void setWindow(final long window) {
 		this.window = window;
 	}
 
 	@Override
 	public String toString() {
-		return "keycode: " + key.getKeyCode() + ", key: " + key + ", type: " + getKeyEventType();
+		return "keycode: " + this.key.getKeyCode() + ", key: " + this.key + ", type: " + this.getKeyEventType();
 	}
 }

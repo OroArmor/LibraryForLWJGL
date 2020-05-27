@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import com.oroarmor.core.game.event.Active;
 
 public interface MouseButtonReleaseEventListener extends Active {
-	public static ArrayList<MouseButtonReleaseEventListener> mouseReleaseListeners = new ArrayList<MouseButtonReleaseEventListener>();
+	public static ArrayList<MouseButtonReleaseEventListener> mouseReleaseListeners = new ArrayList<>();
 
-	public static void addMouseReleaseListener(MouseButtonReleaseEventListener listener) {
+	public static void addMouseReleaseListener(final MouseButtonReleaseEventListener listener) {
 		mouseReleaseListeners.add(listener);
 	}
 
-	public static void processAllMouseReleaseEvent(MouseReleaseEvent event) {
-		for (MouseButtonReleaseEventListener listener : mouseReleaseListeners) {
+	public static void processAllMouseReleaseEvent(final MouseReleaseEvent event) {
+		for (final MouseButtonReleaseEventListener listener : mouseReleaseListeners) {
 			if (!listener.isActive()) {
 				continue;
 			}

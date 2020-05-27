@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import com.oroarmor.core.game.event.Active;
 
 public interface KeyReleaseEventListener extends Active {
-	public static ArrayList<KeyReleaseEventListener> keyReleaseListeners = new ArrayList<KeyReleaseEventListener>();
+	public static ArrayList<KeyReleaseEventListener> keyReleaseListeners = new ArrayList<>();
 
-	public static void addKeyReleaseListener(KeyReleaseEventListener listener) {
+	public static void addKeyReleaseListener(final KeyReleaseEventListener listener) {
 		keyReleaseListeners.add(listener);
 	}
 
-	public static void processAllKeyReleaseEvent(KeyReleaseEvent event) {
-		for (KeyReleaseEventListener listener : keyReleaseListeners) {
+	public static void processAllKeyReleaseEvent(final KeyReleaseEvent event) {
+		for (final KeyReleaseEventListener listener : keyReleaseListeners) {
 			if (!listener.isActive()) {
 				continue;
 			}

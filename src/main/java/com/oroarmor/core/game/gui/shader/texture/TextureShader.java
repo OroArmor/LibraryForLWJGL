@@ -18,22 +18,22 @@ public class TextureShader extends Shader {
 		this.compile();
 	}
 
-	public void setOrthoView(Matrix4f orthoView) {
-		this.setUniformMat4f("u_V", orthoView);
-	}
-
-	public Shader setObjectModel(Matrix4f objectModel) {
+	public Shader setObjectModel(final Matrix4f objectModel) {
 		this.setUniformMat4f("u_M", objectModel);
 		return this;
 	}
 
-	public TextureShader setTexture(Texture texture) {
+	public void setOrthoView(final Matrix4f orthoView) {
+		this.setUniformMat4f("u_V", orthoView);
+	}
+
+	public TextureShader setTexture(final Texture texture) {
 		texture.bind(0);
 		this.setUniform1i("u_Texture", 0);
 		return this;
 	}
 
-	public Shader setZ(int i) {
+	public Shader setZ(final int i) {
 		this.setUniform1f("u_Z", i);
 		return this;
 	}

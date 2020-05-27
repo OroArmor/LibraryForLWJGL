@@ -7,7 +7,7 @@ import com.oroarmor.core.glfw.event.GLFWEventMods;
 
 /**
  * An {@link Event} that all other mouse events use
- * 
+ *
  * @author OroArmor
  *
  */
@@ -15,7 +15,7 @@ public abstract class MouseEvent implements GLFWEvent {
 
 	/**
 	 * The type of mouse event
-	 * 
+	 *
 	 * @author OroArmor
 	 *
 	 */
@@ -55,37 +55,14 @@ public abstract class MouseEvent implements GLFWEvent {
 
 	/**
 	 * Creates a new mouse event
-	 * 
+	 *
 	 * @param window The window the event occurred in
 	 * @param type   The type of event {@link MouseEventType}
 	 */
-	public MouseEvent(long window, MouseEventType type, GLFWEventMods mods) {
+	public MouseEvent(final long window, final MouseEventType type, final GLFWEventMods mods) {
 		this.window = window;
 		this.type = type;
 		this.eventMods = mods;
-	}
-
-	@Override
-	public EventType getEventType() {
-		return EventType.MOUSE;
-	}
-
-	/**
-	 * 
-	 * @return The type of mouse event
-	 */
-	public MouseEventType getMouseEventType() {
-		return type;
-	}
-
-	@Override
-	public long getWindow() {
-		return window;
-	}
-
-	@Override
-	public void setWindow(long window) {
-		this.window = window;
 	}
 
 	@Override
@@ -94,7 +71,30 @@ public abstract class MouseEvent implements GLFWEvent {
 	}
 
 	@Override
-	public void setEventMods(GLFWEventMods newMods) {
+	public EventType getEventType() {
+		return EventType.MOUSE;
+	}
+
+	/**
+	 *
+	 * @return The type of mouse event
+	 */
+	public MouseEventType getMouseEventType() {
+		return this.type;
+	}
+
+	@Override
+	public long getWindow() {
+		return this.window;
+	}
+
+	@Override
+	public void setEventMods(final GLFWEventMods newMods) {
 		this.eventMods = newMods;
+	}
+
+	@Override
+	public void setWindow(final long window) {
+		this.window = window;
 	}
 }

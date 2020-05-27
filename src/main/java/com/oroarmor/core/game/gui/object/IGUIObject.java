@@ -10,16 +10,16 @@ import com.oroarmor.core.glfw.event.mouse.position.MousePositionEventListener;
 public interface IGUIObject<T extends IGUIObject<T>>
 		extends MouseButtonEventListener, MousePositionEventListener, IGUI<T> {
 
+	public Matrix4f getAnimationMatrix();
+
 	public IGUICallback getCallback();
 
-	public void setCallback(IGUICallback callback);
-
-	public Matrix4f getAnimationMatrix();
+	public float getScale();
 
 	public void setAnimationMatrix(Matrix4f animationMatrix);
 
-	public void setScale(float newScale);
+	public void setCallback(IGUICallback callback);
 
-	public float getScale();
+	public void setScale(float newScale);
 
 }

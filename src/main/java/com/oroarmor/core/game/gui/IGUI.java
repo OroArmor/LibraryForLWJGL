@@ -8,9 +8,9 @@ public interface IGUI<T extends IGUI<T>> {
 
 	public float getY();
 
-	public void render(Renderer renderer);
-
 	public boolean hasParent();
+
+	public void render(Renderer renderer);
 
 	public void setHasParent(boolean hasParent);
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * This is a class the explains the layout of a {@link VertexBufferObject}.
- * 
+ *
  * @author OroArmor
  *
  */
@@ -22,65 +22,65 @@ public class VertexBufferLayout {
 	 * A list of elements to easily add new {@link VertexBufferElement} to the
 	 * layout.
 	 */
-	private ArrayList<VertexBufferElement> vbElements = new ArrayList<VertexBufferElement>();
+	private final ArrayList<VertexBufferElement> vbElements = new ArrayList<>();
 
 	/**
 	 * Initialize a new {@link VertexBufferLayout}
 	 */
 	public VertexBufferLayout() {
-		stride = 0;
+		this.stride = 0;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The stride of the {@link VertexBufferLayout}
 	 */
 	public int getStride() {
-		return stride;
+		return this.stride;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The {@link VertexBufferElement} array of the
 	 *         {@link VertexBufferLayout}
 	 */
 	public ArrayList<VertexBufferElement> getVbElements() {
-		return vbElements;
+		return this.vbElements;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param count Add {@code count} floats as a data point in the
 	 *              {@link VertexBufferLayout}
 	 * @return
 	 */
-	public VertexBufferLayout pushFloats(int count) {
-		vbElements.add(new VertexBufferElement(count, GL_FLOAT, false));
-		stride += Float.BYTES * count;
+	public VertexBufferLayout pushFloats(final int count) {
+		this.vbElements.add(new VertexBufferElement(count, GL_FLOAT, false));
+		this.stride += Float.BYTES * count;
 		return this;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param count Add {@code count} bytes as a data point in the
 	 *              {@link VertexBufferLayout}
 	 * @return
 	 */
-	public VertexBufferLayout pushUnsignedBytes(int count) {
-		vbElements.add(new VertexBufferElement(count, GL_UNSIGNED_BYTE, false));
-		stride += Byte.BYTES * count;
+	public VertexBufferLayout pushUnsignedBytes(final int count) {
+		this.vbElements.add(new VertexBufferElement(count, GL_UNSIGNED_BYTE, false));
+		this.stride += Byte.BYTES * count;
 		return this;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param count Add {@code count} ints as a data point in the
 	 *              {@link VertexBufferLayout}
 	 * @return
 	 */
-	public VertexBufferLayout pushUnsignedInts(int count) {
-		vbElements.add(new VertexBufferElement(count, GL_UNSIGNED_INT, false));
-		stride += Integer.BYTES * count;
+	public VertexBufferLayout pushUnsignedInts(final int count) {
+		this.vbElements.add(new VertexBufferElement(count, GL_UNSIGNED_INT, false));
+		this.stride += Integer.BYTES * count;
 		return this;
 	}
 }

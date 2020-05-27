@@ -7,7 +7,7 @@ public enum MouseOverEventType {
 
 	ENTER(GLFW_TRUE), LEAVE(GLFW_FALSE);
 
-	public static MouseOverEventType getTypeFromInt(int type) {
+	public static MouseOverEventType getTypeFromInt(final int type) {
 		if (type == 1) {
 			return ENTER;
 		}
@@ -16,11 +16,11 @@ public enum MouseOverEventType {
 
 	private int action;
 
-	private MouseOverEventType(int action) {
+	private MouseOverEventType(final int action) {
 		this.action = action;
 	}
 
 	public int getAction() {
-		return action;
+		return this.action;
 	}
 }

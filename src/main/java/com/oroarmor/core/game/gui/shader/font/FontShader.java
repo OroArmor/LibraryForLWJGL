@@ -19,25 +19,25 @@ public class FontShader extends Shader {
 		this.compile();
 	}
 
-	public void setTexture(Texture texture) {
-		texture.bind(1);
-		this.setUniform1i("u_Texture", 1);
+	public void setColor(final Vector4f color) {
+		this.setUniform4f("u_color", color);
 	}
 
-	public void setOrthoView(Matrix4f orthoView) {
-		this.setUniformMat4f("u_V", orthoView);
-	}
-
-	public Shader setObjectModel(Matrix4f objectModel) {
+	public Shader setObjectModel(final Matrix4f objectModel) {
 		this.setUniformMat4f("u_M", objectModel);
 		return this;
 	}
 
-	public void setColor(Vector4f color) {
-		this.setUniform4f("u_color", color);
+	public void setOrthoView(final Matrix4f orthoView) {
+		this.setUniformMat4f("u_V", orthoView);
 	}
 
-	public Shader setZ(int i) {
+	public void setTexture(final Texture texture) {
+		texture.bind(1);
+		this.setUniform1i("u_Texture", 1);
+	}
+
+	public Shader setZ(final int i) {
 		this.setUniform1f("u_Z", i);
 		return this;
 	}

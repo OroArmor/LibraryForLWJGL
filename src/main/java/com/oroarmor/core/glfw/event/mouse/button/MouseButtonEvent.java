@@ -9,26 +9,26 @@ import com.oroarmor.core.glfw.event.mouse.button.release.MouseButtonReleaseEvent
 import com.oroarmor.core.glfw.event.mouse.button.release.MouseReleaseEvent;
 
 public class MouseButtonEvent extends MouseEvent {
-	public static void create(long window, int button, int action, GLFWEventMods mods) {
+	public static void create(final long window, final int button, final int action, final GLFWEventMods mods) {
 		if (action == MouseButtonEventType.PRESS.getAction()) {
-			MousePressEvent event = new MousePressEvent(MouseButton.getButtonFromCode(button), MouseStatus.getMouseX(),
+			final MousePressEvent event = new MousePressEvent(MouseButton.getButtonFromCode(button), MouseStatus.getMouseX(),
 					MouseStatus.getMouseY(), window, mods);
 			MouseButtonPressEventListener.processAllMousePressEvent(event);
 		}
 		if (action == MouseButtonEventType.RELEASE.getAction()) {
-			MouseReleaseEvent event = new MouseReleaseEvent(MouseButton.getButtonFromCode(button),
+			final MouseReleaseEvent event = new MouseReleaseEvent(MouseButton.getButtonFromCode(button),
 					MouseStatus.getMouseX(), MouseStatus.getMouseY(), window, mods);
 			MouseButtonReleaseEventListener.processAllMouseReleaseEvent(event);
 		}
 	}
 
-	private MouseButton button;
-	private MouseButtonEventType type;
+	private final MouseButton button;
+	private final MouseButtonEventType type;
 
-	private float x, y;
+	private final float x, y;
 
-	public MouseButtonEvent(MouseButton button, float x, float y, MouseButtonEventType type, long window,
-			GLFWEventMods mods) {
+	public MouseButtonEvent(final MouseButton button, final float x, final float y, final MouseButtonEventType type, final long window,
+			final GLFWEventMods mods) {
 		super(window, MouseEventType.BUTTON, mods);
 		this.button = button;
 		this.x = x;
@@ -37,25 +37,25 @@ public class MouseButtonEvent extends MouseEvent {
 	}
 
 	public MouseButton getButton() {
-		return button;
+		return this.button;
 	}
 
 	public MouseButtonEventType getMouseButtonEventType() {
-		return type;
+		return this.type;
 	}
 
 	public float getX() {
-		return x;
+		return this.x;
 	}
 
 	public float getY() {
-		return y;
+		return this.y;
 	}
 
 	@Override
 	public String toString() {
-		return "button id: " + button.getMouseButtonID() + ", button: " + button + ", type: "
-				+ getMouseButtonEventType();
+		return "button id: " + this.button.getMouseButtonID() + ", button: " + this.button + ", type: "
+				+ this.getMouseButtonEventType();
 	}
 
 }
