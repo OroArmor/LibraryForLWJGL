@@ -20,7 +20,7 @@ public class ColorTransition extends Animation<GUIColorBox> {
 
 	@Override
 	public void animate(final GUIColorBox object, final float percent) {
-		object.setColor(object.getOriginalColor().lerp(this.color, this.easing.calculate(percent), new Vector4f()));
+		object.setColor(object.getOriginalColor().lerp(color, easing.calculate(percent), new Vector4f()));
 	}
 
 }

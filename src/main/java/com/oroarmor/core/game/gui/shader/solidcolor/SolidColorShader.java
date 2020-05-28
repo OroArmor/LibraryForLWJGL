@@ -15,7 +15,7 @@ public class SolidColorShader extends Shader {
 				ResourceLoader.loadFile(Class.class
 						.getResourceAsStream("/com/oroarmor/core/game/gui/shader/solidcolor/solidcolor.fs")));
 
-		this.compile();
+		compile();
 	}
 
 	public void setColor(final Vector4f color) {
@@ -23,16 +23,16 @@ public class SolidColorShader extends Shader {
 	}
 
 	public Shader setObjectModel(final Matrix4f objectModel) {
-		this.setUniformMat4f("u_M", objectModel);
+		setUniformMat4f("u_M", objectModel);
 		return this;
 	}
 
 	public void setOrthoView(final Matrix4f orthoView) {
-		this.setUniformMat4f("u_V", orthoView);
+		setUniformMat4f("u_V", orthoView);
 	}
 
 	public Shader setZ(final int i) {
-		this.setUniform1f("u_Z", i);
+		setUniform1f("u_Z", i);
 		return this;
 	}
 }

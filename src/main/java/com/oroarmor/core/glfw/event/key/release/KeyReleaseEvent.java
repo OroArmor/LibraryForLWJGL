@@ -18,7 +18,7 @@ public class KeyReleaseEvent extends KeyEvent {
 
 	@Override
 	public GLFWEventMods getEventMods() {
-		return this.mods;
+		return mods;
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class KeyReleaseEvent extends KeyEvent {
 
 	@Override
 	public void setEventMods(final GLFWEventMods newMods) {
-		this.mods = newMods;
+		mods = newMods;
 	}
 
 }

@@ -13,6 +13,6 @@ public enum MouseButtonEventType {
 	}
 
 	public int getAction() {
-		return this.action;
+		return action;
 	}
 }

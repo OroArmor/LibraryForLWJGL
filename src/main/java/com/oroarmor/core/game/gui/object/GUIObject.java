@@ -37,8 +37,8 @@ public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T>
 		this.x = x;
 		this.y = y;
 
-		this.addToButtonListeners();
-		this.addToPositionListeners();
+		addToButtonListeners();
+		addToPositionListeners();
 
 		this.animationMatrix = new Matrix4f().identity();
 	}

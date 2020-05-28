@@ -20,7 +20,7 @@ public class Font {
 		@Override
 		public boolean equals(final Object obj) {
 			if (obj instanceof TextSizePair) {
-				return ((TextSizePair) obj).text.equals(this.text) && ((TextSizePair) obj).size == this.size;
+				return ((TextSizePair) obj).text.equals(text) && ((TextSizePair) obj).size == size;
 			}
 
 			return false;
@@ -35,45 +35,46 @@ public class Font {
 
 	private final Texture texture;
 
-	public Font(final FontCharacter[] characters, final FontKerning kernings, final Texture texture, final FontMetaData fontMetaData) {
+	public Font(final FontCharacter[] characters, final FontKerning kernings, final Texture texture,
+			final FontMetaData fontMetaData) {
 		this.characters = characters;
 		this.kernings = kernings;
 		this.texture = texture;
-		this.metaData = fontMetaData;
+		metaData = fontMetaData;
 	}
 
 	public FontCharacter[] getCharacters() {
-		return this.characters;
+		return characters;
 	}
 
 	public FontKerning getKernings() {
-		return this.kernings;
+		return kernings;
 	}
 
 	public FontMetaData getMetaData() {
-		return this.metaData;
+		return metaData;
 	}
 
 	public Mesh getTextMesh(final String text, final float textSize, final float textWidth) {
-		if (this.fontMeshes == null) {
-			this.fontMeshes = new HashMap<>();
+		if (fontMeshes == null) {
+			fontMeshes = new HashMap<>();
 		}
 
 		final TextSizePair textSizePair = new TextSizePair(text, textSize);
 
-		if (this.fontMeshes.containsKey(textSizePair)) {
-			return this.fontMeshes.get(textSizePair);
+		if (fontMeshes.containsKey(textSizePair)) {
+			return fontMeshes.get(textSizePair);
 		}
 
 		final Mesh newTextMesh = FontMeshCreator.createMesh(this, text, textSize, textWidth);
 
-		this.fontMeshes.put(textSizePair, newTextMesh);
+		fontMeshes.put(textSizePair, newTextMesh);
 
 		return newTextMesh;
 	}
 
 	public Texture getTexture() {
-		return this.texture;
+		return texture;
 	}
 
 }

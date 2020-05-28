@@ -29,11 +29,11 @@ public class MouseOverEvent extends MouseEvent {
 	}
 
 	public MouseOverEventType getMouseOverEventType() {
-		return this.type;
+		return type;
 	}
 
 	@Override
 	public String toString() {
-		return "Over event type: " + this.type;
+		return "Over event type: " + type;
 	}
 }

@@ -21,6 +21,6 @@ public enum MouseOverEventType {
 	}
 
 	public int getAction() {
-		return this.action;
+		return action;
 	}
 }

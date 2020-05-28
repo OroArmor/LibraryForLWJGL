@@ -49,7 +49,7 @@ public class MouseScrollEvent extends MouseEvent {
 	 * @return The scroll x value
 	 */
 	public float getScrollX() {
-		return this.scrollX;
+		return scrollX;
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class MouseScrollEvent extends MouseEvent {
 	 * @return The scroll y value
 	 */
 	public float getScrollY() {
-		return this.scrollY;
+		return scrollY;
 	}
 
 	@Override
 	public String toString() {
-		return "scroll x: " + this.scrollX + ", scroll y: " + this.scrollY;
+		return "scroll x: " + scrollX + ", scroll y: " + scrollY;
 	}
 }

@@ -31,9 +31,9 @@ public class VertexBufferObject implements Bindable, Destructable {
 	 * @param data The vertex data
 	 */
 	public VertexBufferObject(final float[] data) {
-		this.vbo_id = glGenBuffers();
+		vbo_id = glGenBuffers();
 
-		this.bind();
+		bind();
 		glBufferData(GL_ARRAY_BUFFER, data, GL_STATIC_DRAW);
 
 		Destructor.addDestructable(this);
@@ -45,20 +45,20 @@ public class VertexBufferObject implements Bindable, Destructable {
 	 * @param vertexPositions
 	 */
 	public VertexBufferObject(final FloatBuffer data) {
-		this.vbo_id = glGenBuffers();
+		vbo_id = glGenBuffers();
 
-		this.bind();
+		bind();
 		glBufferData(GL_ARRAY_BUFFER, data, GL_STATIC_DRAW);
 	}
 
 	@Override
 	public void bind() {
-		glBindBuffer(GL_ARRAY_BUFFER, this.vbo_id);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 	}
 
 	@Override
 	public void destroy() {
-		glDeleteBuffers(this.vbo_id);
+		glDeleteBuffers(vbo_id);
 	}
 
 	@Override

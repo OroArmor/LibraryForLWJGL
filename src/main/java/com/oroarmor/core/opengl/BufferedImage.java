@@ -33,21 +33,21 @@ public class BufferedImage {
 		final int[] channels_in_file = new int[1];
 		final int desired_channels = 3;
 
-		this.imageBuffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
+		imageBuffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
 
 		System.out.println(channels_in_file[0]);
 
-		this.channels = channels_in_file[0];
+		channels = channels_in_file[0];
 
-		this.width = x[0];
-		this.height = y[0];
+		width = x[0];
+		height = y[0];
 
-		System.out.println(this.width);
+		System.out.println(width);
 
-		System.out.println(this.getR(0, 0) & 0xFF);
-		System.out.println(this.getG(0, 0) & 0xFF);
-		System.out.println(this.getB(0, 0) & 0xFF);
-		System.out.println(this.getA(0, 0) & 0xFF);
+		System.out.println(getR(0, 0) & 0xFF);
+		System.out.println(getG(0, 0) & 0xFF);
+		System.out.println(getB(0, 0) & 0xFF);
+		System.out.println(getA(0, 0) & 0xFF);
 	}
 
 	/**
@@ -58,11 +58,11 @@ public class BufferedImage {
 	 * @return The value of the alpha channel
 	 */
 	public byte getA(final int x, final int y) {
-		if (this.channels < 4) {
+		if (channels < 4) {
 			return 0;
 		}
 
-		return this.imageBuffer.get(this.channels * (x + y * this.height) + 3);
+		return imageBuffer.get(channels * (x + y * height) + 3);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class BufferedImage {
 	 * @return The value of the blue channel
 	 */
 	public byte getB(final int x, final int y) {
-		return this.imageBuffer.get(this.channels * (x + y * this.height) + 2);
+		return imageBuffer.get(channels * (x + y * height) + 2);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class BufferedImage {
 	 * @return The value of the green channel
 	 */
 	public byte getG(final int x, final int y) {
-		return this.imageBuffer.get(this.channels * (x + y * this.height) + 1);
+		return imageBuffer.get(channels * (x + y * height) + 1);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class BufferedImage {
 	 * @return The byte for the image
 	 */
 	public ByteBuffer getImageBuffer() {
-		return this.imageBuffer;
+		return imageBuffer;
 	}
 
 	/**
@@ -103,6 +103,6 @@ public class BufferedImage {
 	 * @return The value of the red channel
 	 */
 	public byte getR(final int x, final int y) {
-		return this.imageBuffer.get(this.channels * (x + y * this.height) + 0);
+		return imageBuffer.get(channels * (x + y * height) + 0);
 	}
 }

@@ -24,13 +24,13 @@ public abstract class GUIGroup implements IGUIGroup {
 	public GUIGroup(final float x, final float y, final boolean hiddenOnCreation) {
 		this.x = x;
 		this.y = y;
-		this.hidden = hiddenOnCreation;
+		hidden = hiddenOnCreation;
 	}
 
 	@Override
 	public void addChildren(final IGUI<?>... newChildren) {
-		if (this.children == null) {
-			this.children = new ArrayList<>();
+		if (children == null) {
+			children = new ArrayList<>();
 		}
 
 		for (final IGUI<?> newChild : newChildren) {
@@ -45,45 +45,45 @@ public abstract class GUIGroup implements IGUIGroup {
 					continue;
 				}
 			}
-			this.children.add(newChild);
+			children.add(newChild);
 		}
 	}
 
 	@Override
 	public List<IGUI<?>> getChildren() {
-		return this.children;
+		return children;
 	}
 
 	@Override
 	public float getX() {
-		return this.x;
+		return x;
 	}
 
 	@Override
 	public float getY() {
-		return this.y;
+		return y;
 	}
 
 	@Override
 	public boolean hasParent() {
-		return this.hasParent;
+		return hasParent;
 	}
 
 	@Override
 	public void hideAll() {
-		this.hidden = true;
+		hidden = true;
 	}
 
 	@Override
 	public boolean isVisable() {
-		return this.hidden;
+		return hidden;
 	}
 
 	@Override
 	public void makeVisable(final boolean visable) {
-		this.hidden = !visable;
+		hidden = !visable;
 
-		for (final IGUI<?> igui : this.children) {
+		for (final IGUI<?> igui : children) {
 			if (igui instanceof IGUIObject) {
 				((IGUIObject<?>) igui).setActive(visable);
 			}
@@ -96,7 +96,7 @@ public abstract class GUIGroup implements IGUIGroup {
 
 	@Override
 	public int numObjects() {
-		return this.children == null ? 0 : this.children.size();
+		return children == null ? 0 : children.size();
 	}
 
 	@Override
@@ -106,11 +106,11 @@ public abstract class GUIGroup implements IGUIGroup {
 
 	@Override
 	public void renderChildren(final Renderer renderer) {
-		if (this.children == null || this.hidden) {
+		if (children == null || hidden) {
 			return;
 		}
 
-		for (final IGUI<?> child : this.children) {
+		for (final IGUI<?> child : children) {
 			child.render(renderer);
 
 			if (child instanceof IGUIGroup) {
@@ -126,7 +126,7 @@ public abstract class GUIGroup implements IGUIGroup {
 
 	@Override
 	public void showAll() {
-		this.hidden = false;
+		hidden = false;
 	}
 
 	@Override

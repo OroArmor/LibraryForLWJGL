@@ -61,10 +61,10 @@ public class Shader implements Bindable, Destructable {
 		this.vertexSource = vertexSource;
 		this.fragmentSource = fragmentSource;
 
-		this.addShader(GL_VERTEX_SHADER, vertexSource);
-		this.addShader(GL_FRAGMENT_SHADER, fragmentSource);
+		addShader(GL_VERTEX_SHADER, vertexSource);
+		addShader(GL_FRAGMENT_SHADER, fragmentSource);
 
-		this.uniforms = new HashMap<>();
+		uniforms = new HashMap<>();
 
 		Destructor.addDestructable(this);
 	}
@@ -80,23 +80,23 @@ public class Shader implements Bindable, Destructable {
 		glShaderSource(id, shaderSource);
 		glCompileShader(id);
 
-		if (this.ids == null) {
-			this.ids = new int[] { id };
+		if (ids == null) {
+			ids = new int[] { id };
 		} else {
 
-			final int[] newIDs = new int[this.ids.length + 1];
+			final int[] newIDs = new int[ids.length + 1];
 
-			for (int i = 0; i < this.ids.length; i++) {
-				newIDs[i] = this.ids[i];
+			for (int i = 0; i < ids.length; i++) {
+				newIDs[i] = ids[i];
 			}
-			newIDs[this.ids.length] = id;
-			this.ids = newIDs;
+			newIDs[ids.length] = id;
+			ids = newIDs;
 		}
 	}
 
 	@Override
 	public void bind() {
-		glUseProgram(this.shaderProgramID);
+		glUseProgram(shaderProgramID);
 	}
 
 	/**
@@ -105,21 +105,21 @@ public class Shader implements Bindable, Destructable {
 	public void compile() {
 		final int program = glCreateProgram();
 
-		for (final int id : this.ids) {
+		for (final int id : ids) {
 			glAttachShader(program, id);
 		}
 
 		glLinkProgram(program);
 		glValidateProgram(program);
 
-		this.shaderProgramID = program;
+		shaderProgramID = program;
 	}
 
 	@Override
 	public void destroy() {
-		glDeleteProgram(this.shaderProgramID);
-		this.uniforms.clear();
-		glDeleteShader(this.shaderProgramID);
+		glDeleteProgram(shaderProgramID);
+		uniforms.clear();
+		glDeleteShader(shaderProgramID);
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class Shader implements Bindable, Destructable {
 	 * @return The fragment source
 	 */
 	public String getFragmentSource() {
-		return this.fragmentSource;
+		return fragmentSource;
 	}
 
 	/**
@@ -141,11 +141,11 @@ public class Shader implements Bindable, Destructable {
 
 		Integer uniformLocation;
 
-		if (!this.uniforms.containsKey(name)) {
-			uniformLocation = glGetUniformLocation(this.shaderProgramID, name);
-			this.uniforms.put(name, uniformLocation);
+		if (!uniforms.containsKey(name)) {
+			uniformLocation = glGetUniformLocation(shaderProgramID, name);
+			uniforms.put(name, uniformLocation);
 		} else {
-			uniformLocation = this.uniforms.get(name);
+			uniformLocation = uniforms.get(name);
 		}
 
 		return uniformLocation;
@@ -156,7 +156,7 @@ public class Shader implements Bindable, Destructable {
 	 * @return The vertex source
 	 */
 	public String getVertexSource() {
-		return this.vertexSource;
+		return vertexSource;
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class Shader implements Bindable, Destructable {
 	 * @param v0   Value to set the uniform
 	 */
 	public void setUniform1f(final String name, final float v0) {
-		glUniform1f(this.getUniformLocation(name), v0);
+		glUniform1f(getUniformLocation(name), v0);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class Shader implements Bindable, Destructable {
 	 * @param v0   Value to set the uniform
 	 */
 	public void setUniform1i(final String name, final int v0) {
-		glUniform1i(this.getUniformLocation(name), v0);
+		glUniform1i(getUniformLocation(name), v0);
 	}
 
 	/**
@@ -183,7 +183,7 @@ public class Shader implements Bindable, Destructable {
 	 * @param vector Vector to set the uniform
 	 */
 	public void setUniform3f(final String name, final Vector3f vector) {
-		glUniform3f(this.getUniformLocation(name), vector.x, vector.y, vector.z);
+		glUniform3f(getUniformLocation(name), vector.x, vector.y, vector.z);
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class Shader implements Bindable, Destructable {
 	 * @param v3   Value to set the uniform
 	 */
 	public void setUniform4f(final String name, final float v0, final float v1, final float v2, final float v3) {
-		glUniform4f(this.getUniformLocation(name), v0, v1, v2, v3);
+		glUniform4f(getUniformLocation(name), v0, v1, v2, v3);
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class Shader implements Bindable, Destructable {
 	 * @param values Matrix to set the uniform
 	 */
 	public void setUniformMat4f(final String name, final Matrix4f values) {
-		glUniformMatrix4fv(this.getUniformLocation(name), false, values.get(BufferUtils.createFloatBuffer(4 * 4)));
+		glUniformMatrix4fv(getUniformLocation(name), false, values.get(BufferUtils.createFloatBuffer(4 * 4)));
 	}
 
 	@Override

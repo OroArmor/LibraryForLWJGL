@@ -64,7 +64,7 @@ public class GUITest {
 			@Override
 			public void processKeyReleasedEvent(final KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
-					this.close();
+					close();
 				}
 			}
 
@@ -146,8 +146,7 @@ public class GUITest {
 
 			GUIShaders.updateShaderView(display.getOrthoViewModel());
 
-			shader.setColor(
-					new Vector4f(1, 0, (float) Math.sin(System.currentTimeMillis() / 1000d) * 0.5f + 0.5f, 1));
+			shader.setColor(new Vector4f(1, 0, (float) Math.sin(System.currentTimeMillis() / 1000d) * 0.5f + 0.5f, 1));
 
 			shader.setOrthoView(display.getOrthoViewModel());
 			testFont.getTextMesh(textString, 1f, display.getWidth()).render(renderer, shader);

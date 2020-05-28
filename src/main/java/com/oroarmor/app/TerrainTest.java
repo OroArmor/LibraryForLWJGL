@@ -49,10 +49,10 @@ public class TerrainTest {
 			@Override
 			public void processKeyReleasedEvent(final KeyReleaseEvent event) {
 				final Key key = event.getKey();
-				if (key == this.closeKey) {
-					this.close();
+				if (key == closeKey) {
+					close();
 				} else if (key == Key.F11) {
-					this.fullscreen();
+					fullscreen();
 				}
 			}
 

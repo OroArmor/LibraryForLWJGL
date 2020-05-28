@@ -36,12 +36,12 @@ public class IndexBufferObject implements Bindable, Destructable {
 	 * @param data The data for the {@link IndexBufferObject}
 	 */
 	public IndexBufferObject(final int[] data) {
-		this.ibo_id = glGenBuffers();
+		ibo_id = glGenBuffers();
 
-		this.bind();
+		bind();
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, data, GL_STATIC_DRAW);
 
-		this.count = data.length;
+		count = data.length;
 
 		Destructor.addDestructable(this);
 	}
@@ -52,22 +52,22 @@ public class IndexBufferObject implements Bindable, Destructable {
 	 * @param data The data for the {@link IndexBufferObject}
 	 */
 	public IndexBufferObject(final IntBuffer data) {
-		this.ibo_id = glGenBuffers();
+		ibo_id = glGenBuffers();
 
-		this.bind();
+		bind();
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, data, GL_STATIC_DRAW);
 
-		this.count = data.limit();
+		count = data.limit();
 	}
 
 	@Override
 	public void bind() {
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this.ibo_id);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_id);
 	}
 
 	@Override
 	public void destroy() {
-		glDeleteBuffers(this.ibo_id);
+		glDeleteBuffers(ibo_id);
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class IndexBufferObject implements Bindable, Destructable {
 	 * @return The count of indices in the {@link IndexBufferObject}
 	 */
 	public int getCount() {
-		return this.count;
+		return count;
 	}
 
 	@Override

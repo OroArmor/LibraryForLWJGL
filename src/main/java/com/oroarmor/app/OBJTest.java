@@ -29,8 +29,8 @@ public class OBJTest {
 
 	public static void main(final String[] args) {
 
-		final Matrix4f objectModel = new Matrix4f().translate(0, 0, 100).rotateXYZ((float) -Math.PI / 2, (float) Math.PI, 0)
-				.scale(1);
+		final Matrix4f objectModel = new Matrix4f().translate(0, 0, 100)
+				.rotateXYZ((float) -Math.PI / 2, (float) Math.PI, 0).scale(1);
 
 //		Matrix4f camera = new Matrix4f().translate(new Vector3f(0, 0, 0));
 
@@ -54,7 +54,7 @@ public class OBJTest {
 			@Override
 			public void processKeyReleasedEvent(final KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
-					this.close();
+					close();
 				}
 
 			}

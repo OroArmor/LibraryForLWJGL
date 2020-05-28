@@ -46,13 +46,14 @@ public class TerrainMesh {
 	private final IntBuffer meshDataIntBuffer;
 	Runnable meshGenRunnable = () -> {
 		currentThreads++;
-		TerrainMesh.this.heightMap = TerrainNoiseGenerator.generateNoiseMap(TerrainMesh.this.width, TerrainMesh.this.height, new Vector2f(TerrainMesh.this.x, TerrainMesh.this.y));
+		TerrainMesh.this.heightMap = TerrainNoiseGenerator.generateNoiseMap(TerrainMesh.this.width,
+				TerrainMesh.this.height, new Vector2f(TerrainMesh.this.x, TerrainMesh.this.y));
 		final TerrainMeshData tempData = TerrainMesh.this.generateMeshData(TerrainMesh.this.heightMap);
 		TerrainMesh.this.setMeshData(tempData);
 		currentThreads--;
 	};
 
-	Thread meshGenThread = new Thread(this.meshGenRunnable);
+	Thread meshGenThread = new Thread(meshGenRunnable);
 
 	int width, height;
 
@@ -64,8 +65,8 @@ public class TerrainMesh {
 		this.x = x;
 		this.y = y;
 
-		this.meshDataFloatBuffer = BufferUtils.createFloatBuffer(6 * 7 * width * height);
-		this.meshDataIntBuffer = BufferUtils.createIntBuffer(6 * width * height);
+		meshDataFloatBuffer = BufferUtils.createFloatBuffer(6 * 7 * width * height);
+		meshDataIntBuffer = BufferUtils.createIntBuffer(6 * width * height);
 	}
 
 	private TerrainMeshData generateMeshData(final float[][] generatedNoiseMap) {
@@ -74,8 +75,8 @@ public class TerrainMesh {
 
 		int triangleCount = 0;
 
-		for (int i = 0; i < this.width - 1; i++) {
-			for (int j = 0; j < this.height - 1; j++) {
+		for (int i = 0; i < width - 1; i++) {
+			for (int j = 0; j < height - 1; j++) {
 
 				final float y00 = Math.max((maxHeight + min) * generatedNoiseMap[i][j], min) - min;
 				final float y10 = Math.max((maxHeight + min) * generatedNoiseMap[i + 1][j], min) - min;
@@ -96,67 +97,67 @@ public class TerrainMesh {
 				// There needs to be a better way to do this... maybe a mesh generator class
 				// that does the calculations automatically
 
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(p1));
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(n1));
-				this.meshDataFloatBuffer.put(t1h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p1));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n1));
+				meshDataFloatBuffer.put(t1h);
 
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(p2));
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(n1));
-				this.meshDataFloatBuffer.put(t1h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p2));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n1));
+				meshDataFloatBuffer.put(t1h);
 
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(p3));
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(n1));
-				this.meshDataFloatBuffer.put(t1h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p3));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n1));
+				meshDataFloatBuffer.put(t1h);
 
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(p1));
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(n2));
-				this.meshDataFloatBuffer.put(t2h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p1));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n2));
+				meshDataFloatBuffer.put(t2h);
 
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(p3));
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(n2));
-				this.meshDataFloatBuffer.put(t2h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p3));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n2));
+				meshDataFloatBuffer.put(t2h);
 
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(p4));
-				this.meshDataFloatBuffer.put(VectorUtils.vectorToArray(n2));
-				this.meshDataFloatBuffer.put(t2h);
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(p4));
+				meshDataFloatBuffer.put(VectorUtils.vectorToArray(n2));
+				meshDataFloatBuffer.put(t2h);
 
 				for (int k = 0; k < 6; k++) {
-					this.meshDataIntBuffer.put(triangleCount++);
+					meshDataIntBuffer.put(triangleCount++);
 				}
 
 			}
 		}
 
-		this.meshDataFloatBuffer.flip();
-		this.meshDataIntBuffer.flip();
+		meshDataFloatBuffer.flip();
+		meshDataIntBuffer.flip();
 
-		return new TerrainMeshData(this.meshDataFloatBuffer, this.meshDataIntBuffer);
+		return new TerrainMeshData(meshDataFloatBuffer, meshDataIntBuffer);
 	}
 
 	public float[][] getHeightMap() {
-		return this.heightMap;
+		return heightMap;
 	}
 
 	public Mesh getMesh() {
-		if (this.getMeshData() == null && this.meshGenThread.getState() == State.NEW) {
+		if (getMeshData() == null && meshGenThread.getState() == State.NEW) {
 			if (currentThreads < MAX_THREADS) {
-				this.meshGenThread.start();
+				meshGenThread.start();
 			}
 		}
 
-		if (this.mesh == null && this.getMeshData() != null) {
-			this.mesh = new Mesh(this.getMeshData().verticies, this.getMeshData().tris, terrainVbo);
+		if (mesh == null && getMeshData() != null) {
+			mesh = new Mesh(getMeshData().verticies, getMeshData().tris, terrainVbo);
 		}
 
-		return this.mesh;
+		return mesh;
 	}
 
 	private TerrainMeshData getMeshData() {
-		return this.meshData;
+		return meshData;
 	}
 
 	private void setMeshData(final TerrainMeshData data) {
-		this.meshData = data;
+		meshData = data;
 	}
 
 }

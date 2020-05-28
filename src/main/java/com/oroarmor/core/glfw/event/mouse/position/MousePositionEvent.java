@@ -41,7 +41,8 @@ public class MousePositionEvent extends MouseEvent {
 	 * @param deltaX The delta x
 	 * @param deltaY The delta y
 	 */
-	public MousePositionEvent(final long window, final float mouseX, final float mouseY, final float deltaX, final float deltaY, final GLFWEventMods mods) {
+	public MousePositionEvent(final long window, final float mouseX, final float mouseY, final float deltaX,
+			final float deltaY, final GLFWEventMods mods) {
 		super(window, MouseEventType.POSITION, mods);
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
@@ -50,23 +51,23 @@ public class MousePositionEvent extends MouseEvent {
 	}
 
 	public float getDeltaX() {
-		return this.deltaX;
+		return deltaX;
 	}
 
 	public float getDeltaY() {
-		return this.deltaY;
+		return deltaY;
 	}
 
 	public float getMouseX() {
-		return this.mouseX;
+		return mouseX;
 	}
 
 	public float getMouseY() {
-		return this.mouseY;
+		return mouseY;
 	}
 
 	@Override
 	public String toString() {
-		return "Mouse x, y: " + this.mouseX + " " + this.mouseY + ", delta x, y:" + this.deltaX + " " + this.deltaY;
+		return "Mouse x, y: " + mouseX + " " + mouseY + ", delta x, y:" + deltaX + " " + deltaY;
 	}
 }

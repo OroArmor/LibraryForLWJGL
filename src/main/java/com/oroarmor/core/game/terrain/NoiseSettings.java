@@ -16,7 +16,8 @@ public class NoiseSettings {
 
 	}
 
-	public NoiseSettings(final float scale, final float persistance, final float lacunarity, final int octaves, final int seed, final Vector2f offset) {
+	public NoiseSettings(final float scale, final float persistance, final float lacunarity, final int octaves,
+			final int seed, final Vector2f offset) {
 		this.scale = scale;
 		this.persistance = persistance;
 		this.lacunarity = lacunarity;
@@ -26,26 +27,26 @@ public class NoiseSettings {
 	}
 
 	public float getLacunarity() {
-		return this.lacunarity;
+		return lacunarity;
 	}
 
 	public int getOctaves() {
-		return this.octaves;
+		return octaves;
 	}
 
 	public Vector2f getOffset() {
-		return this.offset;
+		return offset;
 	}
 
 	public float getPersistance() {
-		return this.persistance;
+		return persistance;
 	}
 
 	public float getScale() {
-		return this.scale;
+		return scale;
 	}
 
 	public int getSeed() {
-		return this.seed;
+		return seed;
 	}
 }

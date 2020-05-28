@@ -10,16 +10,17 @@ public class TexturedGUIBox extends GUIBox {
 
 	public TexturedGUIBox(final float x, final float y, final float width, final float height, final Texture texture) {
 		super(x, y, width, height);
-		this.setTexture(texture);
+		setTexture(texture);
 	}
 
 	public Texture getTexture() {
-		return this.texture;
+		return texture;
 	}
 
 	@Override
 	public void render(final Renderer renderer) {
-		this.boxMesh.render(renderer, GUIShaders.getTextureShader().setTexture(this.texture).setObjectModel(this.animationMatrix));
+		boxMesh.render(renderer,
+				GUIShaders.getTextureShader().setTexture(texture).setObjectModel(animationMatrix));
 	}
 
 	public void setTexture(final Texture texture) {

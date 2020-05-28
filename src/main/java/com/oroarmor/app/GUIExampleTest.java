@@ -54,7 +54,7 @@ public class GUIExampleTest {
 			@Override
 			public void processKeyReleasedEvent(final KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
-					this.close();
+					close();
 				}
 			}
 

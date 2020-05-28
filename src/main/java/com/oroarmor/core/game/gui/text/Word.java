@@ -10,25 +10,25 @@ public class Word {
 	private float wordWidth;
 
 	public Word(final float textSize) {
-		this.fontSize = textSize;
+		fontSize = textSize;
 	}
 
 	public void addCharacter(final FontCharacter character) {
-		this.characters.add(character);
-		this.wordWidth += character.xadvance * this.fontSize;
+		characters.add(character);
+		wordWidth += character.xadvance * fontSize;
 	}
 
 	public List<FontCharacter> getCharacters() {
-		return this.characters;
+		return characters;
 	}
 
 	public float getWordWidth() {
-		return this.wordWidth;
+		return wordWidth;
 	}
 
 	@Override
 	public String toString() {
-		return "Word [characters=" + this.characters + ", fontSize=" + this.fontSize + ", wordWidth=" + this.wordWidth + "]";
+		return "Word [characters=" + characters + ", fontSize=" + fontSize + ", wordWidth=" + wordWidth + "]";
 	}
 
 }

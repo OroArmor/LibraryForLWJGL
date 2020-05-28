@@ -153,15 +153,15 @@ public enum Key {
 	}
 
 	public int getKeyCode() {
-		return this.keyCode;
+		return keyCode;
 	}
 
 	public char getLowerChar() {
-		return this.lower;
+		return lower;
 	}
 
 	public char getUpperChar() {
-		return this.upper;
+		return upper;
 	}
 
 }

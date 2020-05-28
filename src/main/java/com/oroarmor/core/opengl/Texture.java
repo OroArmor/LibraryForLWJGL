@@ -70,10 +70,10 @@ public class Texture implements Bindable, Destructable {
 
 		final ByteBuffer buffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
 
-		this.width = x[0];
-		this.height = y[0];
+		width = x[0];
+		height = y[0];
 
-		this.textureID = TextureLoader.loadTexture(buffer, this.width, this.height);
+		textureID = TextureLoader.loadTexture(buffer, width, height);
 		STBImage.stbi_image_free(buffer);
 
 		Destructor.addDestructable(this);
@@ -84,8 +84,8 @@ public class Texture implements Bindable, Destructable {
 	 */
 	@Override
 	public void bind() {
-		glActiveTexture(GL_TEXTURE0 + this.slot);
-		glBindTexture(GL_TEXTURE_2D, this.textureID);
+		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D, textureID);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class Texture implements Bindable, Destructable {
 
 	@Override
 	public void destroy() {
-		glDeleteTextures(this.textureID);
+		glDeleteTextures(textureID);
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class Texture implements Bindable, Destructable {
 	 * @return The path to the image of the texture
 	 */
 	public String getFilePath() {
-		return this.filePath;
+		return filePath;
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class Texture implements Bindable, Destructable {
 	 * @return The height of the texture
 	 */
 	public int getHeight() {
-		return this.height;
+		return height;
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class Texture implements Bindable, Destructable {
 	 * @return The slot that the texture is bound to currently
 	 */
 	public int getSlot() {
-		return this.slot;
+		return slot;
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class Texture implements Bindable, Destructable {
 	 * @return The width of the image
 	 */
 	public int getWidth() {
-		return this.width;
+		return width;
 	}
 
 	@Override

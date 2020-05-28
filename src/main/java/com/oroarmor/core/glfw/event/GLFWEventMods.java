@@ -54,15 +54,15 @@ public class GLFWEventMods {
 
 	public GLFWEventMods(final int mod) {
 		this.mod = mod;
-		this.mods = GLFWModIDs.getIDsFromInt(mod);
+		mods = GLFWModIDs.getIDsFromInt(mod);
 	}
 
 	public int getMod() {
-		return this.mod;
+		return mod;
 	}
 
 	public boolean isShift() {
-		for (final GLFWModIDs id : this.mods) {
+		for (final GLFWModIDs id : mods) {
 			if (id == GLFWModIDs.SHIFT) {
 				return true;
 			}

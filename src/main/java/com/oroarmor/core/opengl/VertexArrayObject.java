@@ -31,7 +31,7 @@ public class VertexArrayObject implements Bindable, Destructable {
 	 * Creates a new {@link VertexArrayObject}
 	 */
 	public VertexArrayObject() {
-		this.vao_id = glGenVertexArrays();
+		vao_id = glGenVertexArrays();
 
 		Destructor.addDestructable(this);
 	}
@@ -46,7 +46,7 @@ public class VertexArrayObject implements Bindable, Destructable {
 	 *                 {@link VertexArrayObject}
 	 */
 	public void addBuffer(final VertexBufferObject vbo, final VertexBufferLayout vbLayout) {
-		this.bind();
+		bind();
 		vbo.bind();
 
 		final ArrayList<VertexBufferElement> elements = vbLayout.getVbElements();
@@ -65,12 +65,12 @@ public class VertexArrayObject implements Bindable, Destructable {
 
 	@Override
 	public void bind() {
-		glBindVertexArray(this.vao_id);
+		glBindVertexArray(vao_id);
 	}
 
 	@Override
 	public void destroy() {
-		glDeleteVertexArrays(this.vao_id);
+		glDeleteVertexArrays(vao_id);
 	}
 
 	@Override

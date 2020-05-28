@@ -16,51 +16,51 @@ public abstract class PhysicsEntity extends Entity {
 
 	public PhysicsEntity(final Vector3f position, final Vector3f rotation, final Vector3f scale, final float weight) {
 		super(position, rotation, scale);
-		this.velocityVector = new Vector3f();
-		this.accelerationVector = new Vector3f();
+		velocityVector = new Vector3f();
+		accelerationVector = new Vector3f();
 		this.weight = weight;
 	}
 
 	public void accelerateLocalXZ(final Vector2f xzAcceleration) {
-		this.addAcceleration(new Vector3f(
-				xzAcceleration.x * (float) Math.cos(this.rotationVector.y)
-						+ xzAcceleration.y * (float) Math.cos(Math.PI / 2 + this.rotationVector.y), //
+		addAcceleration(new Vector3f(
+				xzAcceleration.x * (float) Math.cos(rotationVector.y)
+						+ xzAcceleration.y * (float) Math.cos(Math.PI / 2 + rotationVector.y), //
 				0, //
-				xzAcceleration.x * (float) Math.sin(this.rotationVector.y)
-						+ xzAcceleration.y * (float) Math.sin(Math.PI / 2 + this.rotationVector.y)//
+				xzAcceleration.x * (float) Math.sin(rotationVector.y)
+						+ xzAcceleration.y * (float) Math.sin(Math.PI / 2 + rotationVector.y)//
 		));
 	}
 
 	public void addAcceleration(final Vector3f acceleration) {
-		this.accelerationVector.add(acceleration);
+		accelerationVector.add(acceleration);
 	}
 
 	public void addForce(final Vector3f force) {
-		this.accelerationVector.add(force.div(this.weight));
+		accelerationVector.add(force.div(weight));
 	}
 
 	public void drag(final float xDrag, final float yDrag, final float zDrag) {
-		this.addAcceleration(this.velocityVector.mul(xDrag, yDrag, zDrag, new Vector3f()).mul(-1));
+		addAcceleration(velocityVector.mul(xDrag, yDrag, zDrag, new Vector3f()).mul(-1));
 	}
 
 	public Vector3f getAccelerationVector() {
-		return this.accelerationVector;
+		return accelerationVector;
 	}
 
 	public float getMaxAcceleration() {
-		return this.maxAcceleration;
+		return maxAcceleration;
 	}
 
 	public float getMaxSpeed() {
-		return this.maxSpeed;
+		return maxSpeed;
 	}
 
 	public Vector3f getVelocityVector() {
-		return this.velocityVector;
+		return velocityVector;
 	}
 
 	public float getWeight() {
-		return this.weight;
+		return weight;
 	}
 
 	public void setAccelerationVector(final Vector3f accelerationVector) {
@@ -87,19 +87,20 @@ public abstract class PhysicsEntity extends Entity {
 	public void tick(final float delta) {
 		super.tick(delta);
 
-		if (this.maxAcceleration != 0 && this.accelerationVector.lengthSquared() > this.maxAcceleration * this.maxAcceleration) {
-			this.accelerationVector.normalize(this.maxAcceleration);
+		if (maxAcceleration != 0
+				&& accelerationVector.lengthSquared() > maxAcceleration * maxAcceleration) {
+			accelerationVector.normalize(maxAcceleration);
 		}
 
-		this.velocityVector.add(this.accelerationVector.mul(delta, new Vector3f()));
+		velocityVector.add(accelerationVector.mul(delta, new Vector3f()));
 
-		if (this.maxSpeed != 0 && this.velocityVector.lengthSquared() > this.maxSpeed * this.maxSpeed) {
-			this.velocityVector.normalize(this.maxSpeed);
+		if (maxSpeed != 0 && velocityVector.lengthSquared() > maxSpeed * maxSpeed) {
+			velocityVector.normalize(maxSpeed);
 		}
 
-		this.positionVector.add(this.velocityVector);
+		positionVector.add(velocityVector);
 
-		this.accelerationVector.zero();
+		accelerationVector.zero();
 	}
 
 }

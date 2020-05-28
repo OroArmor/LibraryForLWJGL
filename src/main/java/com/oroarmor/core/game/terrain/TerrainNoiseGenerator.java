@@ -5,7 +5,8 @@ import org.joml.SimplexNoise;
 import org.joml.Vector2f;
 
 public class TerrainNoiseGenerator {
-	public static float[][] generateNoiseMap(final int width, final int height, final NoiseSettings settings, final Vector2f positionOffset) {
+	public static float[][] generateNoiseMap(final int width, final int height, final NoiseSettings settings,
+			final Vector2f positionOffset) {
 		final float[][] noiseMap = new float[width][height];
 
 		final Random prng = new Random(settings.getSeed());

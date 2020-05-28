@@ -62,12 +62,12 @@ public abstract class MouseEvent implements GLFWEvent {
 	public MouseEvent(final long window, final MouseEventType type, final GLFWEventMods mods) {
 		this.window = window;
 		this.type = type;
-		this.eventMods = mods;
+		eventMods = mods;
 	}
 
 	@Override
 	public GLFWEventMods getEventMods() {
-		return this.eventMods;
+		return eventMods;
 	}
 
 	@Override
@@ -80,17 +80,17 @@ public abstract class MouseEvent implements GLFWEvent {
 	 * @return The type of mouse event
 	 */
 	public MouseEventType getMouseEventType() {
-		return this.type;
+		return type;
 	}
 
 	@Override
 	public long getWindow() {
-		return this.window;
+		return window;
 	}
 
 	@Override
 	public void setEventMods(final GLFWEventMods newMods) {
-		this.eventMods = newMods;
+		eventMods = newMods;
 	}
 
 	@Override

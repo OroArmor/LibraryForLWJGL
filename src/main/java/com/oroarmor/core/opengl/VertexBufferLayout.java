@@ -28,7 +28,7 @@ public class VertexBufferLayout {
 	 * Initialize a new {@link VertexBufferLayout}
 	 */
 	public VertexBufferLayout() {
-		this.stride = 0;
+		stride = 0;
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class VertexBufferLayout {
 	 * @return The stride of the {@link VertexBufferLayout}
 	 */
 	public int getStride() {
-		return this.stride;
+		return stride;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class VertexBufferLayout {
 	 *         {@link VertexBufferLayout}
 	 */
 	public ArrayList<VertexBufferElement> getVbElements() {
-		return this.vbElements;
+		return vbElements;
 	}
 
 	/**
@@ -55,8 +55,8 @@ public class VertexBufferLayout {
 	 * @return
 	 */
 	public VertexBufferLayout pushFloats(final int count) {
-		this.vbElements.add(new VertexBufferElement(count, GL_FLOAT, false));
-		this.stride += Float.BYTES * count;
+		vbElements.add(new VertexBufferElement(count, GL_FLOAT, false));
+		stride += Float.BYTES * count;
 		return this;
 	}
 
@@ -67,8 +67,8 @@ public class VertexBufferLayout {
 	 * @return
 	 */
 	public VertexBufferLayout pushUnsignedBytes(final int count) {
-		this.vbElements.add(new VertexBufferElement(count, GL_UNSIGNED_BYTE, false));
-		this.stride += Byte.BYTES * count;
+		vbElements.add(new VertexBufferElement(count, GL_UNSIGNED_BYTE, false));
+		stride += Byte.BYTES * count;
 		return this;
 	}
 
@@ -79,8 +79,8 @@ public class VertexBufferLayout {
 	 * @return
 	 */
 	public VertexBufferLayout pushUnsignedInts(final int count) {
-		this.vbElements.add(new VertexBufferElement(count, GL_UNSIGNED_INT, false));
-		this.stride += Integer.BYTES * count;
+		vbElements.add(new VertexBufferElement(count, GL_UNSIGNED_INT, false));
+		stride += Integer.BYTES * count;
 		return this;
 	}
 }

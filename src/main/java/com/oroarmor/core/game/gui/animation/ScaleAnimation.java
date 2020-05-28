@@ -18,7 +18,8 @@ public class ScaleAnimation<T extends IGUIObject<T>> extends Animation<T> {
 
 	@Override
 	public void animate(final T object, final float percent) {
-		object.setScale((1 + this.scaleFactor - object.getScale()) * this.easing.calculate(percent) + object.getScale());
+		object.setScale(
+				(1 + this.scaleFactor - object.getScale()) * easing.calculate(percent) + object.getScale());
 	}
 
 }

@@ -41,14 +41,14 @@ public abstract class KeyEvent implements GLFWEvent {
 	}
 
 	public Key getKey() {
-		return this.key;
+		return key;
 	}
 
 	public abstract KeyEventType getKeyEventType();
 
 	@Override
 	public long getWindow() {
-		return this.window;
+		return window;
 	}
 
 	@Override
@@ -58,6 +58,6 @@ public abstract class KeyEvent implements GLFWEvent {
 
 	@Override
 	public String toString() {
-		return "keycode: " + this.key.getKeyCode() + ", key: " + this.key + ", type: " + this.getKeyEventType();
+		return "keycode: " + key.getKeyCode() + ", key: " + key + ", type: " + getKeyEventType();
 	}
 }

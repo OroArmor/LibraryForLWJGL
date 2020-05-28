@@ -11,8 +11,8 @@ import com.oroarmor.core.glfw.event.mouse.button.release.MouseReleaseEvent;
 public class MouseButtonEvent extends MouseEvent {
 	public static void create(final long window, final int button, final int action, final GLFWEventMods mods) {
 		if (action == MouseButtonEventType.PRESS.getAction()) {
-			final MousePressEvent event = new MousePressEvent(MouseButton.getButtonFromCode(button), MouseStatus.getMouseX(),
-					MouseStatus.getMouseY(), window, mods);
+			final MousePressEvent event = new MousePressEvent(MouseButton.getButtonFromCode(button),
+					MouseStatus.getMouseX(), MouseStatus.getMouseY(), window, mods);
 			MouseButtonPressEventListener.processAllMousePressEvent(event);
 		}
 		if (action == MouseButtonEventType.RELEASE.getAction()) {
@@ -27,8 +27,8 @@ public class MouseButtonEvent extends MouseEvent {
 
 	private final float x, y;
 
-	public MouseButtonEvent(final MouseButton button, final float x, final float y, final MouseButtonEventType type, final long window,
-			final GLFWEventMods mods) {
+	public MouseButtonEvent(final MouseButton button, final float x, final float y, final MouseButtonEventType type,
+			final long window, final GLFWEventMods mods) {
 		super(window, MouseEventType.BUTTON, mods);
 		this.button = button;
 		this.x = x;
@@ -37,25 +37,25 @@ public class MouseButtonEvent extends MouseEvent {
 	}
 
 	public MouseButton getButton() {
-		return this.button;
+		return button;
 	}
 
 	public MouseButtonEventType getMouseButtonEventType() {
-		return this.type;
+		return type;
 	}
 
 	public float getX() {
-		return this.x;
+		return x;
 	}
 
 	public float getY() {
-		return this.y;
+		return y;
 	}
 
 	@Override
 	public String toString() {
-		return "button id: " + this.button.getMouseButtonID() + ", button: " + this.button + ", type: "
-				+ this.getMouseButtonEventType();
+		return "button id: " + button.getMouseButtonID() + ", button: " + button + ", type: "
+				+ getMouseButtonEventType();
 	}
 
 }

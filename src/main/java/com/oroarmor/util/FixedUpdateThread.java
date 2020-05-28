@@ -25,7 +25,7 @@ public abstract class FixedUpdateThread extends Thread {
 	 *                       second
 	 */
 	public FixedUpdateThread(final double ticksPerSecond) {
-		this.nanosPerTick = (long) (1d / ticksPerSecond * 1_000_000);
+		nanosPerTick = (long) (1d / ticksPerSecond * 1_000_000);
 	}
 
 	/**
@@ -40,15 +40,15 @@ public abstract class FixedUpdateThread extends Thread {
 
 	@Override
 	public void run() {
-		this.initalize();
-		while (this.active) {
+		initalize();
+		while (active) {
 			final long nanos = System.nanoTime();
-			this.tick();
+			tick();
 
-			while (this.nanosPerTick - (System.nanoTime() - nanos) > 0) {
+			while (nanosPerTick - (System.nanoTime() - nanos) > 0) {
 			}
 		}
-		this.deinitalize();
+		deinitalize();
 	}
 
 	/**

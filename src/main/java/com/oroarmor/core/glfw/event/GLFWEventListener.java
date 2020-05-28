@@ -17,8 +17,8 @@ public interface GLFWEventListener extends KeyEventListener, MouseEventListener 
 	 * Registers the listener with all events
 	 */
 	public default void addToListeners() {
-		this.addToKeyListeners();
-		this.addToMouseListeners();
+		addToKeyListeners();
+		addToMouseListeners();
 	}
 
 	/**

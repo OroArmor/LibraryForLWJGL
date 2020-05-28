@@ -86,11 +86,11 @@ public abstract class Display implements GLFWEventListener {
 	public Display(final int width, final int height, final String name) {
 		this.width = width;
 		this.height = height;
-		this.owidth = width;
-		this.oheight = height;
-		this.window = GLFWUtil.glfwCreateWindowHelper(width, height, name, NULL, NULL);
+		owidth = width;
+		oheight = height;
+		window = GLFWUtil.glfwCreateWindowHelper(width, height, name, NULL, NULL);
 
-		glfwSetWindowSizeCallback(this.window, (window, _width, _height) -> {
+		glfwSetWindowSizeCallback(window, (window, _width, _height) -> {
 			Display.this.setWidth(_width);
 			Display.this.setHeight(_height);
 
@@ -101,8 +101,8 @@ public abstract class Display implements GLFWEventListener {
 		glDepthFunc(GL_LESS);
 		glEnable(GL_DEPTH_TEST);
 
-		GLFWEventCreator.initalizeWindow(this.window);
-		this.addToListeners();
+		GLFWEventCreator.initalizeWindow(window);
+		addToListeners();
 	}
 
 	/**
@@ -116,8 +116,8 @@ public abstract class Display implements GLFWEventListener {
 	 * Tells the window to close
 	 */
 	public void close() {
-		if (!glfwWindowShouldClose(this.window)) {
-			glfwSetWindowShouldClose(this.window, true);
+		if (!glfwWindowShouldClose(window)) {
+			glfwSetWindowShouldClose(window, true);
 		}
 	}
 
@@ -140,12 +140,12 @@ public abstract class Display implements GLFWEventListener {
 	 * Toggles fullscreen for the window
 	 */
 	public void fullscreen() {
-		if (!this.maximized) {
-			glfwSetWindowMonitor(this.window, glfwGetPrimaryMonitor(), 0, 0, 1920, 1080, 60);
+		if (!maximized) {
+			glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, 1920, 1080, 60);
 		} else {
-			glfwSetWindowMonitor(this.window, NULL, 100, 100, this.owidth, this.oheight, 60);
+			glfwSetWindowMonitor(window, NULL, 100, 100, owidth, oheight, 60);
 		}
-		this.maximized = !this.maximized;
+		maximized = !maximized;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public abstract class Display implements GLFWEventListener {
 	 * @return The height of the windw
 	 */
 	public int getHeight() {
-		return this.height;
+		return height;
 	}
 
 	/**
@@ -161,7 +161,7 @@ public abstract class Display implements GLFWEventListener {
 	 * @return An orthographic view model for the display
 	 */
 	public Matrix4f getOrthoViewModel() {
-		return new Matrix4f().setOrtho(0, this.width, this.height, 0, -10000, 10000);
+		return new Matrix4f().setOrtho(0, width, height, 0, -10000, 10000);
 	}
 
 	/**
@@ -170,7 +170,7 @@ public abstract class Display implements GLFWEventListener {
 	 * @return A perspective view model for the display
 	 */
 	public Matrix4f getPerspectiveViewModel(final float fov) {
-		final float aspect = (float) this.width / (float) this.height;
+		final float aspect = (float) width / (float) height;
 		final float tanfov = (float) Math.tan(Math.toRadians(fov / 2));
 
 		final Matrix4f mat = new Matrix4f().zero();
@@ -191,12 +191,12 @@ public abstract class Display implements GLFWEventListener {
 	 * @return The width of the window
 	 */
 	public int getWidth() {
-		return this.width;
+		return width;
 	}
 
 	@Override
 	public boolean isActive() {
-		return this.active;
+		return active;
 	}
 
 	@Override
@@ -207,7 +207,7 @@ public abstract class Display implements GLFWEventListener {
 	 * Swaps the render buffer and display buffer Polls events
 	 */
 	public void render() {
-		glfwSwapBuffers(this.window);
+		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 
@@ -265,7 +265,7 @@ public abstract class Display implements GLFWEventListener {
 	 * @return True if glfw thinks the window should close
 	 */
 	public boolean shouldClose() {
-		return glfwWindowShouldClose(this.window);
+		return glfwWindowShouldClose(window);
 	}
 
 }

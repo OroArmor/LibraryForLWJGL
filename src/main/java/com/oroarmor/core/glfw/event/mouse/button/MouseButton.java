@@ -25,7 +25,7 @@ public enum MouseButton {
 	}
 
 	public int getMouseButtonID() {
-		return this.mouseButtonID;
+		return mouseButtonID;
 	}
 
 }

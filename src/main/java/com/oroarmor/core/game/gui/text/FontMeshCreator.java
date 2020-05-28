@@ -12,8 +12,9 @@ import com.oroarmor.core.opengl.VertexBufferLayout;
 
 public class FontMeshCreator {
 
-	public static void addCoords(final FloatBuffer buffer, final float x, final float y, final float maxX, final float maxY, final float textureX,
-			final float textureY, final float textureMaxX, final float textureMaxY) {
+	public static void addCoords(final FloatBuffer buffer, final float x, final float y, final float maxX,
+			final float maxY, final float textureX, final float textureY, final float textureMaxX,
+			final float textureMaxY) {
 		buffer.put(x);
 		buffer.put(y);
 		buffer.put(textureX / 512);
@@ -44,7 +45,8 @@ public class FontMeshCreator {
 		buffer.put(index);
 	}
 
-	private static List<Line> compileLines(final Font font, final String text, final float textSize, final float width) {
+	private static List<Line> compileLines(final Font font, final String text, final float textSize,
+			final float width) {
 		final List<Line> lines = new ArrayList<>(1);
 
 		final char[] characters = text.toCharArray();
@@ -99,8 +101,8 @@ public class FontMeshCreator {
 		return new Mesh(verticies, triangles, new VertexBufferLayout().pushFloats(2).pushFloats(2));
 	}
 
-	private static void linesToMeshData(final List<Line> lines, final Font font, final float textSize, final float width, final FloatBuffer verticies,
-			final IntBuffer triangles) {
+	private static void linesToMeshData(final List<Line> lines, final Font font, final float textSize,
+			final float width, final FloatBuffer verticies, final IntBuffer triangles) {
 
 		float cursorX = 0f;
 		float cursorY = 0f;

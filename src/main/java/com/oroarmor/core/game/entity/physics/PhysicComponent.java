@@ -16,19 +16,19 @@ public class PhysicComponent {
 	}
 
 	public void addAcceleration(final Vector3f add) {
-		this.acceleration.add(add);
+		acceleration.add(add);
 	}
 
 	public Vector3f getAcceleration() {
-		return this.acceleration;
+		return acceleration;
 	}
 
 	public Vector3f getPosition() {
-		return this.position;
+		return position;
 	}
 
 	public Vector3f getVelocity() {
-		return this.velocity;
+		return velocity;
 	}
 
 	public void setAcceleration(final Vector3f acceleration) {
@@ -44,9 +44,9 @@ public class PhysicComponent {
 	}
 
 	public void update(final float delta) {
-		this.velocity.add(this.acceleration.mul(delta, new Vector3f()));
-		this.position.add(this.velocity);
-		this.acceleration.zero();
+		velocity.add(acceleration.mul(delta, new Vector3f()));
+		position.add(velocity);
+		acceleration.zero();
 	}
 
 }

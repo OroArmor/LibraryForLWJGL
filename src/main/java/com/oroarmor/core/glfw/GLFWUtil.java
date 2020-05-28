@@ -57,7 +57,7 @@ public class GLFWUtil {
 		 * @return The GLFW id for the profile
 		 */
 		public int getProfile() {
-			return this.profile;
+			return profile;
 		}
 
 	}
@@ -72,8 +72,8 @@ public class GLFWUtil {
 	 * @param windowHandle  Another GLFW Window to share with
 	 * @return The window handle
 	 */
-	public static long glfwCreateWindowHelper(final int width, final int height, final CharSequence name, final long monitorHandle,
-			final long windowHandle) {
+	public static long glfwCreateWindowHelper(final int width, final int height, final CharSequence name,
+			final long monitorHandle, final long windowHandle) {
 		long window = -1;
 
 		if (!glfwInit()) {
@@ -101,7 +101,8 @@ public class GLFWUtil {
 	 * @param glfwMinorVersion  MinorVersion
 	 * @param glfwOpenGLProfile Compatibility Profile {@link OpenGLProfile}
 	 */
-	public static void setWindowHints(final int glfwMajorVersion, final int glfwMinorVersion, final OpenGLProfile glfwOpenGLProfile) {
+	public static void setWindowHints(final int glfwMajorVersion, final int glfwMinorVersion,
+			final OpenGLProfile glfwOpenGLProfile) {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfwMajorVersion);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfwMinorVersion);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, glfwOpenGLProfile.getProfile());

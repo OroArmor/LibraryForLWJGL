@@ -31,10 +31,10 @@ public class Mesh {
 	 */
 	public Mesh(final float[] vertexPositions, final int[] indexPositions, final VertexBufferLayout layout) {
 		final VertexBufferObject vbo = new VertexBufferObject(vertexPositions);
-		this.vao = new VertexArrayObject();
-		this.vao.addBuffer(vbo, layout);
+		vao = new VertexArrayObject();
+		vao.addBuffer(vbo, layout);
 
-		this.ibo = new IndexBufferObject(indexPositions);
+		ibo = new IndexBufferObject(indexPositions);
 	}
 
 	/**
@@ -46,10 +46,10 @@ public class Mesh {
 	 */
 	public Mesh(final FloatBuffer vertexPositions, final IntBuffer indexPositions, final VertexBufferLayout layout) {
 		final VertexBufferObject vbo = new VertexBufferObject(vertexPositions);
-		this.vao = new VertexArrayObject();
-		this.vao.addBuffer(vbo, layout);
+		vao = new VertexArrayObject();
+		vao.addBuffer(vbo, layout);
 
-		this.ibo = new IndexBufferObject(indexPositions);
+		ibo = new IndexBufferObject(indexPositions);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Mesh {
 	 * @param shader   The {@link Shader} to use
 	 */
 	public void render(final Renderer renderer, final Shader shader) {
-		renderer.draw(this.vao, this.ibo, shader);
+		renderer.draw(vao, ibo, shader);
 	}
 
 }

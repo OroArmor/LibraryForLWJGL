@@ -18,15 +18,15 @@ public class Pointlight {
 	}
 
 	public Vector4f getColor() {
-		return this.color;
+		return color;
 	}
 
 	public Vector3f getPosition() {
-		return this.position;
+		return position;
 	}
 
 	public float getStrength() {
-		return this.strength;
+		return strength;
 	}
 
 	public void setColor(final Vector4f color) {

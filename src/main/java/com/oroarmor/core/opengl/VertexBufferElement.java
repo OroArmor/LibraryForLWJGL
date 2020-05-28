@@ -61,7 +61,7 @@ public class VertexBufferElement {
 	 * @return The count in bytes
 	 */
 	public int getCount() {
-		return this.count;
+		return count;
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class VertexBufferElement {
 	 * @return The type of the data
 	 */
 	public int getType() {
-		return this.type;
+		return type;
 	}
 
 	/**
@@ -77,6 +77,6 @@ public class VertexBufferElement {
 	 * @return True the data is normalize
 	 */
 	public boolean isNormalized() {
-		return this.normalized;
+		return normalized;
 	}
 }

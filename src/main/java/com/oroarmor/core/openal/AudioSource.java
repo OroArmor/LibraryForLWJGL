@@ -53,13 +53,13 @@ public class AudioSource implements Destructable {
 	 * Construct an audiosource
 	 */
 	public AudioSource() {
-		this.sourceID = alGenSources();
+		sourceID = alGenSources();
 		Destructor.addDestructable(this);
 	}
 
 	@Override
 	public void destroy() {
-		alDeleteSources(this.sourceID);
+		alDeleteSources(sourceID);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class AudioSource implements Destructable {
 	 * @return The gain of the sound
 	 */
 	public float getGain() {
-		return this.gain;
+		return gain;
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class AudioSource implements Destructable {
 	 * @return The pitch of the sound
 	 */
 	public float getPitch() {
-		return this.pitch;
+		return pitch;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class AudioSource implements Destructable {
 	 * @return The position of the sound
 	 */
 	public Vector3f getPosition() {
-		return this.position;
+		return position;
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class AudioSource implements Destructable {
 	 * @return The velocity of the sound
 	 */
 	public Vector3f getVelocity() {
-		return this.velocity;
+		return velocity;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class AudioSource implements Destructable {
 	 * @return True if sound is not playing, false if sound is playing
 	 */
 	public boolean isFinished() {
-		return AL_PLAYING != alGetSourcei(this.sourceID, AL_SOURCE_STATE);
+		return AL_PLAYING != alGetSourcei(sourceID, AL_SOURCE_STATE);
 	}
 
 	/**
@@ -110,12 +110,12 @@ public class AudioSource implements Destructable {
 	 * @param soundID The id of the sound to play
 	 */
 	public void playSound(final int soundID) {
-		alSourcei(this.sourceID, AL_BUFFER, soundID);
-		alSourcef(this.sourceID, AL_PITCH, this.pitch);
-		alSourcef(this.sourceID, AL_GAIN, this.gain);
-		alSource3f(this.sourceID, AL_PITCH, this.position.x, this.position.y, this.position.z);
-		alSource3f(this.sourceID, AL_PITCH, this.velocity.x, this.velocity.y, this.velocity.z);
-		alSourcePlay(this.sourceID);
+		alSourcei(sourceID, AL_BUFFER, soundID);
+		alSourcef(sourceID, AL_PITCH, pitch);
+		alSourcef(sourceID, AL_GAIN, gain);
+		alSource3f(sourceID, AL_PITCH, position.x, position.y, position.z);
+		alSource3f(sourceID, AL_PITCH, velocity.x, velocity.y, velocity.z);
+		alSourcePlay(sourceID);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class AudioSource implements Destructable {
 	 */
 	public void setGain(final float gain) {
 		this.gain = gain;
-		alSourcef(this.sourceID, AL_GAIN, gain);
+		alSourcef(sourceID, AL_GAIN, gain);
 	}
 
 	/**

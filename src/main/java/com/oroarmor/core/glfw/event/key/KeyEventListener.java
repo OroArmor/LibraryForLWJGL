@@ -10,9 +10,9 @@ import com.oroarmor.core.glfw.event.key.release.KeyReleaseEventListener;
 
 public interface KeyEventListener extends KeyPressEventListener, KeyHoldEventListener, KeyReleaseEventListener {
 	public default void addToKeyListeners() {
-		this.addToKeyHoldListeners();
-		this.addToKeyReleaseListeners();
-		this.addToKeyPressListeners();
+		addToKeyHoldListeners();
+		addToKeyReleaseListeners();
+		addToKeyPressListeners();
 	}
 
 	public default void processKeyEvent(final KeyEvent event) {

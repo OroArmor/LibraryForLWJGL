@@ -45,7 +45,7 @@ public class Main {
 			@Override
 			public void processKeyReleasedEvent(final KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
-					this.close();
+					close();
 				}
 			}
 
@@ -95,8 +95,8 @@ public class Main {
 		// Data for M and a square
 
 		// M
-		final float[] letterMVerticies = { -0.5f, -0.5f, -0.5f, 0.6f, -0.3f, -0.5f, -0.3f, 0.1f, 0f, -0.2f, 0f, 0.1f, 0.3f,
-				0.1f, 0.3f, -0.5f, 0.5f, 0.6f, 0.5f, -0.5f };
+		final float[] letterMVerticies = { -0.5f, -0.5f, -0.5f, 0.6f, -0.3f, -0.5f, -0.3f, 0.1f, 0f, -0.2f, 0f, 0.1f,
+				0.3f, 0.1f, 0.3f, -0.5f, 0.5f, 0.6f, 0.5f, -0.5f };
 
 		for (int i = 0; i < letterMVerticies.length; i += 2) {
 			letterMVerticies[i] = (letterMVerticies[i] + 1) * display.getWidth() / 2;

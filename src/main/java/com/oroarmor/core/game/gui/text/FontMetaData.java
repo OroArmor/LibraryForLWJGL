@@ -11,11 +11,11 @@ public class FontMetaData {
 		}
 
 		public float getHeight() {
-			return this.height;
+			return height;
 		}
 
 		public float getWidth() {
-			return this.width;
+			return width;
 		}
 
 	}
@@ -28,8 +28,8 @@ public class FontMetaData {
 	private final int lineHeight;
 	private final Padding padding;
 
-	public FontMetaData(final String fontName, final int fontSize, final boolean bold, final boolean italic, final int lineHeight, final int base,
-			final Padding padding) {
+	public FontMetaData(final String fontName, final int fontSize, final boolean bold, final boolean italic,
+			final int lineHeight, final int base, final Padding padding) {
 		this.fontName = fontName;
 		this.fontSize = fontSize;
 		this.bold = bold;
@@ -40,31 +40,31 @@ public class FontMetaData {
 	}
 
 	public int getBase() {
-		return this.base;
+		return base;
 	}
 
 	public String getFontName() {
-		return this.fontName;
+		return fontName;
 	}
 
 	public int getFontSize() {
-		return this.fontSize;
+		return fontSize;
 	}
 
 	public int getLineHeight() {
-		return this.lineHeight;
+		return lineHeight;
 	}
 
 	public Padding getPadding() {
-		return this.padding;
+		return padding;
 	}
 
 	public boolean isBold() {
-		return this.bold;
+		return bold;
 	}
 
 	public boolean isItalic() {
-		return this.italic;
+		return italic;
 	}
 
 }
