@@ -16,7 +16,7 @@ public class ResourceLoader {
 	/**
 	 *
 	 * @param resourceAsStream The input stream for the file
-	 * @return The data in the string returned as a file
+	 * @return The data in the file returned as a string
 	 */
 	public static String loadFile(final InputStream resourceAsStream) {
 		String fileString = "";

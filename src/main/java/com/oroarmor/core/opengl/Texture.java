@@ -70,6 +70,10 @@ public class Texture implements Bindable, Destructable {
 
 		final ByteBuffer buffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
 
+		if (buffer == null) {
+			throw new IllegalArgumentException("Incorrect file path: " + filePath);
+		}
+
 		width = x[0];
 		height = y[0];
 
