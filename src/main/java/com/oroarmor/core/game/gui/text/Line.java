@@ -23,9 +23,8 @@ public class Line {
 			words.add(word);
 			currentLength += additionalLength;
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	public float getLineLength() {
