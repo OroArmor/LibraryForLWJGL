@@ -101,6 +101,7 @@ public class FontMeshCreator {
 		return new Mesh(verticies, triangles, new VertexBufferLayout().pushFloats(2).pushFloats(2));
 	}
 
+	@SuppressWarnings("unused")
 	private static void linesToMeshData(final List<Line> lines, final Font font, final float textSize,
 			final float width, final FloatBuffer verticies, final IntBuffer triangles) {
 
