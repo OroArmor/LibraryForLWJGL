@@ -19,7 +19,7 @@ public class GUIShaders {
 
 	private static TextureShader textureShader;
 
-	public static FontShader getFontShader(final Font font) {
+	public static FontShader getFontShader(Font font) {
 		if (fontShaders == null) {
 			fontShaders = new HashMap<>(1);
 		}

@@ -175,14 +175,14 @@ public abstract class Display implements GLFWEventListener {
 
 		final Matrix4f mat = new Matrix4f().zero();
 
-		final float near = -1;
-		final float far = 400;
+		final float near = -1f;
+		final float far = 400f;
 
 		mat.m00(1f / (aspect * tanfov));
-		mat.m11(1 / tanfov);
+		mat.m11(1f / tanfov);
 		mat.m22(-(far + near) / (far - near));
-		mat.m32(-1);
-		mat.m23(-2 * far * near / (far - near));
+		mat.m32(-1f);
+		mat.m23(-2f * far * near / (far - near));
 		return mat;
 	}
 
