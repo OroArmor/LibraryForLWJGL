@@ -19,10 +19,12 @@ public class CameraViewController extends PhysicsEntity implements KeyEventListe
 	Look lookPitch = Look.NONE;
 	Look lookRoll = Look.NONE;
 	Look lookYaw = Look.NONE;
+	private final float rotationSpeed;
 
-	public CameraViewController() {
+	public CameraViewController(float rotationSpeed) {
 		super(new Vector3f(), new Vector3f(), new Vector3f(1, 1, 1), 1);
 		addToKeyListeners();
+		this.rotationSpeed = rotationSpeed;
 	}
 
 	@Override
@@ -89,15 +91,15 @@ public class CameraViewController extends PhysicsEntity implements KeyEventListe
 	public void update(final float delta) {
 
 		if (lookYaw == Look.RIGHT) {
-			rotationVector.add(0, -0.001f, 0);
+			rotationVector.add(0, -rotationSpeed, 0);
 		} else if (lookYaw == Look.LEFT) {
-			rotationVector.add(0, 0.001f, 0);
+			rotationVector.add(0, rotationSpeed, 0);
 		}
 
 		if (lookPitch == Look.DOWN && rotationVector.x > (float) -Math.PI / 2) {
-			rotationVector.add(-0.001f, 0, 0);
+			rotationVector.add(-rotationSpeed, 0, 0);
 		} else if (lookPitch == Look.UP && rotationVector.x < (float) Math.PI / 2) {
-			rotationVector.add(0.001f, 0, 0);
+			rotationVector.add(rotationSpeed, 0, 0);
 		}
 
 	}
