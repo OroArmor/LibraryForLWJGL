@@ -22,13 +22,17 @@ public abstract class PhysicsEntity extends Entity {
 	}
 
 	public void accelerateLocalXZ(Vector2f xzAcceleration) {
-		addAcceleration(new Vector3f(
-				xzAcceleration.x * (float) Math.cos(rotationVector.y)
-						+ xzAcceleration.y * (float) Math.cos(Math.PI / 2 + rotationVector.y), //
-				0, //
-				xzAcceleration.x * (float) Math.sin(rotationVector.y)
-						+ xzAcceleration.y * (float) Math.sin(Math.PI / 2 + rotationVector.y)//
-		));
+		Vector3f xz3D = new Vector3f(xzAcceleration.x, 0, xzAcceleration.y);
+		Vector3f yUnit = new Vector3f(0, 1, 0);
+
+		System.out.println(rotationVector);
+
+		Vector3f finalStep = yUnit.mul(yUnit.dot(xz3D), new Vector3f()).mul(1 - (float) Math.cos(rotationVector.y));
+		addAcceleration(xz3D.mul((float) Math.cos(rotationVector.y), new Vector3f())
+				.add(yUnit.cross(xz3D, new Vector3f()).mul((float) Math.sin(rotationVector.y), new Vector3f()),
+						new Vector3f())
+				.add(finalStep, new Vector3f()));
+
 	}
 
 	public void addAcceleration(Vector3f acceleration) {
