@@ -25,8 +25,6 @@ public abstract class PhysicsEntity extends Entity {
 		Vector3f xz3D = new Vector3f(xzAcceleration.x, 0, xzAcceleration.y);
 		Vector3f yUnit = new Vector3f(0, 1, 0);
 
-		System.out.println(rotationVector);
-
 		Vector3f finalStep = yUnit.mul(yUnit.dot(xz3D), new Vector3f()).mul(1 - (float) Math.cos(rotationVector.y));
 		addAcceleration(xz3D.mul((float) Math.cos(rotationVector.y), new Vector3f())
 				.add(yUnit.cross(xz3D, new Vector3f()).mul((float) Math.sin(rotationVector.y), new Vector3f()),
