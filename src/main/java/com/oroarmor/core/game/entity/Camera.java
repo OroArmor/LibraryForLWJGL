@@ -21,7 +21,7 @@ public class Camera extends Entity {
 	public void update(float delta) {
 		if (viewController != null) {
 			viewController.update(delta);
-			this.rotationVector = viewController.rotationVector;
+			rotationVector = viewController.rotationVector;
 		}
 	}
 
@@ -30,7 +30,7 @@ public class Camera extends Entity {
 	}
 
 	public void setViewController(CameraViewController controller) {
-		this.viewController = controller;
+		viewController = controller;
 	}
 
 }
