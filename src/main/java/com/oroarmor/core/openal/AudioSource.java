@@ -154,4 +154,11 @@ public class AudioSource implements Destructable {
 	public void setVelocity(final Vector3f velocity) {
 		this.velocity = velocity;
 	}
+
+	/**
+	 * Stops the current sound
+	 */
+	public void stop() {
+		alSourceStop(sourceID);
+	}
 }

@@ -58,16 +58,16 @@ public class AudioMaster implements Destructable {
 	 */
 	private static HashMap<String, Integer> sounds;
 
-	static {
-		final String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
+	public static void initialize() {
+		String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
 		device = alcOpenDevice(defaultDeviceName);
 
-		final int[] attributes = { 0 };
+		int[] attributes = { 0 };
 		context = alcCreateContext(device, attributes);
 		alcMakeContextCurrent(context);
 
-		final ALCCapabilities alcCapabilities = ALC.createCapabilities(device);
-		final ALCapabilities alCapabilities = AL.createCapabilities(alcCapabilities);
+		ALCCapabilities alcCapabilities = ALC.createCapabilities(device);
+		ALCapabilities alCapabilities = AL.createCapabilities(alcCapabilities);
 
 		sounds = new HashMap<>();
 
@@ -79,7 +79,7 @@ public class AudioMaster implements Destructable {
 	 * @param soundName Name of the sound to play
 	 * @return The OpenAL sound id
 	 */
-	public static int getSound(final String soundName) {
+	public static int getSound(String soundName) {
 		return sounds.get(soundName);
 	}
 
@@ -90,20 +90,20 @@ public class AudioMaster implements Destructable {
 	 * @param name Name for the sound. NOT part of the path, just an identifier
 	 * @return The OpenAL sound id for the sound
 	 */
-	public static int loadSound(final String path, final String name) {
-		final int soundIDBuffer = AL10.alGenBuffers();
+	public static int loadSound(String path, String name) {
+		int soundIDBuffer = AL10.alGenBuffers();
 
 		// Allocate space to store return information from the function
 		stackPush();
-		final IntBuffer channelsBuffer = stackMallocInt(1);
+		IntBuffer channelsBuffer = stackMallocInt(1);
 		stackPush();
-		final IntBuffer sampleRateBuffer = stackMallocInt(1);
+		IntBuffer sampleRateBuffer = stackMallocInt(1);
 
-		final ShortBuffer rawAudioBuffer = stb_vorbis_decode_filename(path, channelsBuffer, sampleRateBuffer);
+		ShortBuffer rawAudioBuffer = stb_vorbis_decode_filename(path, channelsBuffer, sampleRateBuffer);
 
 		// Retreive the extra information that was stored in the buffers by the function
-		final int channels = channelsBuffer.get();
-		final int sampleRate = sampleRateBuffer.get();
+		int channels = channelsBuffer.get();
+		int sampleRate = sampleRateBuffer.get();
 		// Free the space we allocated earlier
 		stackPop();
 		stackPop();
@@ -129,11 +129,7 @@ public class AudioMaster implements Destructable {
 
 	@Override
 	public void destroy() {
-		final Integer[] soundBufferIDs = new Integer[sounds.size()];
-
-		sounds.values().toArray(soundBufferIDs);
-
-		for (final int soundBufferID : soundBufferIDs) {
+		for (int soundBufferID : sounds.values()) {
 			alDeleteBuffers(soundBufferID);
 		}
 
