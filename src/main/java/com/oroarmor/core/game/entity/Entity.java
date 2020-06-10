@@ -26,6 +26,14 @@ public abstract class Entity {
 		return positionVector;
 	}
 
+	public Vector3f getRotation() {
+		return rotationVector;
+	}
+
+	public Vector3f getScale() {
+		return scaleVector;
+	}
+
 	protected void setModelMatrix() {
 		modelMatrix = new Matrix4f().identity().translateLocal(positionVector).rotateLocalX(rotationVector.x)
 				.rotateLocalY(rotationVector.y).rotateLocalZ(rotationVector.z).scale(scaleVector);
