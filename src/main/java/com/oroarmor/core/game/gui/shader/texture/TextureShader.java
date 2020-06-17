@@ -18,7 +18,7 @@ public class TextureShader extends Shader {
 		compile();
 	}
 
-	public Shader setObjectModel(final Matrix4f objectModel) {
+	public TextureShader setObjectModel(final Matrix4f objectModel) {
 		setUniformMat4f("u_M", objectModel);
 		return this;
 	}
@@ -33,7 +33,7 @@ public class TextureShader extends Shader {
 		return this;
 	}
 
-	public Shader setZ(final int i) {
+	public TextureShader setZ(final int i) {
 		setUniform1f("u_Z", i);
 		return this;
 	}
