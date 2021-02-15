@@ -9,23 +9,22 @@ import com.oroarmor.core.glfw.event.mouse.MouseEventListener;
  * Must call {@code addToListeners()} in order to register the listener
  *
  * @author OroArmor
- *
  */
 public interface GLFWEventListener extends KeyEventListener, MouseEventListener {
 
-	/**
-	 * Registers the listener with all events
-	 */
-	public default void addToListeners() {
-		addToKeyListeners();
-		addToMouseListeners();
-	}
+    /**
+     * Registers the listener with all events
+     */
+    default void addToListeners() {
+        addToKeyListeners();
+        addToMouseListeners();
+    }
 
-	/**
-	 * Processes any {@link GLFWEvent}
-	 *
-	 * @param event {@link GLFWEvent} to process
-	 */
-	public void processGLFWEvent(GLFWEvent event);
+    /**
+     * Processes any {@link GLFWEvent}
+     *
+     * @param event {@link GLFWEvent} to process
+     */
+    void processGLFWEvent(GLFWEvent event);
 
 }

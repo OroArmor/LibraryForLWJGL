@@ -1,70 +1,69 @@
 package com.oroarmor.core.game.gui.text;
 
 public class FontMetaData {
-	public static class Padding {
-		float width;
-		float height;
+    private final int base;
+    private final boolean bold;
+    private final String fontName;
+    private final int fontSize;
+    private final boolean italic;
+    private final int lineHeight;
+    private final Padding padding;
+    public FontMetaData(final String fontName, final int fontSize, final boolean bold, final boolean italic,
+                        final int lineHeight, final int base, final Padding padding) {
+        this.fontName = fontName;
+        this.fontSize = fontSize;
+        this.bold = bold;
+        this.italic = italic;
+        this.lineHeight = lineHeight;
+        this.base = base;
+        this.padding = padding;
+    }
 
-		public Padding(final float width, final float height) {
-			this.width = width;
-			this.height = height;
-		}
+    public int getBase() {
+        return base;
+    }
 
-		public float getHeight() {
-			return height;
-		}
+    public String getFontName() {
+        return fontName;
+    }
 
-		public float getWidth() {
-			return width;
-		}
+    public int getFontSize() {
+        return fontSize;
+    }
 
-	}
+    public int getLineHeight() {
+        return lineHeight;
+    }
 
-	private final int base;
-	private final boolean bold;
-	private final String fontName;
-	private final int fontSize;
-	private final boolean italic;
-	private final int lineHeight;
-	private final Padding padding;
+    public Padding getPadding() {
+        return padding;
+    }
 
-	public FontMetaData(final String fontName, final int fontSize, final boolean bold, final boolean italic,
-			final int lineHeight, final int base, final Padding padding) {
-		this.fontName = fontName;
-		this.fontSize = fontSize;
-		this.bold = bold;
-		this.italic = italic;
-		this.lineHeight = lineHeight;
-		this.base = base;
-		this.padding = padding;
-	}
+    public boolean isBold() {
+        return bold;
+    }
 
-	public int getBase() {
-		return base;
-	}
+    public boolean isItalic() {
+        return italic;
+    }
 
-	public String getFontName() {
-		return fontName;
-	}
+    public static class Padding {
+        float width;
+        float height;
 
-	public int getFontSize() {
-		return fontSize;
-	}
+        public Padding(final float width, final float height) {
+            this.width = width;
+            this.height = height;
+        }
 
-	public int getLineHeight() {
-		return lineHeight;
-	}
+        public float getHeight() {
+            return height;
+        }
 
-	public Padding getPadding() {
-		return padding;
-	}
+        public float getWidth() {
+            return width;
+        }
 
-	public boolean isBold() {
-		return bold;
-	}
-
-	public boolean isItalic() {
-		return italic;
-	}
+    }
 
 }

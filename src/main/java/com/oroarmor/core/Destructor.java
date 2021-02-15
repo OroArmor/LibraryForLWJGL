@@ -3,43 +3,42 @@ package com.oroarmor.core;
 import java.util.ArrayList;
 
 /**
- * This class is in charge of keeping track of all {@link Destructable} classes
+ * This class is in charge of keeping track of all {@link Destructible} classes
  * and destroying them
  *
  * @author OroArmor
- *
  */
 public class Destructor {
 
-	/**
-	 * This is the list of all the {@link Destructable} classes
-	 */
-	private static ArrayList<Destructable> destructables = new ArrayList<>();
+    /**
+     * This is the list of all the {@link Destructible} classes
+     */
+    private static final ArrayList<Destructible> destructibles = new ArrayList<>();
 
-	/**
-	 * Add a {@link Destructable} to the list
-	 *
-	 * @param destructable {@link Destructable} to add
-	 */
-	public static void addDestructable(final Destructable destructable) {
-		destructables.add(destructable);
-	}
+    /**
+     * Add a {@link Destructible} to the list
+     *
+     * @param destructible {@link Destructible} to add
+     */
+    public static void addDestructable(final Destructible destructible) {
+        destructibles.add(destructible);
+    }
 
-	/**
-	 * Destroys all {@link Destructable} classes
-	 */
-	public static void destroyAll() {
-		for (final Destructable destructable : destructables) {
-			destructable.destroy(true);
-		}
-	}
+    /**
+     * Destroys all {@link Destructible} classes
+     */
+    public static void destroyAll() {
+        for (final Destructible destructible : destructibles) {
+            destructible.destroy(true);
+        }
+    }
 
-	/**
-	 * Removes a {@link Destructable} from the list
-	 *
-	 * @param destructable {@link Destructable} to remove
-	 */
-	public static void removeDestructable(final Destructable destructable) {
-		destructables.remove(destructable);
-	}
+    /**
+     * Removes a {@link Destructible} from the list
+     *
+     * @param destructible {@link Destructible} to remove
+     */
+    public static void removeDestructable(final Destructible destructible) {
+        destructibles.remove(destructible);
+    }
 }

@@ -1,7 +1,5 @@
 package com.oroarmor.core.game.gui.object.box;
 
-import org.joml.Vector4f;
-
 import com.oroarmor.core.game.gui.GUICallback;
 import com.oroarmor.core.game.gui.animation.IAnimation;
 import com.oroarmor.core.game.gui.object.GUIObject;
@@ -9,77 +7,75 @@ import com.oroarmor.core.game.gui.shader.GUIShaders;
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.Renderer;
 import com.oroarmor.core.opengl.VertexBufferLayout;
+import org.joml.Vector4f;
 
 public class GUIColorBox extends GUIObject<GUIColorBox> {
 
-	protected float width;
-	protected float height;
+    private final Vector4f originalColor = new Vector4f().zero();
+    protected float width;
+    protected float height;
+    protected Mesh boxMesh;
+    protected Vector4f color;
 
-	protected Mesh boxMesh;
+    public GUIColorBox(final float x, final float y, final float width, final float height, final Vector4f color) {
+        super(x, y);
+        this.width = width;
+        this.height = height;
 
-	protected Vector4f color;
+        boxMesh = new Mesh(
+                new float[]{-width / 2, -height / 2, 0, 0, width / 2, -height / 2, 1, 0, width / 2, height / 2, 1, 1,
+                        -width / 2, height / 2, 0, 1},
+                new int[]{0, 1, 2, 2, 3, 0}, new VertexBufferLayout().pushFloats(2).pushFloats(2));
 
-	private final Vector4f originalColor = new Vector4f().zero();
+        animationMatrix.translation(x + width / 2, y + height / 2, 0);
 
-	public GUIColorBox(final float x, final float y, final float width, final float height, final Vector4f color) {
-		super(x, y);
-		this.width = width;
-		this.height = height;
+        callback = new GUICallback() {
+        };
 
-		boxMesh = new Mesh(
-				new float[] { -width / 2, -height / 2, 0, 0, width / 2, -height / 2, 1, 0, width / 2, height / 2, 1, 1,
-						-width / 2, height / 2, 0, 1 },
-				new int[] { 0, 1, 2, 2, 3, 0 }, new VertexBufferLayout().pushFloats(2).pushFloats(2));
+        this.color = color;
 
-		animationMatrix.translation(x + width / 2, y + height / 2, 0);
+        color.add(new Vector4f().zero(), originalColor);
 
-		callback = new GUICallback() {
-		};
+    }
 
-		this.color = color;
+    public Vector4f getOriginalColor() {
+        return originalColor;
+    }
 
-		color.add(new Vector4f().zero(), originalColor);
+    @Override
+    public boolean inBounds(final float x, final float y) {
+        return this.x < x && this.x + width > x && this.y < y && this.y + height > y;
+    }
 
-	}
+    @Override
+    public void render(final Renderer renderer) {
 
-	public Vector4f getOriginalColor() {
-		return originalColor;
-	}
+        for (int i = 0; i < animations.size(); i++) {
+            final long start = animationDurations.get(i);
+            final IAnimation<GUIColorBox> animation = animations.get(i);
 
-	@Override
-	public boolean inBounds(final float x, final float y) {
-		return this.x < x && this.x + width > x && this.y < y && this.y + height > y;
-	}
+            final long duration = System.currentTimeMillis() - start;
 
-	@Override
-	public void render(final Renderer renderer) {
+            if (animation.getDurationInMillis() < duration) {
+                animationDurations.remove(i);
+                animations.remove(i);
+                i--;
+                continue;
+            }
 
-		for (int i = 0; i < animations.size(); i++) {
-			final long start = animationDurations.get(i);
-			final IAnimation<GUIColorBox> animation = animations.get(i);
+            final float percent = (float) duration / (float) animation.getDurationInMillis();
 
-			final long duration = System.currentTimeMillis() - start;
+            animation.animate(this, percent);
+        }
 
-			if (animation.getDurationInMillis() < duration) {
-				animationDurations.remove(i);
-				animations.remove(i);
-				i--;
-				continue;
-			}
+        boxMesh.render(renderer, GUIShaders.getSolidColorShader(color).setObjectModel(animationMatrix));
+    }
 
-			final float percent = (float) duration / (float) animation.getDurationInMillis();
+    public void setColor(final Vector4f newColor) {
+        color = newColor;
+    }
 
-			animation.animate(this, percent);
-		}
-
-		boxMesh.render(renderer, GUIShaders.getSolidColorShader(color).setObjectModel(animationMatrix));
-	}
-
-	public void setColor(final Vector4f newColor) {
-		color = newColor;
-	}
-
-	public void setCurrentColorAsOriginal() {
-		color.add(new Vector4f().zero(), originalColor);
-	}
+    public void setCurrentColorAsOriginal() {
+        color.add(new Vector4f().zero(), originalColor);
+    }
 }

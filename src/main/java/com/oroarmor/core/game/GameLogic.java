@@ -1,13 +1,13 @@
 package com.oroarmor.core.game;
 
 public interface GameLogic<T extends GameInfo> {
-	public void deinitialize();
+    void deinitialize();
 
-	public T getGameInfo();
+    T getGameInfo();
 
-	public void initialize();
+    void setGameInfo(T info);
 
-	public void setGameInfo(T info);
+    void initialize();
 
-	public void tick(float updateTime);
+    void tick(float updateTime);
 }

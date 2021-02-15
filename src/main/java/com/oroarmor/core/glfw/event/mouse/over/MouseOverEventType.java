@@ -5,22 +5,22 @@ import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 
 public enum MouseOverEventType {
 
-	ENTER(GLFW_TRUE), LEAVE(GLFW_FALSE);
+    ENTER(GLFW_TRUE), LEAVE(GLFW_FALSE);
 
-	public static MouseOverEventType getTypeFromInt(final int type) {
-		if (type == 1) {
-			return ENTER;
-		}
-		return LEAVE;
-	}
+    private final int action;
 
-	private int action;
+    MouseOverEventType(final int action) {
+        this.action = action;
+    }
 
-	private MouseOverEventType(final int action) {
-		this.action = action;
-	}
+    public static MouseOverEventType getTypeFromInt(final int type) {
+        if (type == 1) {
+            return ENTER;
+        }
+        return LEAVE;
+    }
 
-	public int getAction() {
-		return action;
-	}
+    public int getAction() {
+        return action;
+    }
 }

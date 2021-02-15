@@ -6,27 +6,27 @@ import com.oroarmor.core.glfw.event.key.KeyEvent;
 
 public class KeyHoldEvent extends KeyEvent {
 
-	private GLFWEventMods mods;
+    private GLFWEventMods mods;
 
-	public KeyHoldEvent(final Key key, final long window, final GLFWEventMods mods) {
-		this.key = key;
-		this.mods = mods;
-		this.window = window;
-	}
+    public KeyHoldEvent(final Key key, final long window, final GLFWEventMods mods) {
+        this.key = key;
+        this.mods = mods;
+        this.window = window;
+    }
 
-	@Override
-	public GLFWEventMods getEventMods() {
-		return mods;
-	}
+    @Override
+    public GLFWEventMods getEventMods() {
+        return mods;
+    }
 
-	@Override
-	public KeyEventType getKeyEventType() {
-		return KeyEventType.HOLD;
-	}
+    @Override
+    public void setEventMods(final GLFWEventMods newMods) {
+        mods = newMods;
+    }
 
-	@Override
-	public void setEventMods(final GLFWEventMods newMods) {
-		mods = newMods;
-	}
+    @Override
+    public KeyEventType getKeyEventType() {
+        return KeyEventType.HOLD;
+    }
 
 }

@@ -12,24 +12,31 @@ import java.io.InputStream;
  *
  */
 public class ResourceLoader {
+	/**
+	 *
+	 * @param resourceAsStream The input stream for the file
+	 * @return The data in the file returned as a string
+	 */
+	public static String loadFileString(final InputStream resourceAsStream) {
+		return new String(loadFileBytes(resourceAsStream));
+	}
 
 	/**
 	 *
 	 * @param resourceAsStream The input stream for the file
 	 * @return The data in the file returned as a string
 	 */
-	public static String loadFile(final InputStream resourceAsStream) {
-		String fileString = "";
+	public static byte[] loadFileBytes(final InputStream resourceAsStream) {
 		try {
 			final byte[] fileBytes = new byte[resourceAsStream.available()];
 			resourceAsStream.read(fileBytes);
-			fileString = new String(fileBytes);
 			resourceAsStream.close();
+			return fileBytes;
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 
-		return fileString;
+		return new byte[0];
 	}
 
 	/**
@@ -37,12 +44,12 @@ public class ResourceLoader {
 	 * @param filePath A string to the file
 	 * @return The data of the file as a string
 	 */
-	public static String loadFile(final String filePath) {
+	public static String loadFileString(final String filePath) {
 		String fileString = "";
 		final File file = new File(filePath);
 
 		try {
-			fileString = loadFile(new FileInputStream(file));
+			fileString = loadFileString(new FileInputStream(file));
 		} catch (final FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

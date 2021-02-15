@@ -1,25 +1,24 @@
 package com.oroarmor.core.game.gui.object;
 
-import org.joml.Matrix4f;
-
 import com.oroarmor.core.game.gui.IGUI;
 import com.oroarmor.core.game.gui.IGUICallback;
 import com.oroarmor.core.glfw.event.mouse.button.MouseButtonEventListener;
 import com.oroarmor.core.glfw.event.mouse.position.MousePositionEventListener;
+import org.joml.Matrix4f;
 
 public interface IGUIObject<T extends IGUIObject<T>>
-		extends MouseButtonEventListener, MousePositionEventListener, IGUI<T> {
+        extends MouseButtonEventListener, MousePositionEventListener, IGUI<T> {
 
-	public Matrix4f getAnimationMatrix();
+    Matrix4f getAnimationMatrix();
 
-	public IGUICallback getCallback();
+    void setAnimationMatrix(Matrix4f animationMatrix);
 
-	public float getScale();
+    IGUICallback getCallback();
 
-	public void setAnimationMatrix(Matrix4f animationMatrix);
+    void setCallback(IGUICallback callback);
 
-	public void setCallback(IGUICallback callback);
+    float getScale();
 
-	public void setScale(float newScale);
+    void setScale(float newScale);
 
 }

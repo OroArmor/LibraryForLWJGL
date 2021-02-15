@@ -5,24 +5,24 @@ import java.util.ArrayList;
 import com.oroarmor.core.game.event.Active;
 
 public interface KeyHoldEventListener extends Active {
-	public static ArrayList<KeyHoldEventListener> keyPressListeners = new ArrayList<>();
+    ArrayList<KeyHoldEventListener> keyPressListeners = new ArrayList<>();
 
-	public static void addKeyHoldListener(final KeyHoldEventListener listener) {
-		keyPressListeners.add(listener);
-	}
+    static void addKeyHoldListener(final KeyHoldEventListener listener) {
+        keyPressListeners.add(listener);
+    }
 
-	public static void processAllKeyPressEvent(final KeyHoldEvent event) {
-		for (final KeyHoldEventListener listener : keyPressListeners) {
-			if (!listener.isActive()) {
-				continue;
-			}
-			listener.processKeyHeldEvent(event);
-		}
-	}
+    static void processAllKeyPressEvent(final KeyHoldEvent event) {
+        for (final KeyHoldEventListener listener : keyPressListeners) {
+            if (!listener.isActive()) {
+                continue;
+            }
+            listener.processKeyHeldEvent(event);
+        }
+    }
 
-	public default void addToKeyHoldListeners() {
-		addKeyHoldListener(this);
-	}
+    default void addToKeyHoldListeners() {
+        addKeyHoldListener(this);
+    }
 
-	public void processKeyHeldEvent(KeyHoldEvent event);
+    void processKeyHeldEvent(KeyHoldEvent event);
 }

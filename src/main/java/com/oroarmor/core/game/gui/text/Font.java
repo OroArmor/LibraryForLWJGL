@@ -8,73 +8,72 @@ import com.oroarmor.core.opengl.Texture;
 
 public class Font {
 
-	private static class TextSizePair {
-		float size;
-		String text;
+    private final FontCharacter[] characters;
+    private final FontKerning kernings;
+    private final FontMetaData metaData;
+    private final Texture texture;
+    private Map<TextSizePair, Mesh> fontMeshes;
 
-		public TextSizePair(final String text, final float size) {
-			this.text = text;
-			this.size = size;
-		}
+    public Font(final FontCharacter[] characters, final FontKerning kernings, final Texture texture,
+                final FontMetaData fontMetaData) {
+        this.characters = characters;
+        this.kernings = kernings;
+        this.texture = texture;
+        metaData = fontMetaData;
+    }
 
-		@Override
-		public boolean equals(final Object obj) {
-			if (obj instanceof TextSizePair) {
-				return ((TextSizePair) obj).text.equals(text) && ((TextSizePair) obj).size == size;
-			}
+    public FontCharacter[] getCharacters() {
+        return characters;
+    }
 
-			return false;
-		}
+    public FontKerning getKernings() {
+        return kernings;
+    }
 
-	}
+    public FontMetaData getMetaData() {
+        return metaData;
+    }
 
-	private final FontCharacter[] characters;
-	private Map<TextSizePair, Mesh> fontMeshes;
-	private final FontKerning kernings;
-	private final FontMetaData metaData;
+    public Mesh getTextMesh(final String text, final float textSize, final float textWidth) {
+        if (fontMeshes == null) {
+            fontMeshes = new HashMap<>();
+        }
 
-	private final Texture texture;
+        final TextSizePair textSizePair = new TextSizePair(text, textSize);
 
-	public Font(final FontCharacter[] characters, final FontKerning kernings, final Texture texture,
-			final FontMetaData fontMetaData) {
-		this.characters = characters;
-		this.kernings = kernings;
-		this.texture = texture;
-		metaData = fontMetaData;
-	}
+        if (fontMeshes.containsKey(textSizePair)) {
+            return fontMeshes.get(textSizePair);
+        }
 
-	public FontCharacter[] getCharacters() {
-		return characters;
-	}
+        final Mesh newTextMesh = FontMeshCreator.createMesh(this, text, textSize, textWidth);
 
-	public FontKerning getKernings() {
-		return kernings;
-	}
+        fontMeshes.put(textSizePair, newTextMesh);
 
-	public FontMetaData getMetaData() {
-		return metaData;
-	}
+        return newTextMesh;
+    }
 
-	public Mesh getTextMesh(final String text, final float textSize, final float textWidth) {
-		if (fontMeshes == null) {
-			fontMeshes = new HashMap<>();
-		}
+    public Texture getTexture() {
+        return texture;
+    }
 
-		final TextSizePair textSizePair = new TextSizePair(text, textSize);
+    private static class TextSizePair {
+        float size;
+        String text;
 
-		if (fontMeshes.containsKey(textSizePair)) {
-			return fontMeshes.get(textSizePair);
-		}
+        public TextSizePair(final String text, final float size) {
+            this.text = text;
+            this.size = size;
+        }
 
-		final Mesh newTextMesh = FontMeshCreator.createMesh(this, text, textSize, textWidth);
+        @Override
+        public boolean equals(final Object obj) {
+            if (obj instanceof TextSizePair) {
+                return ((TextSizePair) obj).text.equals(text) && ((TextSizePair) obj).size == size;
+            }
 
-		fontMeshes.put(textSizePair, newTextMesh);
+            return false;
+        }
 
-		return newTextMesh;
-	}
-
-	public Texture getTexture() {
-		return texture;
-	}
+    }
 
 }

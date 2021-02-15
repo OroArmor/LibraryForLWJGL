@@ -4,26 +4,24 @@ package com.oroarmor.core.game.event;
  * A interface all events extend
  *
  * @author OroArmor
- *
  */
 public interface Event {
-	/**
-	 *
-	 * @return The type of event, one of {@link EventType}
-	 */
-	public EventType getEventType();
+    /**
+     * @return The type of event, one of {@link EventType}
+     */
+    EventType getEventType();
 
-	/**
-	 * Gets the window the event occured on
-	 *
-	 * @return The window handle
-	 */
-	public long getWindow();
+    /**
+     * Gets the window the event occured on
+     *
+     * @return The window handle
+     */
+    long getWindow();
 
-	/**
-	 * Sets the window
-	 *
-	 * @param window New window handle
-	 */
-	public void setWindow(long window);
+    /**
+     * Sets the window
+     *
+     * @param window New window handle
+     */
+    void setWindow(long window);
 }

@@ -6,19 +6,19 @@ import com.oroarmor.core.game.gui.IGUI;
 import com.oroarmor.core.opengl.Renderer;
 
 public interface IGUIGroup extends IGUI<IGUIGroup> {
-	public void addChildren(IGUI<?>... children);
+    void addChildren(IGUI<?>... children);
 
-	public List<IGUI<?>> getChildren();
+    List<IGUI<?>> getChildren();
 
-	public void hideAll();
+    void hideAll();
 
-	public boolean isVisable();
+    boolean isVisable();
 
-	public void makeVisable(boolean visable);
+    void makeVisable(boolean visable);
 
-	public int numObjects();
+    int numObjects();
 
-	public void renderChildren(Renderer renderer);
+    void renderChildren(Renderer renderer);
 
-	public void showAll();
+    void showAll();
 }

@@ -1,7 +1,5 @@
 package com.oroarmor.core.game.gui.object.box;
 
-import org.joml.Vector4f;
-
 import com.oroarmor.core.game.gui.GUICallback;
 import com.oroarmor.core.game.gui.animation.IAnimation;
 import com.oroarmor.core.game.gui.object.GUIObject;
@@ -9,62 +7,63 @@ import com.oroarmor.core.game.gui.shader.GUIShaders;
 import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.Renderer;
 import com.oroarmor.core.opengl.VertexBufferLayout;
+import org.joml.Vector4f;
 
 public class GUIBox extends GUIObject<GUIBox> {
 
-	protected float width;
-	protected float height;
+    protected float width;
+    protected float height;
 
-	protected Mesh boxMesh;
+    protected Mesh boxMesh;
 
-	protected Vector4f color;
+    protected Vector4f color;
 
-	public GUIBox(final float x, final float y, final float width, final float height) {
-		super(x, y);
-		this.width = width;
-		this.height = height;
+    public GUIBox(final float x, final float y, final float width, final float height) {
+        super(x, y);
+        this.width = width;
+        this.height = height;
 
-		boxMesh = new Mesh(
-				new float[] { -width / 2, -height / 2, 0, 0, width / 2, -height / 2, 1, 0, width / 2, height / 2, 1, 1,
-						-width / 2, height / 2, 0, 1 },
-				new int[] { 0, 1, 2, 2, 3, 0 }, new VertexBufferLayout().pushFloats(2).pushFloats(2));
+        boxMesh = new Mesh(
+                new float[]{-width / 2, -height / 2, 0, 0, width / 2, -height / 2, 1, 0, width / 2, height / 2, 1, 1,
+                        -width / 2, height / 2, 0, 1},
+                new int[]{0, 1, 2, 2, 3, 0}, new VertexBufferLayout().pushFloats(2).pushFloats(2));
 
-		animationMatrix.translation(x + width / 2, y + height / 2, 0);
+        animationMatrix.translation(x + width / 2, y + height / 2, 0);
 
-		color = new Vector4f(1, 1, 1, 1);
+        color = new Vector4f(1, 1, 1, 1);
 
-		callback = new GUICallback() {
+        callback = new GUICallback() {
 
-		};
+        };
 
-	}
+    }
 
-	@Override
-	public boolean inBounds(final float x, final float y) {
-		return this.x < x && this.x + width > x && this.y < y && this.y + height > y;
-	}
+    @Override
+    public boolean inBounds(final float x, final float y) {
+        return this.x < x && this.x + width > x && this.y < y && this.y + height > y;
+    }
 
-	@Override
-	public void render(final Renderer renderer) {
+    @Override
+    public void render(final Renderer renderer) {
 
-		for (int i = 0; i < animations.size(); i++) {
-			final long start = animationDurations.get(i);
-			final IAnimation<GUIBox> animation = animations.get(i);
+        for (int i = 0; i < animations.size(); i++) {
+            final long start = animationDurations.get(i);
+            final IAnimation<GUIBox> animation = animations.get(i);
 
-			final long duration = System.currentTimeMillis() - start;
+            final long duration = System.currentTimeMillis() - start;
 
-			if (animation.getDurationInMillis() < duration) {
-				animationDurations.remove(i);
-				animations.remove(i);
-				i--;
-				continue;
-			}
+            if (animation.getDurationInMillis() < duration) {
+                animationDurations.remove(i);
+                animations.remove(i);
+                i--;
+                continue;
+            }
 
-			final float percent = (float) duration / (float) animation.getDurationInMillis();
+            final float percent = (float) duration / (float) animation.getDurationInMillis();
 
-			animation.animate(this, percent);
-		}
+            animation.animate(this, percent);
+        }
 
-		boxMesh.render(renderer, GUIShaders.getSolidColorShader(color).setObjectModel(animationMatrix));
-	}
+        boxMesh.render(renderer, GUIShaders.getSolidColorShader(color).setObjectModel(animationMatrix));
+    }
 }

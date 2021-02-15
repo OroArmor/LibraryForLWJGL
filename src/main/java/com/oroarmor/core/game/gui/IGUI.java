@@ -4,15 +4,15 @@ import com.oroarmor.core.game.gui.animation.IAnimation;
 import com.oroarmor.core.opengl.Renderer;
 
 public interface IGUI<T extends IGUI<T>> {
-	public float getX();
+    float getX();
 
-	public float getY();
+    float getY();
 
-	public boolean hasParent();
+    boolean hasParent();
 
-	public void render(Renderer renderer);
+    void render(Renderer renderer);
 
-	public void setHasParent(boolean hasParent);
+    void setHasParent(boolean hasParent);
 
-	public void triggerAnimation(IAnimation<T> animation);
+    void triggerAnimation(IAnimation<T> animation);
 }

@@ -5,96 +5,96 @@ import com.oroarmor.util.FixedUpdateThread;
 
 public class Game<T extends GameInfo> {
 
-	private GameRenderer<T> gameGraphics;
-	private GameLogic<T> gameLogic;
+    private GameRenderer<T> gameGraphics;
+    private GameLogic<T> gameLogic;
 
-	private FixedUpdateThread renderThread;
-	private FixedUpdateThread logicThread;
+    private FixedUpdateThread renderThread;
+    private FixedUpdateThread logicThread;
 
-	public Game(final GameRenderer<T> gameGraphics, final GameLogic<T> gameLogic) {
-		this.gameGraphics = gameGraphics;
-		this.gameLogic = gameLogic;
+    public Game(final GameRenderer<T> gameGraphics, final GameLogic<T> gameLogic) {
+        this.gameGraphics = gameGraphics;
+        this.gameLogic = gameLogic;
 
-		this.renderThread = new FixedUpdateThread(60) {
-			@Override
-			public void deinitalize() {
-				gameGraphics.deinitialize();
-				Destructor.destroyAll();
-			}
+        this.renderThread = new FixedUpdateThread(60) {
+            @Override
+            public void deinitialize() {
+                gameGraphics.deinitialize();
+                Destructor.destroyAll();
+            }
 
-			@Override
-			public void initalize() {
-				gameGraphics.initialize();
-			}
+            @Override
+            public void initialize() {
+                gameGraphics.initialize();
+            }
 
-			@Override
-			public void tick() {
-				gameGraphics.render(1f / 60f);
-			}
-		};
+            @Override
+            public void tick() {
+                gameGraphics.render(1f / 60f);
+            }
+        };
 
-		this.logicThread = new FixedUpdateThread(20) {
-			@Override
-			public void deinitalize() {
-				gameLogic.deinitialize();
-			}
+        this.logicThread = new FixedUpdateThread(20) {
+            @Override
+            public void deinitialize() {
+                gameLogic.deinitialize();
+            }
 
-			@Override
-			public void initalize() {
-				gameLogic.initialize();
-			}
+            @Override
+            public void initialize() {
+                gameLogic.initialize();
+            }
 
-			@Override
-			public void tick() {
-				gameLogic.tick(0.005f);
-			}
-		};
+            @Override
+            public void tick() {
+                gameLogic.tick(0.005f);
+            }
+        };
 
-	}
+    }
 
-	public GameRenderer<T> getGameGraphics() {
-		return this.gameGraphics;
-	}
+    public GameRenderer<T> getGameGraphics() {
+        return this.gameGraphics;
+    }
 
-	public GameLogic<T> getGameLogic() {
-		return this.gameLogic;
-	}
+    public void setGameGraphics(final GameRenderer<T> gameGraphics) {
+        this.gameGraphics = gameGraphics;
+    }
 
-	public FixedUpdateThread getLogicThread() {
-		return this.logicThread;
-	}
+    public GameLogic<T> getGameLogic() {
+        return this.gameLogic;
+    }
 
-	public FixedUpdateThread getRenderThread() {
-		return this.renderThread;
-	}
+    public void setGameLogic(final GameLogic<T> gameLogic) {
+        this.gameLogic = gameLogic;
+    }
 
-	public Game<T> run() {
-		this.renderThread.start();
-		this.logicThread.start();
+    public FixedUpdateThread getLogicThread() {
+        return this.logicThread;
+    }
 
-		try {
-			this.renderThread.join();
-			this.logicThread.join();
-		} catch (final InterruptedException e) {
-			e.printStackTrace();
-		}
-		return this;
-	}
+    public void setLogicThread(final FixedUpdateThread logicThread) {
+        this.logicThread = logicThread;
+    }
 
-	public void setGameGraphics(final GameRenderer<T> gameGraphics) {
-		this.gameGraphics = gameGraphics;
-	}
+    public FixedUpdateThread getRenderThread() {
+        return this.renderThread;
+    }
 
-	public void setGameLogic(final GameLogic<T> gameLogic) {
-		this.gameLogic = gameLogic;
-	}
+    public void setRenderThread(final FixedUpdateThread renderThread) {
+        this.renderThread = renderThread;
+    }
 
-	public void setLogicThread(final FixedUpdateThread logicThread) {
-		this.logicThread = logicThread;
-	}
+    public Game<T> run() {
+        this.renderThread.start();
+        this.logicThread.start();
 
-	public void setRenderThread(final FixedUpdateThread renderThread) {
-		this.renderThread = renderThread;
-	}
+        try {
+            this.renderThread.join();
+            this.logicThread.join();
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
 
 }

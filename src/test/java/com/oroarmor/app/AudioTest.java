@@ -1,0 +1,18 @@
+package com.oroarmor.app;
+
+import com.oroarmor.core.openal.AudioMaster;
+import com.oroarmor.core.openal.AudioSource;
+
+public class AudioTest {
+
+    public static void main(final String[] args) throws InterruptedException {
+        if (AudioMaster.initialize()) {
+            AudioMaster.loadSound("com/oroarmor/app/test.ogg", "test");
+
+            AudioSource source = new AudioSource();
+            source.playSound(AudioMaster.getSound("test"));
+
+            Thread.sleep(1000);
+        }
+    }
+}

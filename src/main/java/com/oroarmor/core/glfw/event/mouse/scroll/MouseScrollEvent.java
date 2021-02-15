@@ -9,59 +9,56 @@ import com.oroarmor.core.glfw.event.mouse.MouseEvent;
  * the mouse
  *
  * @author OroArmor
- *
  */
 public class MouseScrollEvent extends MouseEvent {
-	/**
-	 * Creates a new {@link MouseScrollEvent} and sends it to all
-	 * {@link MouseScrollEventListeners}
-	 *
-	 * @param window  The window
-	 * @param xoffset The X offset of the scroll
-	 * @param yoffset The Y offset of the scroll
-	 */
-	public static void create(final long window, final float xoffset, final float yoffset, final GLFWEventMods mods) {
-		final MouseScrollEvent event = new MouseScrollEvent(window, xoffset, yoffset, mods);
+    /**
+     * The scroll values for the event
+     */
+    private final float scrollX, scrollY;
 
-		MouseScrollEventListener.processAllMouseScrollEvent(event);
-	}
+    /**
+     * Creates a new {@link MouseScrollEvent}
+     *
+     * @param window  The window
+     * @param scrollX The scroll x value
+     * @param scrollY The scroll y value
+     */
+    public MouseScrollEvent(final long window, final float scrollX, final float scrollY, final GLFWEventMods mods) {
+        super(window, MouseEventType.SCROLL, mods);
+        this.scrollX = scrollX;
+        this.scrollY = scrollY;
+    }
 
-	/**
-	 * The scroll values for the event
-	 */
-	private final float scrollX, scrollY;
+    /**
+     * Creates a new {@link MouseScrollEvent} and sends it to all
+     * {@link MouseScrollEventListener}
+     *
+     * @param window  The window
+     * @param xoffset The X offset of the scroll
+     * @param yoffset The Y offset of the scroll
+     */
+    public static void create(final long window, final float xoffset, final float yoffset, final GLFWEventMods mods) {
+        final MouseScrollEvent event = new MouseScrollEvent(window, xoffset, yoffset, mods);
 
-	/**
-	 * Creates a new {@link MouseScrollEvent}
-	 *
-	 * @param window  The window
-	 * @param scrollX The scroll x value
-	 * @param scrollY The scroll y value
-	 */
-	public MouseScrollEvent(final long window, final float scrollX, final float scrollY, final GLFWEventMods mods) {
-		super(window, MouseEventType.SCROLL, mods);
-		this.scrollX = scrollX;
-		this.scrollY = scrollY;
-	}
+        MouseScrollEventListener.processAllMouseScrollEvent(event);
+    }
 
-	/**
-	 *
-	 * @return The scroll x value
-	 */
-	public float getScrollX() {
-		return scrollX;
-	}
+    /**
+     * @return The scroll x value
+     */
+    public float getScrollX() {
+        return scrollX;
+    }
 
-	/**
-	 *
-	 * @return The scroll y value
-	 */
-	public float getScrollY() {
-		return scrollY;
-	}
+    /**
+     * @return The scroll y value
+     */
+    public float getScrollY() {
+        return scrollY;
+    }
 
-	@Override
-	public String toString() {
-		return "scroll x: " + scrollX + ", scroll y: " + scrollY;
-	}
+    @Override
+    public String toString() {
+        return "scroll x: " + scrollX + ", scroll y: " + scrollY;
+    }
 }

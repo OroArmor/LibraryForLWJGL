@@ -16,40 +16,39 @@ import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEventListener;
  * Must call {@code addToMouseListeners} to initialize properly
  *
  * @author OroArmor
- *
  */
 public interface MouseEventListener
-		extends MouseScrollEventListener, MouseButtonEventListener, MousePositionEventListener, MouseOverEventListener {
-	/**
-	 * Called to initialize the listener
-	 */
-	public default void addToMouseListeners() {
-		addToPositionListeners();
-		addToButtonListeners();
-		addToScrollListeners();
-		addToOverListeners();
-	}
+        extends MouseScrollEventListener, MouseButtonEventListener, MousePositionEventListener, MouseOverEventListener {
+    /**
+     * Called to initialize the listener
+     */
+    default void addToMouseListeners() {
+        addToPositionListeners();
+        addToButtonListeners();
+        addToScrollListeners();
+        addToOverListeners();
+    }
 
-	/**
-	 * Processes a mouse event
-	 *
-	 * @param event Event to process
-	 */
-	public default void processMouseEvent(final MouseEvent event) {
-		if (!isActive()) {
-			return;
-		}
-		if (event.getMouseEventType() == MouseEventType.BUTTON) {
-			processMouseButtonEvent((MouseButtonEvent) event);
-		}
-		if (event.getMouseEventType() == MouseEventType.POSITION) {
-			processMousePositionEvent((MousePositionEvent) event);
-		}
-		if (event.getMouseEventType() == MouseEventType.OVER) {
-			processMouseOverEvent((MouseOverEvent) event);
-		}
-		if (event.getMouseEventType() == MouseEventType.SCROLL) {
-			processMouseScrolledEvent((MouseScrollEvent) event);
-		}
-	}
+    /**
+     * Processes a mouse event
+     *
+     * @param event Event to process
+     */
+    default void processMouseEvent(final MouseEvent event) {
+        if (!isActive()) {
+            return;
+        }
+        if (event.getMouseEventType() == MouseEventType.BUTTON) {
+            processMouseButtonEvent((MouseButtonEvent) event);
+        }
+        if (event.getMouseEventType() == MouseEventType.POSITION) {
+            processMousePositionEvent((MousePositionEvent) event);
+        }
+        if (event.getMouseEventType() == MouseEventType.OVER) {
+            processMouseOverEvent((MouseOverEvent) event);
+        }
+        if (event.getMouseEventType() == MouseEventType.SCROLL) {
+            processMouseScrolledEvent((MouseScrollEvent) event);
+        }
+    }
 }

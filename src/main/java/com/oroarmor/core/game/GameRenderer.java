@@ -1,13 +1,13 @@
 package com.oroarmor.core.game;
 
 public interface GameRenderer<T extends GameInfo> {
-	public void deinitialize();
+    void deinitialize();
 
-	public T getGameInfo();
+    T getGameInfo();
 
-	public void initialize();
+    void setGameInfo(T info);
 
-	public void render(float renderTime);
+    void initialize();
 
-	public void setGameInfo(T info);
+    void render(float renderTime);
 }

@@ -5,44 +5,44 @@ import org.joml.Vector3f;
 
 public abstract class Entity {
 
-	protected Matrix4f modelMatrix;
-	protected Vector3f positionVector;
-	protected Vector3f rotationVector;
-	protected Vector3f scaleVector;
+    protected Matrix4f modelMatrix;
+    protected Vector3f positionVector;
+    protected Vector3f rotationVector;
+    protected Vector3f scaleVector;
 
-	public Entity(Vector3f position, Vector3f rotation, Vector3f scale) {
-		positionVector = position;
-		rotationVector = rotation;
-		scaleVector = scale;
+    public Entity(Vector3f position, Vector3f rotation, Vector3f scale) {
+        positionVector = position;
+        rotationVector = rotation;
+        scaleVector = scale;
 
-		setModelMatrix();
-	}
+        setModelMatrix();
+    }
 
-	public Matrix4f getModelMatrix() {
-		return modelMatrix;
-	}
+    public Matrix4f getModelMatrix() {
+        return modelMatrix;
+    }
 
-	public Vector3f getPosition() {
-		return positionVector;
-	}
+    public Vector3f getPosition() {
+        return positionVector;
+    }
 
-	public Vector3f getRotation() {
-		return rotationVector;
-	}
+    public Vector3f getRotation() {
+        return rotationVector;
+    }
 
-	public Vector3f getScale() {
-		return scaleVector;
-	}
+    public Vector3f getScale() {
+        return scaleVector;
+    }
 
-	protected void setModelMatrix() {
-		modelMatrix = new Matrix4f().identity().translateLocal(positionVector).rotateLocalX(rotationVector.x)
-				.rotateLocalY(rotationVector.y).rotateLocalZ(rotationVector.z).scale(scaleVector);
-	}
+    protected void setModelMatrix() {
+        modelMatrix = new Matrix4f().identity().translateLocal(positionVector).rotateLocalX(rotationVector.x)
+                .rotateLocalY(rotationVector.y).rotateLocalZ(rotationVector.z).scale(scaleVector);
+    }
 
-	public void tick(float delta) {
-		update(delta);
-		setModelMatrix();
-	}
+    public void tick(float delta) {
+        update(delta);
+        setModelMatrix();
+    }
 
-	public abstract void update(float delta);
+    public abstract void update(float delta);
 }

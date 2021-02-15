@@ -9,92 +9,87 @@ import com.oroarmor.core.glfw.event.GLFWEventMods;
  * An {@link Event} that all other mouse events use
  *
  * @author OroArmor
- *
  */
 public abstract class MouseEvent implements GLFWEvent {
 
-	/**
-	 * The type of mouse event
-	 *
-	 * @author OroArmor
-	 *
-	 */
-	public static enum MouseEventType {
-		/**
-		 * A mouse button event
-		 */
-		BUTTON,
-		/**
-		 * A mouse over event
-		 */
-		OVER,
-		/**
-		 * A mouse position event
-		 */
-		POSITION,
-		/**
-		 * A mouse scroll event
-		 */
-		SCROLL;
-	}
+    /**
+     * The type of mouse event
+     */
+    protected MouseEventType type;
+    /**
+     * The window of the event
+     */
+    protected long window;
+    /**
+     * The event mods of the event
+     */
+    protected GLFWEventMods eventMods;
 
-	/**
-	 * The type of mouse event
-	 */
-	protected MouseEventType type;
+    /**
+     * Creates a new mouse event
+     *
+     * @param window The window the event occurred in
+     * @param type   The type of event {@link MouseEventType}
+     */
+    public MouseEvent(final long window, final MouseEventType type, final GLFWEventMods mods) {
+        this.window = window;
+        this.type = type;
+        eventMods = mods;
+    }
 
-	/**
-	 * The window of the event
-	 */
-	protected long window;
+    @Override
+    public GLFWEventMods getEventMods() {
+        return eventMods;
+    }
 
-	/**
-	 * The event mods of the event
-	 */
-	protected GLFWEventMods eventMods;
+    @Override
+    public void setEventMods(final GLFWEventMods newMods) {
+        eventMods = newMods;
+    }
 
-	/**
-	 * Creates a new mouse event
-	 *
-	 * @param window The window the event occurred in
-	 * @param type   The type of event {@link MouseEventType}
-	 */
-	public MouseEvent(final long window, final MouseEventType type, final GLFWEventMods mods) {
-		this.window = window;
-		this.type = type;
-		eventMods = mods;
-	}
+    @Override
+    public EventType getEventType() {
+        return EventType.MOUSE;
+    }
 
-	@Override
-	public GLFWEventMods getEventMods() {
-		return eventMods;
-	}
+    /**
+     * @return The type of mouse event
+     */
+    public MouseEventType getMouseEventType() {
+        return type;
+    }
 
-	@Override
-	public EventType getEventType() {
-		return EventType.MOUSE;
-	}
+    @Override
+    public long getWindow() {
+        return window;
+    }
 
-	/**
-	 *
-	 * @return The type of mouse event
-	 */
-	public MouseEventType getMouseEventType() {
-		return type;
-	}
+    @Override
+    public void setWindow(final long window) {
+        this.window = window;
+    }
 
-	@Override
-	public long getWindow() {
-		return window;
-	}
-
-	@Override
-	public void setEventMods(final GLFWEventMods newMods) {
-		eventMods = newMods;
-	}
-
-	@Override
-	public void setWindow(final long window) {
-		this.window = window;
-	}
+    /**
+     * The type of mouse event
+     *
+     * @author OroArmor
+     */
+    public enum MouseEventType {
+        /**
+         * A mouse button event
+         */
+        BUTTON,
+        /**
+         * A mouse over event
+         */
+        OVER,
+        /**
+         * A mouse position event
+         */
+        POSITION,
+        /**
+         * A mouse scroll event
+         */
+        SCROLL
+    }
 }
