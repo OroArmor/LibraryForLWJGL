@@ -43,7 +43,7 @@ public class GUITest {
 
                 // TODO Auto-generated method stub
                 if (event.key != Key.BACKSPACE) {
-                    char c = '\0';
+                    char c;
 
                     if (event.getEventMods().isShift()) {
                         c = event.key.getUpperChar();
@@ -137,7 +137,7 @@ public class GUITest {
 
         ui.addChildren(group, bg);
 
-        while (!display.shouldClose()) {
+        while (display.shouldNotClose()) {
             // Clear the display
             display.clear();
 
