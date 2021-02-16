@@ -14,7 +14,7 @@ public abstract class Display implements GLFWEventListener {
     /**
      * The original dimensions
      */
-    private final int owidth, oheight;
+    private final int originalWidth, originalHeight;
     /**
      * The GLFW window handle
      */
@@ -43,11 +43,11 @@ public abstract class Display implements GLFWEventListener {
      * @param height The height of the display
      * @param name   The name of the display
      */
-    public Display(final int width, final int height, final String name) {
+    public Display(int width, int height, String name) {
         this.width = width;
         this.height = height;
-        owidth = width;
-        oheight = height;
+        originalWidth = width;
+        originalHeight = height;
         window = GLFWUtil.glfwCreateWindowHelper(width, height, name, NULL, NULL);
 
         glfwSetWindowSizeCallback(window, (window, _width, _height) -> {
@@ -103,7 +103,7 @@ public abstract class Display implements GLFWEventListener {
         if (!maximized) {
             glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, 1920, 1080, 60);
         } else {
-            glfwSetWindowMonitor(window, NULL, 100, 100, owidth, oheight, 60);
+            glfwSetWindowMonitor(window, NULL, 100, 100, originalWidth, originalHeight, 60);
         }
         maximized = !maximized;
     }
@@ -120,7 +120,7 @@ public abstract class Display implements GLFWEventListener {
      *
      * @param height New height
      */
-    public void setHeight(final int height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -135,14 +135,14 @@ public abstract class Display implements GLFWEventListener {
      * @param fov The field of view for the camera
      * @return A perspective view model for the display
      */
-    public Matrix4f getPerspectiveViewModel(final float fov) {
-        final float aspect = (float) width / (float) height;
-        final float tanfov = (float) Math.tan(Math.toRadians(fov / 2));
+    public Matrix4f getPerspectiveViewModel(float fov) {
+        float aspect = (float) width / (float) height;
+        float tanfov = (float) Math.tan(Math.toRadians(fov / 2));
 
-        final Matrix4f mat = new Matrix4f().zero();
+        Matrix4f mat = new Matrix4f().zero();
 
-        final float near = -1f;
-        final float far = 400f;
+        float near = -1f;
+        float far = 400f;
 
         mat.m00(1f / (aspect * tanfov));
         mat.m11(1f / tanfov);
@@ -164,7 +164,7 @@ public abstract class Display implements GLFWEventListener {
      *
      * @param width New width
      */
-    public void setWidth(final int width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
@@ -174,12 +174,12 @@ public abstract class Display implements GLFWEventListener {
     }
 
     @Override
-    public void setActive(final boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
     @Override
-    public void processGLFWEvent(final GLFWEvent event) {
+    public void processGLFWEvent(GLFWEvent event) {
     }
 
     /**
@@ -198,11 +198,11 @@ public abstract class Display implements GLFWEventListener {
      * @param blue  Blue channel (0 - 1)
      * @param alpha Alpha channel (0 - 1)
      */
-    public void setClearColor(final float red, final float green, final float blue, final float alpha) {
+    public void setClearColor(float red, float green, float blue, float alpha) {
         glClearColor(red, green, blue, alpha);
     }
 
-    public void setCullFace(final CullFace face) {
+    public void setCullFace(CullFace face) {
         glEnable(GL_CULL_FACE);
         glCullFace(face.id);
     }
@@ -212,15 +212,15 @@ public abstract class Display implements GLFWEventListener {
      *
      * @param closeKey New key to close the window with
      */
-    public void setKeyClose(final Key closeKey) {
+    public void setKeyClose(Key closeKey) {
         this.closeKey = closeKey;
     }
 
     /**
      * @return True if glfw thinks the window should close
      */
-    public boolean shouldClose() {
-        return glfwWindowShouldClose(window);
+    public boolean shouldNotClose() {
+        return !glfwWindowShouldClose(window);
     }
 
     public enum CullFace {
@@ -228,9 +228,8 @@ public abstract class Display implements GLFWEventListener {
 
         public int id;
 
-        CullFace(final int id) {
+        CullFace(int id) {
             this.id = id;
         }
     }
-
 }

@@ -12,7 +12,6 @@ import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
 import org.joml.Matrix4f;
 
 public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T> {
-
     protected boolean active = true;
     protected boolean hovered = false;
     protected boolean clicked = false;
@@ -29,7 +28,7 @@ public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T>
     protected List<Long> animationDurations = new ArrayList<>();
     private boolean hasParent = false;
 
-    public GUIObject(final float x, final float y) {
+    public GUIObject(float x, float y) {
         this.x = x;
         this.y = y;
 
@@ -65,7 +64,7 @@ public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T>
     }
 
     @Override
-    public void setScale(final float newScale) {
+    public void setScale(float newScale) {
         this.animationMatrix.scale(newScale / this.scale);
         this.scale = newScale;
     }
@@ -93,12 +92,12 @@ public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T>
     }
 
     @Override
-    public void setActive(final boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
     @Override
-    public void processMousePositionEvent(final MousePositionEvent event) {
+    public void processMousePositionEvent(MousePositionEvent event) {
         if (!this.clicked) {
             if (this.inBounds(event.getMouseX(), event.getMouseY())) {
                 if (!this.hovered) {
@@ -113,7 +112,7 @@ public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T>
     }
 
     @Override
-    public void processMousePressEvent(final MousePressEvent event) {
+    public void processMousePressEvent(MousePressEvent event) {
         if (this.inBounds(event.getX(), event.getY())) {
             this.callback.onClick(event.getButton());
             this.clicked = true;
@@ -121,9 +120,9 @@ public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T>
     }
 
     @Override
-    public void processMouseReleasedEvent(final MouseReleaseEvent event) {
+    public void processMouseReleasedEvent(MouseReleaseEvent event) {
         if (this.clicked) {
-            final boolean inbounds = this.inBounds(event.getX(), event.getY());
+            boolean inbounds = this.inBounds(event.getX(), event.getY());
             this.callback.onRelease(event.getButton(), inbounds);
             if (inbounds) {
                 this.callback.onHover();
@@ -135,14 +134,13 @@ public abstract class GUIObject<T extends GUIObject<T>> implements IGUIObject<T>
     }
 
     @Override
-    public void setHasParent(final boolean hasParent) {
+    public void setHasParent(boolean hasParent) {
         this.hasParent = true;
     }
 
     @Override
-    public void triggerAnimation(final IAnimation<T> animation) {
+    public void triggerAnimation(IAnimation<T> animation) {
         this.animations.add(animation);
         this.animationDurations.add(System.currentTimeMillis());
     }
-
 }

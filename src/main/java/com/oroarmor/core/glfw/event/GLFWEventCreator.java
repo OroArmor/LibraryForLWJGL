@@ -6,7 +6,6 @@ import com.oroarmor.core.glfw.event.mouse.button.MouseButtonEvent;
 import com.oroarmor.core.glfw.event.mouse.over.MouseOverEvent;
 import com.oroarmor.core.glfw.event.mouse.position.MousePositionEvent;
 import com.oroarmor.core.glfw.event.mouse.scroll.MouseScrollEvent;
-import org.lwjgl.glfw.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -17,44 +16,18 @@ import static org.lwjgl.glfw.GLFW.*;
  */
 public class GLFWEventCreator {
 
-    public static void initalizeWindow(final long window) {
-        glfwSetKeyCallback(window, new GLFWKeyCallback() {
-            @Override
-            public void invoke(final long window, final int key, final int scancode, final int action, final int mods) {
-                KeyEvent.create(key, action, window, new GLFWEventMods(mods));
-            }
+    public static void initalizeWindow(long window) {
+        glfwSetKeyCallback(window, (_window, key, scancode, action, mods) -> KeyEvent.create(key, action, _window, new GLFWEventMods(mods)));
+
+        glfwSetScrollCallback(window, (_window, xoffset, yoffset) -> MouseScrollEvent.create(_window, (float) xoffset, (float) yoffset, new GLFWEventMods(0)));
+
+        glfwSetCursorPosCallback(window, (_window, xpos, ypos) -> {
+            MouseStatus.updateMousePositon((float) xpos, (float) ypos);
+            MousePositionEvent.create(_window, GLFWEventMods.createFromCurrentStatus());
         });
 
-        glfwSetScrollCallback(window, new GLFWScrollCallback() {
+        glfwSetMouseButtonCallback(window, (_window, button, action, mods) -> MouseButtonEvent.create(_window, button, action, new GLFWEventMods(mods)));
 
-            @Override
-            public void invoke(final long window, final double xoffset, final double yoffset) {
-                MouseScrollEvent.create(window, (float) xoffset, (float) yoffset, new GLFWEventMods(0));
-            }
-
-        });
-
-        glfwSetCursorPosCallback(window, new GLFWCursorPosCallback() {
-            @Override
-            public void invoke(final long window, final double xpos, final double ypos) {
-                MouseStatus.updateMousePositon((float) xpos, (float) ypos);
-                MousePositionEvent.create(window, GLFWEventMods.createFromCurrentStatus());
-            }
-        });
-
-        glfwSetMouseButtonCallback(window, new GLFWMouseButtonCallback() {
-            @Override
-            public void invoke(final long window, final int button, final int action, final int mods) {
-                MouseButtonEvent.create(window, button, action, new GLFWEventMods(mods));
-            }
-        });
-
-        glfwSetCursorEnterCallback(window, new GLFWCursorEnterCallback() {
-            @Override
-            public void invoke(final long window, final boolean entered) {
-                MouseOverEvent.create(window, entered ? 1 : 0, GLFWEventMods.createFromCurrentStatus());
-            }
-        });
-
+        glfwSetCursorEnterCallback(window, (_window, entered) -> MouseOverEvent.create(_window, entered ? 1 : 0, GLFWEventMods.createFromCurrentStatus()));
     }
 }

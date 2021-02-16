@@ -7,7 +7,6 @@ import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
 public class FontShader extends Shader {
-
     public FontShader() {
         super(//
                 ResourceLoader

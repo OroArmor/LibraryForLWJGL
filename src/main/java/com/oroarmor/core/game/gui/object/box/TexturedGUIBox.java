@@ -5,10 +5,9 @@ import com.oroarmor.core.opengl.Renderer;
 import com.oroarmor.core.opengl.Texture;
 
 public class TexturedGUIBox extends GUIBox {
-
     private Texture texture;
 
-    public TexturedGUIBox(final float x, final float y, final float width, final float height, final Texture texture) {
+    public TexturedGUIBox(float x, float y, float width, float height, Texture texture) {
         super(x, y, width, height);
         setTexture(texture);
     }
@@ -17,13 +16,12 @@ public class TexturedGUIBox extends GUIBox {
         return texture;
     }
 
-    public void setTexture(final Texture texture) {
+    public void setTexture(Texture texture) {
         this.texture = texture;
     }
 
     @Override
-    public void render(final Renderer renderer) {
+    public void render(Renderer renderer) {
         boxMesh.render(renderer, GUIShaders.getTextureShader().setTexture(texture).setObjectModel(animationMatrix));
     }
-
 }

@@ -11,7 +11,7 @@ public interface MouseButtonEventListener extends MouseButtonPressEventListener,
         addToReleaseListeners();
     }
 
-    default void processMouseButtonEvent(final MouseButtonEvent event) {
+    default void processMouseButtonEvent(MouseButtonEvent event) {
         if (event.getMouseButtonEventType() == MouseButtonEventType.PRESS) {
             processMousePressEvent((MousePressEvent) event);
         } else if (event.getMouseButtonEventType() == MouseButtonEventType.RELEASE) {

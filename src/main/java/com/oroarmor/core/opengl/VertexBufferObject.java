@@ -23,7 +23,7 @@ public class VertexBufferObject implements Bindable {
      *
      * @param data The vertex data
      */
-    public VertexBufferObject(final float[] data) {
+    public VertexBufferObject(float[] data) {
         vbo_id = glGenBuffers();
 
         bind();
@@ -35,9 +35,9 @@ public class VertexBufferObject implements Bindable {
     /**
      * Constructs a {@link VertexBufferObject} with a {@link FloatBuffer}
      *
-     * @param data
+     * @param data The buffer data
      */
-    public VertexBufferObject(final FloatBuffer data) {
+    public VertexBufferObject(FloatBuffer data) {
         vbo_id = glGenBuffers();
 
         bind();

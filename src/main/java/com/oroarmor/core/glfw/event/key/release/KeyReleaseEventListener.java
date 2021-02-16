@@ -7,12 +7,12 @@ import com.oroarmor.core.game.event.Active;
 public interface KeyReleaseEventListener extends Active {
     ArrayList<KeyReleaseEventListener> keyReleaseListeners = new ArrayList<>();
 
-    static void addKeyReleaseListener(final KeyReleaseEventListener listener) {
+    static void addKeyReleaseListener(KeyReleaseEventListener listener) {
         keyReleaseListeners.add(listener);
     }
 
-    static void processAllKeyReleaseEvent(final KeyReleaseEvent event) {
-        for (final KeyReleaseEventListener listener : keyReleaseListeners) {
+    static void processAllKeyReleaseEvent(KeyReleaseEvent event) {
+        for (KeyReleaseEventListener listener : keyReleaseListeners) {
             if (!listener.isActive()) {
                 continue;
             }

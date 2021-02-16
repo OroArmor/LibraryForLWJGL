@@ -9,7 +9,7 @@ public class KeyPressEvent extends KeyEvent {
 
     private GLFWEventMods mods;
 
-    public KeyPressEvent(final Key key, final long window, final GLFWEventMods mods) {
+    public KeyPressEvent(Key key, long window, GLFWEventMods mods) {
         this.key = key;
         this.window = window;
         this.mods = mods;
@@ -22,7 +22,7 @@ public class KeyPressEvent extends KeyEvent {
     }
 
     @Override
-    public void setEventMods(final GLFWEventMods newMods) {
+    public void setEventMods(GLFWEventMods newMods) {
         mods = newMods;
     }
 

@@ -11,16 +11,15 @@ import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
 import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 
 public class MouseOverEvent extends MouseEvent {
-
     MouseOverEventType type;
 
-    public MouseOverEvent(final long window, final MouseOverEventType type, final GLFWEventMods mods) {
+    public MouseOverEvent(long window, MouseOverEventType type, GLFWEventMods mods) {
         super(window, MouseEventType.OVER, mods);
 
         this.type = type;
     }
 
-    public static void create(final long window, final int action, final GLFWEventMods mods) {
+    public static void create(long window, int action, GLFWEventMods mods) {
         if (action == GLFW_TRUE) {
             MouseEnterEventListener.processAllMouseEnterEvent(new MouseEnterEvent(window, mods));
         } else if (action == GLFW_FALSE) {

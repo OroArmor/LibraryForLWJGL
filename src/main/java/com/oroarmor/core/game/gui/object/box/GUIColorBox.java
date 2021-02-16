@@ -10,14 +10,13 @@ import com.oroarmor.core.opengl.VertexBufferLayout;
 import org.joml.Vector4f;
 
 public class GUIColorBox extends GUIObject<GUIColorBox> {
-
     private final Vector4f originalColor = new Vector4f().zero();
     protected float width;
     protected float height;
     protected Mesh boxMesh;
     protected Vector4f color;
 
-    public GUIColorBox(final float x, final float y, final float width, final float height, final Vector4f color) {
+    public GUIColorBox(float x, float y, float width, float height, Vector4f color) {
         super(x, y);
         this.width = width;
         this.height = height;
@@ -43,18 +42,18 @@ public class GUIColorBox extends GUIObject<GUIColorBox> {
     }
 
     @Override
-    public boolean inBounds(final float x, final float y) {
+    public boolean inBounds(float x, float y) {
         return this.x < x && this.x + width > x && this.y < y && this.y + height > y;
     }
 
     @Override
-    public void render(final Renderer renderer) {
+    public void render(Renderer renderer) {
 
         for (int i = 0; i < animations.size(); i++) {
-            final long start = animationDurations.get(i);
-            final IAnimation<GUIColorBox> animation = animations.get(i);
+            long start = animationDurations.get(i);
+            IAnimation<GUIColorBox> animation = animations.get(i);
 
-            final long duration = System.currentTimeMillis() - start;
+            long duration = System.currentTimeMillis() - start;
 
             if (animation.getDurationInMillis() < duration) {
                 animationDurations.remove(i);
@@ -63,7 +62,7 @@ public class GUIColorBox extends GUIObject<GUIColorBox> {
                 continue;
             }
 
-            final float percent = (float) duration / (float) animation.getDurationInMillis();
+            float percent = (float) duration / (float) animation.getDurationInMillis();
 
             animation.animate(this, percent);
         }
@@ -71,7 +70,7 @@ public class GUIColorBox extends GUIObject<GUIColorBox> {
         boxMesh.render(renderer, GUIShaders.getSolidColorShader(color).setObjectModel(animationMatrix));
     }
 
-    public void setColor(final Vector4f newColor) {
+    public void setColor(Vector4f newColor) {
         color = newColor;
     }
 

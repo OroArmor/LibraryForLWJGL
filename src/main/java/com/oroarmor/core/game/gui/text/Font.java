@@ -7,15 +7,13 @@ import com.oroarmor.core.opengl.Mesh;
 import com.oroarmor.core.opengl.Texture;
 
 public class Font {
-
     private final FontCharacter[] characters;
     private final FontKerning kernings;
     private final FontMetaData metaData;
     private final Texture texture;
     private Map<TextSizePair, Mesh> fontMeshes;
 
-    public Font(final FontCharacter[] characters, final FontKerning kernings, final Texture texture,
-                final FontMetaData fontMetaData) {
+    public Font(FontCharacter[] characters, FontKerning kernings, Texture texture, FontMetaData fontMetaData) {
         this.characters = characters;
         this.kernings = kernings;
         this.texture = texture;
@@ -34,18 +32,18 @@ public class Font {
         return metaData;
     }
 
-    public Mesh getTextMesh(final String text, final float textSize, final float textWidth) {
+    public Mesh getTextMesh(String text, float textSize, float textWidth) {
         if (fontMeshes == null) {
             fontMeshes = new HashMap<>();
         }
 
-        final TextSizePair textSizePair = new TextSizePair(text, textSize);
+        TextSizePair textSizePair = new TextSizePair(text, textSize);
 
         if (fontMeshes.containsKey(textSizePair)) {
             return fontMeshes.get(textSizePair);
         }
 
-        final Mesh newTextMesh = FontMeshCreator.createMesh(this, text, textSize, textWidth);
+        Mesh newTextMesh = FontMeshCreator.createMesh(this, text, textSize, textWidth);
 
         fontMeshes.put(textSizePair, newTextMesh);
 
@@ -60,20 +58,18 @@ public class Font {
         float size;
         String text;
 
-        public TextSizePair(final String text, final float size) {
+        public TextSizePair(String text, float size) {
             this.text = text;
             this.size = size;
         }
 
         @Override
-        public boolean equals(final Object obj) {
+        public boolean equals(Object obj) {
             if (obj instanceof TextSizePair) {
                 return ((TextSizePair) obj).text.equals(text) && ((TextSizePair) obj).size == size;
             }
 
             return false;
         }
-
     }
-
 }

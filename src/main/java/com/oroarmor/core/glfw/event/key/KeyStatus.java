@@ -3,7 +3,7 @@ package com.oroarmor.core.glfw.event.key;
 public class KeyStatus {
     private static final boolean[] down = new boolean[348];
 
-    public static boolean isKeyDown(final Key key) {
+    public static boolean isKeyDown(Key key) {
         if (key == Key.NOT_FOUND) {
             return false;
         }
@@ -11,16 +11,14 @@ public class KeyStatus {
         return down[key.getKeyCode()];
     }
 
-    public static void setKeyDown(final Key key) {
-        if (key == Key.NOT_FOUND) {
-        } else {
+    public static void setKeyDown(Key key) {
+        if (key != Key.NOT_FOUND) {
             down[key.getKeyCode()] = true;
         }
     }
 
-    public static void setKeyUp(final Key key) {
-        if (key == Key.NOT_FOUND) {
-        } else {
+    public static void setKeyUp(Key key) {
+        if (key != Key.NOT_FOUND) {
             down[key.getKeyCode()] = false;
         }
     }

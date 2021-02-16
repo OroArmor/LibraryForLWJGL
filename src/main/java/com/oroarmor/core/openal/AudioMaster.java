@@ -108,6 +108,7 @@ public final class AudioMaster {
         }
 
         // Send the data to OpenAL
+        assert rawAudioBuffer != null;
         alBufferData(soundIDBuffer, format, rawAudioBuffer, sampleRate);
 
         // Free the memory allocated by STB
@@ -119,7 +120,6 @@ public final class AudioMaster {
     }
 
     public static void destroy() {
-        System.out.println("Destroying AL context, devices, and buffers");
         for (int soundBufferID : sounds.values()) {
             alDeleteBuffers(soundBufferID);
         }

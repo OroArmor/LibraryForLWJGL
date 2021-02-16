@@ -1,28 +1,15 @@
 package com.oroarmor.util;
 
-import static org.lwjgl.opengl.GL11.GL_NEAREST;
-import static org.lwjgl.opengl.GL11.GL_RGBA;
-import static org.lwjgl.opengl.GL11.GL_RGBA8;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_S;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_T;
-import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
-import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11.glGenTextures;
-import static org.lwjgl.opengl.GL11.glTexImage2D;
-import static org.lwjgl.opengl.GL11.glTexParameteri;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
-
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL12;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * This class loads textures from either a string/buffered image or a byte
@@ -32,7 +19,7 @@ import org.lwjgl.opengl.GL12;
  *
  *
  */
-public class TextureLoader {
+public final class TextureLoader {
 	/**
 	 * The number of bytes in an rgba png image
 	 */
@@ -44,7 +31,7 @@ public class TextureLoader {
 	 * @return A java.awt.BufferedImage for the string
 	 */
 	@Deprecated
-	public static BufferedImage loadImage(final String loc) {
+	public static BufferedImage loadImage(String loc) {
 		try {
 			return ImageIO.read(new File(loc));
 		} catch (final IOException e) {
@@ -59,17 +46,16 @@ public class TextureLoader {
 	 * @return The OpenGL id for the Texture
 	 */
 	@Deprecated
-	public static int loadTexture(final BufferedImage image) {
-
-		final int[] pixels = new int[image.getWidth() * image.getHeight()];
+	public static int loadTexture(BufferedImage image) {
+		int[] pixels = new int[image.getWidth() * image.getHeight()];
 		image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 
-		final ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * BYTES_PER_PIXEL);
+		ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * BYTES_PER_PIXEL);
 		// 4 for RGBA, 3 for RGB
 
 		for (int y = 0; y < image.getHeight(); y++) {
 			for (int x = 0; x < image.getWidth(); x++) {
-				final int pixel = pixels[y * image.getWidth() + x];
+				int pixel = pixels[y * image.getWidth() + x];
 				buffer.put((byte) (pixel >> 16 & 0xFF)); // Red component
 				buffer.put((byte) (pixel >> 8 & 0xFF)); // Green component
 				buffer.put((byte) (pixel & 0xFF)); // Blue component
@@ -90,12 +76,12 @@ public class TextureLoader {
 	 * @param y           The height of the image
 	 * @return The OpenGL id for the textures
 	 */
-	public static int loadTexture(final ByteBuffer imageBuffer, final int x, final int y) {
+	public static int loadTexture(ByteBuffer imageBuffer, int x, int y) {
 		// You now have a ByteBuffer filled with the color data of each pixel.
 		// Now just create a texture ID and bind it. Then you can load it using
 		// whatever OpenGL method you want, for example:
 
-		final int textureID = glGenTextures(); // Generate texture ID
+		int textureID = glGenTextures(); // Generate texture ID
 		glBindTexture(GL_TEXTURE_2D, textureID); // Bind texture ID
 
 		// Setup wrap mode
@@ -109,11 +95,5 @@ public class TextureLoader {
 		// Send texel data to OpenGL
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageBuffer);
 		return textureID;
-	}
-
-	/**
-	 * No instances for you
-	 */
-	private TextureLoader() {
 	}
 }

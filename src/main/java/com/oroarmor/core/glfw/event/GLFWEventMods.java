@@ -8,11 +8,10 @@ import com.oroarmor.core.glfw.event.key.KeyStatus;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class GLFWEventMods {
-
     private final int mod;
     private final GLFWModIDs[] mods;
 
-    public GLFWEventMods(final int mod) {
+    public GLFWEventMods(int mod) {
         this.mod = mod;
         mods = GLFWModIDs.getIDsFromInt(mod);
     }
@@ -36,7 +35,7 @@ public class GLFWEventMods {
     }
 
     public boolean isShift() {
-        for (final GLFWModIDs id : mods) {
+        for (GLFWModIDs id : mods) {
             if (id == GLFWModIDs.SHIFT) {
                 return true;
             }
@@ -45,26 +44,30 @@ public class GLFWEventMods {
     }
 
     public enum GLFWModIDs {
-        SHIFT(GLFW_MOD_SHIFT), CONTROL(GLFW_MOD_CONTROL), ALT(GLFW_MOD_ALT), SUPER(GLFW_MOD_SUPER),
-        CAPS_LOCK(GLFW_MOD_CAPS_LOCK), NUM_LOCK(GLFW_MOD_NUM_LOCK);
+        SHIFT(GLFW_MOD_SHIFT),
+        CONTROL(GLFW_MOD_CONTROL),
+        ALT(GLFW_MOD_ALT),
+        SUPER(GLFW_MOD_SUPER),
+        CAPS_LOCK(GLFW_MOD_CAPS_LOCK),
+        NUM_LOCK(GLFW_MOD_NUM_LOCK);
 
         public int modID;
 
-        GLFWModIDs(final int modID) {
+        GLFWModIDs(int modID) {
             this.modID = modID;
         }
 
-        public static GLFWModIDs[] getIDsFromInt(final int mods) {
-            final ArrayList<GLFWModIDs> idsArr = new ArrayList<>();
+        public static GLFWModIDs[] getIDsFromInt(int mods) {
+            ArrayList<GLFWModIDs> idsArr = new ArrayList<>();
 
-            for (final GLFWModIDs id : values()) {
+            for (GLFWModIDs id : values()) {
                 if ((id.modID & mods) == id.modID) {
                     idsArr.add(id);
 
                 }
             }
 
-            final GLFWModIDs[] ids = new GLFWModIDs[idsArr.size()];
+            GLFWModIDs[] ids = new GLFWModIDs[idsArr.size()];
             return idsArr.toArray(ids);
         }
     }

@@ -26,7 +26,7 @@ public class VertexBufferElement {
      * @param type       The type of the data
      * @param normalized If the data is normalized
      */
-    public VertexBufferElement(final int count, final int type, final boolean normalized) {
+    public VertexBufferElement(int count, int type, boolean normalized) {
         this.count = count;
         this.type = type;
         this.normalized = normalized;
@@ -36,7 +36,7 @@ public class VertexBufferElement {
      * @param type The type of the {@link VertexBufferElement}
      * @return The size in bytes of the type
      */
-    public static int getSize(final int type) {
+    public static int getSize(int type) {
         switch (type) {
             case GL_FLOAT:
                 return 4;

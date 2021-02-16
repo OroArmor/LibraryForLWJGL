@@ -9,7 +9,6 @@ import com.oroarmor.core.game.gui.object.IGUIObject;
 import com.oroarmor.core.opengl.Renderer;
 
 public abstract class GUIGroup implements IGUIGroup {
-
     protected float x;
     protected float y;
     protected boolean hidden;
@@ -17,23 +16,23 @@ public abstract class GUIGroup implements IGUIGroup {
 
     protected boolean hasParent = false;
 
-    public GUIGroup(final float x, final float y) {
+    public GUIGroup(float x, float y) {
         this(x, y, false);
     }
 
-    public GUIGroup(final float x, final float y, final boolean hiddenOnCreation) {
+    public GUIGroup(float x, float y, boolean hiddenOnCreation) {
         this.x = x;
         this.y = y;
         hidden = hiddenOnCreation;
     }
 
     @Override
-    public void addChildren(final IGUI<?>... newChildren) {
+    public void addChildren(IGUI<?>... newChildren) {
         if (children == null) {
             children = new ArrayList<>();
         }
 
-        for (final IGUI<?> newChild : newChildren) {
+        for (IGUI<?> newChild : newChildren) {
             if (newChild.hasParent()) {
                 continue;
             }
@@ -45,6 +44,7 @@ public abstract class GUIGroup implements IGUIGroup {
                     continue;
                 }
             }
+
             children.add(newChild);
         }
     }
@@ -75,21 +75,21 @@ public abstract class GUIGroup implements IGUIGroup {
     }
 
     @Override
-    public boolean isVisable() {
+    public boolean isVisible() {
         return hidden;
     }
 
     @Override
-    public void makeVisable(final boolean visable) {
-        hidden = !visable;
+    public void makeVisible(boolean visible) {
+        hidden = !visible;
 
-        for (final IGUI<?> igui : children) {
+        for (IGUI<?> igui : children) {
             if (igui instanceof IGUIObject) {
-                ((IGUIObject<?>) igui).setActive(visable);
+                ((IGUIObject<?>) igui).setActive(visible);
             }
 
             if (igui instanceof IGUIGroup) {
-                ((IGUIGroup) igui).makeVisable(visable);
+                ((IGUIGroup) igui).makeVisible(visible);
             }
         }
     }
@@ -100,12 +100,11 @@ public abstract class GUIGroup implements IGUIGroup {
     }
 
     @Override
-    public void render(final Renderer renderer) {
-
+    public void render(Renderer renderer) {
     }
 
     @Override
-    public void renderChildren(final Renderer renderer) {
+    public void renderChildren(Renderer renderer) {
         if (children == null || hidden) {
             return;
         }
@@ -120,7 +119,7 @@ public abstract class GUIGroup implements IGUIGroup {
     }
 
     @Override
-    public void setHasParent(final boolean hasParent) {
+    public void setHasParent(boolean hasParent) {
         this.hasParent = hasParent;
     }
 
@@ -132,5 +131,4 @@ public abstract class GUIGroup implements IGUIGroup {
     @Override
     public void triggerAnimation(final IAnimation<IGUIGroup> animation) {
     }
-
 }

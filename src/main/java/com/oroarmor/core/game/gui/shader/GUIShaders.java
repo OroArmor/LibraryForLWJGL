@@ -11,11 +11,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
 public class GUIShaders {
-
     private static SolidColorShader solidColorShader;
-
     private static Map<Font, FontShader> fontShaders;
-
     private static TextureShader textureShader;
 
     public static FontShader getFontShader(Font font) {
@@ -38,7 +35,7 @@ public class GUIShaders {
         return shader;
     }
 
-    public static SolidColorShader getSolidColorShader(final Vector4f color) {
+    public static SolidColorShader getSolidColorShader(Vector4f color) {
         if (solidColorShader == null) {
             solidColorShader = new SolidColorShader();
         }
@@ -57,7 +54,7 @@ public class GUIShaders {
         return textureShader;
     }
 
-    public static void updateShaderView(final Matrix4f orthoView) {
+    public static void updateShaderView(Matrix4f orthoView) {
         if (solidColorShader != null) {
             solidColorShader.bind();
             solidColorShader.setOrthoView(orthoView);

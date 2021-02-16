@@ -14,7 +14,6 @@ import org.lwjgl.BufferUtils;
  * @author OroArmor
  */
 public class OBJLoader {
-
     public static final int VERTICIES_PER_FACE = 3;
     public static final int UV_COORD_LENGTH = 2;
     public static final int NORMAL_COORD_LENGTH = 3;
@@ -42,7 +41,7 @@ public class OBJLoader {
      * @param data The data of the object file
      * @return A mesh with the data from the object file
      */
-    public static Mesh loadOBJ(final String data) {
+    public static Mesh loadOBJ(String data) {
 
         final int vertexCount = StringUtils.countOf("v", data);
         final int uvCount = StringUtils.countOf("vt", data);
@@ -59,18 +58,18 @@ public class OBJLoader {
         final FloatBuffer normals = BufferUtils.createFloatBuffer(normalCount * NORMAL_COORD_LENGTH);
 
         // x, y, z, u, v, nx, ny, nz
-        final FloatBuffer meshData = BufferUtils.createFloatBuffer(
+        FloatBuffer meshData = BufferUtils.createFloatBuffer(
                 faceCount * VERTICIES_PER_FACE * (POSITION_COORD_LENGTH + UV_COORD_LENGTH + NORMAL_COORD_LENGTH));
-        final IntBuffer triangles = BufferUtils.createIntBuffer(faceCount * VERTICIES_PER_FACE);
+        IntBuffer triangles = BufferUtils.createIntBuffer(faceCount * VERTICIES_PER_FACE);
 
-        final HashMap<String, Integer> triangleNames = new HashMap<>();
+        HashMap<String, Integer> triangleNames = new HashMap<>();
 
         int vertexCounts = 0;
 
-        for (final String line : fileData) {
-            final String[] tokens = line.split(" ");
+        for (String line : fileData) {
+            String[] tokens = line.split(" ");
 
-            final String token = tokens[0];
+            String token = tokens[0];
 
             switch (token) {
                 case "v":
@@ -92,10 +91,10 @@ public class OBJLoader {
                         if (triangleNames.containsKey(tokens[i])) {
                             triangles.put(triangleNames.get(tokens[i]));
                         } else {
-                            final String[] vtxUvNorm = tokens[i].split("/");
-                            final int vertexID = Integer.parseInt(vtxUvNorm[0]) - 1;
-                            final int uvID = Integer.parseInt(vtxUvNorm[1]) - 1;
-                            final int normID = Integer.parseInt(vtxUvNorm[2].trim()) - 1;
+                            String[] vtxUvNorm = tokens[i].split("/");
+                            int vertexID = Integer.parseInt(vtxUvNorm[0]) - 1;
+                            int uvID = Integer.parseInt(vtxUvNorm[1]) - 1;
+                            int normID = Integer.parseInt(vtxUvNorm[2].trim()) - 1;
 
                             meshData.put(verticies.get(vertexID * POSITION_COORD_LENGTH));
                             meshData.put(verticies.get(vertexID * POSITION_COORD_LENGTH + 1));
@@ -128,8 +127,7 @@ public class OBJLoader {
      * @param filePath The path to the file
      * @return A mesh with the OBJ data
      */
-    public static Mesh loadOBJFromFile(final String filePath) {
+    public static Mesh loadOBJFromFile(String filePath) {
         return loadOBJ(ResourceLoader.loadFileString(filePath));
     }
-
 }

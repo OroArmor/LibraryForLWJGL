@@ -55,9 +55,9 @@ public class AudioSource {
     /**
      * Sets the gain of the source
      *
-     * @param gain
+     * @param gain The gain for the source
      */
-    public void setGain(final float gain) {
+    public void setGain(float gain) {
         this.gain = gain;
         alSourcef(sourceID, AL_GAIN, gain);
     }
@@ -72,9 +72,9 @@ public class AudioSource {
     /**
      * Sets the pitch of the source
      *
-     * @param pitch
+     * @param pitch The pitch for the source
      */
-    public void setPitch(final float pitch) {
+    public void setPitch(float pitch) {
         this.pitch = pitch;
     }
 
@@ -88,9 +88,9 @@ public class AudioSource {
     /**
      * Sets the position of the source
      *
-     * @param position
+     * @param position The position for the source
      */
-    public void setPosition(final Vector3f position) {
+    public void setPosition(Vector3f position) {
         this.position = position;
     }
 
@@ -104,9 +104,9 @@ public class AudioSource {
     /**
      * Sets the velocity of the source
      *
-     * @param velocity
+     * @param velocity The velocity of the source
      */
-    public void setVelocity(final Vector3f velocity) {
+    public void setVelocity(Vector3f velocity) {
         this.velocity = velocity;
     }
 
@@ -125,7 +125,7 @@ public class AudioSource {
      *
      * @param soundID The id of the sound to play
      */
-    public void playSound(final int soundID) {
+    public void playSound(int soundID) {
         alSourcei(sourceID, AL_BUFFER, soundID);
         alSourcef(sourceID, AL_PITCH, pitch);
         alSourcef(sourceID, AL_GAIN, gain);

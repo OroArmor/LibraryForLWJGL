@@ -10,7 +10,6 @@ import com.oroarmor.core.opengl.VertexBufferLayout;
 import org.joml.Vector4f;
 
 public class GUIBox extends GUIObject<GUIBox> {
-
     protected float width;
     protected float height;
 
@@ -18,7 +17,7 @@ public class GUIBox extends GUIObject<GUIBox> {
 
     protected Vector4f color;
 
-    public GUIBox(final float x, final float y, final float width, final float height) {
+    public GUIBox(float x, float y, float width, float height) {
         super(x, y);
         this.width = width;
         this.height = height;
@@ -39,18 +38,18 @@ public class GUIBox extends GUIObject<GUIBox> {
     }
 
     @Override
-    public boolean inBounds(final float x, final float y) {
+    public boolean inBounds(float x, float y) {
         return this.x < x && this.x + width > x && this.y < y && this.y + height > y;
     }
 
     @Override
-    public void render(final Renderer renderer) {
+    public void render(Renderer renderer) {
 
         for (int i = 0; i < animations.size(); i++) {
-            final long start = animationDurations.get(i);
-            final IAnimation<GUIBox> animation = animations.get(i);
+            long start = animationDurations.get(i);
+            IAnimation<GUIBox> animation = animations.get(i);
 
-            final long duration = System.currentTimeMillis() - start;
+            long duration = System.currentTimeMillis() - start;
 
             if (animation.getDurationInMillis() < duration) {
                 animationDurations.remove(i);
@@ -59,7 +58,7 @@ public class GUIBox extends GUIObject<GUIBox> {
                 continue;
             }
 
-            final float percent = (float) duration / (float) animation.getDurationInMillis();
+            float percent = (float) duration / (float) animation.getDurationInMillis();
 
             animation.animate(this, percent);
         }

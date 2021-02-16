@@ -36,8 +36,8 @@ public class Shader implements Bindable {
     /**
      * Creates a {@link Shader} with the vertex and fragment sources
      *
-     * @param vertexSource
-     * @param fragmentSource
+     * @param vertexSource The source for the vertex shader
+     * @param fragmentSource The source for the fragment shader
      */
     public Shader(String vertexSource, String fragmentSource) {
         this.vertexSource = vertexSource;
@@ -65,12 +65,9 @@ public class Shader implements Bindable {
         if (ids == null) {
             ids = new int[]{id};
         } else {
-
             int[] newIDs = new int[ids.length + 1];
 
-            for (int i = 0; i < ids.length; i++) {
-                newIDs[i] = ids[i];
-            }
+            System.arraycopy(ids, 0, newIDs, 0, ids.length);
             newIDs[ids.length] = id;
             ids = newIDs;
         }
@@ -118,7 +115,6 @@ public class Shader implements Bindable {
      * @return The integer value of the uniform
      */
     private int getUniformLocation(String name) {
-
         Integer uniformLocation;
 
         if (!uniforms.containsKey(name)) {
@@ -193,5 +189,4 @@ public class Shader implements Bindable {
     public void unbind() {
         glUseProgram(0);
     }
-
 }

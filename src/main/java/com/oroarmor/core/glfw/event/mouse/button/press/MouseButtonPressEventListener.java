@@ -7,12 +7,12 @@ import com.oroarmor.core.game.event.Active;
 public interface MouseButtonPressEventListener extends Active {
     ArrayList<MouseButtonPressEventListener> mousePressListeners = new ArrayList<>();
 
-    static void addMousePressListener(final MouseButtonPressEventListener listener) {
+    static void addMousePressListener(MouseButtonPressEventListener listener) {
         mousePressListeners.add(listener);
     }
 
-    static void processAllMousePressEvent(final MousePressEvent event) {
-        for (final MouseButtonPressEventListener listener : mousePressListeners) {
+    static void processAllMousePressEvent(MousePressEvent event) {
+        for (MouseButtonPressEventListener listener : mousePressListeners) {
             if (!listener.isActive()) {
                 continue;
             }

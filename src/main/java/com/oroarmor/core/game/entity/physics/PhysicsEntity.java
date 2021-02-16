@@ -5,8 +5,7 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public abstract class PhysicsEntity extends Entity {
-
-    protected float weight = 0;
+    protected float weight;
 
     protected Vector3f velocityVector;
     protected Vector3f accelerationVector;

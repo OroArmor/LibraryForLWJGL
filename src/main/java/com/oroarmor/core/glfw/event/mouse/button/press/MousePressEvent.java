@@ -6,10 +6,7 @@ import com.oroarmor.core.glfw.event.mouse.button.MouseButtonEvent;
 import com.oroarmor.core.glfw.event.mouse.button.MouseButtonEventType;
 
 public class MousePressEvent extends MouseButtonEvent {
-
-    public MousePressEvent(final MouseButton button, final float x, final float y, final long window,
-                           final GLFWEventMods mods) {
+    public MousePressEvent(MouseButton button, float x, float y, long window, GLFWEventMods mods) {
         super(button, x, y, MouseButtonEventType.PRESS, window, mods);
     }
-
 }

@@ -20,9 +20,9 @@ public interface MouseScrollEventListener extends Active {
     /**
      * Adds a new {@link MouseScrollEventListener} to the list
      *
-     * @param listener
+     * @param listener The scroll event listener
      */
-    static void addMouseScrollListener(final MouseScrollEventListener listener) {
+    static void addMouseScrollListener(MouseScrollEventListener listener) {
         mouseScrollListeners.add(listener);
     }
 
@@ -31,8 +31,8 @@ public interface MouseScrollEventListener extends Active {
      *
      * @param event {@link MouseScrollEvent} to process
      */
-    static void processAllMouseScrollEvent(final MouseScrollEvent event) {
-        for (final MouseScrollEventListener listener : mouseScrollListeners) {
+    static void processAllMouseScrollEvent(MouseScrollEvent event) {
+        for (MouseScrollEventListener listener : mouseScrollListeners) {
             if (!listener.isActive()) {
                 continue;
             }

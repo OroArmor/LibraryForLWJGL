@@ -18,9 +18,9 @@ public interface Destructible {
      * @param fromDestructor If true, the {@link Destructor} destroyed the object,
      *                       if false, the user destroyed the object
      */
-    default void destroy(final boolean fromDestructor) {
+    default void destroy(boolean fromDestructor) {
         if (!fromDestructor) {
-            Destructor.removeDestructable(this);
+            Destructor.removeDestructible(this);
         }
         destroy();
     }

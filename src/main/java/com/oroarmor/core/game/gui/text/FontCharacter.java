@@ -10,8 +10,7 @@ public class FontCharacter {
     public int y;
     public int yoffset;
 
-    public FontCharacter(final int character, final int x, final int y, final int width, final int height,
-                         final int xoffset, final int yoffset, final int xadvance) {
+    public FontCharacter(int character, int x, int y, int width, int height, int xoffset, int yoffset, int xadvance) {
         this.character = character;
         this.x = x;
         this.y = y;
@@ -27,5 +26,4 @@ public class FontCharacter {
         return "FontCharacter [character=" + (char) character + ", height=" + height + ", width=" + width + ", x=" + x
                 + ", xadvance=" + xadvance + ", xoffset=" + xoffset + ", y=" + y + ", yoffset=" + yoffset + "]";
     }
-
 }

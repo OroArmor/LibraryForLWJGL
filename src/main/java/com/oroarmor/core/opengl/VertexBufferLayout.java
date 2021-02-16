@@ -43,22 +43,20 @@ public class VertexBufferLayout {
     }
 
     /**
-     * @param count Add {@code count} floats as a data point in the
-     *              {@link VertexBufferLayout}
-     * @return
+     * @param count Add {@code count} floats as a data point in the {@link VertexBufferLayout}
+     * @return this
      */
-    public VertexBufferLayout pushFloats(final int count) {
+    public VertexBufferLayout pushFloats(int count) {
         vbElements.add(new VertexBufferElement(count, GL_FLOAT, false));
         stride += Float.BYTES * count;
         return this;
     }
 
     /**
-     * @param count Add {@code count} bytes as a data point in the
-     *              {@link VertexBufferLayout}
-     * @return
+     * @param count Add {@code count} bytes as a data point in the {@link VertexBufferLayout}
+     * @return this
      */
-    public VertexBufferLayout pushUnsignedBytes(final int count) {
+    public VertexBufferLayout pushUnsignedBytes(int count) {
         vbElements.add(new VertexBufferElement(count, GL_UNSIGNED_BYTE, false));
         stride += Byte.BYTES * count;
         return this;
@@ -67,9 +65,9 @@ public class VertexBufferLayout {
     /**
      * @param count Add {@code count} ints as a data point in the
      *              {@link VertexBufferLayout}
-     * @return
+     * @return this
      */
-    public VertexBufferLayout pushUnsignedInts(final int count) {
+    public VertexBufferLayout pushUnsignedInts(int count) {
         vbElements.add(new VertexBufferElement(count, GL_UNSIGNED_INT, false));
         stride += Integer.BYTES * count;
         return this;

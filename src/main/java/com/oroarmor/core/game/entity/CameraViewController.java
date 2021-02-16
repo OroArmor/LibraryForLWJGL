@@ -10,11 +10,11 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class CameraViewController extends PhysicsEntity implements KeyEventListener {
-
-    private final float rotationSpeed;
     Look lookPitch = Look.NONE;
     Look lookRoll = Look.NONE;
     Look lookYaw = Look.NONE;
+    private final float rotationSpeed;
+
     public CameraViewController(float rotationSpeed) {
         super(new Vector3f(), new Vector3f(), new Vector3f(1, 1, 1), 1);
         addToKeyListeners();
@@ -23,8 +23,12 @@ public class CameraViewController extends PhysicsEntity implements KeyEventListe
 
     @Override
     public Matrix4f getModelMatrix() {
-        return new Matrix4f().rotate(rotationVector.x, 1, 0, 0).rotate(rotationVector.y, 0, 1, 0)
-                .rotate(rotationVector.z, 0, 0, 1).scale(scaleVector).translate(positionVector.negate(new Vector3f()));
+        return new Matrix4f()
+                .rotate(rotationVector.x, 1, 0, 0)
+                .rotate(rotationVector.y, 0, 1, 0)
+                .rotate(rotationVector.z, 0, 0, 1)
+                .scale(scaleVector)
+                .translate(positionVector.negate(new Vector3f()));
     }
 
     @Override
@@ -33,17 +37,17 @@ public class CameraViewController extends PhysicsEntity implements KeyEventListe
     }
 
     @Override
-    public void setActive(final boolean active) {
+    public void setActive(boolean active) {
     }
 
     @Override
-    public void processKeyHeldEvent(final KeyHoldEvent event) {
+    public void processKeyHeldEvent(KeyHoldEvent event) {
 
     }
 
     @Override
-    public void processKeyPressedEvent(final KeyPressEvent event) {
-        final Key key = event.getKey();
+    public void processKeyPressedEvent(KeyPressEvent event) {
+        Key key = event.getKey();
 
         // Look TODO: change to mouse
         if (key == Key.UP) {
@@ -65,8 +69,8 @@ public class CameraViewController extends PhysicsEntity implements KeyEventListe
     }
 
     @Override
-    public void processKeyReleasedEvent(final KeyReleaseEvent event) {
-        final Key key = event.getKey();
+    public void processKeyReleasedEvent(KeyReleaseEvent event) {
+        Key key = event.getKey();
 
         // Look TODO: change to mouse
         if (key == Key.UP) {
@@ -82,7 +86,7 @@ public class CameraViewController extends PhysicsEntity implements KeyEventListe
     }
 
     @Override
-    public void update(final float delta) {
+    public void update(float delta) {
 
         if (lookYaw == Look.RIGHT) {
             rotationVector.add(0, -rotationSpeed, 0);
@@ -101,5 +105,4 @@ public class CameraViewController extends PhysicsEntity implements KeyEventListe
     private enum Look {
         DOWN, LEFT, NONE, RIGHT, ROLL_LEFT, ROLL_RIGHT, UP
     }
-
 }

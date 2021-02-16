@@ -10,5 +10,4 @@ public interface IGUICallback {
     void onHoverStop();
 
     void onRelease(MouseButton button, boolean inbounds);
-
 }

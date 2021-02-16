@@ -4,7 +4,6 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public abstract class Entity {
-
     protected Matrix4f modelMatrix;
     protected Vector3f positionVector;
     protected Vector3f rotationVector;

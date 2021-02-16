@@ -1,7 +1,5 @@
 package com.oroarmor.core.opengl;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 
 import com.oroarmor.core.Bindable;
@@ -60,14 +58,11 @@ public class Texture implements Bindable {
      *
      * @param filePath The path to the image texture
      */
-    public Texture(final String filePath) {
+    public Texture(String filePath) {
         this.filePath = filePath;
-
-        final int desired_channels = STBI_rgb_alpha;
 
         STBImage.stbi_set_flip_vertically_on_load(true);
 
-//        final ByteBuffer buffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
         byte[] bytes = ResourceLoader.loadFileBytes(Texture.class.getClassLoader().getResourceAsStream(filePath));
 
         ByteBuffer data = MemoryUtil.memAlloc(bytes.length);
@@ -78,14 +73,12 @@ public class Texture implements Bindable {
             var widthPointer = stack.mallocInt(1);
             var heightPointer = stack.mallocInt(1);
             var formatPointer = stack.mallocInt(1);
-            buffer = stbi_load_from_memory(data, widthPointer, heightPointer, formatPointer, desired_channels);
+            buffer = stbi_load_from_memory(data, widthPointer, heightPointer, formatPointer, STBI_rgb_alpha);
             width = widthPointer.get(0);
             height = heightPointer.get(0);
         } finally {
             MemoryUtil.memFree(data);
         }
-
-        System.out.println(filePath + ": " + STBImage.stbi_failure_reason());
 
         if (buffer == null) {
             throw new IllegalArgumentException("Incorrect file path: " + filePath);
@@ -111,7 +104,7 @@ public class Texture implements Bindable {
      *
      * @param slot Slot to bind the texture to
      */
-    public void bind(final int slot) {
+    public void bind(int slot) {
         this.slot = Math.min(slot, 31);
         this.bind();
     }

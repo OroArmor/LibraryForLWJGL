@@ -12,12 +12,11 @@ import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
 public class TerrainMesh {
-
     private static class TerrainMeshData {
         public IntBuffer tris;
         public FloatBuffer vertices;
 
-        public TerrainMeshData(final FloatBuffer vertices, final IntBuffer tris) {
+        public TerrainMeshData(FloatBuffer vertices, IntBuffer tris) {
             this.vertices = vertices;
             this.tris = tris;
         }
@@ -59,7 +58,7 @@ public class TerrainMesh {
 
     float x, y;
 
-    public TerrainMesh(final int width, final int height, final float x, final float y) {
+    public TerrainMesh(int width, int height, float x, float y) {
         this.width = width;
         this.height = height;
         this.x = x;
@@ -69,30 +68,29 @@ public class TerrainMesh {
         meshDataIntBuffer = BufferUtils.createIntBuffer(6 * width * height);
     }
 
-    private TerrainMeshData generateMeshData(final float[][] generatedNoiseMap) {
-
-        final float min = maxHeight * 0.25f;
+    private TerrainMeshData generateMeshData(float[][] generatedNoiseMap) {
+        float min = maxHeight * 0.25f;
 
         int triangleCount = 0;
 
         for (int i = 0; i < width - 1; i++) {
             for (int j = 0; j < height - 1; j++) {
 
-                final float y00 = Math.max((maxHeight + min) * generatedNoiseMap[i][j], min) - min;
-                final float y10 = Math.max((maxHeight + min) * generatedNoiseMap[i + 1][j], min) - min;
-                final float y11 = Math.max((maxHeight + min) * generatedNoiseMap[i + 1][j + 1], min) - min;
-                final float y01 = Math.max((maxHeight + min) * generatedNoiseMap[i][j + 1], min) - min;
+                float y00 = Math.max((maxHeight + min) * generatedNoiseMap[i][j], min) - min;
+                float y10 = Math.max((maxHeight + min) * generatedNoiseMap[i + 1][j], min) - min;
+                float y11 = Math.max((maxHeight + min) * generatedNoiseMap[i + 1][j + 1], min) - min;
+                float y01 = Math.max((maxHeight + min) * generatedNoiseMap[i][j + 1], min) - min;
 
-                final float t1h = (y00 + y10 + y11) / 3;
-                final float t2h = (y00 + y01 + y11) / 3;
+                float t1h = (y00 + y10 + y11) / 3;
+                float t2h = (y00 + y01 + y11) / 3;
 
-                final Vector3f p1 = new Vector3f(0 + i, y00, 0 + j);
-                final Vector3f p2 = new Vector3f(1 + i, y10, 0 + j);
-                final Vector3f p3 = new Vector3f(1 + i, y11, 1 + j);
-                final Vector3f p4 = new Vector3f(0 + i, y01, 1 + j);
+                Vector3f p1 = new Vector3f(i, y00, j);
+                Vector3f p2 = new Vector3f(1 + i, y10, j);
+                Vector3f p3 = new Vector3f(1 + i, y11, 1 + j);
+                Vector3f p4 = new Vector3f(i, y01, 1 + j);
 
-                final Vector3f n1 = p1.sub(p2, new Vector3f()).cross(p3.sub(p2, new Vector3f())).negate();
-                final Vector3f n2 = p1.sub(p4, new Vector3f()).cross(p3.sub(p4, new Vector3f()));
+                Vector3f n1 = p1.sub(p2, new Vector3f()).cross(p3.sub(p2, new Vector3f())).negate();
+                Vector3f n2 = p1.sub(p4, new Vector3f()).cross(p3.sub(p4, new Vector3f()));
 
                 // There needs to be a better way to do this... maybe a mesh generator class
                 // that does the calculations automatically
@@ -156,8 +154,7 @@ public class TerrainMesh {
         return meshData;
     }
 
-    private void setMeshData(final TerrainMeshData data) {
+    private void setMeshData(TerrainMeshData data) {
         meshData = data;
     }
-
 }

@@ -28,8 +28,7 @@ public class MousePositionEvent extends MouseEvent {
      * @param deltaX The delta x
      * @param deltaY The delta y
      */
-    public MousePositionEvent(final long window, final float mouseX, final float mouseY, final float deltaX,
-                              final float deltaY, final GLFWEventMods mods) {
+    public MousePositionEvent(long window, float mouseX, float mouseY, float deltaX, float deltaY, GLFWEventMods mods) {
         super(window, MouseEventType.POSITION, mods);
         this.mouseX = mouseX;
         this.mouseY = mouseY;
@@ -43,9 +42,9 @@ public class MousePositionEvent extends MouseEvent {
      *
      * @param window The window of the {@link MousePositionEvent}
      */
-    public static void create(final long window, final GLFWEventMods mods) {
-        MousePositionEventListener.processAllMousePositionEvent(new MousePositionEvent(window, MouseStatus.getMouseX(),
-                MouseStatus.getMouseY(), MouseStatus.getDeltaMouseX(), MouseStatus.getDeltaMouseY(), mods));
+    public static void create(long window, GLFWEventMods mods) {
+        MousePositionEventListener.processAllMousePositionEvent(
+                new MousePositionEvent(window, MouseStatus.getMouseX(), MouseStatus.getMouseY(), MouseStatus.getDeltaMouseX(), MouseStatus.getDeltaMouseY(), mods));
     }
 
     public float getDeltaX() {

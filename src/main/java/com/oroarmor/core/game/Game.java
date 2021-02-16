@@ -46,7 +46,7 @@ public class Game<T extends GameInfo> {
 
             @Override
             public void tick() {
-                gameLogic.tick(0.005f);
+                gameLogic.tick(0.05f);
             }
         };
 

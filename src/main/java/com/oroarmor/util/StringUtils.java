@@ -1,7 +1,6 @@
 package com.oroarmor.util;
 
-public class StringUtils {
-
+public final class StringUtils {
     /**
      * Returns the count of {@code token} in {@code search}
      *
@@ -9,11 +8,10 @@ public class StringUtils {
      * @param search The string to search in
      * @return The count of {@code token} in {@code search}
      */
-    public static int countOf(final String token, final String search) {
+    public static int countOf(String token, String search) {
         int count = 0;
 
-        for (int i = search.indexOf(token); i <= Math.min(search.lastIndexOf(token),
-                search.length() - token.length() + 1); i++) {
+        for (int i = search.indexOf(token); i <= Math.min(search.lastIndexOf(token), search.length() - token.length() + 1); i++) {
             if (search.startsWith(token, i)) {
                 count++;
             }

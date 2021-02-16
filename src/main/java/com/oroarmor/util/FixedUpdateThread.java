@@ -23,7 +23,7 @@ public abstract class FixedUpdateThread extends Thread {
      * @param ticksPerSecond The maximum number of times to run the thread per
      *                       second
      */
-    public FixedUpdateThread(final double ticksPerSecond) {
+    public FixedUpdateThread(double ticksPerSecond) {
         nanosPerTick = (long) (1d / ticksPerSecond * 1_000_000);
     }
 
@@ -37,15 +37,15 @@ public abstract class FixedUpdateThread extends Thread {
      */
     public abstract void initialize();
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void run() {
         initialize();
         while (active) {
-            final long nanos = System.nanoTime();
+            long nanos = System.nanoTime();
             tick();
 
-            while (nanosPerTick - (System.nanoTime() - nanos) > 0) {
-            }
+            while (nanosPerTick - (System.nanoTime() - nanos) > 0){}
         }
         deinitialize();
     }
@@ -53,7 +53,7 @@ public abstract class FixedUpdateThread extends Thread {
     /**
      * @param active Sets the activeness of the thread
      */
-    public void setActive(final boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

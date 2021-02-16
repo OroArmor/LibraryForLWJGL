@@ -9,12 +9,12 @@ public class Line {
     private final List<Word> words = new ArrayList<>();
     private float currentLength;
 
-    public Line(final float maxLength, final float spaceWidth, final float fontSize) {
+    public Line(float maxLength, float spaceWidth, float fontSize) {
         this.maxLength = maxLength;
         this.spaceWidth = spaceWidth * fontSize;
     }
 
-    public boolean addWord(final Word word) {
+    public boolean addWord(Word word) {
         double additionalLength = word.getWordWidth();
         additionalLength += !words.isEmpty() ? spaceWidth : 0;
         if (currentLength + additionalLength <= maxLength) {

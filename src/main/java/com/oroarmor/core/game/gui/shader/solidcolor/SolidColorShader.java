@@ -6,7 +6,6 @@ import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
 public class SolidColorShader extends Shader {
-
     public SolidColorShader() {
         super(//
                 ResourceLoader.loadFileString(

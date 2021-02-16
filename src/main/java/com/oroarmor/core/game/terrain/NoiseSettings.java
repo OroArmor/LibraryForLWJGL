@@ -13,11 +13,10 @@ public class NoiseSettings {
     private int seed = 25;
 
     public NoiseSettings() {
-
     }
 
-    public NoiseSettings(final float scale, final float persistance, final float lacunarity, final int octaves,
-                         final int seed, final Vector2f offset) {
+    public NoiseSettings(float scale, float persistance, float lacunarity, int octaves,
+                         int seed, Vector2f offset) {
         this.scale = scale;
         this.persistance = persistance;
         this.lacunarity = lacunarity;

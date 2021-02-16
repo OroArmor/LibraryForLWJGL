@@ -7,12 +7,12 @@ import com.oroarmor.core.game.event.Active;
 public interface MouseEnterEventListener extends Active {
     ArrayList<MouseEnterEventListener> mouseEnterListener = new ArrayList<>();
 
-    static void addMouseEnterListener(final MouseEnterEventListener listener) {
+    static void addMouseEnterListener(MouseEnterEventListener listener) {
         mouseEnterListener.add(listener);
     }
 
-    static void processAllMouseEnterEvent(final MouseEnterEvent event) {
-        for (final MouseEnterEventListener listener : mouseEnterListener) {
+    static void processAllMouseEnterEvent(MouseEnterEvent event) {
+        for (MouseEnterEventListener listener : mouseEnterListener) {
             if (!listener.isActive()) {
                 continue;
             }

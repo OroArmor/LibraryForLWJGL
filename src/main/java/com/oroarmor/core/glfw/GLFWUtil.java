@@ -1,6 +1,7 @@
 package com.oroarmor.core.glfw;
 
 import org.lwjgl.opengl.GL;
+import org.lwjgl.system.MemoryUtil;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.glEnable;
@@ -23,16 +24,15 @@ public class GLFWUtil {
      * @param windowHandle  Another GLFW Window to share with
      * @return The window handle
      */
-    public static long glfwCreateWindowHelper(final int width, final int height, final CharSequence name,
-                                              final long monitorHandle, final long windowHandle) {
-        long window = -1;
-
+    public static long glfwCreateWindowHelper(int width, int height, CharSequence name, long monitorHandle, long windowHandle) {
+        long window;
         if (!glfwInit()) {
             System.exit(-1);
         }
+
         glfwWindowHint(GLFW_SAMPLES, 4);
         window = glfwCreateWindow(width, height, name, monitorHandle, windowHandle);
-        if (window == -1) {
+        if (window == MemoryUtil.NULL) {
             glfwTerminate();
             return -1;
         }
@@ -52,8 +52,7 @@ public class GLFWUtil {
      * @param glfwMinorVersion  MinorVersion
      * @param glfwOpenGLProfile Compatibility Profile {@link OpenGLProfile}
      */
-    public static void setWindowHints(final int glfwMajorVersion, final int glfwMinorVersion,
-                                      final OpenGLProfile glfwOpenGLProfile) {
+    public static void setWindowHints(int glfwMajorVersion, int glfwMinorVersion, OpenGLProfile glfwOpenGLProfile) {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfwMajorVersion);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfwMinorVersion);
         glfwWindowHint(GLFW_OPENGL_PROFILE, glfwOpenGLProfile.getProfile());
@@ -81,7 +80,7 @@ public class GLFWUtil {
 
         private final int profile;
 
-        OpenGLProfile(final int profile) {
+        OpenGLProfile(int profile) {
             this.profile = profile;
         }
 

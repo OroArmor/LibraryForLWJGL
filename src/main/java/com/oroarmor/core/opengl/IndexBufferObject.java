@@ -28,7 +28,7 @@ public class IndexBufferObject implements Bindable {
      *
      * @param data The data for the {@link IndexBufferObject}
      */
-    public IndexBufferObject(final int[] data) {
+    public IndexBufferObject(int[] data) {
         ibo_id = glGenBuffers();
 
         bind();
@@ -44,7 +44,7 @@ public class IndexBufferObject implements Bindable {
      *
      * @param data The data for the {@link IndexBufferObject}
      */
-    public IndexBufferObject(final IntBuffer data) {
+    public IndexBufferObject(IntBuffer data) {
         ibo_id = glGenBuffers();
 
         bind();

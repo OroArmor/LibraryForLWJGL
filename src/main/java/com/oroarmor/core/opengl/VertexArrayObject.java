@@ -17,7 +17,6 @@ import static org.lwjgl.opengl.GL30.*;
  * @author OroArmor
  */
 public class VertexArrayObject implements Bindable {
-
     /**
      * Id of the {@link VertexArrayObject}
      */
@@ -41,7 +40,7 @@ public class VertexArrayObject implements Bindable {
      * @param vbLayout The {@link VertexBufferLayout} of the
      *                 {@link VertexArrayObject}
      */
-    public void addBuffer(final VertexBufferObject vbo, final VertexBufferLayout vbLayout) {
+    public void addBuffer(VertexBufferObject vbo, VertexBufferLayout vbLayout) {
         bind();
         vbo.bind();
 
@@ -72,5 +71,4 @@ public class VertexArrayObject implements Bindable {
     public void unbind() {
         glBindVertexArray(0);
     }
-
 }

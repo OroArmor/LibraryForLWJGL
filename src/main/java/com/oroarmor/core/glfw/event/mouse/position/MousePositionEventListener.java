@@ -7,12 +7,12 @@ import com.oroarmor.core.game.event.Active;
 public interface MousePositionEventListener extends Active {
     ArrayList<MousePositionEventListener> mousePositionListener = new ArrayList<>();
 
-    static void addMousePositionListener(final MousePositionEventListener listener) {
+    static void addMousePositionListener(MousePositionEventListener listener) {
         mousePositionListener.add(listener);
     }
 
-    static void processAllMousePositionEvent(final MousePositionEvent event) {
-        for (final MousePositionEventListener listener : mousePositionListener) {
+    static void processAllMousePositionEvent(MousePositionEvent event) {
+        for (MousePositionEventListener listener : mousePositionListener) {
             if (!listener.isActive()) {
                 continue;
             }
@@ -25,5 +25,4 @@ public interface MousePositionEventListener extends Active {
     }
 
     void processMousePositionEvent(MousePositionEvent event);
-
 }

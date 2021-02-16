@@ -7,12 +7,12 @@ import com.oroarmor.core.game.event.Active;
 public interface KeyPressEventListener extends Active {
     ArrayList<KeyPressEventListener> keyPressListeners = new ArrayList<>();
 
-    static void addKeyPressListener(final KeyPressEventListener listener) {
+    static void addKeyPressListener(KeyPressEventListener listener) {
         keyPressListeners.add(listener);
     }
 
-    static void processAllKeyPressEvent(final KeyPressEvent event) {
-        for (final KeyPressEventListener listener : keyPressListeners) {
+    static void processAllKeyPressEvent(KeyPressEvent event) {
+        for (KeyPressEventListener listener : keyPressListeners) {
             if (!listener.isActive()) {
                 continue;
             }

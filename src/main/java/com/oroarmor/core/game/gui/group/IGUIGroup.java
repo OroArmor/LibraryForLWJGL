@@ -12,9 +12,9 @@ public interface IGUIGroup extends IGUI<IGUIGroup> {
 
     void hideAll();
 
-    boolean isVisable();
+    boolean isVisible();
 
-    void makeVisable(boolean visable);
+    void makeVisible(boolean visable);
 
     int numObjects();
 

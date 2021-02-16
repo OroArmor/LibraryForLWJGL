@@ -4,10 +4,9 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class Camera extends Entity {
-
     private CameraViewController viewController;
 
-    public  Camera(final Vector3f position, final Vector3f rotation) {
+    public Camera(Vector3f position, Vector3f rotation) {
         super(position, rotation, new Vector3f(1, 1, 1));
     }
 

@@ -8,8 +8,8 @@ public class FontMetaData {
     private final boolean italic;
     private final int lineHeight;
     private final Padding padding;
-    public FontMetaData(final String fontName, final int fontSize, final boolean bold, final boolean italic,
-                        final int lineHeight, final int base, final Padding padding) {
+
+    public FontMetaData(String fontName, int fontSize, boolean bold, boolean italic, int lineHeight, int base, Padding padding) {
         this.fontName = fontName;
         this.fontSize = fontSize;
         this.bold = bold;
@@ -51,7 +51,7 @@ public class FontMetaData {
         float width;
         float height;
 
-        public Padding(final float width, final float height) {
+        public Padding(float width, float height) {
             this.width = width;
             this.height = height;
         }
@@ -63,7 +63,5 @@ public class FontMetaData {
         public float getWidth() {
             return width;
         }
-
     }
-
 }

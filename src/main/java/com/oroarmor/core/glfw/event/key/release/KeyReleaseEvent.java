@@ -6,10 +6,9 @@ import com.oroarmor.core.glfw.event.key.KeyEvent;
 import com.oroarmor.core.glfw.event.key.KeyStatus;
 
 public class KeyReleaseEvent extends KeyEvent {
-
     private GLFWEventMods mods;
 
-    public KeyReleaseEvent(final Key key, final long window, final GLFWEventMods mods) {
+    public KeyReleaseEvent(Key key, long window, GLFWEventMods mods) {
         this.key = key;
         this.window = window;
         this.mods = mods;
@@ -22,7 +21,7 @@ public class KeyReleaseEvent extends KeyEvent {
     }
 
     @Override
-    public void setEventMods(final GLFWEventMods newMods) {
+    public void setEventMods(GLFWEventMods newMods) {
         mods = newMods;
     }
 
@@ -30,5 +29,4 @@ public class KeyReleaseEvent extends KeyEvent {
     public KeyEventType getKeyEventType() {
         return KeyEventType.RELEASE;
     }
-
 }

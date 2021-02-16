@@ -6,7 +6,6 @@ import com.oroarmor.util.ResourceLoader;
 import org.joml.Matrix4f;
 
 public class TextureShader extends Shader {
-
     public TextureShader() {
         super(//
                 ResourceLoader.loadFileString(

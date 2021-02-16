@@ -26,32 +26,32 @@ import org.joml.Vector3f;
 
 public class OBJTest {
 
-	public static void main(final String[] args) {
+	public static void main(String[] args) {
 
-		final Matrix4f objectModel = new Matrix4f().translate(0, 0, 100)
+		Matrix4f objectModel = new Matrix4f().translate(0, 0, 100)
 				.rotateXYZ((float) -Math.PI / 2, (float) Math.PI, 0).scale(1);
 
 //		Matrix4f camera = new Matrix4f().translate(new Vector3f(0, 0, 0));
 
-		final Camera camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0));
+		Camera camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0));
 
 		// Create a new window with a onKey function that prints the typed key
-		final Display display = new Display(640, 480, "Open GL Learning") {
+		Display display = new Display(640, 480, "Open GL Learning") {
 
 			@Override
-			public void processKeyHeldEvent(final KeyHoldEvent event) {
+			public void processKeyHeldEvent(KeyHoldEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processKeyPressedEvent(final KeyPressEvent event) {
+			public void processKeyPressedEvent(KeyPressEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processKeyReleasedEvent(final KeyReleaseEvent event) {
+			public void processKeyReleasedEvent(KeyReleaseEvent event) {
 				if (event.getKey() == Key.ESCAPE) {
 					close();
 				}
@@ -59,36 +59,36 @@ public class OBJTest {
 			}
 
 			@Override
-			public void processMouseEnterEvent(final MouseEnterEvent event) {
+			public void processMouseEnterEvent(MouseEnterEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMouseLeaveEvent(final MouseLeaveEvent event) {
+			public void processMouseLeaveEvent(MouseLeaveEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMousePositionEvent(final MousePositionEvent event) {
+			public void processMousePositionEvent(MousePositionEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMousePressEvent(final MousePressEvent event) {
+			public void processMousePressEvent(MousePressEvent event) {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void processMouseReleasedEvent(final MouseReleaseEvent event) {
+			public void processMouseReleasedEvent(MouseReleaseEvent event) {
 
 			}
 
 			@Override
-			public void processMouseScrolledEvent(final MouseScrollEvent event) {
+			public void processMouseScrolledEvent(MouseScrollEvent event) {
 				// TODO Auto-generated method stub
 
 			}
@@ -100,26 +100,26 @@ public class OBJTest {
 		// Set the OpenGL version to 4.5 core
 		GLFWUtil.setWindowHints(4, 5, OpenGLProfile.CORE);
 
-		final Mesh cube = OBJLoader.loadOBJ(ResourceLoader.loadFileString(OBJTest.class.getClassLoader().getResourceAsStream("com/oroarmor/app/TitansLogo.obj")));
+		Mesh cube = OBJLoader.loadOBJ(ResourceLoader.loadFileString(OBJTest.class.getClassLoader().getResourceAsStream("com/oroarmor/app/TitansLogo.obj")));
 
 		// Load the shader files
-		final String shaderName = "basic";
+		String shaderName = "basic";
 
-		final String vertex = ResourceLoader.loadFileString(OBJTest.class.getClassLoader().getResourceAsStream("com/oroarmor/app/" + shaderName + "vs.vs"));
-		final String fragment = ResourceLoader.loadFileString(OBJTest.class.getClassLoader().getResourceAsStream("com/oroarmor/app/" + shaderName + "fs.fs"));
+		String vertex = ResourceLoader.loadFileString(OBJTest.class.getClassLoader().getResourceAsStream("com/oroarmor/app/" + shaderName + "vs.vs"));
+		String fragment = ResourceLoader.loadFileString(OBJTest.class.getClassLoader().getResourceAsStream("com/oroarmor/app/" + shaderName + "fs.fs"));
 
 		// Create two shaders based on the files
-		final Shader shader = new Shader(vertex, fragment);
+		Shader shader = new Shader(vertex, fragment);
 
 		shader.compile();
 		// Create a renderer
-		final Renderer renderer = new Renderer();
+		Renderer renderer = new Renderer();
 
 		// Create a texture and bind it to the square shader
 
 		display.setClearColor(0, 0, 0, 1);
 
-		final Texture texture = new Texture("com/oroarmor/app/TitansLogo.png");
+		Texture texture = new Texture("com/oroarmor/app/TitansLogo.png");
 
 		texture.bind(1);
 		shader.bind();
@@ -128,12 +128,12 @@ public class OBJTest {
 		shader.setUniform3f("u_lightDir", new Vector3f(0, 1, -1));
 
 		// Dont close the display until its set closed
-		while (!display.shouldClose()) {
+		while (display.shouldNotClose()) {
 			camera.tick(8f);
 			// Clear the display
 			display.clear();
 
-			final Matrix4f MV = display.getPerspectiveViewModel(90).mul(camera.getModelMatrix());
+			Matrix4f MV = display.getPerspectiveViewModel(90).mul(camera.getModelMatrix());
 
 			// Bind the mShader and set u_Color
 			shader.bind();

@@ -3,7 +3,6 @@ package com.oroarmor.core.game.gui.animation;
 import com.oroarmor.core.game.gui.IGUI;
 
 public abstract class Animation<T extends IGUI<T>> implements IAnimation<T> {
-
     private final long duration;
     protected Easing easing = Easing.LINEAR;
 
@@ -28,5 +27,4 @@ public abstract class Animation<T extends IGUI<T>> implements IAnimation<T> {
     public void setEasing(final Easing easing) {
         this.easing = easing;
     }
-
 }

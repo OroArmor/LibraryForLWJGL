@@ -26,12 +26,12 @@ public class BufferedImage {
      */
     protected int channels;
 
-    public BufferedImage(final String filePath) {
+    public BufferedImage(String filePath) {
 
-        final int[] x = new int[1];
-        final int[] y = new int[1];
-        final int[] channels_in_file = new int[1];
-        final int desired_channels = 3;
+        int[] x = new int[1];
+        int[] y = new int[1];
+        int[] channels_in_file = new int[1];
+        int desired_channels = 3;
 
         imageBuffer = STBImage.stbi_load(filePath, x, y, channels_in_file, desired_channels);
 
@@ -57,7 +57,7 @@ public class BufferedImage {
      * @param y y-coord of the pixel
      * @return The value of the alpha channel
      */
-    public byte getA(final int x, final int y) {
+    public byte getA(int x, int y) {
         if (channels < 4) {
             return 0;
         }
@@ -72,7 +72,7 @@ public class BufferedImage {
      * @param y y-coord of the pixel
      * @return The value of the blue channel
      */
-    public byte getB(final int x, final int y) {
+    public byte getB(int x, int y) {
         return imageBuffer.get(channels * (x + y * height) + 2);
     }
 
@@ -83,7 +83,7 @@ public class BufferedImage {
      * @param y y-coord of the pixel
      * @return The value of the green channel
      */
-    public byte getG(final int x, final int y) {
+    public byte getG(int x, int y) {
         return imageBuffer.get(channels * (x + y * height) + 1);
     }
 
@@ -101,7 +101,7 @@ public class BufferedImage {
      * @param y y-coord of the pixel
      * @return The value of the red channel
      */
-    public byte getR(final int x, final int y) {
-        return imageBuffer.get(channels * (x + y * height) + 0);
+    public byte getR(int x, int y) {
+        return imageBuffer.get(channels * (x + y * height));
     }
 }

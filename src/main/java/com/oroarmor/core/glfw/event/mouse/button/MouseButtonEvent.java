@@ -13,8 +13,7 @@ public class MouseButtonEvent extends MouseEvent {
     private final MouseButtonEventType type;
     private final float x, y;
 
-    public MouseButtonEvent(final MouseButton button, final float x, final float y, final MouseButtonEventType type,
-                            final long window, final GLFWEventMods mods) {
+    public MouseButtonEvent(MouseButton button, float x, float y, MouseButtonEventType type, long window, final GLFWEventMods mods) {
         super(window, MouseEventType.BUTTON, mods);
         this.button = button;
         this.x = x;
@@ -22,14 +21,14 @@ public class MouseButtonEvent extends MouseEvent {
         this.type = type;
     }
 
-    public static void create(final long window, final int button, final int action, final GLFWEventMods mods) {
+    public static void create(long window, int button, int action, GLFWEventMods mods) {
         if (action == MouseButtonEventType.PRESS.getAction()) {
-            final MousePressEvent event = new MousePressEvent(MouseButton.getButtonFromCode(button),
+            MousePressEvent event = new MousePressEvent(MouseButton.getButtonFromCode(button),
                     MouseStatus.getMouseX(), MouseStatus.getMouseY(), window, mods);
             MouseButtonPressEventListener.processAllMousePressEvent(event);
         }
         if (action == MouseButtonEventType.RELEASE.getAction()) {
-            final MouseReleaseEvent event = new MouseReleaseEvent(MouseButton.getButtonFromCode(button),
+            MouseReleaseEvent event = new MouseReleaseEvent(MouseButton.getButtonFromCode(button),
                     MouseStatus.getMouseX(), MouseStatus.getMouseY(), window, mods);
             MouseButtonReleaseEventListener.processAllMouseReleaseEvent(event);
         }
@@ -53,8 +52,7 @@ public class MouseButtonEvent extends MouseEvent {
 
     @Override
     public String toString() {
-        return "button id: " + button.getMouseButtonID() + ", button: " + button + ", type: "
-                + getMouseButtonEventType();
+        return "button id: " + button.getMouseButtonID() + ", button: " + button + ", type: " + getMouseButtonEventType();
     }
 
 }

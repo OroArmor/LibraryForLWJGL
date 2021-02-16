@@ -34,7 +34,7 @@ public interface MouseEventListener
      *
      * @param event Event to process
      */
-    default void processMouseEvent(final MouseEvent event) {
+    default void processMouseEvent(MouseEvent event) {
         if (!isActive()) {
             return;
         }
@@ -42,12 +42,15 @@ public interface MouseEventListener
             processMouseButtonEvent((MouseButtonEvent) event);
         }
         if (event.getMouseEventType() == MouseEventType.POSITION) {
+            assert event instanceof MousePositionEvent;
             processMousePositionEvent((MousePositionEvent) event);
         }
         if (event.getMouseEventType() == MouseEventType.OVER) {
+            assert event instanceof MouseOverEvent;
             processMouseOverEvent((MouseOverEvent) event);
         }
         if (event.getMouseEventType() == MouseEventType.SCROLL) {
+            assert event instanceof MouseScrollEvent;
             processMouseScrolledEvent((MouseScrollEvent) event);
         }
     }

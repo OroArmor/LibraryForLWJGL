@@ -15,16 +15,16 @@ public abstract class KeyEvent implements GLFWEvent {
     public Key key;
     public long window;
 
-    public static void create(final int keyCode, final int action, final long window, final GLFWEventMods mods) {
-        final Key key = Key.getKey(keyCode);
+    public static void create(int keyCode, int action, long window, GLFWEventMods mods) {
+        Key key = Key.getKey(keyCode);
         if (action == GLFW.GLFW_PRESS) {
-            final KeyPressEvent newEvent = new KeyPressEvent(key, window, mods);
+            KeyPressEvent newEvent = new KeyPressEvent(key, window, mods);
             KeyPressEventListener.processAllKeyPressEvent(newEvent);
         } else if (action == GLFW.GLFW_RELEASE) {
-            final KeyReleaseEvent newEvent = new KeyReleaseEvent(key, window, mods);
+            KeyReleaseEvent newEvent = new KeyReleaseEvent(key, window, mods);
             KeyReleaseEventListener.processAllKeyReleaseEvent(newEvent);
         } else {
-            final KeyHoldEvent newEvent = new KeyHoldEvent(key, window, mods);
+            KeyHoldEvent newEvent = new KeyHoldEvent(key, window, mods);
             KeyHoldEventListener.processAllKeyPressEvent(newEvent);
         }
     }
@@ -46,7 +46,7 @@ public abstract class KeyEvent implements GLFWEvent {
     }
 
     @Override
-    public void setWindow(final long window) {
+    public void setWindow(long window) {
         this.window = window;
     }
 

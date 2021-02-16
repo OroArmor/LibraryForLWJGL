@@ -18,14 +18,11 @@ public class TerrainShader extends Shader {
 
     public TerrainShader() {
         super(ResourceLoader.loadFileString(TerrainShader.class.getClassLoader().getResourceAsStream("com/oroarmor/core/game/terrain/terrainvs.vs")),
-                ResourceLoader
-                        .loadFileString(TerrainShader.class.getClassLoader().getResourceAsStream("com/oroarmor/core/game/terrain/terrainfs.fs")));
-
+                ResourceLoader.loadFileString(TerrainShader.class.getClassLoader().getResourceAsStream("com/oroarmor/core/game/terrain/terrainfs.fs")));
         compile();
-
     }
 
-    public void addPointlight(final Pointlight light) {
+    public void addPointlight(Pointlight light) {
 
         if (currentPointlight == MAX_SUN_LIGHTS) {
             System.out.println("Max sunlights reached");
@@ -35,8 +32,7 @@ public class TerrainShader extends Shader {
         pointlights[currentPointlight++] = light;
     }
 
-    public void addSunlight(final Sunlight light) {
-
+    public void addSunlight(Sunlight light) {
         if (currentSunlight == MAX_SUN_LIGHTS) {
             System.out.println("Max sunlights reached");
             return;
@@ -56,7 +52,7 @@ public class TerrainShader extends Shader {
         setUniform1f("u_snowHeight", 1f * TerrainMesh.maxHeight);
 
         for (int i = 0; i < MAX_SUN_LIGHTS; i++) {
-            final Sunlight sunlight = sunlights[i];
+            Sunlight sunlight = sunlights[i];
 
             if (sunlight == null) {
                 setUniform3f("u_sunlights[" + i + "].direction", new Vector3f(0, 1, 0));
@@ -68,7 +64,7 @@ public class TerrainShader extends Shader {
         }
 
         for (int i = 0; i < MAX_POINT_LIGHTS; i++) {
-            final Pointlight pointlight = pointlights[i];
+            Pointlight pointlight = pointlights[i];
 
             if (pointlight == null) {
                 setUniform3f("u_pointlights[" + i + "].position", new Vector3f(0, 0, 0));
@@ -81,5 +77,4 @@ public class TerrainShader extends Shader {
             }
         }
     }
-
 }

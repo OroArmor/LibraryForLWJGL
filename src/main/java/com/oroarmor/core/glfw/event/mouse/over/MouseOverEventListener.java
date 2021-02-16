@@ -11,7 +11,7 @@ public interface MouseOverEventListener extends MouseLeaveEventListener, MouseEn
         addToEnterListeners();
     }
 
-    default void processMouseOverEvent(final MouseOverEvent event) {
+    default void processMouseOverEvent(MouseOverEvent event) {
         if (event.getMouseOverEventType() == MouseOverEventType.ENTER) {
             processMouseEnterEvent((MouseEnterEvent) event);
         } else if (event.getMouseOverEventType() == MouseOverEventType.LEAVE) {

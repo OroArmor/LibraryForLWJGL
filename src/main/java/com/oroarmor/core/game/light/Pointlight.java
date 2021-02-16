@@ -11,7 +11,7 @@ public class Pointlight {
     public Pointlight() {
     }
 
-    public Pointlight(final Vector4f color, final Vector3f position, final float strength) {
+    public Pointlight(Vector4f color, Vector3f position, float strength) {
         this.color = color;
         this.position = position;
         this.strength = strength;
@@ -21,7 +21,7 @@ public class Pointlight {
         return color;
     }
 
-    public void setColor(final Vector4f color) {
+    public void setColor(Vector4f color) {
         this.color = color;
     }
 
@@ -29,7 +29,7 @@ public class Pointlight {
         return position;
     }
 
-    public void setPosition(final Vector3f position) {
+    public void setPosition(Vector3f position) {
         this.position = position;
     }
 
@@ -37,8 +37,7 @@ public class Pointlight {
         return strength;
     }
 
-    public void setStrength(final float strength) {
+    public void setStrength(float strength) {
         this.strength = strength;
     }
-
 }

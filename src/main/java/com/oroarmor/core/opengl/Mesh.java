@@ -28,8 +28,8 @@ public class Mesh {
      * @param indexPositions  The index data of the mesh
      * @param layout          The vertex layout for the mesh
      */
-    public Mesh(final float[] vertexPositions, final int[] indexPositions, final VertexBufferLayout layout) {
-        final VertexBufferObject vbo = new VertexBufferObject(vertexPositions);
+    public Mesh(float[] vertexPositions, int[] indexPositions, VertexBufferLayout layout) {
+        VertexBufferObject vbo = new VertexBufferObject(vertexPositions);
         vao = new VertexArrayObject();
         vao.addBuffer(vbo, layout);
 
@@ -43,8 +43,8 @@ public class Mesh {
      * @param indexPositions  The index data of the mesh
      * @param layout          The vertex layout for the mesh
      */
-    public Mesh(final FloatBuffer vertexPositions, final IntBuffer indexPositions, final VertexBufferLayout layout) {
-        final VertexBufferObject vbo = new VertexBufferObject(vertexPositions);
+    public Mesh(FloatBuffer vertexPositions, IntBuffer indexPositions, VertexBufferLayout layout) {
+        VertexBufferObject vbo = new VertexBufferObject(vertexPositions);
         vao = new VertexArrayObject();
         vao.addBuffer(vbo, layout);
 
@@ -57,7 +57,7 @@ public class Mesh {
      * @param renderer The {@link Renderer} to use
      * @param shader   The {@link Shader} to use
      */
-    public void render(final Renderer renderer, final Shader shader) {
+    public void render(Renderer renderer, Shader shader) {
         renderer.draw(vao, ibo, shader);
     }
 

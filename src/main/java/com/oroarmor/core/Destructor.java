@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * @author OroArmor
  */
 public class Destructor {
-
     /**
      * This is the list of all the {@link Destructible} classes
      */
@@ -20,7 +19,7 @@ public class Destructor {
      *
      * @param destructible {@link Destructible} to add
      */
-    public static void addDestructable(final Destructible destructible) {
+    public static void addDestructable(Destructible destructible) {
         destructibles.add(destructible);
     }
 
@@ -28,7 +27,7 @@ public class Destructor {
      * Destroys all {@link Destructible} classes
      */
     public static void destroyAll() {
-        for (final Destructible destructible : destructibles) {
+        for (Destructible destructible : destructibles) {
             destructible.destroy(true);
         }
     }
@@ -38,7 +37,7 @@ public class Destructor {
      *
      * @param destructible {@link Destructible} to remove
      */
-    public static void removeDestructable(final Destructible destructible) {
+    public static void removeDestructible(Destructible destructible) {
         destructibles.remove(destructible);
     }
 }

@@ -18,7 +18,7 @@ public class Renderer {
      * @param ibo    {@link IndexBufferObject}
      * @param shader {@link Shader}
      */
-    public void draw(final VertexArrayObject vao, final IndexBufferObject ibo, final Shader shader) {
+    public void draw(VertexArrayObject vao, IndexBufferObject ibo, Shader shader) {
         shader.bind();
         vao.bind();
         ibo.bind();

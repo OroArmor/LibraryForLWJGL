@@ -11,13 +11,13 @@ import java.io.InputStream;
  * @author OroArmor
  *
  */
-public class ResourceLoader {
+public final class ResourceLoader {
 	/**
 	 *
 	 * @param resourceAsStream The input stream for the file
 	 * @return The data in the file returned as a string
 	 */
-	public static String loadFileString(final InputStream resourceAsStream) {
+	public static String loadFileString(InputStream resourceAsStream) {
 		return new String(loadFileBytes(resourceAsStream));
 	}
 
@@ -26,13 +26,16 @@ public class ResourceLoader {
 	 * @param resourceAsStream The input stream for the file
 	 * @return The data in the file returned as a string
 	 */
-	public static byte[] loadFileBytes(final InputStream resourceAsStream) {
+	public static byte[] loadFileBytes(InputStream resourceAsStream) {
 		try {
-			final byte[] fileBytes = new byte[resourceAsStream.available()];
-			resourceAsStream.read(fileBytes);
+			byte[] fileBytes = new byte[resourceAsStream.available()];
+			int readBytes = resourceAsStream.read(fileBytes);
+			if(readBytes == -1) {
+				throw new Exception("Could not read InputStream");
+			}
 			resourceAsStream.close();
 			return fileBytes;
-		} catch (final Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -44,9 +47,9 @@ public class ResourceLoader {
 	 * @param filePath A string to the file
 	 * @return The data of the file as a string
 	 */
-	public static String loadFileString(final String filePath) {
+	public static String loadFileString(String filePath) {
 		String fileString = "";
-		final File file = new File(filePath);
+		File file = new File(filePath);
 
 		try {
 			fileString = loadFileString(new FileInputStream(file));
@@ -56,11 +59,5 @@ public class ResourceLoader {
 		}
 
 		return fileString;
-	}
-
-	/**
-	 * No instances for you
-	 */
-	private ResourceLoader() {
 	}
 }

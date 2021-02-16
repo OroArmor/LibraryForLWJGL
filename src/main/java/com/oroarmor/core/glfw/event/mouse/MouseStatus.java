@@ -33,7 +33,7 @@ public class MouseStatus {
         return deltaMouseX;
     }
 
-    public static void setDeltaMouseX(final float _deltaMouseX) {
+    public static void setDeltaMouseX(float _deltaMouseX) {
         deltaMouseX = _deltaMouseX;
     }
 
@@ -44,7 +44,7 @@ public class MouseStatus {
         return deltaMouseY;
     }
 
-    public static void setDeltaMouseY(final float _deltaMouseY) {
+    public static void setDeltaMouseY(float _deltaMouseY) {
         deltaMouseY = _deltaMouseY;
     }
 
@@ -55,7 +55,7 @@ public class MouseStatus {
         return mouseX;
     }
 
-    public static void setMouseX(final float _mouseX) {
+    public static void setMouseX(float _mouseX) {
         mouseX = _mouseX;
     }
 
@@ -66,7 +66,7 @@ public class MouseStatus {
         return mouseY;
     }
 
-    public static void setMouseY(final float _mouseY) {
+    public static void setMouseY(float _mouseY) {
         mouseY = _mouseY;
     }
 
@@ -77,7 +77,7 @@ public class MouseStatus {
         return pastMouseX;
     }
 
-    public static void setPastMouseX(final float _pastMouseX) {
+    public static void setPastMouseX(float _pastMouseX) {
         pastMouseX = _pastMouseX;
     }
 
@@ -88,7 +88,7 @@ public class MouseStatus {
         return pastMouseY;
     }
 
-    public static void setPastMouseY(final float _pastMouseY) {
+    public static void setPastMouseY(float _pastMouseY) {
         pastMouseY = _pastMouseY;
     }
 
@@ -98,15 +98,15 @@ public class MouseStatus {
      * @param button The button to check
      * @return True if down
      */
-    public static boolean isMouseButtonDown(final MouseButton button) {
+    public static boolean isMouseButtonDown(MouseButton button) {
         return mouseButtonStatus[button.getMouseButtonID()];
     }
 
-    public static void setMouseButtonDown(final MouseButton button) {
+    public static void setMouseButtonDown(MouseButton button) {
         mouseButtonStatus[button.getMouseButtonID()] = true;
     }
 
-    public static void setMouseButtonUp(final MouseButton button) {
+    public static void setMouseButtonUp(MouseButton button) {
         mouseButtonStatus[button.getMouseButtonID()] = false;
     }
 
@@ -116,7 +116,7 @@ public class MouseStatus {
      * @param xpos New xpos
      * @param ypos New y pos
      */
-    public static void updateMousePositon(final float xpos, final float ypos) {
+    public static void updateMousePositon(float xpos, float ypos) {
         pastMouseX = mouseX;
         pastMouseY = mouseY;
 

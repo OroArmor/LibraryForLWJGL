@@ -23,7 +23,7 @@ public class MouseScrollEvent extends MouseEvent {
      * @param scrollX The scroll x value
      * @param scrollY The scroll y value
      */
-    public MouseScrollEvent(final long window, final float scrollX, final float scrollY, final GLFWEventMods mods) {
+    public MouseScrollEvent(long window, float scrollX, float scrollY, GLFWEventMods mods) {
         super(window, MouseEventType.SCROLL, mods);
         this.scrollX = scrollX;
         this.scrollY = scrollY;
@@ -37,8 +37,8 @@ public class MouseScrollEvent extends MouseEvent {
      * @param xoffset The X offset of the scroll
      * @param yoffset The Y offset of the scroll
      */
-    public static void create(final long window, final float xoffset, final float yoffset, final GLFWEventMods mods) {
-        final MouseScrollEvent event = new MouseScrollEvent(window, xoffset, yoffset, mods);
+    public static void create(long window, float xoffset, float yoffset, GLFWEventMods mods) {
+        MouseScrollEvent event = new MouseScrollEvent(window, xoffset, yoffset, mods);
 
         MouseScrollEventListener.processAllMouseScrollEvent(event);
     }
